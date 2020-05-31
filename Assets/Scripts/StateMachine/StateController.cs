@@ -1,80 +1,47 @@
-﻿using System.Linq;
 using UnityEngine;
-
+using UnityEngine.Serialization;
 
 namespace StateMachine
 {
 	public class StateController : MonoBehaviour
 	{
-
-		public State currentState;
-		public Parameters parameters;
-		public Transform eyes;
-		public State remainState;
-
-		[HideInInspector] public Movement movement;
-		[HideInInspector] public Attack attack;
-		[HideInInspector] public Health health;
-		[HideInInspector] public AudioSource audioSource;
-		[HideInInspector] public Transform master;
-		[HideInInspector] public Transform target;
-		[HideInInspector] public float stateTimeElapsed;
-
-		private bool m_AiActive;
-
+		private float m_DecisionFrequency;
+		private float m_LastDecision;
+		private State m_CurrentState;
+		public bool aiActive;
+		public Observation currentObservation;
 
 		private void Awake()
 		{
-			attack = GetComponent<Attack>();
-			movement = GetComponent<Movement>();
-			health = GetComponent<Health>();
-			audioSource = GetComponent<AudioSource>();
-		}
-
-		private void Start()
-		{
-			movement.speed = parameters.moveSpeed;
-		}
-
-		public void SetupAi(bool activate)
-		{
-			movement.enabled = m_AiActive = activate;
+			currentObservation = new Observation();
 		}
 
 		private void Update()
 		{
-			if (!m_AiActive)
-				return;
-			currentState.UpdateState(this);
+			if (!aiActive || Time.time < m_LastDecision) return;
+			m_LastDecision = Time.time + m_DecisionFrequency;
+			m_CurrentState.UpdateState(this);
 		}
 
 		private void OnDrawGizmos()
 		{
-			if (currentState != null && eyes != null)
+			if (m_CurrentState != null)
 			{
-				Gizmos.color = currentState.sceneGizmoColor;
-				Gizmos.DrawWireSphere(eyes.position, parameters.lookSphereCastRadius);
+				Gizmos.color = m_CurrentState.SceneGizmoColor;
+				Gizmos.DrawWireSphere(transform.position, 10);
 			}
+		}
+
+		public void SetupAi(State currentState, bool activate, float decisionFrequency = 2f)
+		{
+			m_CurrentState = currentState;
+			aiActive = activate;
+			m_DecisionFrequency = decisionFrequency;
 		}
 
 		public void TransitionToState(State nextState)
 		{
-			if (nextState != remainState)
-			{
-				currentState = nextState;
-				OnExitState();
-			}
-		}
-
-		public bool CheckIfCountDownElapsed(float duration)
-		{
-			stateTimeElapsed += Time.deltaTime;
-			return (stateTimeElapsed >= duration);
-		}
-
-		private void OnExitState()
-		{
-			stateTimeElapsed = 0;
+			m_CurrentState = nextState;
 		}
 	}
 }

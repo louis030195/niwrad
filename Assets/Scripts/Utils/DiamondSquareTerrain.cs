@@ -17,6 +17,8 @@ namespace Utils
 		private int m_Size;
 		// 2D array of heights
 		private float[,] m_Heights;
+
+		[SerializeField] private bool generate = true;
 		// Control variable to determine smoothness of heights
 		[Range(0.001f, 1.999f)]
 		[SerializeField]
@@ -30,7 +32,9 @@ namespace Utils
 		/// <summary>
 		/// Used for initialization
 		/// </summary>
-		private void Awake() {
+		private void Awake()
+		{
+			if (!generate) return;
         	m_Data = transform.GetComponent<Terrain>().terrainData;
         	m_Size = m_Data.heightmapResolution;
 			SetSeed((int)Random.value);

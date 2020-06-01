@@ -3,11 +3,11 @@ using UnityEngine.Serialization;
 
 namespace StateMachine
 {
-	public class StateController : MonoBehaviour
+	public class MemeController : MonoBehaviour
 	{
 		private float m_DecisionFrequency;
 		private float m_LastDecision;
-		private State m_CurrentState;
+		private Meme m_CurrentMeme;
 		public bool aiActive;
 		public Observation currentObservation;
 
@@ -20,28 +20,28 @@ namespace StateMachine
 		{
 			if (!aiActive || Time.time < m_LastDecision) return;
 			m_LastDecision = Time.time + m_DecisionFrequency;
-			m_CurrentState.UpdateState(this);
+			m_CurrentMeme.UpdateState(this);
 		}
 
 		private void OnDrawGizmos()
 		{
-			if (m_CurrentState != null)
+			if (m_CurrentMeme != null)
 			{
-				Gizmos.color = m_CurrentState.SceneGizmoColor;
+				Gizmos.color = m_CurrentMeme.SceneGizmoColor;
 				Gizmos.DrawWireSphere(transform.position, 10);
 			}
 		}
 
-		public void SetupAi(State currentState, bool activate, float decisionFrequency = 2f)
+		public void SetupAi(Meme currentMeme, bool activate, float decisionFrequency = 2f)
 		{
-			m_CurrentState = currentState;
+			m_CurrentMeme = currentMeme;
 			aiActive = activate;
 			m_DecisionFrequency = decisionFrequency;
 		}
 
-		public void TransitionToState(State nextState)
+		public void TransitionToState(Meme nextMeme)
 		{
-			m_CurrentState = nextState;
+			m_CurrentMeme = nextMeme;
 		}
 	}
 }

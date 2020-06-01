@@ -164,14 +164,20 @@ namespace Utils
         /// Despawn the specified gameobject back into its pool.
         /// </summary>
         public static void Despawn(GameObject obj) {
-            PoolMember pm = obj.GetComponent<PoolMember>();
+            var pm = obj.GetComponent<PoolMember>();
             if(pm == null) {
                 Debug.Log ("Object '"+obj.name+"' wasn't spawned from a pool. Destroying it instead.");
                 Object.Destroy(obj);
+                return;
             }
-            else {
-                pm.myPool.Despawn(obj);
+
+            if (pm.myPool == null)
+            {
+	            Debug.Log ($"Object {obj.name} wasn't a prefab. Destroying it.");
+	            Object.Destroy(obj);
+	            return;
             }
+	        pm.myPool.Despawn(obj);
         }
 
         /// <summary>

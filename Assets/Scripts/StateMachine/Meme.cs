@@ -3,44 +3,47 @@ using UnityEngine;
 
 namespace StateMachine
 {
-	public class State
+	/// <summary>
+	/// A meme is a system that follow darwinian evolution on the "behaviour side" i.e will affects host behaviour
+	/// </summary>
+	public class Meme
 	{
 		/// <summary>
 		/// Actions to perform on this state, passing current observation
 		/// </summary>
-		private readonly Action<StateController>[] m_Actions;
+		private readonly Action<MemeController>[] m_Actions;
 
 		/// <summary>
 		/// Conditions to transit to other states, passing current observation
 		/// </summary>
-		private readonly Func<StateController, State>[] m_Transitions;
+		private readonly Func<MemeController, Meme>[] m_Transitions;
 
 		/// <summary>
 		/// Debug utilitary
 		/// </summary>
 		public Color SceneGizmoColor = Color.grey;
-		public event Action<Action<StateController>> acted;
+		public event Action<Action<MemeController>> acted;
 
-		public State(Action<StateController>[] actions, Func<StateController, State>[] transitions)
+		public Meme(Action<MemeController>[] actions, Func<MemeController, Meme>[] transitions)
 		{
 			m_Actions = actions;
 			m_Transitions = transitions;
 		}
 
-		public State(Action<StateController>[] actions, Func<StateController, State>[] transitions, Color sceneGizmoColor)
+		public Meme(Action<MemeController>[] actions, Func<MemeController, Meme>[] transitions, Color sceneGizmoColor)
 		{
 			m_Actions = actions;
 			m_Transitions = transitions;
 			SceneGizmoColor = sceneGizmoColor;
 		}
 
-		public void UpdateState(StateController controller)
+		public void UpdateState(MemeController controller)
 		{
 			DoActions(controller);
 			CheckTransitions(controller);
 		}
 
-		private void DoActions(StateController controller)
+		private void DoActions(MemeController controller)
 		{
 			if (m_Actions == null) return;
 			foreach (var t in m_Actions)
@@ -50,7 +53,7 @@ namespace StateMachine
 			}
 		}
 
-		private void CheckTransitions(StateController controller)
+		private void CheckTransitions(MemeController controller)
 		{
 			// For each transitions, invoke the decision function and accordingly change state
 			foreach (var t in m_Transitions)

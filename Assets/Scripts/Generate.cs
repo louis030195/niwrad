@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Evolution;
 using StateMachine;
 using UnityEngine;
 using Utils;
@@ -37,7 +38,7 @@ public class Generate : MonoBehaviour
 	private void Awake()
 	{
 		Pool.Preload(vegetationPrefab, vegetationAmount);
-		Pool.Preload(animalPrefab, animalAmount);
+		Pool.Preload(animalPrefab, animalAmount*2);
 	}
 
 	private void Start()
@@ -57,11 +58,12 @@ public class Generate : MonoBehaviour
 
 	private IEnumerator Spawn()
 	{
+		animalPrefab.GetComponent<Host>().prefab = animalPrefab;
 		yield return new WaitForSeconds(spawnDelay);
 		for (var i = 0; i < animalAmount; i++)
 		{
 			var p = Random.insideUnitCircle * animalSpawnCircleRadius;
-			Pool.Spawn(animalPrefab, new Vector3(p.x+animalSpawnCenter.x,
+			var go = Pool.Spawn(animalPrefab, new Vector3(p.x+animalSpawnCenter.x,
 					1000,
 					p.y+animalSpawnCenter.y).AboveGround(),
 				Quaternion.identity);

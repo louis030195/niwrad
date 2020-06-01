@@ -55,6 +55,7 @@ namespace Evolution
 	        m_Animator = GetComponent<Animator>();
         }
 
+        // TODO: fix audio / anims someday
         private void PlayAudio(bool damage = true)
         {
             if (m_AudioSource && m_AudioSource.isActiveAndEnabled)
@@ -75,79 +76,50 @@ namespace Evolution
         {
 	        // Debug.Log($"Current  life {m_CurrentHealth}, got damaged {amount}");
 
-            if (m_CurrentHealth <= 0 && !dead)
-            {
-
-                dead = true;
-                if (destroyOnDeath)
-                {
-                    Pool.Despawn(gameObject);
-                    if (deathEffects.Length > 0) // Unused, prob not ready for working
-                    {
-	                    var p = transform.position;
-	                    Pool.Despawn(
-		                    Pool.Spawn(deathEffects.AnyItem(),
-			                    new Vector3(p.x, p.y, p.z),
-			                    new Quaternion(0, 0, 0, 0)), 3);
-                    }
-                }
-
-                if (dyingAnimations.Length > 0)
-                {
-                    // If there is death animations for this object
-                    m_Animator.SetBool(dyingAnimations.AnyItem(),
-                        true); // TODO: not rly useful if destroyed ... (maybe should add death delay idk)
-                }
-            }
-
-            if (m_CurrentHealth > 0 && gettingHitAnimations.Length > 0) // If there is getting hit animations for this object
+	        if (m_CurrentHealth > 0 && gettingHitAnimations.Length > 0) // If there is getting hit animations for this object
             {
                 m_Animator.SetTrigger(gettingHitAnimations.AnyItem());
             }
             // Update UI
-            OnChangeHealth();
             PlayAudio();
         }
 
-        private void Heal(float amount)
-        {
-	        // Debug.Log($"Current  life {m_CurrentHealth}, got healed {amount}");
-	        if (m_CurrentHealth > maxHealth)
-	        {
-		        m_CurrentHealth = maxHealth;
-	        }
 
-	        // Update UI
-	        OnChangeHealth();
-	        PlayAudio(false);
-        }
 
-        private void OnChangeHealth()
-        {
-	        HealthChanged?.Invoke(m_CurrentHealth / maxHealth);
-        }
 
         public void ChangeHealth(float amount)
         {
 	        m_CurrentHealth += amount;
-	        if (amount > 0) Heal(amount);
-	        else Damage(amount);
-        }
-
-        public void Reproduce(GameObject target, float lifeLoss)
-        {
-	        // TODO: animation, audio ?
-	        m_CurrentHealth -= lifeLoss;
-
-	        // We want to avoid infinite recursion :) => null
-	        if (target != null)
+	        if (m_CurrentHealth > maxHealth)
 	        {
-		        target.GetComponent<Health>().Reproduce(null, lifeLoss);
+		        m_CurrentHealth = maxHealth;
+	        }
+	        HealthChanged?.Invoke(m_CurrentHealth / maxHealth);
 
-		        // Spawning a child around
-		        var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
-		        // TODO: seems that it fucked up when there is shit ton of animals around and it spawn outside navmesh
-		        Pool.Spawn(gameObject, p, Quaternion.identity);
+
+	        if (m_CurrentHealth <= 0 && !dead)
+	        {
+
+		        dead = true;
+		        if (destroyOnDeath)
+		        {
+			        Pool.Despawn(gameObject);
+			        if (deathEffects.Length > 0) // Unused, prob not ready for working
+			        {
+				        var p = transform.position;
+				        Pool.Despawn(
+					        Pool.Spawn(deathEffects.AnyItem(),
+						        new Vector3(p.x, p.y, p.z),
+						        new Quaternion(0, 0, 0, 0)), 3);
+			        }
+		        }
+
+		        if (dyingAnimations.Length > 0)
+		        {
+			        // If there is death animations for this object
+			        m_Animator.SetBool(dyingAnimations.AnyItem(),
+				        true); // TODO: not rly useful if destroyed ... (maybe should add death delay idk)
+		        }
 	        }
         }
     }

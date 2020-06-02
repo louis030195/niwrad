@@ -11,7 +11,7 @@ namespace StateMachine
 		public bool aiActive;
 		public Observation currentObservation;
 
-		private void Awake()
+		private void OnEnable()
 		{
 			currentObservation = new Observation();
 		}

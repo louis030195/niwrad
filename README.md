@@ -26,3 +26,4 @@ tail -f ~/.config/unity3d/com.niwrad/Niwrad/Player.log
 ## TODO
 
 - [ ] Input / senses / observation system: vision, audio, raycasts (different types), taste ...
+- [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file)

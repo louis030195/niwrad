@@ -1,6 +1,6 @@
 namespace Net.Session
 {
-
+	// TODO: convert to exception
 	/// <summary>
 	/// Response received after calling <see cref="SessionManager.AuthenticateDeviceIdAsync"/>.
 	/// </summary>

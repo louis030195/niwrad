@@ -15,7 +15,7 @@ namespace Net.Match
     /// <summary>
     /// Role of this manager is sending match information to other players and receiving match messages from them through Nakama Server.
     /// </summary>
-    public class MatchCommunicationManager : Singleton<MatchCommunicationManager>
+    public class MatchManager : Singleton<MatchManager>
     {
 	    //This region contains events for all type of match messages that could be send in the game.
         //Events are fired after getting message sent by other players from Nakama server

@@ -96,7 +96,13 @@ namespace Net.Session
                 {
                     // "defaultkey" should be changed when releasing the app
                     // see https://heroiclabs.com/docs/install-configuration/#socket
-                    m_Client = new Client("http",ipAddress, port, "defaultkey",  UnityWebRequestAdapter.Instance);
+                    // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
+                    m_Client = new Client("http",ipAddress, port, "defaultkey",  UnityWebRequestAdapter.Instance)
+                    {
+#if UNITY_EDITOR
+	                    Logger = new UnityLogger()
+#endif
+                    };
                 }
                 return m_Client;
             }
@@ -143,22 +149,22 @@ namespace Net.Session
         /// <summary>
         /// Invoked whenever client first authorizes using DeviceId.
         /// </summary>
-        public event Action OnConnectionSuccess = delegate { Debug.Log(">> Connection Success"); };
+        public event Action ConnectionSucceed = delegate { Debug.Log(">> Connection Success"); };
 
         /// <summary>
         /// Invoked whenever client first authorizes using DeviceId.
         /// </summary>
-        public event Action OnNewAccountCreated = delegate { Debug.Log(">> New Account Created"); };
+        public event Action NewAccountCreated = delegate { Debug.Log(">> New Account Created"); };
 
         /// <summary>
         /// Invoked upon DeviceId authorisation failure.
         /// </summary>
-        public event Action OnConnectionFailure = delegate { Debug.Log(">> Connection Error"); };
+        public event Action ConnectionFailed = delegate { Debug.Log(">> Connection Error"); };
 
         /// <summary>
         /// Invoked after <see cref="Disconnect"/> is called.
         /// </summary>
-        public event Action OnDisconnected = delegate { Debug.Log(">> Disconnected"); };
+        public event Action Disconnected = delegate { Debug.Log(">> Disconnected"); };
 
         #endregion
 
@@ -171,15 +177,6 @@ namespace Net.Session
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-
-            if (erasePlayerPrefsOnStart == true)
-            {
-                PlayerPrefs.SetString("nakama.authToken", "");
-                PlayerPrefs.SetString("nakama.deviceId", "");
-            }
-
-            GetDeviceId();
-            //await ConnectAsync();
         }
 
         /// <summary>
@@ -204,161 +201,31 @@ namespace Net.Session
 
         /// <summary>
         /// Restores session or tries to establish a new one.
-        /// Invokes <see cref="OnConnectionSuccess"/> or <see cref="OnConnectionFailure"/>.
+        /// Invokes <see cref="ConnectionSucceed"/> or <see cref="ConnectionFailed"/>.
         /// </summary>
         /// <returns></returns>
-        public async Task<AuthenticationResponse> ConnectAsync()
+        public async Task<(bool success, string message)> ConnectAsync(string email, string password, bool create = false)
         {
-            AuthenticationResponse response = await RestoreTokenAsync();
-            switch (response)
+	        try
+	        {
+		        session = await client.AuthenticateEmailAsync(email, password, create: create);
+	        }
+	        catch (ApiResponseException ex)
+	        {
+		        ConnectionFailed?.Invoke();
+		        return (false, ex.Message);
+	        }
+
+	        Debug.LogFormat("New user: {0}, {1}", session.Created, session);
+            ConnectionSucceed?.Invoke();
+            if (session.Created)
             {
-                case AuthenticationResponse.Authenticated:
-                    OnConnectionSuccess?.Invoke();
-                    break;
-                case AuthenticationResponse.NewAccountCreated:
-                    OnNewAccountCreated?.Invoke();
-                    OnConnectionSuccess?.Invoke();
-                    break;
-                case AuthenticationResponse.Error:
-                    OnConnectionFailure?.Invoke();
-                    break;
-                default:
-	                Debug.Log($"Unhandled response received: {response}");
-                    break;
+	            NewAccountCreated?.Invoke();
             }
-            return response;
+
+            return (true, session.Created ? "Account created, connecting ..." : "Connecting");
         }
 
-        /// <summary>
-        /// Restores saved Session Authentication Token if user has already authenticated with the server in the past.
-        /// If it's the first time authenticating using this device id, a new account will be created.
-        /// </summary>
-        private async Task<AuthenticationResponse> RestoreTokenAsync()
-        {
-            // Restoring authentication token from player prefs
-            string authToken = PlayerPrefs.GetString("nakama.authToken", null);
-            if (string.IsNullOrWhiteSpace(authToken) == true)
-            {
-                // Token not found
-                // Authenticating new session
-                return await AuthenticateAsync();
-            }
-            else
-            {
-                // Restoring previous session
-                session = Nakama.Session.Restore(authToken);
-                if (session.HasExpired(DateTime.UtcNow))
-                {
-                    // Restored session has expired
-                    // Authenticating new session
-                    return await AuthenticateAsync();
-                }
-                else
-                {
-                    // Session restored
-                    // Getting Account info
-                    account = await GetAccountAsync();
-                    if (account == null)
-                    {
-                        // Account not found
-                        // Creating new account
-                        return await AuthenticateAsync();
-                    }
-
-                    // Creating real-time communication socket
-                    bool socketConnected = await ConnectSocketAsync();
-                    if (socketConnected == false)
-                    {
-                        return AuthenticationResponse.Error;
-                    }
-
-                    Debug.Log("Session restored with token:" + session.AuthToken);
-                    return AuthenticationResponse.Authenticated;
-                }
-            }
-        }
-
-        /// <summary>
-        /// This method authenticates this device using local <see cref="m_DeviceId"/> and initializes new session
-        /// with Nakama server. If it's the first time user logs in using this device, a new account will be created
-        /// (calling <see cref="OnDeviceIdAccountCreated"/>). Upon successfull authentication, Account data is retrieved
-        /// and real-time communication socket is connected.
-        /// </summary>
-        /// <returns>Returns true if every server call was successful.</returns>
-        private async Task<AuthenticationResponse> AuthenticateAsync()
-        {
-            AuthenticationResponse response = await AuthenticateDeviceIdAsync();
-            if (response == AuthenticationResponse.Error)
-            {
-                return AuthenticationResponse.Error;
-            }
-
-            account = await GetAccountAsync();
-            if (account == null)
-            {
-                return AuthenticationResponse.Error;
-            }
-
-            bool socketConnected = await ConnectSocketAsync();
-            if (socketConnected == false)
-            {
-                return AuthenticationResponse.Error;
-            }
-
-            StoreSessionToken();
-            return response;
-        }
-
-        /// <summary>
-        /// Authenticates a new session using DeviceId. If it's the first time authenticating using
-        /// this device, new account is created.
-        /// </summary>
-        /// <returns>Returns true if every server call was successful.</returns>
-        private async Task<AuthenticationResponse> AuthenticateDeviceIdAsync()
-        {
-            try
-            {
-                session = await client.AuthenticateDeviceAsync(m_DeviceId, null, false);
-                Debug.Log("Device authenticated with token:" + session.AuthToken);
-                return AuthenticationResponse.Authenticated;
-            }
-            catch (ApiResponseException e)
-            {
-                if (e.StatusCode == (long)System.Net.HttpStatusCode.NotFound)
-                {
-	                Debug.Log($"Couldn't find DeviceId in database, creating new user; message: {e}");
-                    return await CreateAccountAsync();
-                }
-                else
-                {
-	                Debug.Log($"An error has occured reaching Nakama server; message: {e}");
-                    return AuthenticationResponse.Error;
-                }
-            }
-            catch (Exception e)
-            {
-	            Debug.Log($"Couldn't connect to Nakama server; message: {e}");
-                return AuthenticationResponse.Error;
-            }
-        }
-
-        /// <summary>
-        /// Creates new account on Nakama server using local <see cref="m_DeviceId"/>.
-        /// </summary>
-        /// <returns>Returns true if account was successfully created.</returns>
-        private async Task<AuthenticationResponse> CreateAccountAsync()
-        {
-            try
-            {
-                session = await client.AuthenticateDeviceAsync(m_DeviceId, null, true);
-                return AuthenticationResponse.NewAccountCreated;
-            }
-            catch (Exception e)
-            {
-	            Debug.Log($"Couldn't create account using DeviceId; message: {e}");
-                return AuthenticationResponse.Error;
-            }
-        }
 
         /// <summary>
         /// Connects <see cref="socket"/> to Nakama server to enable real-time communication.
@@ -391,7 +258,7 @@ namespace Net.Session
         }
 
         /// <summary>
-        /// Removes session and account from cache and invokes <see cref="OnDisconnected"/>.
+        /// Removes session and account from cache and invokes <see cref="Disconnected"/>.
         /// </summary>
         public void Disconnect()
         {
@@ -401,7 +268,7 @@ namespace Net.Session
                 account = null;
 
                 Debug.Log("Disconnected from Nakama");
-                OnDisconnected.Invoke();
+                Disconnected.Invoke();
             }
         }
 
@@ -416,7 +283,7 @@ namespace Net.Session
         {
             try
             {
-                IApiAccount results = await client.GetAccountAsync(session);
+                var results = await client.GetAccountAsync(session);
                 return results;
             }
             catch (Exception e)
@@ -434,7 +301,7 @@ namespace Net.Session
         {
             try
             {
-                IApiUsers results = await client.GetUsersAsync(session, new string[] { userId }, new string[] { username });
+                var results = await client.GetUsersAsync(session, new string[] { userId }, new string[] { username });
                 if (results.Users.Count() != 0)
                 {
                     return results.Users.ElementAt(0);
@@ -449,67 +316,6 @@ namespace Net.Session
             {
 	            Debug.Log($"An error has occured while retrieving user info: {e}");
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// Async method used to update user's username and avatar url.
-        /// </summary>
-        public async Task<AuthenticationResponse> UpdateUserInfoAsync(string username, string avatarUrl)
-        {
-            try
-            {
-                await client.UpdateAccountAsync(session, username, null, avatarUrl);
-                return AuthenticationResponse.UserInfoUpdated;
-            }
-            catch (ApiResponseException e)
-            {
-	            Debug.Log($"Couldn't update user info with code {e.StatusCode}: {e}");
-                return AuthenticationResponse.Error;
-            }
-            catch (Exception e)
-            {
-	            Debug.Log($"Couldn't update user info: {e}");
-                return AuthenticationResponse.Error;
-            }
-        }
-
-        /// <summary>
-        /// Retrieves device id from player prefs. If it's the first time running this app
-        /// on this device, <see cref="m_DeviceId"/> is filled with <see cref="SystemInfo.deviceUniqueIdentifier"/>.
-        /// </summary>
-        private void GetDeviceId()
-        {
-            if (string.IsNullOrEmpty(m_DeviceId) == true)
-            {
-                m_DeviceId = PlayerPrefs.GetString("nakama.deviceId");
-                if (string.IsNullOrWhiteSpace(m_DeviceId) == true)
-                {
-                    // SystemInfo.deviceUniqueIdentifier is not supported in WebGL,
-                    // we generate a random one instead via System.Guid
-#if UNITY_WEBGL && !UNITY_EDITOR
-                    _deviceId = System.Guid.NewGuid().ToString();
-#else
-                    m_DeviceId = SystemInfo.deviceUniqueIdentifier;
-#endif
-                    PlayerPrefs.SetString("nakama.deviceId", m_DeviceId);
-                }
-                m_DeviceId += System.Guid.NewGuid(); // _sufix;
-            }
-        }
-
-        /// <summary>
-        /// Stores Nakama session authentication token in player prefs
-        /// </summary>
-        private void StoreSessionToken()
-        {
-            if (session == null)
-            {
-	            Debug.Log("Session is null; cannot store in player prefs");
-            }
-            else
-            {
-                PlayerPrefs.SetString("nakama.authToken", session.AuthToken);
             }
         }
 

@@ -11,18 +11,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76e45385-4321-4a52-977b-585e8aa3adc8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.niwrad/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprites/Simple Fantasy GUI/Scenes/DemoScene1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Sprites/Simple Fantasy GUI/Scenes/DemoScene1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/New Terrain.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/NavMesh.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +51,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/MainMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D3DC689-8238-40A8-9796-5F62FC60AAAC/c2/a7a028d4/Terrain.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/ReflectionExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" root0="FORCE_HIGHLIGHTING" />
@@ -54,14 +61,12 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/DiamondSquareTerrain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Spatial.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/EnumerableExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Scripts/NavMeshLink.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Editor/NavMeshAssetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/LoginMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/manifest.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/SelectableUnit.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Transition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Action.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Editor/NavMeshLinkEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Movement.cs" root0="FORCE_HIGHLIGHTING" />
@@ -81,17 +86,13 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Pool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Generate.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Singleton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/ReflectionExtension.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Spatial.cs" />
         <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Demo/PTGrowing.cs" />
         <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Demo/Grow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Utils/DiamondSquareTerrain.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" />
         <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Scripts/ProceduralModelingBase.cs" />
@@ -133,10 +134,14 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ProtoPrefs.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ProjectBuilder.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/Client.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Net/Utils/Helper.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/MainMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/LoginMenu.cs" />
       </list>
     </option>
   </component>
@@ -192,7 +197,7 @@
       <workItem from="1591380920412" duration="3641000" />
       <workItem from="1591384589821" duration="7209000" />
       <workItem from="1591430877619" duration="6603000" />
-      <workItem from="1591442337727" duration="923000" />
+      <workItem from="1591442337727" duration="7173000" />
     </task>
     <servers />
   </component>
@@ -297,10 +302,10 @@
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="960" height="492" key="XDebugger.FullValuePopup/0.27.1920.985@0.27.1920.985" timestamp="1591034897247" />
-    <state x="595" y="258" width="937" height="522" key="find.popup" timestamp="1591385503345">
+    <state x="595" y="258" width="937" height="522" key="find.popup" timestamp="1591449952950">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
-    <state x="595" y="258" width="937" height="522" key="find.popup/0.27.1920.985@0.27.1920.985" timestamp="1591385503345" />
+    <state x="595" y="258" width="937" height="522" key="find.popup/0.27.1920.985@0.27.1920.985" timestamp="1591449952950" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

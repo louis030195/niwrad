@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Net.Session;
 using TMPro;
@@ -10,6 +11,12 @@ namespace UI
 		[SerializeField] private TMP_InputField username;
 		[SerializeField] private TMP_InputField password;
 		[SerializeField] private TextMeshProUGUI response;
+
+		private void Start()
+		{
+			if (SessionManager.instance.debug) Connect("aaaa@aaaa.com", "aaaaaaaa");
+		}
+
 		private async void Connect(string u, string p, bool create = false)
 		{
 			var result = await SessionManager.instance.ConnectAsync(u, p, create);
@@ -33,7 +40,7 @@ namespace UI
 			yield return new WaitForSeconds(2f);
 
 			var asyncLoad = UnityEngine.SceneManagement.SceneManager.
-				LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+				LoadSceneAsync("SecondMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
 			while (!asyncLoad.isDone)
 			{

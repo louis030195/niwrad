@@ -18,7 +18,6 @@ namespace Utils
 		// 2D array of heights
 		private float[,] m_Heights;
 
-		[SerializeField] private bool generate = true;
 		// Control variable to determine smoothness of heights
 		[Range(0.001f, 1.999f)]
 		[SerializeField]
@@ -30,25 +29,20 @@ namespace Utils
 		private NavMeshSurface[] surfaces;
 
 		/// <summary>
+		/// Whether or not the navmesh has been baked on the generated terrain
+		/// </summary>
+		public bool navMeshBaked;
+
+		/// <summary>
 		/// Used for initialization
 		/// </summary>
 		private void Awake()
 		{
-			if (!generate) return;
         	m_Data = transform.GetComponent<Terrain>().terrainData;
         	m_Size = m_Data.heightmapResolution;
-			SetSeed((int)Random.value);
 			Reset();
-			ExecuteDiamondSquare();
 		}
 
-		/// <summary>
-		/// Sets the seed of the random number generator
-		/// </summary>
-		/// <param name="seed">A value that influences the random number generator</param>
-		private void SetSeed(int seed) {
-			Random.InitState(seed);
-		}
 
 		/// <summary>
 		/// Flips the value of the randomizeCornerValues flag
@@ -61,7 +55,9 @@ namespace Utils
 		/// Resets the values of the terrain. If randomizeCornerValues is true then the
 		/// corner heights will be randomized, else it will be flat.
 		/// </summary>
-		public void Reset() {
+		public void Reset()
+		{
+			navMeshBaked = false;
 			m_Heights = new float[m_Size, m_Size];
 
 			// If the corners need to be randomized
@@ -208,6 +204,8 @@ namespace Utils
 			{
 				t.BuildNavMesh ();
 			}
+
+			navMeshBaked = true;
 		}
 
 		/// <summary>

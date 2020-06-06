@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StateMachine;
 using UnityEngine;
 using Utils;
@@ -12,7 +13,7 @@ namespace Evolution
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(MemeController))]
-	public class Host : MonoBehaviour
+	public abstract class Host : MonoBehaviour
 	{
 		[Header("Evolution parameters"), Range(0.1f, 5f)]
 		public float decisionFrequency = 1f;
@@ -29,9 +30,12 @@ namespace Evolution
 
 		[HideInInspector] public Attack attack;
 		[HideInInspector] public Health health;
-
-		protected MemeController Controller;
-		protected Meme Breed;
+		[HideInInspector] public ulong id;
+		[HideInInspector] public MemeController controller;
+		/// <summary>
+		/// Map of (name; meme)
+		/// </summary>
+		[HideInInspector] public Dictionary<string, Meme> memes = new Dictionary<string, Meme>();
 
 		protected float LastBreed;
 
@@ -41,7 +45,11 @@ namespace Evolution
 			health = GetComponent<Health>();
 			health.initialLife = initialLife;
 			attack = GetComponent<Attack>();
-			Controller = GetComponent<MemeController>();
+			controller = GetComponent<MemeController>();
+
+			// Not sure required, maybe could be useful to prevent hosts forgetting to implement breeding meme
+			var n = "Breed";
+			memes[n] = new Meme(n, null, null);
 		}
 
 		protected void Update()
@@ -51,7 +59,15 @@ namespace Evolution
 
 		protected void OnDisable()
 		{
-			Controller.aiActive = false;
+			controller.aiActive = false;
 		}
+
+		/// <summary>
+		/// Public function to bring the host to life
+		/// </summary>
+		public abstract void BringToLife();
+		// If this function is not overrode, will setup host with random initial meme
+		// if (memes.Values.Count > 0) controller.SetupAi(memes.Values.AnyItem(), true);
+
 	}
 }

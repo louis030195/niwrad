@@ -173,12 +173,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decisionFrequency: 1
-  initialLife: 60
+  initialLife: 30
   robustness: 0.1
   reproductionThreshold: 80
   reproductionDelay: 50
   attack: {fileID: 0}
   health: {fileID: 0}
+  id: 0
+  controller: {fileID: 0}
   reproductionSprayRadius: 100
   reproductionDistanceBetween: 5
   reproductionProbability: 10
@@ -265,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a7f33f021574be294f19b83a979a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToFullSize: 30
+  timeToFullSize: 60
 --- !u!1001 &1099367345808746203
 PrefabInstance:
   m_ObjectHideFlags: 0

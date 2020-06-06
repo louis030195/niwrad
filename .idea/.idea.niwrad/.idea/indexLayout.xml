@@ -16,12 +16,11 @@
     <explicitExcludes>
       <Path>.git</Path>
       <Path>.idea</Path>
-      <Path>Build</Path>
+      <Path>Builds</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Protobuf</Path>
       <Path>Server</Path>
-      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>docs</Path>
       <Path>obj</Path>

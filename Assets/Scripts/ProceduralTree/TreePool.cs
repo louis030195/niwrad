@@ -1,0 +1,77 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Utils;
+using Random = UnityEngine.Random;
+
+namespace ProceduralTree
+{
+	public class TreePool : Singleton<TreePool>
+	{
+		[SerializeField] private GameObject prefab;
+		private Stack<GameObject> m_TreePool;
+		private int m_TreeCount;
+		private int m_MaxTrees;
+
+		protected override void Awake()
+		{
+			base.Awake();
+			m_TreePool = new Stack<GameObject>();
+		}
+
+		/// <summary>
+		/// Slowly generate trees into a pool over time to spray the computation.
+		/// </summary>
+		/// <param name="maxTrees"></param>
+		/// <param name="delayBetweenFills"></param>
+		public void FillSlowly(int maxTrees, float delayBetweenFills = 10f)
+		{
+			m_MaxTrees = maxTrees;
+			StartCoroutine(FillSlowly(delayBetweenFills));
+		}
+
+		/// <summary>
+		/// Spawn a new tree and returns the object and it's random seed
+		/// </summary>
+		/// <param name="position"></param>
+		/// <param name="rotation"></param>
+		/// <returns></returns>
+		public (ProceduralTree go, int seed) Spawn(Vector3 position, Quaternion rotation)
+		{
+			m_TreeCount++;
+			GameObject go;
+			if (m_TreePool.Count == 0)
+			{
+				go = Instantiate(prefab);
+			}
+			else
+			{
+				go = m_TreePool.Pop();
+				go.SetActive(true);
+			}
+			go.transform.position = position;
+			go.transform.rotation = rotation;
+			var tree = go.GetComponent<ProceduralTree>();
+			tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
+			return (tree, tree.Data.randomSeed);
+		}
+
+		private IEnumerator FillSlowly(float delayBetweenFills)
+		{
+			// TODO: one solution to have same seed sync across net is to make an event
+			// triggered when a slow fill is done, the seed should be sync-ed
+			while (m_TreeCount < m_MaxTrees)
+			{
+				var go = Instantiate(prefab, Vector3.one*1000, Quaternion.identity);
+				var tree = go.GetComponent<ProceduralTree>();
+				// TODO: all clients should receive same seed
+				tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
+				yield return new WaitForSeconds(delayBetweenFills);
+				go.SetActive(false);
+				m_TreePool.Push(go);
+				m_TreeCount++;
+			}
+		}
+	}
+}

@@ -19,11 +19,15 @@ make run
 
 ```bash
 # Monitor logs
-tail -f ~/.config/unity3d/com.niwrad/Niwrad/Player.log
+tail -f ~/.config/unity3d/niwrad/niwrad/Player.log
 ```
 
 
 ## TODO
 
 - [ ] Input / senses / observation system: vision, audio, raycasts (different types), taste ...
-- [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file)
+- [ ] [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file)
+- [ ] https://github.com/nenadg/docker-unity3d
+- [ ] https://github.com/mmozeiko/docker-unity3d
+- [ ] https://gitlab.com/gableroux/unity3d
+- [ ] bounding volume hierarchy optimization

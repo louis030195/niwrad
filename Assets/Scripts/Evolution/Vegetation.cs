@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gameplay;
 using ProceduralTree;
 using StateMachine;
 using UnityEngine;
@@ -18,12 +19,12 @@ namespace Evolution
 		[Range(1, 100)]
 		public float reproductionProbability = 10f;
 
-		private Meme m_Grow;
 		protected new void OnEnable()
 		{
 			base.OnEnable();
-			m_Grow = new Meme(
-				"Grow",
+			var n = "Grow";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
 					new Action("Grow", Grow)
@@ -34,8 +35,9 @@ namespace Evolution
 				},
 				Color.green
 			);
-			Breed = new Meme(
-				"Breed",
+			n = "Breed";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
 					new Action("Reproduce", Reproduce)
@@ -47,7 +49,6 @@ namespace Evolution
 				Color.magenta
 			);
 
-			Controller.SetupAi(m_Grow, true, decisionFrequency);
 		}
 
 		protected new void Update()
@@ -57,6 +58,10 @@ namespace Evolution
 			health.dead = !(health.currentHealth > initialLife); // :)
 		}
 
+		public override void BringToLife()
+		{
+			controller.SetupAi(memes["Grow"], true, decisionFrequency);
+		}
 
 		#region Actions
 		private void Grow(MemeController c)
@@ -74,9 +79,7 @@ namespace Evolution
 				reproductionDistanceBetween);
 			// Couldn't find free position
 			if (p == Vector3.zero) return;
-			var go = Generate.instance.SpawnVegetation(p, Quaternion.identity);
-			if (go == null) return; // Max amount of vegetation reached
-			var childHost = go.GetComponent<Vegetation>();
+			var childHost = HostManager.instance.SpawnTree(p, Quaternion.identity);
 			var mutate = new Func<float, float, float>((a, mutationDegree) =>
 			{
 				var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
@@ -102,9 +105,9 @@ namespace Evolution
 			if (Time.time > LastBreed + reproductionDelay &&
 			    health.currentHealth > reproductionThreshold)
 			{
-				return Breed;
+				return memes["Breed"];
 			}
-			return m_Grow;
+			return memes["Grow"];
 		}
 
 		#endregion

@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Gameplay;
+using Net.Match;
+using Net.Realtime;
+using Net.Utils;
 using StateMachine;
 using UnityEngine;
 using Utils;
 using Action = StateMachine.Action;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Evolution
 {
@@ -30,10 +36,6 @@ namespace Evolution
 
 		[HideInInspector] public Movement movement;
 
-		private Meme m_Wander;
-		private Meme m_Reach;
-		private Meme m_Eat;
-
 		protected new void OnEnable()
 		{
 			base.OnEnable();
@@ -43,8 +45,9 @@ namespace Evolution
 			var seeFood = new Transition("SeeFood", 0, SeeFood);
 			var seePartner = new Transition("SeePartner", -1, SeePartner);
 			var timeout = new Transition("Timeout", 1, Timeout);
-			m_Wander = new Meme(
-				"Wander",
+			var n = "Wander";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
 					new Action("RandomMovement", RandomMovement)
@@ -53,25 +56,38 @@ namespace Evolution
 				{
 					seeFood,
 					seePartner
-
 				},
 				Color.white
 			);
-			m_Reach = new Meme(
-				"Reach",
+			n = "ReachFood";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
-					new Action("Reach", Reach)
+					new Action("ReachFood", ReachFood)
 				},
 				new List<Transition>
 				{
 					new Transition("IsCloseEnoughForEating", 0, IsCloseEnoughForEating),
+				},
+				Color.red
+			);
+			n = "ReachPartner";
+			memes[n] = new Meme(
+				n,
+				new List<Action>
+				{
+					new Action("ReachPartner", ReachPartner)
+				},
+				new List<Transition>
+				{
 					new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding)
 				},
 				Color.red
 			);
-			m_Eat = new Meme(
-				"Eat",
+			n = "Eat";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
 					// Reach,
@@ -79,12 +95,14 @@ namespace Evolution
 				},
 				new List<Transition>
 				{
-					new Transition("IsTargetAlive", 0, IsTargetAlive)
+					new Transition("IsTargetAlive", 0, IsTargetAlive),
+					seePartner // While eating, if it can breed, go for it
 				},
 				Color.blue
 			);
-			Breed = new Meme(
-				"Breed",
+			n = "Breed";
+			memes[n] = new Meme(
+				n,
 				new List<Action>
 				{
 					new Action("Reproduce", Reproduce)
@@ -97,14 +115,24 @@ namespace Evolution
 				},
 				Color.magenta
 			);
+		}
 
-			Controller.SetupAi(m_Wander, true, decisionFrequency);
+		public override void BringToLife()
+		{
+			controller.SetupAi(memes["Wander"], true, decisionFrequency);
 		}
 
 		#region Actions
-		private void Reach(MemeController c)
+		private void ReachFood(MemeController c)
 		{
-			// Debug.Log($"reach {movement.remainingDistance} - {movement.stoppingDistance}");
+			if (movement.remainingDistance <= movement.stoppingDistance + 1)
+			{
+				movement.MoveTo(c.currentObservation.Target.transform.position);
+			}
+		}
+
+		private void ReachPartner(MemeController c)
+		{
 			if (movement.remainingDistance <= movement.stoppingDistance + 1)
 			{
 				movement.MoveTo(c.currentObservation.Target.transform.position);
@@ -128,25 +156,43 @@ namespace Evolution
 			// Stop moving
 			movement.isStopped = true;
 			attack.EatTarget(c.currentObservation.Target);
-			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime*10); // TODO: store params
-			health.ChangeHealth(+metabolism*Time.deltaTime*10);
+			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime*30); // TODO: store params
+			// +metabolism (10) *Time.deltaTime*0.5f // seems balanced
+			health.ChangeHealth(+metabolism*Time.deltaTime*50f);
 		}
 
 		private void Reproduce(MemeController c)
 		{
+			Animal th;
+			if (c.currentObservation.Target != null)
+			{
+				th = c.currentObservation.Target.GetComponent<Animal>();
+			}
+			else
+			{
+				Debug.LogWarning($"Tried to breed with dead animal");
+				return;
+			}
+
 			// Stop moving
 			movement.isStopped = true;
 			health.ChangeHealth(-reproductionLifeLoss);
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
-			var go = Generate.instance.SpawnHost(transform.position, Quaternion.identity); //Pool.Spawn(prefab, transform.position, Quaternion.identity);
-			var th = c.currentObservation.Target.GetComponent<Animal>();
+			var childHost = HostManager.instance.SpawnAnimal(transform.position, Quaternion.identity);
+
 
 			// Decrease target life now
-			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
+			if (c.currentObservation.Target)
+			{
+				c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
+			}
+			else
+			{
+				Debug.LogWarning($"Partner died while breeding");
+			}
 
-			var childHost = go.GetComponent<Animal>();
 			var mutate = new Func<float, float, float, float>((a, b, mutationDegree) =>
 			{
 				var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
@@ -192,7 +238,10 @@ namespace Evolution
 			if (min == null || min.GetComponent<Health>().dead) return null;
 			c.currentObservation.Target = min;
 
-			return m_Reach;
+			// Stop current movement
+			// movement.navMeshAgent.destination = transform.position;
+
+			return memes["ReachFood"];
 		}
 
 		private Meme SeePartner(MemeController c)
@@ -209,7 +258,10 @@ namespace Evolution
 				if (min == null) return null;
 				c.currentObservation.Target = min;
 
-				return m_Reach;
+				// Stop current movement
+				// movement.navMeshAgent.destination = transform.position;
+
+				return memes["ReachPartner"];
 			}
 
 			return null;
@@ -218,25 +270,25 @@ namespace Evolution
 		private Meme IsCloseEnoughForEating(MemeController c)
 		{
 			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
-			       eatRange ? m_Eat : null;
+			       eatRange ? memes["Eat"] : null;
 		}
 
 		private Meme IsCloseEnoughForBreeding(MemeController c)
 		{
 			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
-			       1 ? Breed : null;
+			       1 ? memes["Breed"] : null;
 		}
 
 
 		private Meme IsTargetAlive(MemeController c)
 		{
-			return c.currentObservation.Target.GetComponent<Health>().dead ? m_Wander : null;
+			return c.currentObservation.Target.GetComponent<Health>().dead ? memes["Wander"] : null;
 		}
 
 		private Meme Timeout(MemeController c)
 		{
 			// Could be improved
-			return c.lastTransition + 10f > Time.time ? m_Wander : null;
+			return c.lastTransition + 10f > Time.time ? memes["Wander"] : null;
 		}
 
 		#endregion

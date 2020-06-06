@@ -54,22 +54,29 @@ namespace StateMachine
 
 		private void CheckTransitions(MemeController controller)
 		{
-			var minPm = (i: int.MaxValue, m: new Meme("", null, null));
-			// For each transitions, invoke the decision function
-			// Get the transition with the minimum priority (reversed)
-			// And pass the most prioritized meme
-			foreach (var t in m_Transitions)
+			if (m_Transitions.Count == 0)
 			{
-				var pm = t.Invoke(controller);
+				Debug.LogError($"This meme: {Name} has not transitions !");
+				return;
+			}
+			var minPm = m_Transitions[0].Invoke(controller);
+			// For each transitions, invoke the decision function
+			// Get the transition with the lowest priority it is the one which will be ran
+			for (var i = 1; i < m_Transitions.Count; i++)
+			{
+				var pm = m_Transitions[i].Invoke(controller);
+				// If this transition doesn't request a change, keep iterating
 				if (pm.meme == null) continue;
-				if (minPm.i == int.MaxValue || pm.priority < t.priority)
+
+				// Otherwise if we found a more important transition, pick the minimum one
+				if (pm.priority < minPm.priority)
 				{
 					minPm = pm;
 				}
 			}
 
-			// No valid transition, stay in the same meme
-			if (minPm.i != int.MaxValue) controller.Transition(minPm.m);
+			// Transition to the picked meme if it's valid
+			if (minPm.meme != null) controller.Transition(minPm.meme);
 		}
 	}
 }

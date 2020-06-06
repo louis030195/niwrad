@@ -1,13 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Gameplay;
+using Net.Match;
+using Net.Realtime;
+using Net.Session;
+using Net.Utils;
 using ProceduralTree;
 using UnityEngine;
 using Utils;
-using Random = UnityEngine.Random;
+using Quaternion = UnityEngine.Quaternion;
 
-public class Generate : Singleton<Generate>
+public class Generate : MonoBehaviour
 {
 	[SerializeField] private Terrain map;
+	[SerializeField] private GameObject sessionManagerPrefab;
 
 	[Header("Animals configuration"), Range(0, 20), SerializeField]
 	private int spawnDelay = 5; // Ugly hack to wait for navmesh baking (no clean async ...)
@@ -18,8 +23,7 @@ public class Generate : Singleton<Generate>
 	[Tooltip("Percentage position on the diagonal"), Range(0.1f, 0.9f), SerializeField]
 	private float animalSpawnCenter = 0.5f;
 
-	[Header("Vegetation configuration"), SerializeField]
-	private GameObject vegetationPrefab;
+	[Header("Vegetation configuration")]
 	[Range(0, 100_000), SerializeField]
 	private int vegetationAmount = 5;
 	[Range(1, 100_000), SerializeField]
@@ -27,35 +31,70 @@ public class Generate : Singleton<Generate>
 	[Tooltip("Percentage position on the diagonal"), Range(0.1f, 0.9f), SerializeField]
 	private float vegetationSpawnCenter = 0.5f;
 
-
-	private Stack<GameObject> m_TreePool;
-	private int m_TreeCount;
-
-	protected override void Awake()
+	private void Awake()
 	{
-		base.Awake();
-		// Pool.Preload(vegetationPrefab, vegetationAmount*10);
-		m_TreePool = new Stack<GameObject>();
-		Pool.Preload(animalPrefab, animalAmount);
+		// TODO: maybe move whole class to host manager or other ... or change name
+		Pool.Preload(animalPrefab, animalAmount); // TODO: move to hm
+
+		// If there is already a session manager, it's a client
+		if (FindObjectOfType<SessionManager>() == null)
+		{
+			Instantiate(sessionManagerPrefab);
+			InitializeNet();
+		}
 	}
 
-	private IEnumerator FillPoolSlowly()
+	private async void InitializeNet()
 	{
-		// TODO: export to a static "tree pool" or smth like that
-		while (m_TreeCount < vegetationMaxAmount)
-		{
-			var go = Instantiate(vegetationPrefab, Vector3.one*1000, Quaternion.identity);
-			var tree = go.GetComponent<ProceduralTree.ProceduralTree>();
-			tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
-			yield return new WaitForSeconds(3f);
-			m_TreePool.Push(go);
-			go.SetActive(false);
-			m_TreeCount++;
-		}
+		// Server account !
+		await SessionManager.instance.ConnectAsync("bbbb@bbbb.com", "bbbbbbbb");
+		await SessionManager.instance.ConnectSocketAsync();
+		// Join match with null id = create
+		await MatchCommunicationManager.instance.JoinMatchAsync();
+		SessionManager.instance.isServer = true;
 	}
 
 	private void Start()
 	{
+		// Ugly as hell hack to initialize mtd in main thread
+		var i = MainThreadDispatcher.instance;
+		StartCoroutine(InitializeGameplay());
+	}
+
+	private IEnumerator InitializeGameplay()
+	{
+		// Seems to be best to wait a bit before spawning things as there is navmesh baking
+		// Camera stuff, opengl thing
+		Debug.Log($"Initializing gameplay ...");
+		yield return new WaitUntil(() => MatchCommunicationManager.instance.seed != -1);
+		Random.InitState(MatchCommunicationManager.instance.seed);
+		Debug.Log($"Seed loaded value: {MatchCommunicationManager.instance.seed}");
+
+		// Once the seed is loaded, we can generate the map to have a deterministically same map than others
+		var diamondSquare = map.GetComponent<DiamondSquareTerrain>();
+		Debug.Log($"Generating map and navmesh");
+		diamondSquare.ExecuteDiamondSquare();
+
+		// Wait until it's generated and baked
+		yield return new WaitUntil(() => diamondSquare.navMeshBaked);
+		Debug.Log($"Navmesh baked, ready for gameplay");
+		// Notifying self and others that we can handle game play
+		MatchCommunicationManager.instance.Rpc(new Packet
+			{
+				Initialized = new Packet.Types.InitializedPacket()
+			}
+			.Basic(), Recipient.All);
+
+		// Start filling the pool
+		TreePool.instance.FillSlowly(vegetationMaxAmount);
+
+		// From now the server handle the spawning
+		if (!SessionManager.instance.isServer)
+		{
+			// gameObject.SetActive(false);
+			Destroy(this);
+		}
+
 		var s = map.terrainData.size;
 		for (var i = 0; i < vegetationAmount; i++)
 		{
@@ -63,60 +102,15 @@ public class Generate : Singleton<Generate>
 				.RandomPositionAroundAboveGroundWithDistance((1 - vegetationSpawnCenter) * s.x,
 					LayerMask.GetMask("Vegetation"),
 					5f);
-			SpawnVegetation(p, Quaternion.identity);
+			HostManager.instance.SpawnTree(p, Quaternion.identity);
 		}
-		StartCoroutine(Spawn());
-		StartCoroutine(FillPoolSlowly());
-	}
-
-	private IEnumerator Spawn()
-	{
-		var s = map.terrainData.size;
-		// animalPrefab.GetComponent<Host>().prefab = animalPrefab;
-		yield return new WaitForSeconds(spawnDelay);
 		for (var i = 0; i < animalAmount; i++)
 		{
 			var p = (s * animalSpawnCenter)
 				.RandomPositionAroundAboveGroundWithDistance((1 - animalSpawnCenter) * s.x,
 					LayerMask.GetMask("Animal"),
 					5f);
-			Pool.Spawn(animalPrefab, p, Quaternion.identity);
+			HostManager.instance.SpawnAnimal(p, Quaternion.identity);
 		}
-	}
-
-	/// <summary>
-	/// Wrapper around spawn
-	/// </summary>
-	/// <param name="position"></param>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	public GameObject SpawnHost(Vector3 position, Quaternion rotation)
-	{
-		return Pool.Spawn(animalPrefab, position, rotation);
-	}
-
-	public GameObject SpawnVegetation(Vector3 position, Quaternion rotation)
-	{
-		if (m_TreeCount > vegetationMaxAmount) return null;
-		m_TreeCount++;
-		// var go = Pool.Spawn(vegetationPrefab, position, rotation);
-		GameObject go;
-		if (m_TreePool.Count == 0)
-		{
-			go = Instantiate(vegetationPrefab, position, rotation);
-		}
-		else
-		{
-			go = m_TreePool.Pop();
-			go.transform.position = position;
-			go.SetActive(true);
-		}
-
-		go.transform.localScale = Vector3.one * Random.Range(1, 2);
-		go.transform.localRotation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up);
-
-		var tree = go.GetComponent<ProceduralTree.ProceduralTree>();
-		tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
-		return go;
 	}
 }

@@ -24,25 +24,42 @@ namespace Net.Realtime {
     static RealtimeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdQcm90b2J1Zi9yZWFsdGltZS5wcm90bxIIcmVhbHRpbWUaIVByb3RvYnVm",
-            "L1Byb3RvbWV0cnkvdmVjdG9yMy5wcm90bxokUHJvdG9idWYvUHJvdG9tZXRy",
-            "eS9xdWF0ZXJuaW9uLnByb3RvIqUDCgZQYWNrZXQSQAoPdXBkYXRlX3Bvc2l0",
-            "aW9uGAEgASgLMiUucmVhbHRpbWUuUGFja2V0LlVwZGF0ZVBvc2l0aW9uUGFj",
-            "a2V0SAASQAoPdXBkYXRlX3JvdGF0aW9uGAIgASgLMiUucmVhbHRpbWUuUGFj",
-            "a2V0LlVwZGF0ZVJvdGF0aW9uUGFja2V0SAASPgoOZGVzdHJveV9vYmplY3QY",
-            "AyABKAsyJC5yZWFsdGltZS5QYWNrZXQuRGVzdHJveU9iamVjdFBhY2tldEgA",
-            "GlAKFFVwZGF0ZVBvc2l0aW9uUGFja2V0EhEKCW9iamVjdF9pZBgBIAEoBBIl",
-            "Cghwb3NpdGlvbhgCIAEoCzITLnByb3RvbWV0cnkuVmVjdG9yMxpTChRVcGRh",
-            "dGVSb3RhdGlvblBhY2tldBIRCglvYmplY3RfaWQYASABKAQSKAoIcm90YXRp",
-            "b24YAiABKAsyFi5wcm90b21ldHJ5LlF1YXRlcm5pb24aKAoTRGVzdHJveU9i",
-            "amVjdFBhY2tldBIRCglvYmplY3RfaWQYASABKARCBgoEdHlwZUIPqgIMTmV0",
-            "LlJlYWx0aW1lYgZwcm90bzM="));
+            "ChdQcm90b2J1Zi9yZWFsdGltZS5wcm90bxIIcmVhbHRpbWUaFlByb3RvYnVm",
+            "L3ZlY3RvcjMucHJvdG8aGVByb3RvYnVmL3F1YXRlcm5pb24ucHJvdG8ihwcK",
+            "BlBhY2tldBIRCglzZW5kZXJfaWQYASABKAkSEQoJaXNfc2VydmVyGAIgASgI",
+            "EkIKEHVwZGF0ZV90cmFuc2Zvcm0YAyABKAsyJi5yZWFsdGltZS5QYWNrZXQu",
+            "VXBkYXRlVHJhbnNmb3JtUGFja2V0SAASMQoHZGVzdHJveRgEIAEoCzIeLnJl",
+            "YWx0aW1lLlBhY2tldC5EZXN0cm95UGFja2V0SAASLQoFc3Bhd24YBSABKAsy",
+            "HC5yZWFsdGltZS5QYWNrZXQuU3Bhd25QYWNrZXRIABIrCgRtZW1lGAYgASgL",
+            "MhsucmVhbHRpbWUuUGFja2V0LlVwZGF0ZU1lbWVIABJEChFtYXRjaF9pbmZv",
+            "cm1hdGlvbhgHIAEoCzInLnJlYWx0aW1lLlBhY2tldC5NYXRjaEluZm9ybWF0",
+            "aW9uUGFja2V0SAASOQoLaW5pdGlhbGl6ZWQYCCABKAsyIi5yZWFsdGltZS5Q",
+            "YWNrZXQuSW5pdGlhbGl6ZWRQYWNrZXRIABpGChVVcGRhdGVUcmFuc2Zvcm1Q",
+            "YWNrZXQSLQoQb2JqZWN0X3RyYW5zZm9ybRgBIAEoCzITLnJlYWx0aW1lLlRy",
+            "YW5zZm9ybRobCg1EZXN0cm95UGFja2V0EgoKAmlkGAEgASgEGqsCCgtTcGF3",
+            "blBhY2tldBIiCgNhbnkYASABKAsyEy5yZWFsdGltZS5UcmFuc2Zvcm1IABI3",
+            "CgR0cmVlGAIgASgLMicucmVhbHRpbWUuUGFja2V0LlNwYXduUGFja2V0LlRy",
+            "ZWVPYmplY3RIABI7CgZhbmltYWwYAyABKAsyKS5yZWFsdGltZS5QYWNrZXQu",
+            "U3Bhd25QYWNrZXQuQW5pbWFsT2JqZWN0SAAaOwoKVHJlZU9iamVjdBItChBv",
+            "YmplY3RfdHJhbnNmb3JtGAEgASgLMhMucmVhbHRpbWUuVHJhbnNmb3JtGj0K",
+            "DEFuaW1hbE9iamVjdBItChBvYmplY3RfdHJhbnNmb3JtGAEgASgLMhMucmVh",
+            "bHRpbWUuVHJhbnNmb3JtQgYKBHR5cGUaKwoKVXBkYXRlTWVtZRIKCgJpZBgB",
+            "IAEoBBIRCgltZW1lX25hbWUYAiABKAkaJgoWTWF0Y2hJbmZvcm1hdGlvblBh",
+            "Y2tldBIMCgRzZWVkGAEgASgFGhMKEUluaXRpYWxpemVkUGFja2V0QgYKBHR5",
+            "cGUiZAoJVHJhbnNmb3JtEgoKAmlkGAEgASgEEiMKCHBvc2l0aW9uGAIgASgL",
+            "MhEucmVhbHRpbWUuVmVjdG9yMxImCghyb3RhdGlvbhgDIAEoCzIULnJlYWx0",
+            "aW1lLlF1YXRlcm5pb25CD6oCDE5ldC5SZWFsdGltZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Net.Realtime.Protometry.Vector3.Vector3Reflection.Descriptor, global::Net.Realtime.Protometry.Vector3.QuaternionReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Net.Realtime.Vector3Reflection.Descriptor, global::Net.Realtime.QuaternionReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet), global::Net.Realtime.Packet.Parser, new[]{ "UpdatePosition", "UpdateRotation", "DestroyObject" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.UpdatePositionPacket), global::Net.Realtime.Packet.Types.UpdatePositionPacket.Parser, new[]{ "ObjectId", "Position" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.UpdateRotationPacket), global::Net.Realtime.Packet.Types.UpdateRotationPacket.Parser, new[]{ "ObjectId", "Rotation" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.DestroyObjectPacket), global::Net.Realtime.Packet.Types.DestroyObjectPacket.Parser, new[]{ "ObjectId" }, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet), global::Net.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "UpdateTransform", "Destroy", "Spawn", "Meme", "MatchInformation", "Initialized" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.UpdateTransformPacket), global::Net.Realtime.Packet.Types.UpdateTransformPacket.Parser, new[]{ "ObjectTransform" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.DestroyPacket), global::Net.Realtime.Packet.Types.DestroyPacket.Parser, new[]{ "Id" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.SpawnPacket), global::Net.Realtime.Packet.Types.SpawnPacket.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject), global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject.Parser, new[]{ "ObjectTransform" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject), global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject.Parser, new[]{ "ObjectTransform" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.UpdateMeme), global::Net.Realtime.Packet.Types.UpdateMeme.Parser, new[]{ "Id", "MemeName" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.MatchInformationPacket), global::Net.Realtime.Packet.Types.MatchInformationPacket.Parser, new[]{ "Seed" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet.Types.InitializedPacket), global::Net.Realtime.Packet.Types.InitializedPacket.Parser, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Transform), global::Net.Realtime.Transform.Parser, new[]{ "Id", "Position", "Rotation" }, null, null, null)
           }));
     }
     #endregion
@@ -74,15 +91,26 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Packet(Packet other) : this() {
+      senderId_ = other.senderId_;
+      isServer_ = other.isServer_;
       switch (other.TypeCase) {
-        case TypeOneofCase.UpdatePosition:
-          UpdatePosition = other.UpdatePosition.Clone();
+        case TypeOneofCase.UpdateTransform:
+          UpdateTransform = other.UpdateTransform.Clone();
           break;
-        case TypeOneofCase.UpdateRotation:
-          UpdateRotation = other.UpdateRotation.Clone();
+        case TypeOneofCase.Destroy:
+          Destroy = other.Destroy.Clone();
           break;
-        case TypeOneofCase.DestroyObject:
-          DestroyObject = other.DestroyObject.Clone();
+        case TypeOneofCase.Spawn:
+          Spawn = other.Spawn.Clone();
+          break;
+        case TypeOneofCase.Meme:
+          Meme = other.Meme.Clone();
+          break;
+        case TypeOneofCase.MatchInformation:
+          MatchInformation = other.MatchInformation.Clone();
+          break;
+        case TypeOneofCase.Initialized:
+          Initialized = other.Initialized.Clone();
           break;
       }
 
@@ -94,39 +122,100 @@ namespace Net.Realtime {
       return new Packet(this);
     }
 
-    /// <summary>Field number for the "update_position" field.</summary>
-    public const int UpdatePositionFieldNumber = 1;
+    /// <summary>Field number for the "sender_id" field.</summary>
+    public const int SenderIdFieldNumber = 1;
+    private string senderId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string SenderId {
+      get { return senderId_; }
+      set {
+        senderId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "is_server" field.</summary>
+    public const int IsServerFieldNumber = 2;
+    private bool isServer_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsServer {
+      get { return isServer_; }
+      set {
+        isServer_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "update_transform" field.</summary>
+    public const int UpdateTransformFieldNumber = 3;
     /// <summary>
     /// General physical objects
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Net.Realtime.Packet.Types.UpdatePositionPacket UpdatePosition {
-      get { return typeCase_ == TypeOneofCase.UpdatePosition ? (global::Net.Realtime.Packet.Types.UpdatePositionPacket) type_ : null; }
+    public global::Net.Realtime.Packet.Types.UpdateTransformPacket UpdateTransform {
+      get { return typeCase_ == TypeOneofCase.UpdateTransform ? (global::Net.Realtime.Packet.Types.UpdateTransformPacket) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.UpdatePosition;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.UpdateTransform;
       }
     }
 
-    /// <summary>Field number for the "update_rotation" field.</summary>
-    public const int UpdateRotationFieldNumber = 2;
+    /// <summary>Field number for the "destroy" field.</summary>
+    public const int DestroyFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Net.Realtime.Packet.Types.UpdateRotationPacket UpdateRotation {
-      get { return typeCase_ == TypeOneofCase.UpdateRotation ? (global::Net.Realtime.Packet.Types.UpdateRotationPacket) type_ : null; }
+    public global::Net.Realtime.Packet.Types.DestroyPacket Destroy {
+      get { return typeCase_ == TypeOneofCase.Destroy ? (global::Net.Realtime.Packet.Types.DestroyPacket) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.UpdateRotation;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Destroy;
       }
     }
 
-    /// <summary>Field number for the "destroy_object" field.</summary>
-    public const int DestroyObjectFieldNumber = 3;
+    /// <summary>Field number for the "spawn" field.</summary>
+    public const int SpawnFieldNumber = 5;
+    /// <summary>
+    /// Evolution
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Net.Realtime.Packet.Types.DestroyObjectPacket DestroyObject {
-      get { return typeCase_ == TypeOneofCase.DestroyObject ? (global::Net.Realtime.Packet.Types.DestroyObjectPacket) type_ : null; }
+    public global::Net.Realtime.Packet.Types.SpawnPacket Spawn {
+      get { return typeCase_ == TypeOneofCase.Spawn ? (global::Net.Realtime.Packet.Types.SpawnPacket) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.DestroyObject;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Spawn;
+      }
+    }
+
+    /// <summary>Field number for the "meme" field.</summary>
+    public const int MemeFieldNumber = 6;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Packet.Types.UpdateMeme Meme {
+      get { return typeCase_ == TypeOneofCase.Meme ? (global::Net.Realtime.Packet.Types.UpdateMeme) type_ : null; }
+      set {
+        type_ = value;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Meme;
+      }
+    }
+
+    /// <summary>Field number for the "match_information" field.</summary>
+    public const int MatchInformationFieldNumber = 7;
+    /// <summary>
+    /// Player
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Packet.Types.MatchInformationPacket MatchInformation {
+      get { return typeCase_ == TypeOneofCase.MatchInformation ? (global::Net.Realtime.Packet.Types.MatchInformationPacket) type_ : null; }
+      set {
+        type_ = value;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.MatchInformation;
+      }
+    }
+
+    /// <summary>Field number for the "initialized" field.</summary>
+    public const int InitializedFieldNumber = 8;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Packet.Types.InitializedPacket Initialized {
+      get { return typeCase_ == TypeOneofCase.Initialized ? (global::Net.Realtime.Packet.Types.InitializedPacket) type_ : null; }
+      set {
+        type_ = value;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Initialized;
       }
     }
 
@@ -134,9 +223,12 @@ namespace Net.Realtime {
     /// <summary>Enum of possible cases for the "type" oneof.</summary>
     public enum TypeOneofCase {
       None = 0,
-      UpdatePosition = 1,
-      UpdateRotation = 2,
-      DestroyObject = 3,
+      UpdateTransform = 3,
+      Destroy = 4,
+      Spawn = 5,
+      Meme = 6,
+      MatchInformation = 7,
+      Initialized = 8,
     }
     private TypeOneofCase typeCase_ = TypeOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -163,9 +255,14 @@ namespace Net.Realtime {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(UpdatePosition, other.UpdatePosition)) return false;
-      if (!object.Equals(UpdateRotation, other.UpdateRotation)) return false;
-      if (!object.Equals(DestroyObject, other.DestroyObject)) return false;
+      if (SenderId != other.SenderId) return false;
+      if (IsServer != other.IsServer) return false;
+      if (!object.Equals(UpdateTransform, other.UpdateTransform)) return false;
+      if (!object.Equals(Destroy, other.Destroy)) return false;
+      if (!object.Equals(Spawn, other.Spawn)) return false;
+      if (!object.Equals(Meme, other.Meme)) return false;
+      if (!object.Equals(MatchInformation, other.MatchInformation)) return false;
+      if (!object.Equals(Initialized, other.Initialized)) return false;
       if (TypeCase != other.TypeCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -173,9 +270,14 @@ namespace Net.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (typeCase_ == TypeOneofCase.UpdatePosition) hash ^= UpdatePosition.GetHashCode();
-      if (typeCase_ == TypeOneofCase.UpdateRotation) hash ^= UpdateRotation.GetHashCode();
-      if (typeCase_ == TypeOneofCase.DestroyObject) hash ^= DestroyObject.GetHashCode();
+      if (SenderId.Length != 0) hash ^= SenderId.GetHashCode();
+      if (IsServer != false) hash ^= IsServer.GetHashCode();
+      if (typeCase_ == TypeOneofCase.UpdateTransform) hash ^= UpdateTransform.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Destroy) hash ^= Destroy.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Spawn) hash ^= Spawn.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Meme) hash ^= Meme.GetHashCode();
+      if (typeCase_ == TypeOneofCase.MatchInformation) hash ^= MatchInformation.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Initialized) hash ^= Initialized.GetHashCode();
       hash ^= (int) typeCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -190,17 +292,37 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (typeCase_ == TypeOneofCase.UpdatePosition) {
+      if (SenderId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteMessage(UpdatePosition);
+        output.WriteString(SenderId);
       }
-      if (typeCase_ == TypeOneofCase.UpdateRotation) {
-        output.WriteRawTag(18);
-        output.WriteMessage(UpdateRotation);
+      if (IsServer != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(IsServer);
       }
-      if (typeCase_ == TypeOneofCase.DestroyObject) {
+      if (typeCase_ == TypeOneofCase.UpdateTransform) {
         output.WriteRawTag(26);
-        output.WriteMessage(DestroyObject);
+        output.WriteMessage(UpdateTransform);
+      }
+      if (typeCase_ == TypeOneofCase.Destroy) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Destroy);
+      }
+      if (typeCase_ == TypeOneofCase.Spawn) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Spawn);
+      }
+      if (typeCase_ == TypeOneofCase.Meme) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Meme);
+      }
+      if (typeCase_ == TypeOneofCase.MatchInformation) {
+        output.WriteRawTag(58);
+        output.WriteMessage(MatchInformation);
+      }
+      if (typeCase_ == TypeOneofCase.Initialized) {
+        output.WriteRawTag(66);
+        output.WriteMessage(Initialized);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -210,14 +332,29 @@ namespace Net.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (typeCase_ == TypeOneofCase.UpdatePosition) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdatePosition);
+      if (SenderId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SenderId);
       }
-      if (typeCase_ == TypeOneofCase.UpdateRotation) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateRotation);
+      if (IsServer != false) {
+        size += 1 + 1;
       }
-      if (typeCase_ == TypeOneofCase.DestroyObject) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DestroyObject);
+      if (typeCase_ == TypeOneofCase.UpdateTransform) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateTransform);
+      }
+      if (typeCase_ == TypeOneofCase.Destroy) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Destroy);
+      }
+      if (typeCase_ == TypeOneofCase.Spawn) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Spawn);
+      }
+      if (typeCase_ == TypeOneofCase.Meme) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Meme);
+      }
+      if (typeCase_ == TypeOneofCase.MatchInformation) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MatchInformation);
+      }
+      if (typeCase_ == TypeOneofCase.Initialized) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Initialized);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -230,24 +367,48 @@ namespace Net.Realtime {
       if (other == null) {
         return;
       }
+      if (other.SenderId.Length != 0) {
+        SenderId = other.SenderId;
+      }
+      if (other.IsServer != false) {
+        IsServer = other.IsServer;
+      }
       switch (other.TypeCase) {
-        case TypeOneofCase.UpdatePosition:
-          if (UpdatePosition == null) {
-            UpdatePosition = new global::Net.Realtime.Packet.Types.UpdatePositionPacket();
+        case TypeOneofCase.UpdateTransform:
+          if (UpdateTransform == null) {
+            UpdateTransform = new global::Net.Realtime.Packet.Types.UpdateTransformPacket();
           }
-          UpdatePosition.MergeFrom(other.UpdatePosition);
+          UpdateTransform.MergeFrom(other.UpdateTransform);
           break;
-        case TypeOneofCase.UpdateRotation:
-          if (UpdateRotation == null) {
-            UpdateRotation = new global::Net.Realtime.Packet.Types.UpdateRotationPacket();
+        case TypeOneofCase.Destroy:
+          if (Destroy == null) {
+            Destroy = new global::Net.Realtime.Packet.Types.DestroyPacket();
           }
-          UpdateRotation.MergeFrom(other.UpdateRotation);
+          Destroy.MergeFrom(other.Destroy);
           break;
-        case TypeOneofCase.DestroyObject:
-          if (DestroyObject == null) {
-            DestroyObject = new global::Net.Realtime.Packet.Types.DestroyObjectPacket();
+        case TypeOneofCase.Spawn:
+          if (Spawn == null) {
+            Spawn = new global::Net.Realtime.Packet.Types.SpawnPacket();
           }
-          DestroyObject.MergeFrom(other.DestroyObject);
+          Spawn.MergeFrom(other.Spawn);
+          break;
+        case TypeOneofCase.Meme:
+          if (Meme == null) {
+            Meme = new global::Net.Realtime.Packet.Types.UpdateMeme();
+          }
+          Meme.MergeFrom(other.Meme);
+          break;
+        case TypeOneofCase.MatchInformation:
+          if (MatchInformation == null) {
+            MatchInformation = new global::Net.Realtime.Packet.Types.MatchInformationPacket();
+          }
+          MatchInformation.MergeFrom(other.MatchInformation);
+          break;
+        case TypeOneofCase.Initialized:
+          if (Initialized == null) {
+            Initialized = new global::Net.Realtime.Packet.Types.InitializedPacket();
+          }
+          Initialized.MergeFrom(other.Initialized);
           break;
       }
 
@@ -263,30 +424,65 @@ namespace Net.Realtime {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            global::Net.Realtime.Packet.Types.UpdatePositionPacket subBuilder = new global::Net.Realtime.Packet.Types.UpdatePositionPacket();
-            if (typeCase_ == TypeOneofCase.UpdatePosition) {
-              subBuilder.MergeFrom(UpdatePosition);
-            }
-            input.ReadMessage(subBuilder);
-            UpdatePosition = subBuilder;
+            SenderId = input.ReadString();
             break;
           }
-          case 18: {
-            global::Net.Realtime.Packet.Types.UpdateRotationPacket subBuilder = new global::Net.Realtime.Packet.Types.UpdateRotationPacket();
-            if (typeCase_ == TypeOneofCase.UpdateRotation) {
-              subBuilder.MergeFrom(UpdateRotation);
-            }
-            input.ReadMessage(subBuilder);
-            UpdateRotation = subBuilder;
+          case 16: {
+            IsServer = input.ReadBool();
             break;
           }
           case 26: {
-            global::Net.Realtime.Packet.Types.DestroyObjectPacket subBuilder = new global::Net.Realtime.Packet.Types.DestroyObjectPacket();
-            if (typeCase_ == TypeOneofCase.DestroyObject) {
-              subBuilder.MergeFrom(DestroyObject);
+            global::Net.Realtime.Packet.Types.UpdateTransformPacket subBuilder = new global::Net.Realtime.Packet.Types.UpdateTransformPacket();
+            if (typeCase_ == TypeOneofCase.UpdateTransform) {
+              subBuilder.MergeFrom(UpdateTransform);
             }
             input.ReadMessage(subBuilder);
-            DestroyObject = subBuilder;
+            UpdateTransform = subBuilder;
+            break;
+          }
+          case 34: {
+            global::Net.Realtime.Packet.Types.DestroyPacket subBuilder = new global::Net.Realtime.Packet.Types.DestroyPacket();
+            if (typeCase_ == TypeOneofCase.Destroy) {
+              subBuilder.MergeFrom(Destroy);
+            }
+            input.ReadMessage(subBuilder);
+            Destroy = subBuilder;
+            break;
+          }
+          case 42: {
+            global::Net.Realtime.Packet.Types.SpawnPacket subBuilder = new global::Net.Realtime.Packet.Types.SpawnPacket();
+            if (typeCase_ == TypeOneofCase.Spawn) {
+              subBuilder.MergeFrom(Spawn);
+            }
+            input.ReadMessage(subBuilder);
+            Spawn = subBuilder;
+            break;
+          }
+          case 50: {
+            global::Net.Realtime.Packet.Types.UpdateMeme subBuilder = new global::Net.Realtime.Packet.Types.UpdateMeme();
+            if (typeCase_ == TypeOneofCase.Meme) {
+              subBuilder.MergeFrom(Meme);
+            }
+            input.ReadMessage(subBuilder);
+            Meme = subBuilder;
+            break;
+          }
+          case 58: {
+            global::Net.Realtime.Packet.Types.MatchInformationPacket subBuilder = new global::Net.Realtime.Packet.Types.MatchInformationPacket();
+            if (typeCase_ == TypeOneofCase.MatchInformation) {
+              subBuilder.MergeFrom(MatchInformation);
+            }
+            input.ReadMessage(subBuilder);
+            MatchInformation = subBuilder;
+            break;
+          }
+          case 66: {
+            global::Net.Realtime.Packet.Types.InitializedPacket subBuilder = new global::Net.Realtime.Packet.Types.InitializedPacket();
+            if (typeCase_ == TypeOneofCase.Initialized) {
+              subBuilder.MergeFrom(Initialized);
+            }
+            input.ReadMessage(subBuilder);
+            Initialized = subBuilder;
             break;
           }
         }
@@ -297,11 +493,14 @@ namespace Net.Realtime {
     /// <summary>Container for nested types declared in the Packet message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
-      public sealed partial class UpdatePositionPacket : pb::IMessage<UpdatePositionPacket> {
-        private static readonly pb::MessageParser<UpdatePositionPacket> _parser = new pb::MessageParser<UpdatePositionPacket>(() => new UpdatePositionPacket());
+      /// <summary>
+      /// General purpose transform update typically shared by several different types of objects
+      /// </summary>
+      public sealed partial class UpdateTransformPacket : pb::IMessage<UpdateTransformPacket> {
+        private static readonly pb::MessageParser<UpdateTransformPacket> _parser = new pb::MessageParser<UpdateTransformPacket>(() => new UpdateTransformPacket());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<UpdatePositionPacket> Parser { get { return _parser; } }
+        public static pb::MessageParser<UpdateTransformPacket> Parser { get { return _parser; } }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
@@ -314,69 +513,55 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdatePositionPacket() {
+        public UpdateTransformPacket() {
           OnConstruction();
         }
 
         partial void OnConstruction();
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdatePositionPacket(UpdatePositionPacket other) : this() {
-          objectId_ = other.objectId_;
-          position_ = other.position_ != null ? other.position_.Clone() : null;
+        public UpdateTransformPacket(UpdateTransformPacket other) : this() {
+          objectTransform_ = other.objectTransform_ != null ? other.objectTransform_.Clone() : null;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdatePositionPacket Clone() {
-          return new UpdatePositionPacket(this);
+        public UpdateTransformPacket Clone() {
+          return new UpdateTransformPacket(this);
         }
 
-        /// <summary>Field number for the "object_id" field.</summary>
-        public const int ObjectIdFieldNumber = 1;
-        private ulong objectId_;
+        /// <summary>Field number for the "object_transform" field.</summary>
+        public const int ObjectTransformFieldNumber = 1;
+        private global::Net.Realtime.Transform objectTransform_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public ulong ObjectId {
-          get { return objectId_; }
+        public global::Net.Realtime.Transform ObjectTransform {
+          get { return objectTransform_; }
           set {
-            objectId_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "position" field.</summary>
-        public const int PositionFieldNumber = 2;
-        private global::Net.Realtime.Protometry.Vector3.Vector3 position_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::Net.Realtime.Protometry.Vector3.Vector3 Position {
-          get { return position_; }
-          set {
-            position_ = value;
+            objectTransform_ = value;
           }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override bool Equals(object other) {
-          return Equals(other as UpdatePositionPacket);
+          return Equals(other as UpdateTransformPacket);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(UpdatePositionPacket other) {
+        public bool Equals(UpdateTransformPacket other) {
           if (ReferenceEquals(other, null)) {
             return false;
           }
           if (ReferenceEquals(other, this)) {
             return true;
           }
-          if (ObjectId != other.ObjectId) return false;
-          if (!object.Equals(Position, other.Position)) return false;
+          if (!object.Equals(ObjectTransform, other.ObjectTransform)) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (ObjectId != 0UL) hash ^= ObjectId.GetHashCode();
-          if (position_ != null) hash ^= Position.GetHashCode();
+          if (objectTransform_ != null) hash ^= ObjectTransform.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -390,13 +575,9 @@ namespace Net.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (ObjectId != 0UL) {
-            output.WriteRawTag(8);
-            output.WriteUInt64(ObjectId);
-          }
-          if (position_ != null) {
-            output.WriteRawTag(18);
-            output.WriteMessage(Position);
+          if (objectTransform_ != null) {
+            output.WriteRawTag(10);
+            output.WriteMessage(ObjectTransform);
           }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
@@ -406,11 +587,8 @@ namespace Net.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (ObjectId != 0UL) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ObjectId);
-          }
-          if (position_ != null) {
-            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+          if (objectTransform_ != null) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(ObjectTransform);
           }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
@@ -419,18 +597,15 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(UpdatePositionPacket other) {
+        public void MergeFrom(UpdateTransformPacket other) {
           if (other == null) {
             return;
           }
-          if (other.ObjectId != 0UL) {
-            ObjectId = other.ObjectId;
-          }
-          if (other.position_ != null) {
-            if (position_ == null) {
-              Position = new global::Net.Realtime.Protometry.Vector3.Vector3();
+          if (other.objectTransform_ != null) {
+            if (objectTransform_ == null) {
+              ObjectTransform = new global::Net.Realtime.Transform();
             }
-            Position.MergeFrom(other.Position);
+            ObjectTransform.MergeFrom(other.ObjectTransform);
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -443,15 +618,11 @@ namespace Net.Realtime {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
-              case 8: {
-                ObjectId = input.ReadUInt64();
-                break;
-              }
-              case 18: {
-                if (position_ == null) {
-                  Position = new global::Net.Realtime.Protometry.Vector3.Vector3();
+              case 10: {
+                if (objectTransform_ == null) {
+                  ObjectTransform = new global::Net.Realtime.Transform();
                 }
-                input.ReadMessage(Position);
+                input.ReadMessage(ObjectTransform);
                 break;
               }
             }
@@ -460,11 +631,11 @@ namespace Net.Realtime {
 
       }
 
-      public sealed partial class UpdateRotationPacket : pb::IMessage<UpdateRotationPacket> {
-        private static readonly pb::MessageParser<UpdateRotationPacket> _parser = new pb::MessageParser<UpdateRotationPacket>(() => new UpdateRotationPacket());
+      public sealed partial class DestroyPacket : pb::IMessage<DestroyPacket> {
+        private static readonly pb::MessageParser<DestroyPacket> _parser = new pb::MessageParser<DestroyPacket>(() => new DestroyPacket());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<UpdateRotationPacket> Parser { get { return _parser; } }
+        public static pb::MessageParser<DestroyPacket> Parser { get { return _parser; } }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
@@ -477,69 +648,55 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdateRotationPacket() {
+        public DestroyPacket() {
           OnConstruction();
         }
 
         partial void OnConstruction();
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdateRotationPacket(UpdateRotationPacket other) : this() {
-          objectId_ = other.objectId_;
-          rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+        public DestroyPacket(DestroyPacket other) : this() {
+          id_ = other.id_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public UpdateRotationPacket Clone() {
-          return new UpdateRotationPacket(this);
+        public DestroyPacket Clone() {
+          return new DestroyPacket(this);
         }
 
-        /// <summary>Field number for the "object_id" field.</summary>
-        public const int ObjectIdFieldNumber = 1;
-        private ulong objectId_;
+        /// <summary>Field number for the "id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private ulong id_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public ulong ObjectId {
-          get { return objectId_; }
+        public ulong Id {
+          get { return id_; }
           set {
-            objectId_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "rotation" field.</summary>
-        public const int RotationFieldNumber = 2;
-        private global::Net.Realtime.Protometry.Vector3.Quaternion rotation_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::Net.Realtime.Protometry.Vector3.Quaternion Rotation {
-          get { return rotation_; }
-          set {
-            rotation_ = value;
+            id_ = value;
           }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override bool Equals(object other) {
-          return Equals(other as UpdateRotationPacket);
+          return Equals(other as DestroyPacket);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(UpdateRotationPacket other) {
+        public bool Equals(DestroyPacket other) {
           if (ReferenceEquals(other, null)) {
             return false;
           }
           if (ReferenceEquals(other, this)) {
             return true;
           }
-          if (ObjectId != other.ObjectId) return false;
-          if (!object.Equals(Rotation, other.Rotation)) return false;
+          if (Id != other.Id) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (ObjectId != 0UL) hash ^= ObjectId.GetHashCode();
-          if (rotation_ != null) hash ^= Rotation.GetHashCode();
+          if (Id != 0UL) hash ^= Id.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -553,13 +710,9 @@ namespace Net.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (ObjectId != 0UL) {
+          if (Id != 0UL) {
             output.WriteRawTag(8);
-            output.WriteUInt64(ObjectId);
-          }
-          if (rotation_ != null) {
-            output.WriteRawTag(18);
-            output.WriteMessage(Rotation);
+            output.WriteUInt64(Id);
           }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
@@ -569,11 +722,8 @@ namespace Net.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (ObjectId != 0UL) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ObjectId);
-          }
-          if (rotation_ != null) {
-            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+          if (Id != 0UL) {
+            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
           }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
@@ -582,18 +732,12 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(UpdateRotationPacket other) {
+        public void MergeFrom(DestroyPacket other) {
           if (other == null) {
             return;
           }
-          if (other.ObjectId != 0UL) {
-            ObjectId = other.ObjectId;
-          }
-          if (other.rotation_ != null) {
-            if (rotation_ == null) {
-              Rotation = new global::Net.Realtime.Protometry.Vector3.Quaternion();
-            }
-            Rotation.MergeFrom(other.Rotation);
+          if (other.Id != 0UL) {
+            Id = other.Id;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -607,14 +751,7 @@ namespace Net.Realtime {
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
               case 8: {
-                ObjectId = input.ReadUInt64();
-                break;
-              }
-              case 18: {
-                if (rotation_ == null) {
-                  Rotation = new global::Net.Realtime.Protometry.Vector3.Quaternion();
-                }
-                input.ReadMessage(Rotation);
+                Id = input.ReadUInt64();
                 break;
               }
             }
@@ -623,11 +760,11 @@ namespace Net.Realtime {
 
       }
 
-      public sealed partial class DestroyObjectPacket : pb::IMessage<DestroyObjectPacket> {
-        private static readonly pb::MessageParser<DestroyObjectPacket> _parser = new pb::MessageParser<DestroyObjectPacket>(() => new DestroyObjectPacket());
+      public sealed partial class SpawnPacket : pb::IMessage<SpawnPacket> {
+        private static readonly pb::MessageParser<SpawnPacket> _parser = new pb::MessageParser<SpawnPacket>(() => new SpawnPacket());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<DestroyObjectPacket> Parser { get { return _parser; } }
+        public static pb::MessageParser<SpawnPacket> Parser { get { return _parser; } }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
@@ -640,55 +777,120 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public DestroyObjectPacket() {
+        public SpawnPacket() {
           OnConstruction();
         }
 
         partial void OnConstruction();
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public DestroyObjectPacket(DestroyObjectPacket other) : this() {
-          objectId_ = other.objectId_;
+        public SpawnPacket(SpawnPacket other) : this() {
+          switch (other.TypeCase) {
+            case TypeOneofCase.Any:
+              Any = other.Any.Clone();
+              break;
+            case TypeOneofCase.Tree:
+              Tree = other.Tree.Clone();
+              break;
+            case TypeOneofCase.Animal:
+              Animal = other.Animal.Clone();
+              break;
+          }
+
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public DestroyObjectPacket Clone() {
-          return new DestroyObjectPacket(this);
+        public SpawnPacket Clone() {
+          return new SpawnPacket(this);
         }
 
-        /// <summary>Field number for the "object_id" field.</summary>
-        public const int ObjectIdFieldNumber = 1;
-        private ulong objectId_;
+        /// <summary>Field number for the "any" field.</summary>
+        public const int AnyFieldNumber = 1;
+        /// <summary>
+        /// Any object, no special behaviour
+        /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public ulong ObjectId {
-          get { return objectId_; }
+        public global::Net.Realtime.Transform Any {
+          get { return typeCase_ == TypeOneofCase.Any ? (global::Net.Realtime.Transform) type_ : null; }
           set {
-            objectId_ = value;
+            type_ = value;
+            typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Any;
           }
+        }
+
+        /// <summary>Field number for the "tree" field.</summary>
+        public const int TreeFieldNumber = 2;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject Tree {
+          get { return typeCase_ == TypeOneofCase.Tree ? (global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject) type_ : null; }
+          set {
+            type_ = value;
+            typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Tree;
+          }
+        }
+
+        /// <summary>Field number for the "animal" field.</summary>
+        public const int AnimalFieldNumber = 3;
+        /// <summary>
+        /// TODO: other ?
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject Animal {
+          get { return typeCase_ == TypeOneofCase.Animal ? (global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject) type_ : null; }
+          set {
+            type_ = value;
+            typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Animal;
+          }
+        }
+
+        private object type_;
+        /// <summary>Enum of possible cases for the "type" oneof.</summary>
+        public enum TypeOneofCase {
+          None = 0,
+          Any = 1,
+          Tree = 2,
+          Animal = 3,
+        }
+        private TypeOneofCase typeCase_ = TypeOneofCase.None;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public TypeOneofCase TypeCase {
+          get { return typeCase_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void ClearType() {
+          typeCase_ = TypeOneofCase.None;
+          type_ = null;
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override bool Equals(object other) {
-          return Equals(other as DestroyObjectPacket);
+          return Equals(other as SpawnPacket);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(DestroyObjectPacket other) {
+        public bool Equals(SpawnPacket other) {
           if (ReferenceEquals(other, null)) {
             return false;
           }
           if (ReferenceEquals(other, this)) {
             return true;
           }
-          if (ObjectId != other.ObjectId) return false;
+          if (!object.Equals(Any, other.Any)) return false;
+          if (!object.Equals(Tree, other.Tree)) return false;
+          if (!object.Equals(Animal, other.Animal)) return false;
+          if (TypeCase != other.TypeCase) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (ObjectId != 0UL) hash ^= ObjectId.GetHashCode();
+          if (typeCase_ == TypeOneofCase.Any) hash ^= Any.GetHashCode();
+          if (typeCase_ == TypeOneofCase.Tree) hash ^= Tree.GetHashCode();
+          if (typeCase_ == TypeOneofCase.Animal) hash ^= Animal.GetHashCode();
+          hash ^= (int) typeCase_;
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -702,9 +904,17 @@ namespace Net.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (ObjectId != 0UL) {
-            output.WriteRawTag(8);
-            output.WriteUInt64(ObjectId);
+          if (typeCase_ == TypeOneofCase.Any) {
+            output.WriteRawTag(10);
+            output.WriteMessage(Any);
+          }
+          if (typeCase_ == TypeOneofCase.Tree) {
+            output.WriteRawTag(18);
+            output.WriteMessage(Tree);
+          }
+          if (typeCase_ == TypeOneofCase.Animal) {
+            output.WriteRawTag(26);
+            output.WriteMessage(Animal);
           }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
@@ -714,8 +924,14 @@ namespace Net.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (ObjectId != 0UL) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ObjectId);
+          if (typeCase_ == TypeOneofCase.Any) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Any);
+          }
+          if (typeCase_ == TypeOneofCase.Tree) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Tree);
+          }
+          if (typeCase_ == TypeOneofCase.Animal) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Animal);
           }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
@@ -724,12 +940,492 @@ namespace Net.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(DestroyObjectPacket other) {
+        public void MergeFrom(SpawnPacket other) {
           if (other == null) {
             return;
           }
-          if (other.ObjectId != 0UL) {
-            ObjectId = other.ObjectId;
+          switch (other.TypeCase) {
+            case TypeOneofCase.Any:
+              if (Any == null) {
+                Any = new global::Net.Realtime.Transform();
+              }
+              Any.MergeFrom(other.Any);
+              break;
+            case TypeOneofCase.Tree:
+              if (Tree == null) {
+                Tree = new global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject();
+              }
+              Tree.MergeFrom(other.Tree);
+              break;
+            case TypeOneofCase.Animal:
+              if (Animal == null) {
+                Animal = new global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject();
+              }
+              Animal.MergeFrom(other.Animal);
+              break;
+          }
+
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 10: {
+                global::Net.Realtime.Transform subBuilder = new global::Net.Realtime.Transform();
+                if (typeCase_ == TypeOneofCase.Any) {
+                  subBuilder.MergeFrom(Any);
+                }
+                input.ReadMessage(subBuilder);
+                Any = subBuilder;
+                break;
+              }
+              case 18: {
+                global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject subBuilder = new global::Net.Realtime.Packet.Types.SpawnPacket.Types.TreeObject();
+                if (typeCase_ == TypeOneofCase.Tree) {
+                  subBuilder.MergeFrom(Tree);
+                }
+                input.ReadMessage(subBuilder);
+                Tree = subBuilder;
+                break;
+              }
+              case 26: {
+                global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject subBuilder = new global::Net.Realtime.Packet.Types.SpawnPacket.Types.AnimalObject();
+                if (typeCase_ == TypeOneofCase.Animal) {
+                  subBuilder.MergeFrom(Animal);
+                }
+                input.ReadMessage(subBuilder);
+                Animal = subBuilder;
+                break;
+              }
+            }
+          }
+        }
+
+        #region Nested types
+        /// <summary>Container for nested types declared in the SpawnPacket message type.</summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static partial class Types {
+          public sealed partial class TreeObject : pb::IMessage<TreeObject> {
+            private static readonly pb::MessageParser<TreeObject> _parser = new pb::MessageParser<TreeObject>(() => new TreeObject());
+            private pb::UnknownFieldSet _unknownFields;
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public static pb::MessageParser<TreeObject> Parser { get { return _parser; } }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public static pbr::MessageDescriptor Descriptor {
+              get { return global::Net.Realtime.Packet.Types.SpawnPacket.Descriptor.NestedTypes[0]; }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            pbr::MessageDescriptor pb::IMessage.Descriptor {
+              get { return Descriptor; }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public TreeObject() {
+              OnConstruction();
+            }
+
+            partial void OnConstruction();
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public TreeObject(TreeObject other) : this() {
+              objectTransform_ = other.objectTransform_ != null ? other.objectTransform_.Clone() : null;
+              _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public TreeObject Clone() {
+              return new TreeObject(this);
+            }
+
+            /// <summary>Field number for the "object_transform" field.</summary>
+            public const int ObjectTransformFieldNumber = 1;
+            private global::Net.Realtime.Transform objectTransform_;
+            /// <summary>
+            /// TODO: other stats
+            /// </summary>
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public global::Net.Realtime.Transform ObjectTransform {
+              get { return objectTransform_; }
+              set {
+                objectTransform_ = value;
+              }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override bool Equals(object other) {
+              return Equals(other as TreeObject);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public bool Equals(TreeObject other) {
+              if (ReferenceEquals(other, null)) {
+                return false;
+              }
+              if (ReferenceEquals(other, this)) {
+                return true;
+              }
+              if (!object.Equals(ObjectTransform, other.ObjectTransform)) return false;
+              return Equals(_unknownFields, other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override int GetHashCode() {
+              int hash = 1;
+              if (objectTransform_ != null) hash ^= ObjectTransform.GetHashCode();
+              if (_unknownFields != null) {
+                hash ^= _unknownFields.GetHashCode();
+              }
+              return hash;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override string ToString() {
+              return pb::JsonFormatter.ToDiagnosticString(this);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void WriteTo(pb::CodedOutputStream output) {
+              if (objectTransform_ != null) {
+                output.WriteRawTag(10);
+                output.WriteMessage(ObjectTransform);
+              }
+              if (_unknownFields != null) {
+                _unknownFields.WriteTo(output);
+              }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public int CalculateSize() {
+              int size = 0;
+              if (objectTransform_ != null) {
+                size += 1 + pb::CodedOutputStream.ComputeMessageSize(ObjectTransform);
+              }
+              if (_unknownFields != null) {
+                size += _unknownFields.CalculateSize();
+              }
+              return size;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void MergeFrom(TreeObject other) {
+              if (other == null) {
+                return;
+              }
+              if (other.objectTransform_ != null) {
+                if (objectTransform_ == null) {
+                  ObjectTransform = new global::Net.Realtime.Transform();
+                }
+                ObjectTransform.MergeFrom(other.ObjectTransform);
+              }
+              _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void MergeFrom(pb::CodedInputStream input) {
+              uint tag;
+              while ((tag = input.ReadTag()) != 0) {
+                switch(tag) {
+                  default:
+                    _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                    break;
+                  case 10: {
+                    if (objectTransform_ == null) {
+                      ObjectTransform = new global::Net.Realtime.Transform();
+                    }
+                    input.ReadMessage(ObjectTransform);
+                    break;
+                  }
+                }
+              }
+            }
+
+          }
+
+          public sealed partial class AnimalObject : pb::IMessage<AnimalObject> {
+            private static readonly pb::MessageParser<AnimalObject> _parser = new pb::MessageParser<AnimalObject>(() => new AnimalObject());
+            private pb::UnknownFieldSet _unknownFields;
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public static pb::MessageParser<AnimalObject> Parser { get { return _parser; } }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public static pbr::MessageDescriptor Descriptor {
+              get { return global::Net.Realtime.Packet.Types.SpawnPacket.Descriptor.NestedTypes[1]; }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            pbr::MessageDescriptor pb::IMessage.Descriptor {
+              get { return Descriptor; }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public AnimalObject() {
+              OnConstruction();
+            }
+
+            partial void OnConstruction();
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public AnimalObject(AnimalObject other) : this() {
+              objectTransform_ = other.objectTransform_ != null ? other.objectTransform_.Clone() : null;
+              _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public AnimalObject Clone() {
+              return new AnimalObject(this);
+            }
+
+            /// <summary>Field number for the "object_transform" field.</summary>
+            public const int ObjectTransformFieldNumber = 1;
+            private global::Net.Realtime.Transform objectTransform_;
+            /// <summary>
+            /// TODO: other stats
+            /// </summary>
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public global::Net.Realtime.Transform ObjectTransform {
+              get { return objectTransform_; }
+              set {
+                objectTransform_ = value;
+              }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override bool Equals(object other) {
+              return Equals(other as AnimalObject);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public bool Equals(AnimalObject other) {
+              if (ReferenceEquals(other, null)) {
+                return false;
+              }
+              if (ReferenceEquals(other, this)) {
+                return true;
+              }
+              if (!object.Equals(ObjectTransform, other.ObjectTransform)) return false;
+              return Equals(_unknownFields, other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override int GetHashCode() {
+              int hash = 1;
+              if (objectTransform_ != null) hash ^= ObjectTransform.GetHashCode();
+              if (_unknownFields != null) {
+                hash ^= _unknownFields.GetHashCode();
+              }
+              return hash;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public override string ToString() {
+              return pb::JsonFormatter.ToDiagnosticString(this);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void WriteTo(pb::CodedOutputStream output) {
+              if (objectTransform_ != null) {
+                output.WriteRawTag(10);
+                output.WriteMessage(ObjectTransform);
+              }
+              if (_unknownFields != null) {
+                _unknownFields.WriteTo(output);
+              }
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public int CalculateSize() {
+              int size = 0;
+              if (objectTransform_ != null) {
+                size += 1 + pb::CodedOutputStream.ComputeMessageSize(ObjectTransform);
+              }
+              if (_unknownFields != null) {
+                size += _unknownFields.CalculateSize();
+              }
+              return size;
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void MergeFrom(AnimalObject other) {
+              if (other == null) {
+                return;
+              }
+              if (other.objectTransform_ != null) {
+                if (objectTransform_ == null) {
+                  ObjectTransform = new global::Net.Realtime.Transform();
+                }
+                ObjectTransform.MergeFrom(other.ObjectTransform);
+              }
+              _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+            }
+
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+            public void MergeFrom(pb::CodedInputStream input) {
+              uint tag;
+              while ((tag = input.ReadTag()) != 0) {
+                switch(tag) {
+                  default:
+                    _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                    break;
+                  case 10: {
+                    if (objectTransform_ == null) {
+                      ObjectTransform = new global::Net.Realtime.Transform();
+                    }
+                    input.ReadMessage(ObjectTransform);
+                    break;
+                  }
+                }
+              }
+            }
+
+          }
+
+        }
+        #endregion
+
+      }
+
+      public sealed partial class UpdateMeme : pb::IMessage<UpdateMeme> {
+        private static readonly pb::MessageParser<UpdateMeme> _parser = new pb::MessageParser<UpdateMeme>(() => new UpdateMeme());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<UpdateMeme> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Net.Realtime.Packet.Descriptor.NestedTypes[3]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public UpdateMeme() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public UpdateMeme(UpdateMeme other) : this() {
+          id_ = other.id_;
+          memeName_ = other.memeName_;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public UpdateMeme Clone() {
+          return new UpdateMeme(this);
+        }
+
+        /// <summary>Field number for the "id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private ulong id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ulong Id {
+          get { return id_; }
+          set {
+            id_ = value;
+          }
+        }
+
+        /// <summary>Field number for the "meme_name" field.</summary>
+        public const int MemeNameFieldNumber = 2;
+        private string memeName_ = "";
+        /// <summary>
+        /// Not really efficient but ok
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string MemeName {
+          get { return memeName_; }
+          set {
+            memeName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as UpdateMeme);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(UpdateMeme other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (Id != other.Id) return false;
+          if (MemeName != other.MemeName) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (Id != 0UL) hash ^= Id.GetHashCode();
+          if (MemeName.Length != 0) hash ^= MemeName.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (Id != 0UL) {
+            output.WriteRawTag(8);
+            output.WriteUInt64(Id);
+          }
+          if (MemeName.Length != 0) {
+            output.WriteRawTag(18);
+            output.WriteString(MemeName);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (Id != 0UL) {
+            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
+          }
+          if (MemeName.Length != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeStringSize(MemeName);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(UpdateMeme other) {
+          if (other == null) {
+            return;
+          }
+          if (other.Id != 0UL) {
+            Id = other.Id;
+          }
+          if (other.MemeName.Length != 0) {
+            MemeName = other.MemeName;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -743,7 +1439,11 @@ namespace Net.Realtime {
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
               case 8: {
-                ObjectId = input.ReadUInt64();
+                Id = input.ReadUInt64();
+                break;
+              }
+              case 18: {
+                MemeName = input.ReadString();
                 break;
               }
             }
@@ -752,8 +1452,444 @@ namespace Net.Realtime {
 
       }
 
+      /// <summary>
+      /// Server sending some information on the current state before starting
+      /// </summary>
+      public sealed partial class MatchInformationPacket : pb::IMessage<MatchInformationPacket> {
+        private static readonly pb::MessageParser<MatchInformationPacket> _parser = new pb::MessageParser<MatchInformationPacket>(() => new MatchInformationPacket());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<MatchInformationPacket> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Net.Realtime.Packet.Descriptor.NestedTypes[4]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MatchInformationPacket() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MatchInformationPacket(MatchInformationPacket other) : this() {
+          seed_ = other.seed_;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public MatchInformationPacket Clone() {
+          return new MatchInformationPacket(this);
+        }
+
+        /// <summary>Field number for the "seed" field.</summary>
+        public const int SeedFieldNumber = 1;
+        private int seed_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Seed {
+          get { return seed_; }
+          set {
+            seed_ = value;
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as MatchInformationPacket);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(MatchInformationPacket other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (Seed != other.Seed) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (Seed != 0) hash ^= Seed.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (Seed != 0) {
+            output.WriteRawTag(8);
+            output.WriteInt32(Seed);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (Seed != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seed);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(MatchInformationPacket other) {
+          if (other == null) {
+            return;
+          }
+          if (other.Seed != 0) {
+            Seed = other.Seed;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 8: {
+                Seed = input.ReadInt32();
+                break;
+              }
+            }
+          }
+        }
+
+      }
+
+      /// <summary>
+      /// Client notifying being ready to handle gameplay
+      /// </summary>
+      public sealed partial class InitializedPacket : pb::IMessage<InitializedPacket> {
+        private static readonly pb::MessageParser<InitializedPacket> _parser = new pb::MessageParser<InitializedPacket>(() => new InitializedPacket());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<InitializedPacket> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Net.Realtime.Packet.Descriptor.NestedTypes[5]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InitializedPacket() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InitializedPacket(InitializedPacket other) : this() {
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InitializedPacket Clone() {
+          return new InitializedPacket(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as InitializedPacket);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(InitializedPacket other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(InitializedPacket other) {
+          if (other == null) {
+            return;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+            }
+          }
+        }
+
+      }
+
     }
     #endregion
+
+  }
+
+  /// <summary>
+  /// TODO: is it worthwhile to add like "owner_id" ... ?
+  /// </summary>
+  public sealed partial class Transform : pb::IMessage<Transform> {
+    private static readonly pb::MessageParser<Transform> _parser = new pb::MessageParser<Transform>(() => new Transform());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Transform> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform(Transform other) : this() {
+      id_ = other.id_;
+      position_ = other.position_ != null ? other.position_.Clone() : null;
+      rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform Clone() {
+      return new Transform(this);
+    }
+
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private ulong id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "position" field.</summary>
+    public const int PositionFieldNumber = 2;
+    private global::Net.Realtime.Vector3 position_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Vector3 Position {
+      get { return position_; }
+      set {
+        position_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rotation" field.</summary>
+    public const int RotationFieldNumber = 3;
+    private global::Net.Realtime.Quaternion rotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Quaternion Rotation {
+      get { return rotation_; }
+      set {
+        rotation_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Transform);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Transform other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (!object.Equals(Position, other.Position)) return false;
+      if (!object.Equals(Rotation, other.Rotation)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0UL) hash ^= Id.GetHashCode();
+      if (position_ != null) hash ^= Position.GetHashCode();
+      if (rotation_ != null) hash ^= Rotation.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0UL) {
+        output.WriteRawTag(8);
+        output.WriteUInt64(Id);
+      }
+      if (position_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Position);
+      }
+      if (rotation_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Rotation);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
+      }
+      if (position_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+      }
+      if (rotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Transform other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0UL) {
+        Id = other.Id;
+      }
+      if (other.position_ != null) {
+        if (position_ == null) {
+          Position = new global::Net.Realtime.Vector3();
+        }
+        Position.MergeFrom(other.Position);
+      }
+      if (other.rotation_ != null) {
+        if (rotation_ == null) {
+          Rotation = new global::Net.Realtime.Quaternion();
+        }
+        Rotation.MergeFrom(other.Rotation);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Id = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            if (position_ == null) {
+              Position = new global::Net.Realtime.Vector3();
+            }
+            input.ReadMessage(Position);
+            break;
+          }
+          case 26: {
+            if (rotation_ == null) {
+              Rotation = new global::Net.Realtime.Quaternion();
+            }
+            input.ReadMessage(Rotation);
+            break;
+          }
+        }
+      }
+    }
 
   }
 

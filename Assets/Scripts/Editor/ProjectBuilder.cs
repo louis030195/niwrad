@@ -6,9 +6,11 @@ namespace Editor
     public static class Builds
     {
         private const string BasePath = "Builds/";
-        private const string ArtifactName = "Niwrad";
+        private const string ArtifactName = "niwrad";
         private static readonly string[] GameLevels = {
-            "Assets/Scenes/SampleScene.unity"
+	        "Assets/Scenes/LoginMenu.unity",
+	        "Assets/Scenes/SecondMenu.unity",
+	        "Assets/Scenes/Game.unity"
         };
 
         [MenuItem("Builds/Windows %#W")]
@@ -32,33 +34,29 @@ namespace Editor
         {
             PlayerSettings.runInBackground = true;
             PlayerSettings.resizableWindow = true;
+            PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
             var message = BuildPipeline.BuildPlayer(
                 GameLevels,
-                $"{BasePath}Linux/{ArtifactName}.x86_64",
+                $"{BasePath}Linux/Client/{ArtifactName}.x86_64",
                 BuildTarget.StandaloneLinux64,
                 BuildOptions.None);
 
-            if (message)
-                Debug.Log($"Linux build complete");
-            else
-                Debug.LogError($"Error building Linux { message }");
+            if (message) Debug.Log($"Linux client build complete");
+            else Debug.LogError($"Error building Linux client { message }");
         }
 
-        [MenuItem("Builds/LinuxHeadless %#H")]
-        public static void BuildLinuxHeadless()
+        [MenuItem("Builds/LinuxServer %#H")]
+        public static void BuildLinuxServer()
         {
             PlayerSettings.runInBackground = true;
-            PlayerSettings.resizableWindow = true;
             var message = BuildPipeline.BuildPlayer(
-                GameLevels,
-                $"{BasePath}Linux/{ArtifactName}.x86_64",
-                BuildTarget.StandaloneLinux64,
-                BuildOptions.EnableHeadlessMode);
+	            new[] {GameLevels[2]},
+	            $"{BasePath}Linux/Server/{ArtifactName}.x86_64",
+	            BuildTarget.StandaloneLinux64,
+	            BuildOptions.EnableHeadlessMode);
 
-            if (message)
-                Debug.Log($"Linux build complete");
-            else
-                Debug.LogError($"Error building Linux { message }");
+            if (message) Debug.Log($"Linux server build complete");
+            else Debug.LogError($"Error building Linux server { message }");
         }
 
         [MenuItem("Builds/Web")]
@@ -66,15 +64,13 @@ namespace Editor
         {
             PlayerSettings.runInBackground = true;
             var message = BuildPipeline.BuildPlayer(
-                GameLevels,
+	            new[] {GameLevels[2]},
                 $"{BasePath}Web/",
                 BuildTarget.WebGL,
                 BuildOptions.None);
 
-            if (message)
-                Debug.Log($"WebGL build complete");
-            else
-                Debug.LogError($"Error building WebGL { message }");
+            if (message) Debug.Log($"WebGL build complete");
+            else Debug.LogError($"Error building WebGL { message }");
         }
 
         [MenuItem("Builds/Android %#A")]

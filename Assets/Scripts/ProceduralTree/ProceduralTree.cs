@@ -9,7 +9,7 @@ namespace ProceduralTree {
 
 	public class ProceduralTree : ProceduralModelingBase {
 
-		public TreeData Data { get { return data; } }
+		public TreeData Data => data;
 
 		[SerializeField] TreeData data;
 		[SerializeField, Range(2, 8)] protected int generations = 5;
@@ -84,12 +84,14 @@ namespace ProceduralTree {
 				}
 			});
 
-			var mesh = new Mesh();
-			mesh.vertices = vertices.ToArray();
-			mesh.normals = normals.ToArray();
-			mesh.tangents = tangents.ToArray();
-			mesh.uv = uvs.ToArray();
-			mesh.triangles = triangles.ToArray();
+			var mesh = new Mesh
+			{
+				vertices = vertices.ToArray(),
+				normals = normals.ToArray(),
+				tangents = tangents.ToArray(),
+				uv = uvs.ToArray(),
+				triangles = triangles.ToArray()
+			};
 			return mesh;
 		}
 
@@ -98,7 +100,7 @@ namespace ProceduralTree {
 			return Build(data, generations, length, radius);
 		}
 
-		static float TraverseMaxLength(TreeBranch branch) {
+		private static float TraverseMaxLength(TreeBranch branch) {
 			float max = 0f;
 			branch.Children.ForEach(c => {
 				max = Mathf.Max(max, TraverseMaxLength(c));
@@ -106,7 +108,7 @@ namespace ProceduralTree {
 			return branch.Length + max;
 		}
 
-		static void Traverse(TreeBranch from, Action<TreeBranch> action) {
+		private static void Traverse(TreeBranch from, Action<TreeBranch> action) {
 			if(from.Children.Count > 0) {
 				from.Children.ForEach(child => {
 					Traverse(child, action);
@@ -117,7 +119,7 @@ namespace ProceduralTree {
 
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public class TreeData {
 		public int randomSeed = 0;
 		[Range(0.25f, 0.95f)] public float lengthAttenuation = 0.8f, radiusAttenuation = 0.5f;
@@ -156,49 +158,50 @@ namespace ProceduralTree {
 	}
 
 	public class TreeBranch {
-		public int Generation { get { return generation; } }
-		public List<TreeSegment> Segments { get { return segments; } }
-		public List<TreeBranch> Children { get { return children; } }
+		public int Generation => m_Generation;
+		public List<TreeSegment> Segments => m_Segments;
+		public List<TreeBranch> Children => m_Children;
 
-		public Vector3 From { get { return from; } }
-		public Vector3 To { get { return to; } }
-		public float Length { get { return length; } }
-		public float Offset { get { return offset; } }
+		public Vector3 From => m_From;
+		public Vector3 To => m_To;
+		public float Length => m_Length;
+		public float Offset => m_Offset;
 
-		int generation;
+		private readonly int m_Generation;
 
-		List<TreeSegment> segments;
-		List<TreeBranch> children;
+		private readonly List<TreeSegment> m_Segments;
+		private readonly List<TreeBranch> m_Children;
 
-		Vector3 from, to;
-		float fromRadius, toRadius;
-		float length;
-		float offset;
+		private readonly Vector3 m_From, m_To;
+		private readonly float m_FromRadius, m_ToRadius;
+		private readonly float m_Length;
+		private readonly float m_Offset;
 
 		// for Root branch constructor
-		public TreeBranch(int generation, float length, float radius, TreeData data) : this(new List<TreeBranch>(), generation, generation, Vector3.zero, Vector3.up, Vector3.right, Vector3.back, length, radius, 0f, data) {
+		public TreeBranch(int generation, float length, float radius, TreeData data) :
+			this(new List<TreeBranch>(), generation, generation, Vector3.zero, Vector3.up, Vector3.right, Vector3.back, length, radius, 0f, data) {
 		}
 
 		protected TreeBranch(List<TreeBranch> branches, int generation, int generations, Vector3 from, Vector3 tangent, Vector3 normal, Vector3 binormal, float length, float radius, float offset, TreeData data) {
-			this.generation = generation;
+			m_Generation = generation;
 
-			this.fromRadius = radius;
-			this.toRadius = (generation == 0) ? 0f : radius * data.radiusAttenuation;
+			m_FromRadius = radius;
+			m_ToRadius = (generation == 0) ? 0f : radius * data.radiusAttenuation;
 
-			this.from = from;
+			m_From = from;
 
             var scale = Mathf.Lerp(1f, data.growthAngleScale, 1f - 1f * generation / generations);
             var rotation = Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), normal) * Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), binormal);
-            this.to = from + rotation * tangent * length;
+            m_To = from + rotation * tangent * length;
 
-			this.length = length;
-			this.offset = offset;
+			m_Length = length;
+			m_Offset = offset;
 
-			segments = BuildSegments(data, fromRadius, toRadius, normal, binormal);
+			m_Segments = BuildSegments(data, m_FromRadius, m_ToRadius, normal, binormal);
 
             branches.Add(this);
 
-			children = new List<TreeBranch>();
+			m_Children = new List<TreeBranch>();
 			if(generation > 0) {
 				int count = data.GetRandomBranches();
 				for(int i = 0; i < count; i++) {
@@ -212,8 +215,8 @@ namespace ProceduralTree {
                         ratio = Mathf.Lerp(0.5f, 1f, (1f * i) / (count - 1));
                     }
 
-                    var index = Mathf.FloorToInt(ratio * (segments.Count - 1));
-					var segment = segments[index];
+                    var index = Mathf.FloorToInt(ratio * (m_Segments.Count - 1));
+					var segment = m_Segments[index];
 
                     Vector3 nt, nn, nb;
                     if(ratio >= 1f)
@@ -232,7 +235,7 @@ namespace ProceduralTree {
 
 					var child = new TreeBranch(
                         branches,
-						this.generation - 1,
+						this.m_Generation - 1,
                         generations,
 						segment.Position,
 						nt,
@@ -244,22 +247,22 @@ namespace ProceduralTree {
 						data
 					);
 
-					children.Add(child);
+					m_Children.Add(child);
 				}
 			}
 		}
 
-		List<TreeSegment> BuildSegments (TreeData data, float fromRadius, float toRadius, Vector3 normal, Vector3 binormal) {
+		private List<TreeSegment> BuildSegments (TreeData data, float fromRadius, float toRadius, Vector3 normal, Vector3 binormal) {
 			var segments = new List<TreeSegment>();
 
 			var points = new List<Vector3>();
 
-			var length = (to - from).magnitude;
+			var length = (m_To - m_From).magnitude;
 			var bend = length * (normal * data.GetRandomBendDegree() + binormal * data.GetRandomBendDegree());
-			points.Add(from);
-			points.Add(Vector3.Lerp(from, to, 0.25f) + bend);
-			points.Add(Vector3.Lerp(from, to, 0.75f) + bend);
-			points.Add(to);
+			points.Add(m_From);
+			points.Add(Vector3.Lerp(m_From, m_To, 0.25f) + bend);
+			points.Add(Vector3.Lerp(m_From, m_To, 0.75f) + bend);
+			points.Add(m_To);
 
 			var curve = new CatmullRomCurve(points);
 
@@ -278,13 +281,13 @@ namespace ProceduralTree {
 	}
 
 	public class TreeSegment {
-		public FrenetFrame Frame { get { return frame; } }
-		public Vector3 Position { get { return position; } }
-        public float Radius { get { return radius; } }
+		public FrenetFrame Frame => frame;
+		public Vector3 Position => position;
+		public float Radius => radius;
 
-		FrenetFrame frame;
-		Vector3 position;
-        float radius;
+		private FrenetFrame frame;
+		private Vector3 position;
+		private float radius;
 
 		public TreeSegment(FrenetFrame frame, Vector3 position, float radius) {
 			this.frame = frame;
@@ -294,16 +297,12 @@ namespace ProceduralTree {
 	}
 
 	public class Rand {
-		System.Random rnd;
+		private readonly System.Random m_Rnd;
 
-		public float value {
-			get {
-				return (float)rnd.NextDouble();
-			}
-		}
+		public float value => (float)m_Rnd.NextDouble();
 
 		public Rand(int seed) {
-			rnd = new System.Random(seed);
+			m_Rnd = new System.Random(seed);
 		}
 
 		public int Range(int a, int b) {

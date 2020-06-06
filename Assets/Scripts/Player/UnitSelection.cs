@@ -30,9 +30,31 @@ namespace Player {
 		private void Awake()
 		{
 			m_Cam = Camera.main;
+
+#if UNITY_STANDALONE
+			// Lock cursor withing window in standalone
+			Cursor.lockState = CursorLockMode.Confined;
+#endif
 		}
 
 		private void Update () {
+			if (m_Cam == null)
+			{
+				m_Cam = Camera.main;
+				if (m_Cam == null)
+				{
+					Debug.LogError($"There is no camera in the scene !");
+					return;
+				}
+			}
+#if UNITY_STANDALONE
+			// Can unlock cursor from the window in standalone by pressing escape
+			if (Input.GetKeyUp(KeyCode.Escape))
+			{
+				Cursor.lockState = CursorLockMode.None;
+			}
+#endif
+
 			var mouse = Input.mousePosition;
 			var ray = m_Cam.ScreenPointToRay(mouse);
 			m_Hit = Physics.Raycast(ray, out var info, float.MaxValue);

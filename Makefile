@@ -7,7 +7,7 @@ CONTAINER_NAME ?= niwrad
 CONTAINER_INSTANCE ?= default
 
 
-.PHONY: help build build-headless run proto docker-build docker-run
+.PHONY: help build build-headless client server nakama proto docker-build docker-run
 help:
 		@echo ''
 		@echo 'Usage: make [TARGET]'
@@ -29,11 +29,16 @@ build-headless:
 		-silent-crashes -headless
 
 
-run:
-	./Builds/Linux/$(NS).x86_64
+client:
+	./Builds/Linux/Client/$(NS).x86_64
+
+server:
+	./Builds/Linux/Server/$(NS).x86_64
+
+nakama:
+	docker-compose -f Server/docker-compose.yml up
 
 proto:
-	protoc --csharp_out=Assets/Scripts/Net/Realtime/Protometry Protobuf/Protometry/*.proto
 	protoc --csharp_out=Assets/Scripts/Net/Realtime Protobuf/*.proto
 
 

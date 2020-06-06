@@ -314,12 +314,14 @@ MonoBehaviour:
   reproductionDelay: 20
   attack: {fileID: 0}
   health: {fileID: 0}
+  id: 0
+  controller: {fileID: 0}
   initialSpeed: 5
   randomMovementRange: 100
   sightRange: 400
   eatRange: 5
   metabolism: 10
-  reproductionLifeLoss: 50
+  reproductionLifeLoss: 20
   movement: {fileID: 0}
 --- !u!114 &3644157435874668346
 MonoBehaviour:
@@ -348,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiActive: 0
+  lastTransition: 0
 --- !u!114 &8147413370159133988
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nakama;
+using Nakama.TinyJson;
 using UnityEngine;
 using Utils;
 
@@ -18,6 +20,8 @@ namespace Net.Session
     public class SessionManager : Singleton<SessionManager>
     {
         #region Variables
+
+        public bool debug;
 
         /// <summary>
         /// IP Address of the server.
@@ -40,7 +44,7 @@ namespace Net.Session
 
         /// <summary>
         /// Used to establish connection between the client and the server.
-        /// Contains a list of usefull methods required to communicate with Nakama server.
+        /// Contains a list of useful methods required to communicate with Nakama server.
         /// Do not use this directly, use <see cref="client"/> instead.
         /// </summary>
         private Client m_Client;
@@ -50,20 +54,6 @@ namespace Net.Session
         /// Do not use this directly, use <see cref="socket"/> instead.
         /// </summary>
         private ISocket m_Socket;
-
-        #region Debug
-
-        [Header("Debug")]
-        [Tooltip("If true, stored session authentication token and device id will be erased on start"), SerializeField]
-        private bool erasePlayerPrefsOnStart;
-
-        /// <summary>
-        /// Suffix added to <see cref="m_DeviceId"/> to generate new device id.
-        /// </summary>
-        [Tooltip("Suffix added to device id to generate new device id"), SerializeField]
-        private string suffix = string.Empty;
-
-        #endregion
 
         #endregion
 
@@ -131,7 +121,7 @@ namespace Net.Session
         {
             get
             {
-                if (session == null || session.HasExpired(DateTime.UtcNow) == true)
+                if (session == null || session.HasExpired(DateTime.UtcNow))
                 {
                     return false;
                 }
@@ -141,6 +131,11 @@ namespace Net.Session
                 }
             }
         }
+
+        /// <summary>
+        /// Is it server ?
+        /// </summary>
+        public bool isServer;
 
         #endregion
 
@@ -231,7 +226,7 @@ namespace Net.Session
         /// Connects <see cref="socket"/> to Nakama server to enable real-time communication.
         /// </summary>
         /// <returns>Returns true if socket has connected successfully.</returns>
-        private async Task<bool> ConnectSocketAsync()
+        public async Task<bool> ConnectSocketAsync()
         {
             try
             {

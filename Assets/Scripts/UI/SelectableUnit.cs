@@ -29,6 +29,11 @@ namespace UI
 
 		private void Update()
 		{
+			if (m_Cam == null)
+			{
+				m_Cam = Camera.main;
+				return;
+			}
 			// Make the canvas always look to the camera
 			var rotation = m_Cam.transform.rotation;
 			information.transform.LookAt(information.transform.position + rotation * -Vector3.back,rotation * Vector3.up);

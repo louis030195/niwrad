@@ -114,6 +114,9 @@
             <e p="Movement.cs" t="Include" />
             <e p="Vegetation.cs" t="Include" />
           </e>
+          <e p="Gameplay" t="Include">
+            <e p="HostManager.cs" t="Include" />
+          </e>
           <e p="Generate.cs" t="Include" />
           <e p="NavMeshComponents" t="Include">
             <e p="Editor" t="Include">
@@ -135,14 +138,13 @@
           </e>
           <e p="Net" t="Include">
             <e p="Match" t="Include">
-              <e p="MatchManager.cs" t="Include" />
+              <e p="MatchCommunicationManager.cs" t="Include" />
             </e>
             <e p="Realtime" t="Include">
-              <e p="Protometry" t="Include">
-                <e p="Quaternion.cs" t="Include" />
-                <e p="Vector3.cs" t="Include" />
-              </e>
+              <e p="Quaternion.cs" t="Include" />
               <e p="Realtime.cs" t="Include" />
+              <e p="TransformSync.cs" t="Include" />
+              <e p="Vector3.cs" t="Include" />
             </e>
             <e p="Session" t="Include">
               <e p="AuthenticationResponse.cs" t="Include" />
@@ -165,6 +167,7 @@
             <e p="Grow.cs" t="Include" />
             <e p="ProceduralModelingBase.cs" t="Include" />
             <e p="ProceduralTree.cs" t="Include" />
+            <e p="TreePool.cs" t="Include" />
           </e>
           <e p="StateMachine" t="Include">
             <e p="Action.cs" t="Include" />
@@ -181,11 +184,13 @@
             <e p="LoginMenu.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />
             <e p="SelectableUnit.cs" t="Include" />
+            <e p="UiNavigator.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
             <e p="DiamondSquareTerrain.cs" t="Include" />
             <e p="Draw.cs" t="Include" />
             <e p="EnumerableExtension.cs" t="Include" />
+            <e p="MainThreadDispatcher.cs" t="Include" />
             <e p="MeshesExtension.cs" t="Include" />
             <e p="PhysicsExtension.cs" t="Include" />
             <e p="Pool.cs" t="Include" />

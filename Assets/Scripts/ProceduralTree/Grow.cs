@@ -10,34 +10,35 @@ namespace ProceduralTree {
 
 
 		[Range(1f, 100_000f)] public float timeToFullSize = 5;
-		Material material;
+		private Material m_Material;
+		private static readonly int T = Shader.PropertyToID(KGrowingKey);
 
-		const string kGrowingKey = "_T";
+		private const string KGrowingKey = "_T";
 
-		void OnEnable () {
-			material = GetComponent<MeshRenderer>().material;
-			material.SetFloat(kGrowingKey, 0f);
+		private void OnEnable () {
+			m_Material = GetComponent<MeshRenderer>().material;
+			m_Material.SetFloat(T, 0f);
 		}
 
-		void Start () {
-			StartCoroutine(IGrowing(timeToFullSize));
+		private void Start () {
+			StartCoroutine(Growing(timeToFullSize));
 		}
 
-		IEnumerator IGrowing(float duration) {
+		private IEnumerator Growing(float duration) {
 			yield return 0;
 			var time = 0f;
 			while(time < duration) {
 				yield return 0;
-				material.SetFloat(kGrowingKey, time / duration);
+				m_Material.SetFloat(T, time / duration);
 				time += Time.deltaTime;
 			}
-			material.SetFloat(kGrowingKey, 1f);
+			m_Material.SetFloat(T, 1f);
 		}
 
-		void OnDestroy() {
-			if(material != null) {
-				Destroy(material);
-				material = null;
+		private void OnDestroy() {
+			if(m_Material != null) {
+				Destroy(m_Material);
+				m_Material = null;
 			}
 		}
 

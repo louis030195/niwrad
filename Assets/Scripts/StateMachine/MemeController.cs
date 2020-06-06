@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,8 +9,11 @@ namespace StateMachine
 		private float m_DecisionFrequency;
 		private float m_LastDecision;
 		private Meme m_CurrentMeme;
+
 		public bool aiActive;
 		public Observation currentObservation;
+		public float lastTransition;
+		public event Action<Meme> MemeChanged;
 
 		private void OnEnable()
 		{
@@ -39,9 +43,11 @@ namespace StateMachine
 			m_DecisionFrequency = decisionFrequency;
 		}
 
-		public void TransitionToState(Meme nextMeme)
+		public void Transition(Meme nextMeme)
 		{
 			m_CurrentMeme = nextMeme;
+			MemeChanged?.Invoke(m_CurrentMeme);
+			lastTransition = Time.time;
 		}
 	}
 }

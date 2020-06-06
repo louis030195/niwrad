@@ -26,7 +26,7 @@ namespace Evolution
 		public void EatTarget(GameObject target) // TODO: not sure if should merge Attack + Health idk
 		{
 			// TODO: play audio + animation
-			target.GetComponent<Health>().ChangeHealth(-10); // TODO: think where to store params
+
 		}
 	}
 }

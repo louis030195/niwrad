@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package realtime;
+
+import "Protobuf/Protometry/vector3.proto";
+import "Protobuf/Protometry/quaternion.proto";
+option csharp_namespace = "Net.Realtime";
+
+
+message Packet {
+    oneof type {
+        // General physical objects
+        UpdatePositionPacket update_position = 1;
+        UpdateRotationPacket update_rotation = 2;
+        DestroyObjectPacket destroy_object = 3;
+
+        // Server general
+
+        // Player
+
+    }
+
+    message UpdatePositionPacket {
+        uint64 object_id = 1;
+        protometry.Vector3 position = 2;
+    }
+
+    message UpdateRotationPacket {
+        uint64 object_id = 1;
+        protometry.Quaternion rotation = 2;
+    }
+
+    message DestroyObjectPacket {
+        uint64 object_id = 1;
+    }
+}

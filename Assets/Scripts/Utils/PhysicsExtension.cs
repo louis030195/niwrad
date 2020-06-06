@@ -13,7 +13,7 @@ namespace Utils
 		/// <param name="mask"></param>
 		/// <param name="skipInactive"></param>
 		/// <returns></returns>
-		public static GameObject Closest(this Vector3 center, float radius, int mask, bool skipInactive = true)
+		public static GameObject Closest(this Vector3 center, float radius, LayerMask mask, bool skipInactive = true)
 		{
 			var hit = Physics.OverlapSphere(center, radius, mask);
 			var last = hit.LastOrDefault();

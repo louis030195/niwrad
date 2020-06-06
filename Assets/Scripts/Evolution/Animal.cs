@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using StateMachine;
 using UnityEngine;
 using Utils;
+using Action = StateMachine.Action;
 using Random = UnityEngine.Random;
 
 namespace Evolution
@@ -38,49 +40,60 @@ namespace Evolution
 			movement = GetComponent<Movement>();
 			movement.speed = initialSpeed;
 
+			var seeFood = new Transition("SeeFood", 0, SeeFood);
+			var seePartner = new Transition("SeePartner", -1, SeePartner);
+			var timeout = new Transition("Timeout", 1, Timeout);
 			m_Wander = new Meme(
-				new Action<MemeController>[]
+				"Wander",
+				new List<Action>
 				{
-					RandomMovement
+					new Action("RandomMovement", RandomMovement)
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					SeeFoodOrPartner
+					seeFood,
+					seePartner
+
 				},
 				Color.white
 			);
 			m_Reach = new Meme(
-				new Action<MemeController>[]
+				"Reach",
+				new List<Action>
 				{
-					Reach
+					new Action("Reach", Reach)
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					IsCloseEnough
+					new Transition("IsCloseEnoughForEating", 0, IsCloseEnoughForEating),
+					new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding)
 				},
 				Color.red
 			);
 			m_Eat = new Meme(
-				new Action<MemeController>[]
+				"Eat",
+				new List<Action>
 				{
-					Reach,
-					Eat
+					// Reach,
+					new Action("Eat", Eat)
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					IsTargetAlive
+					new Transition("IsTargetAlive", 0, IsTargetAlive)
 				},
 				Color.blue
 			);
 			Breed = new Meme(
-				new Action<MemeController>[]
+				"Breed",
+				new List<Action>
 				{
-					Reach,
-					Reproduce
+					new Action("Reproduce", Reproduce)
+					// Reach,
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					SeeFoodOrPartner
+					seeFood,
+					seePartner
 				},
 				Color.magenta
 			);
@@ -91,21 +104,23 @@ namespace Evolution
 		#region Actions
 		private void Reach(MemeController c)
 		{
-			if (c.currentObservation.Target == null) return;
 			// Debug.Log($"reach {movement.remainingDistance} - {movement.stoppingDistance}");
-			// if (movement.remainingDistance <= movement.stoppingDistance && !movement.pathPending)
-			// {
+			if (movement.remainingDistance <= movement.stoppingDistance + 1)
+			{
 				movement.MoveTo(c.currentObservation.Target.transform.position);
-			// }
+			}
 		}
 
 		private void RandomMovement(MemeController _)
 		{
-			// if (movement.remainingDistance <= movement.stoppingDistance && !movement.pathPending)
-			// {
-				var p = transform.position + Random.insideUnitSphere * randomMovementRange;
-				movement.MoveTo(p.PositionAboveGround());
-			// }
+			if (movement.remainingDistance <= movement.stoppingDistance + 1)
+			{
+				// Try to find a random position on map, otherwise will just go to zero
+				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(randomMovementRange,
+					default,
+					0);
+				movement.MoveTo(p);
+			}
 		}
 
 		private void Eat(MemeController c)
@@ -113,7 +128,8 @@ namespace Evolution
 			// Stop moving
 			movement.isStopped = true;
 			attack.EatTarget(c.currentObservation.Target);
-			health.ChangeHealth(+metabolism);
+			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime*10); // TODO: store params
+			health.ChangeHealth(+metabolism*Time.deltaTime*10);
 		}
 
 		private void Reproduce(MemeController c)
@@ -121,12 +137,15 @@ namespace Evolution
 			// Stop moving
 			movement.isStopped = true;
 			health.ChangeHealth(-reproductionLifeLoss);
-			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var go = Generate.instance.SpawnHost(transform.position, Quaternion.identity); //Pool.Spawn(prefab, transform.position, Quaternion.identity);
 			var th = c.currentObservation.Target.GetComponent<Animal>();
+
+			// Decrease target life now
+			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
+
 			var childHost = go.GetComponent<Animal>();
 			var mutate = new Func<float, float, float, float>((a, b, mutationDegree) =>
 			{
@@ -162,41 +181,62 @@ namespace Evolution
 		#endregion
 
 		#region Transitions
-		private Meme SeeFoodOrPartner(MemeController c)
+		private Meme SeeFood(MemeController c)
 		{
-			int layerMask;
-
-			// Look for partner
-			if (Time.time > LastBreed + reproductionDelay && health.currentHealth > reproductionThreshold)
-			{
-				layerMask = LayerMask.NameToLayer("Animal");
-			}
-			else // Look for food
-			{
-				layerMask = LayerMask.NameToLayer("Vegetation");
-			}
+			var layerMask = 1 << LayerMask.NameToLayer("Vegetation");
 
 			// Any matching object around ? Try to get the closest if any
 			var min = transform.position.Closest(sightRange, layerMask);
-			if (min == null) return null;
-			c.currentObservation.ReproductionMode = layerMask == LayerMask.NameToLayer("Animal");
+
+			// No food around OR target is dead / too weak
+			if (min == null || min.GetComponent<Health>().dead) return null;
 			c.currentObservation.Target = min;
+
 			return m_Reach;
 		}
 
-		private Meme IsCloseEnough(MemeController c)
+		private Meme SeePartner(MemeController c)
+		{
+			// Look for partner
+			if (Time.time > LastBreed + reproductionDelay && health.currentHealth > reproductionThreshold)
+			{
+				var layerMask = 1 << LayerMask.NameToLayer("Animal");
+
+				// Any matching object around ? Try to get the closest if any
+				var min = transform.position.Closest(sightRange, layerMask);
+				// TODO: closest with enough life to breed
+				// No animal to breed with around
+				if (min == null) return null;
+				c.currentObservation.Target = min;
+
+				return m_Reach;
+			}
+
+			return null;
+		}
+
+		private Meme IsCloseEnoughForEating(MemeController c)
 		{
 			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
-			       eatRange ? c.currentObservation.ReproductionMode ? Breed : m_Eat : null;
+			       eatRange ? m_Eat : null;
+		}
+
+		private Meme IsCloseEnoughForBreeding(MemeController c)
+		{
+			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
+			       1 ? Breed : null;
 		}
 
 
 		private Meme IsTargetAlive(MemeController c)
 		{
-			// Debug.Log($"Target dead: {c.currentObservation.Target.GetComponent<Health>().currentHealth} " +
-			//           $"{c.currentObservation.Target.GetComponent<Health>().dead}" +
-			//           $"{c.currentObservation.Target.transform.position}");
-			return c.currentObservation.Target.GetComponent<Health>().currentHealth < 0.0001f ? m_Wander : null;
+			return c.currentObservation.Target.GetComponent<Health>().dead ? m_Wander : null;
+		}
+
+		private Meme Timeout(MemeController c)
+		{
+			// Could be improved
+			return c.lastTransition + 10f > Time.time ? m_Wander : null;
 		}
 
 		#endregion

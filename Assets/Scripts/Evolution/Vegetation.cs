@@ -1,37 +1,48 @@
 using System;
+using System.Collections.Generic;
+using ProceduralTree;
 using StateMachine;
 using UnityEngine;
 using Utils;
+using Action = StateMachine.Action;
 using Random = UnityEngine.Random;
 
 namespace Evolution
 {
 	public class Vegetation : Host
 	{
+		[Header("Reproduction"), Range(5, 1000)]
+		public float reproductionSprayRadius = 100f;
+		[Range(2, 100)]
+		public float reproductionDistanceBetween= 5f;
+		[Range(1, 100)]
+		public float reproductionProbability = 10f;
 
 		private Meme m_Grow;
 		protected new void OnEnable()
 		{
 			base.OnEnable();
 			m_Grow = new Meme(
-				new Action<MemeController>[]
+				"Grow",
+				new List<Action>
 				{
-					Grow
+					new Action("Grow", Grow)
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					CanBreed
+					new Transition("CanBreed", 0, CanBreed)
 				},
 				Color.green
 			);
 			Breed = new Meme(
-				new Action<MemeController>[]
+				"Breed",
+				new List<Action>
 				{
-					Reproduce
+					new Action("Reproduce", Reproduce)
 				},
-				new Func<MemeController, Meme>[]
+				new List<Transition>
 				{
-					CanBreed
+					new Transition("CanBreed", 0, CanBreed)
 				},
 				Color.magenta
 			);
@@ -42,7 +53,8 @@ namespace Evolution
 		protected new void Update()
 		{
 			// Sun gives life (maybe could multiply by "sun intensity here")
-			health.ChangeHealth(robustness*Time.deltaTime);
+			health.ChangeHealth(robustness*Time.deltaTime*10);
+			health.dead = !(health.currentHealth > initialLife); // :)
 		}
 
 
@@ -53,16 +65,17 @@ namespace Evolution
 		}
 		private void Reproduce(MemeController c)
 		{
-			// Debug.Log($"Reproduce");
+			// There is a probability of reproduction
+			if (Random.value * 100 > reproductionProbability) return;
+
 			// Spawning a child around
-			// TODO: extension physics to find some close point that keep a distance with other vegetation
-			// See Evol code
-			var p = transform.position.RandomPositionAroundAboveGroundWithDistance(10f,
+			var p = transform.position.RandomPositionAroundAboveGroundWithDistance(reproductionSprayRadius,
 				LayerMask.GetMask("Vegetation"),
-				1f);
+				reproductionDistanceBetween);
 			// Couldn't find free position
 			if (p == Vector3.zero) return;
 			var go = Generate.instance.SpawnVegetation(p, Quaternion.identity);
+			if (go == null) return; // Max amount of vegetation reached
 			var childHost = go.GetComponent<Vegetation>();
 			var mutate = new Func<float, float, float>((a, mutationDegree) =>
 			{
@@ -89,10 +102,8 @@ namespace Evolution
 			if (Time.time > LastBreed + reproductionDelay &&
 			    health.currentHealth > reproductionThreshold)
 			{
-				c.currentObservation.ReproductionMode = true;
 				return Breed;
 			}
-			c.currentObservation.ReproductionMode = false;
 			return m_Grow;
 		}
 

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_niwrad.1889168670.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Graphics" t="Include">
+          <e p="Shaders" t="Include">
+            <e p="ProceduralTree.cginc" t="Include" />
+            <e p="ProceduralTreeNormal.shader" t="Include" />
+            <e p="ProceduralTreeStandard.shader" t="Include" />
+            <e p="ProceduralTreeUV.shader" t="Include" />
+            <e p="ProjectorAdditiveTint.shader" t="Include" />
+          </e>
+        </e>
+        <e p="NavMeshComponents" t="Include">
+          <e p="Editor" t="Include">
+            <e p="NavMeshAssetManager.cs" t="Include" />
+            <e p="NavMeshComponentsEditor.asmdef" t="Include" />
+            <e p="NavMeshComponentsGUIUtility.cs" t="Include" />
+            <e p="NavMeshLinkEditor.cs" t="Include" />
+            <e p="NavMeshModifierEditor.cs" t="Include" />
+            <e p="NavMeshModifierVolumeEditor.cs" t="Include" />
+            <e p="NavMeshSurfaceEditor.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="NavMeshComponents.asmdef" t="Include" />
+            <e p="NavMeshLink.cs" t="Include" />
+            <e p="NavMeshModifier.cs" t="Include" />
+            <e p="NavMeshModifierVolume.cs" t="Include" />
+            <e p="NavMeshSurface.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Packages" t="Include">
+          <e p="Google.Protobuf.3.12.3" t="Include">
+            <e p="lib" t="Include">
+              <e p="netstandard2.0" t="Include">
+                <e p="Google.Protobuf.xml" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="System.Buffers.4.4.0" t="Include">
+            <e p="lib" t="Include">
+              <e p="netstandard2.0" t="Include">
+                <e p="System.Buffers.xml" t="Include" />
+              </e>
+            </e>
+            <e p="useSharedDesignerContext.txt" t="Include" />
+            <e p="version.txt" t="Include" />
+          </e>
+          <e p="System.Memory.4.5.2" t="Include">
+            <e p="lib" t="Include">
+              <e p="netstandard2.0" t="Include">
+                <e p="System.Memory.xml" t="Include" />
+              </e>
+            </e>
+            <e p="useSharedDesignerContext.txt" t="Include" />
+            <e p="version.txt" t="Include" />
+          </e>
+          <e p="System.Numerics.Vectors.4.4.0" t="Include">
+            <e p="lib" t="Include">
+              <e p="netstandard2.0" t="Include">
+                <e p="System.Numerics.Vectors.xml" t="Include" />
+              </e>
+            </e>
+            <e p="useSharedDesignerContext.txt" t="Include" />
+            <e p="version.txt" t="Include" />
+          </e>
+          <e p="System.Runtime.CompilerServices.Unsafe.4.5.2" t="Include">
+            <e p="lib" t="Include">
+              <e p="netstandard2.0" t="Include">
+                <e p="System.Runtime.CompilerServices.Unsafe.xml" t="Include" />
+              </e>
+            </e>
+            <e p="useSharedDesignerContext.txt" t="Include" />
+            <e p="version.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Plugins" t="Include">
+          <e p="Nakama" t="Include">
+            <e p="ClientExtensions.cs" t="Include" />
+            <e p="JsWebSocketAdapter.cs" t="Include" />
+            <e p="UnityLogger.cs" t="Include" />
+            <e p="UnityWebRequestAdapter.cs" t="Include" />
+            <e p="Version.txt" t="Include" />
+            <e p="link.xml" t="Include" />
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Editor" t="Include">
+            <e p="ProjectBuilder.cs" t="Include" />
+            <e p="ProtoPrefs.cs" t="Include" />
+            <e p="ProtobufUnityCompiler.cs" t="Include" />
+          </e>
+          <e p="Evolution" t="Include">
+            <e p="Animal.cs" t="Include" />
+            <e p="Attack.cs" t="Include" />
+            <e p="Health.cs" t="Include" />
+            <e p="Host.cs" t="Include" />
+            <e p="Movement.cs" t="Include" />
+            <e p="Vegetation.cs" t="Include" />
+          </e>
+          <e p="Generate.cs" t="Include" />
+          <e p="Net" t="Include">
+            <e p="Match" t="Include">
+              <e p="MatchCommunicationManager.cs" t="Include" />
+            </e>
+            <e p="Realtime" t="Include">
+              <e p="Protometry" t="Include">
+                <e p="Quaternion.cs" t="Include" />
+                <e p="Vector3.cs" t="Include" />
+              </e>
+              <e p="Realtime.cs" t="Include" />
+            </e>
+            <e p="Session" t="Include">
+              <e p="AuthenticationResponse.cs" t="Include" />
+              <e p="SessionManager.cs" t="Include" />
+            </e>
+            <e p="Utils" t="Include">
+              <e p="Helper.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Player" t="Include">
+            <e p="CameraController.cs" t="Include" />
+            <e p="UnitSelection.cs" t="Include" />
+          </e>
+          <e p="ProceduralTree" t="Include">
+            <e p="Curve" t="Include">
+              <e p="CatmullRomCurve.cs" t="Include" />
+              <e p="CurveBase.cs" t="Include" />
+              <e p="FrenetFrame.cs" t="Include" />
+            </e>
+            <e p="Grow.cs" t="Include" />
+            <e p="ProceduralModelingBase.cs" t="Include" />
+            <e p="ProceduralTree.cs" t="Include" />
+          </e>
+          <e p="StateMachine" t="Include">
+            <e p="Action.cs" t="Include" />
+            <e p="Meme.cs" t="Include" />
+            <e p="MemeController.cs" t="Include" />
+            <e p="Observation.cs" t="Include" />
+            <e p="Parameters.cs" t="Include" />
+            <e p="Transition.cs" t="Include" />
+          </e>
+          <e p="Test.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="BehaviourDisplay.cs" t="Include" />
+            <e p="HealthUi.cs" t="Include" />
+            <e p="SelectableUnit.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="DiamondSquareTerrain.cs" t="Include" />
+            <e p="Draw.cs" t="Include" />
+            <e p="EnumerableExtension.cs" t="Include" />
+            <e p="MeshesExtension.cs" t="Include" />
+            <e p="PhysicsExtension.cs" t="Include" />
+            <e p="Pool.cs" t="Include" />
+            <e p="ReflectionExtension.cs" t="Include" />
+            <e p="Singleton.cs" t="Include" />
+            <e p="Spatial.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="NavMeshComponents.csproj" t="IncludeRecursive" />
+      <e p="NavMeshComponentsEditor.csproj" t="IncludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="niwrad.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

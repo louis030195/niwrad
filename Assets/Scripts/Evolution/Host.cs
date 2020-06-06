@@ -14,18 +14,14 @@ namespace Evolution
 	[RequireComponent(typeof(MemeController))]
 	public class Host : MonoBehaviour
 	{
-		[Header("Evolution parameters")]
-		[Range(0.1f, 5f)]
+		[Header("Evolution parameters"), Range(0.1f, 5f)]
 		public float decisionFrequency = 1f;
-		[Header("Initial characteristics")]
-		[Range(20, 80)]
+		[Header("Initial characteristics"), Range(20, 80)]
 		public float initialLife = 40f;
-		[Range(0.1f, 2.0f)]
-		[Tooltip("How much life losing over time")] // TODO: fix names
+		[Tooltip("How much life losing over time"), Range(0.1f, 2.0f)] // TODO: fix names
 		public float robustness = 1f;
 
-		[Header("Reproduction")]
-		[Range(20, 80)]
+		[Header("Reproduction"), Range(20, 80)]
 		public float reproductionThreshold = 80f;
 		[Range(1, 100)]
 		public float reproductionDelay = 20f;

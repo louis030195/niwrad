@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="76e45385-4321-4a52-977b-585e8aa3adc8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/UnitSelection.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Realtime/Realtime.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/MeshesExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/ProtobufUnityCompiler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Realtime/Protometry/Quaternion.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/ProtoPrefs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/ProjectBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Utils/Helper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D3DC689-8238-40A8-9796-5F62FC60AAAC/c2/a7a028d4/Terrain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/ReflectionExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Draw.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Parameters.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/DiamondSquareTerrain.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Spatial.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/EnumerableExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Scripts/NavMeshLink.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Editor/NavMeshAssetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/manifest.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/SelectableUnit.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Transition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Action.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NavMeshComponents/Editor/NavMeshLinkEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Movement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/BehaviourDisplay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Grow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/41EAFA3E-7D0C-4C50-A64D-DADE2AA2EDD3/e0/08aaf000/ISocket.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/CurveBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/CatmullRomCurve.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/80B06011-2927-4097-B367-C7AD03DA7474/10/944b2272/NavMeshAgent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/FrenetFrame.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Unity/Hub/Editor/2020.1.0b11/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Layout/CanvasScaler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utils/Pool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Generate.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Singleton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/ReflectionExtension.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Spatial.cs" />
+        <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Demo/PTGrowing.cs" />
+        <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Demo/Grow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/DiamondSquareTerrain.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Host.cs" />
+        <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Scripts/ProceduralModelingBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Scripts/Grow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Packages/ProceduralTree/Scripts/ProceduralTree.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/PhysicsExtension.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/Information.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Utils/Draw.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/UnitInformation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/UnitSelection.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/SelectableUnitComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/HealthUi.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/SelectableUnit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Generate.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/BehaviourUi.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/BehaviourDisplay.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine/Transition.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine/Action.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine/Observation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine/Meme.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Health.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Movement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine/MemeController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Vegetation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Attack.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Evolution/Animal.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Scripts/ProceduralTree.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Scripts/ProceduralModelingBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Editor/ProceduralModelingEditor.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Curve/FrenetFrame.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Curve/CurveBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Curve/CatmullRomCurve.cs" />
+        <option value="$PROJECT_DIR$/Assets/Plugins/ProceduralTree/Scripts/Grow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/CatmullRomCurve.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/CurveBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ProceduralTree/Curve/FrenetFrame.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ProtobufUnityCompiler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ProtoPrefs.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ProjectBuilder.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/Client.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/AuthenticationResponse.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Session/SessionManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Utils/Helper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Net/Match/MatchCommunicationManager.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cdbkLtK71oSb4UtaYzaTyNNNdi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34997287" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.30005425" />
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="76e45385-4321-4a52-977b-585e8aa3adc8" name="Default Changelist" comment="" />
+      <created>1590861560454</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590861560454</updated>
+      <workItem from="1590861574134" duration="8519000" />
+      <workItem from="1590901459934" duration="2488000" />
+      <workItem from="1590904189836" duration="37590000" />
+      <workItem from="1591014772284" duration="12906000" />
+      <workItem from="1591079962785" duration="13673000" />
+      <workItem from="1591205798144" duration="9829000" />
+      <workItem from="1591269238779" duration="14831000" />
+      <workItem from="1591380920412" duration="3641000" />
+      <workItem from="1591384589821" duration="7209000" />
+      <workItem from="1591430877619" duration="6603000" />
+      <workItem from="1591442337727" duration="923000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Assets/Scripts/niwrad" />
+    </ignored-roots>
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="507" height="505" key="DebuggerActiveHint" timestamp="1591385320018">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="507" height="505" key="DebuggerActiveHint/0.27.1920.985@0.27.1920.985" timestamp="1591385320018" />
+    <state width="1874" height="340" key="GridCell.Tab.0.bottom" timestamp="1591391799372">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1591391799372" />
+    <state width="1874" height="340" key="GridCell.Tab.0.center" timestamp="1591391799372">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1591391799372" />
+    <state width="1874" height="340" key="GridCell.Tab.0.left" timestamp="1591391799372">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1591391799372" />
+    <state width="1874" height="340" key="GridCell.Tab.0.right" timestamp="1591391799372">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1591391799372" />
+    <state width="1874" height="340" key="GridCell.Tab.1.bottom" timestamp="1591391799373">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.bottom/0.27.1920.985@0.27.1920.985" timestamp="1591391799373" />
+    <state width="1874" height="340" key="GridCell.Tab.1.center" timestamp="1591391799373">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.center/0.27.1920.985@0.27.1920.985" timestamp="1591391799373" />
+    <state width="1874" height="340" key="GridCell.Tab.1.left" timestamp="1591391799373">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.left/0.27.1920.985@0.27.1920.985" timestamp="1591391799373" />
+    <state width="1874" height="340" key="GridCell.Tab.1.right" timestamp="1591391799373">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.1.right/0.27.1920.985@0.27.1920.985" timestamp="1591391799373" />
+    <state width="1874" height="340" key="GridCell.Tab.2.bottom" timestamp="1591391799375">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.2.bottom/0.27.1920.985@0.27.1920.985" timestamp="1591391799375" />
+    <state width="1874" height="340" key="GridCell.Tab.2.center" timestamp="1591391799374">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.2.center/0.27.1920.985@0.27.1920.985" timestamp="1591391799374" />
+    <state width="1874" height="340" key="GridCell.Tab.2.left" timestamp="1591391799373">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.2.left/0.27.1920.985@0.27.1920.985" timestamp="1591391799373" />
+    <state width="1874" height="340" key="GridCell.Tab.2.right" timestamp="1591391799374">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.2.right/0.27.1920.985@0.27.1920.985" timestamp="1591391799374" />
+    <state width="1874" height="340" key="GridCell.Tab.3.bottom" timestamp="1591391799376">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.3.bottom/0.27.1920.985@0.27.1920.985" timestamp="1591391799376" />
+    <state width="1874" height="340" key="GridCell.Tab.3.center" timestamp="1591391799375">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.3.center/0.27.1920.985@0.27.1920.985" timestamp="1591391799375" />
+    <state width="1874" height="340" key="GridCell.Tab.3.left" timestamp="1591391799375">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.3.left/0.27.1920.985@0.27.1920.985" timestamp="1591391799375" />
+    <state width="1874" height="340" key="GridCell.Tab.3.right" timestamp="1591391799375">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="1874" height="340" key="GridCell.Tab.3.right/0.27.1920.985@0.27.1920.985" timestamp="1591391799375" />
+    <state x="594" y="175" width="722" height="702" key="RiderGenerateDialog" timestamp="1591383677116">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="594" y="175" width="722" height="702" key="RiderGenerateDialog/0.27.1920.985@0.27.1920.985" timestamp="1591383677116" />
+    <state x="449" y="154" width="1022" height="737" key="SettingsEditor" timestamp="1590902157096">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="449" y="154" width="1022" height="737" key="SettingsEditor/0.27.1920.985@0.27.1920.985" timestamp="1590902157096" />
+    <state width="960" height="492" key="XDebugger.FullValuePopup" timestamp="1591034897247">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state width="960" height="492" key="XDebugger.FullValuePopup/0.27.1920.985@0.27.1920.985" timestamp="1591034897247" />
+    <state x="595" y="258" width="937" height="522" key="find.popup" timestamp="1591385503345">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="595" y="258" width="937" height="522" key="find.popup/0.27.1920.985@0.27.1920.985" timestamp="1591385503345" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
+        <watch expression="c.currentObservation.Target.GetComponent&lt;Health&gt;()" />
+        <watch expression="min.GetComponent&lt;Health&gt;().dead" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

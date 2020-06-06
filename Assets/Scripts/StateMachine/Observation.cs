@@ -8,6 +8,5 @@ namespace StateMachine
 	public class Observation
 	{
 		public GameObject Target;
-		public bool ReproductionMode;
 	}
 }

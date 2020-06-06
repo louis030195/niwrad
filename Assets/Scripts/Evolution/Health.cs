@@ -19,19 +19,15 @@ namespace Evolution
         public event Action<float> HealthChanged;
 
         [Header("Audio")]
-        [Tooltip("Clips to play when dying.")]
-        [SerializeField]
+        [Tooltip("Clips to play when dying."), SerializeField]
         private AudioClip[] dyingClips;
-        [Tooltip("Clips to play when getting hit")]
-        [SerializeField]
+        [Tooltip("Clips to play when getting hit"), SerializeField]
         private AudioClip[] gettingHitClips;
-        [Tooltip("Clips to play when healed.")]
-        [SerializeField]
+        [Tooltip("Clips to play when healed."), SerializeField]
         private AudioClip[] healingClips;
 
         [Header("Effects")]
-        [Tooltip("Death effects to spill around")]
-        [SerializeField]
+        [Tooltip("Death effects to spill around"), SerializeField]
         private GameObject[] deathEffects;
 
         [Header("Animations")]
@@ -99,7 +95,6 @@ namespace Evolution
 
 	        if (m_CurrentHealth <= 0 && !dead)
 	        {
-
 		        dead = true;
 		        if (destroyOnDeath)
 		        {

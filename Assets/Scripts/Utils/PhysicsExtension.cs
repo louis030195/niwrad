@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -32,5 +34,28 @@ namespace Utils
 			return min;
 		}
 		// TODO: similar for other raycasts
+
+
+		/// <summary>
+		/// Find closest object in the list
+		/// </summary>
+		/// <param name="objects"></param>
+		/// <param name="to"></param>
+		/// <param name="mask">optional mask to filter-out unwanted</param>
+		/// <returns></returns>
+		public static GameObject Closest(this IEnumerable<(float f, GameObject go)> objects, Vector3 to, LayerMask mask = default)
+		{
+			var closest = default(GameObject);
+			foreach (var (_, go) in objects
+				.Where(tp => closest == default ||
+				               tp.go.layer == mask &&
+				               Vector3.Distance(to, tp.go.transform.position) <
+				               Vector3.Distance(to, closest.transform.position)))
+			{
+				closest = go;
+			}
+
+			return closest;
+		}
 	}
 }

@@ -21,6 +21,7 @@
       <Path>Logs</Path>
       <Path>Protobuf</Path>
       <Path>Server</Path>
+      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>docs</Path>
       <Path>obj</Path>

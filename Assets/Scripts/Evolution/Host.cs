@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using StateMachine;
+﻿using System.Collections.Generic;
+using AI;
 using UnityEngine;
-using Utils;
-using Random = UnityEngine.Random;
 
 namespace Evolution
 {
@@ -38,7 +35,9 @@ namespace Evolution
 		[HideInInspector] public Dictionary<string, Meme> memes = new Dictionary<string, Meme>();
 
 		protected float LastBreed;
-
+		// Do plants and animals share senses ? like:
+		// protected Sense<GameObject> feel;
+		// protected Memory<GameObject> feelMemory;
 
 		protected void OnEnable()
 		{

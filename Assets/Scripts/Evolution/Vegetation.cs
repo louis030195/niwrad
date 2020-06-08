@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Gameplay;
 using ProceduralTree;
-using StateMachine;
 using UnityEngine;
 using Utils;
-using Action = StateMachine.Action;
+using Action = AI.Action;
 using Random = UnityEngine.Random;
 
 namespace Evolution

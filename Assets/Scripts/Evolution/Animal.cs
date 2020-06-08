@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AI;
 using Gameplay;
 using Net.Match;
 using Net.Realtime;
 using Net.Utils;
-using StateMachine;
 using UnityEngine;
 using Utils;
-using Action = StateMachine.Action;
+using Action = AI.Action;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
@@ -36,14 +37,29 @@ namespace Evolution
 
 		[HideInInspector] public Movement movement;
 
+		private Sense<List<GameObject>> m_VisionSense;
+		private Memory<GameObject> m_VisionMemory;
+
 		protected new void OnEnable()
 		{
 			base.OnEnable();
 			movement = GetComponent<Movement>();
 			movement.speed = initialSpeed;
 
-			var seeFood = new Transition("SeeFood", 0, SeeFood);
-			var seePartner = new Transition("SeePartner", -1, SeePartner);
+			// An animal see around him, possibly several objects
+			m_VisionSense = new Sense<List<GameObject>>();
+			Func<List<GameObject>> collector = () => Physics.OverlapSphere(transform.position,
+				sightRange, // TODO: fix mask
+				LayerMask.NameToLayer("Animal") & LayerMask.NameToLayer( "Vegetation")).Select(c => c.gameObject).ToList();
+			m_VisionSense.ListenTo(collector);
+
+			// It append the seen data in current memory
+			m_VisionMemory = new Memory<GameObject>();
+			m_VisionSense.Triggered += o => m_VisionMemory.Input(o);
+
+
+			var foodAround = new Transition("FoodAround", 0, FoodAround);
+			var partnerAround = new Transition("PartnerAround", -1, PartnerAround);
 			var timeout = new Transition("Timeout", 1, Timeout);
 			var n = "Wander";
 			memes[n] = new Meme(
@@ -54,8 +70,8 @@ namespace Evolution
 				},
 				new List<Transition>
 				{
-					seeFood,
-					seePartner
+					foodAround,
+					partnerAround
 				},
 				Color.white
 			);
@@ -96,7 +112,7 @@ namespace Evolution
 				new List<Transition>
 				{
 					new Transition("IsTargetAlive", 0, IsTargetAlive),
-					seePartner // While eating, if it can breed, go for it
+					partnerAround // While eating, if it can breed, go for it
 				},
 				Color.blue
 			);
@@ -110,11 +126,20 @@ namespace Evolution
 				},
 				new List<Transition>
 				{
-					seeFood,
-					seePartner
+					foodAround,
+					partnerAround
 				},
 				Color.magenta
 			);
+		}
+
+		protected new void Update()
+		{
+			base.Update();
+			// TODO: for now senses and memory have to be manually updated in the host cuz
+			// u cant do generic monobehaviours but could bring sense and memory together maybe into a monobehaviour ...
+			m_VisionSense.Update();
+			m_VisionMemory.Update();
 		}
 
 		public override void BringToLife()
@@ -127,7 +152,9 @@ namespace Evolution
 		{
 			if (movement.remainingDistance <= movement.stoppingDistance + 1)
 			{
-				movement.MoveTo(c.currentObservation.Target.transform.position);
+				var closest = m_VisionMemory.Query().Closest(transform.position,
+					1 << LayerMask.GetMask("Vegetation"));
+				if (closest != default) movement.MoveTo(closest.transform.position);
 			}
 		}
 
@@ -135,7 +162,9 @@ namespace Evolution
 		{
 			if (movement.remainingDistance <= movement.stoppingDistance + 1)
 			{
-				movement.MoveTo(c.currentObservation.Target.transform.position);
+				var closest = m_VisionMemory.Query().Closest(transform.position,
+					1 << LayerMask.GetMask("Animal"));
+				if (closest != default) movement.MoveTo(closest.transform.position);
 			}
 		}
 
@@ -155,24 +184,21 @@ namespace Evolution
 		{
 			// Stop moving
 			movement.isStopped = true;
-			attack.EatTarget(c.currentObservation.Target);
-			c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime*30); // TODO: store params
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Vegetation"));
+			if (closest == default) return;
+			attack.EatTarget(closest);
+			closest.GetComponent<Health>().ChangeHealth(-Time.deltaTime*30); // TODO: store params
 			// +metabolism (10) *Time.deltaTime*0.5f // seems balanced
 			health.ChangeHealth(+metabolism*Time.deltaTime*50f);
 		}
 
 		private void Reproduce(MemeController c)
 		{
-			Animal th;
-			if (c.currentObservation.Target != null)
-			{
-				th = c.currentObservation.Target.GetComponent<Animal>();
-			}
-			else
-			{
-				Debug.LogWarning($"Tried to breed with dead animal");
-				return;
-			}
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Animal"));
+			if (closest == default) return;
+			var th = closest.GetComponent<Animal>();
 
 			// Stop moving
 			movement.isStopped = true;
@@ -184,9 +210,9 @@ namespace Evolution
 
 
 			// Decrease target life now
-			if (c.currentObservation.Target)
+			if (closest)
 			{
-				c.currentObservation.Target.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
+				closest.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
 			}
 			else
 			{
@@ -227,16 +253,14 @@ namespace Evolution
 		#endregion
 
 		#region Transitions
-		private Meme SeeFood(MemeController c)
+		private Meme FoodAround(MemeController c)
 		{
-			var layerMask = 1 << LayerMask.NameToLayer("Vegetation");
-
-			// Any matching object around ? Try to get the closest if any
-			var min = transform.position.Closest(sightRange, layerMask);
+			// TODO: fix
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Vegetation"));
 
 			// No food around OR target is dead / too weak
-			if (min == null || min.GetComponent<Health>().dead) return null;
-			c.currentObservation.Target = min;
+			if (closest == default || closest.GetComponent<Health>().dead) return null;
 
 			// Stop current movement
 			// movement.navMeshAgent.destination = transform.position;
@@ -244,19 +268,16 @@ namespace Evolution
 			return memes["ReachFood"];
 		}
 
-		private Meme SeePartner(MemeController c)
+		private Meme PartnerAround(MemeController c)
 		{
 			// Look for partner
 			if (Time.time > LastBreed + reproductionDelay && health.currentHealth > reproductionThreshold)
 			{
-				var layerMask = 1 << LayerMask.NameToLayer("Animal");
-
-				// Any matching object around ? Try to get the closest if any
-				var min = transform.position.Closest(sightRange, layerMask);
+				var closest = m_VisionMemory.Query().Closest(transform.position,
+					1 << LayerMask.GetMask("Animal"));
 				// TODO: closest with enough life to breed
 				// No animal to breed with around
-				if (min == null) return null;
-				c.currentObservation.Target = min;
+				if (closest == default) return null;
 
 				// Stop current movement
 				// movement.navMeshAgent.destination = transform.position;
@@ -269,20 +290,29 @@ namespace Evolution
 
 		private Meme IsCloseEnoughForEating(MemeController c)
 		{
-			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
-			       eatRange ? memes["Eat"] : null;
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Vegetation"));
+			if (closest != default && Vector3.Distance(transform.position, closest.transform.position) < eatRange)
+				return memes["Eat"];
+			return null;
 		}
 
 		private Meme IsCloseEnoughForBreeding(MemeController c)
 		{
-			return Vector3.Distance(transform.position, c.currentObservation.Target.transform.position) <
-			       1 ? memes["Breed"] : null;
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Animal"));
+			if (closest != default && Vector3.Distance(transform.position, closest.transform.position) < 1)
+				return memes["Breed"];
+			return null;
 		}
 
 
 		private Meme IsTargetAlive(MemeController c)
 		{
-			return c.currentObservation.Target.GetComponent<Health>().dead ? memes["Wander"] : null;
+			var closest = m_VisionMemory.Query().Closest(transform.position,
+				1 << LayerMask.GetMask("Animal"));
+
+			return closest != default && closest.GetComponent<Health>().dead ? memes["Wander"] : null;
 		}
 
 		private Meme Timeout(MemeController c)

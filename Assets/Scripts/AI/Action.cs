@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 
-namespace StateMachine
+namespace AI
 {
 	public class Action
 	{

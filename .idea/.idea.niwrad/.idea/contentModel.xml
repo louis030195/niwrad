@@ -101,6 +101,12 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="AI" t="Include">
+            <e p="Action.cs" t="Include" />
+            <e p="Meme.cs" t="Include" />
+            <e p="MemeController.cs" t="Include" />
+            <e p="Transition.cs" t="Include" />
+          </e>
           <e p="Editor" t="Include">
             <e p="ProjectBuilder.cs" t="Include" />
             <e p="ProtoPrefs.cs" t="Include" />
@@ -111,7 +117,9 @@
             <e p="Attack.cs" t="Include" />
             <e p="Health.cs" t="Include" />
             <e p="Host.cs" t="Include" />
+            <e p="Memory.cs" t="Include" />
             <e p="Movement.cs" t="Include" />
+            <e p="Sense.cs" t="Include" />
             <e p="Vegetation.cs" t="Include" />
           </e>
           <e p="Gameplay" t="Include">
@@ -168,14 +176,6 @@
             <e p="ProceduralModelingBase.cs" t="Include" />
             <e p="ProceduralTree.cs" t="Include" />
             <e p="TreePool.cs" t="Include" />
-          </e>
-          <e p="StateMachine" t="Include">
-            <e p="Action.cs" t="Include" />
-            <e p="Meme.cs" t="Include" />
-            <e p="MemeController.cs" t="Include" />
-            <e p="Observation.cs" t="Include" />
-            <e p="Parameters.cs" t="Include" />
-            <e p="Transition.cs" t="Include" />
           </e>
           <e p="Test.cs" t="Include" />
           <e p="UI" t="Include">

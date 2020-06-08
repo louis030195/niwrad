@@ -30,4 +30,6 @@ tail -f ~/.config/unity3d/niwrad/niwrad/Player.log
 - [ ] https://github.com/nenadg/docker-unity3d
 - [ ] https://github.com/mmozeiko/docker-unity3d
 - [ ] https://gitlab.com/gableroux/unity3d
-- [ ] bounding volume hierarchy optimization
+- [ ] bounding volume hierarchy optimization, possibility is so to use an [octree](https://github.com/The-Tensox/octree) on nakama side, probably as a service to avoid concurrency issues, let's see ...
+- [ ] Regular state persistence allowing resiliency but especially for allowing to stop and restart server with same state
+- [ ] Animals can become carnivorous if there is plenty of animals and few vegetables ?

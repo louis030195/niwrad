@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace StateMachine
+namespace AI
 {
 	/// <summary>
 	/// A meme is a system that follow darwinian evolution on the "behaviour side" i.e will affects host behaviour

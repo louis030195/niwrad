@@ -1,8 +1,8 @@
 using System;
+using Evolution;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace StateMachine
+namespace AI
 {
 	public class MemeController : MonoBehaviour
 	{
@@ -11,13 +11,11 @@ namespace StateMachine
 		private Meme m_CurrentMeme;
 
 		public bool aiActive;
-		public Observation currentObservation;
 		public float lastTransition;
 		public event Action<Meme> MemeChanged;
 
 		private void OnEnable()
 		{
-			currentObservation = new Observation();
 		}
 
 		private void Update()

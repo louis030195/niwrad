@@ -1,7 +1,6 @@
 using System;
-using System.Dynamic;
 
-namespace StateMachine
+namespace AI
 {
 	public class Transition
 	{

@@ -13,15 +13,13 @@ namespace AI
 		public bool aiActive;
 		public float lastTransition;
 		public event Action<Meme> MemeChanged;
-
-		private void OnEnable()
-		{
-		}
+		public event System.Action BeforeUpdated;
 
 		private void Update()
 		{
 			if (!aiActive || Time.time < m_LastDecision) return;
 			m_LastDecision = Time.time + m_DecisionFrequency;
+			BeforeUpdated?.Invoke();
 			m_CurrentMeme.UpdateState(this);
 		}
 

@@ -180,6 +180,7 @@
           <e p="Test.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="BehaviourDisplay.cs" t="Include" />
+            <e p="EvolutionPanel.cs" t="Include" />
             <e p="HealthUi.cs" t="Include" />
             <e p="LoginMenu.cs" t="Include" />
             <e p="MainMenu.cs" t="Include" />

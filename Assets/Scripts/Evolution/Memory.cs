@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 namespace Evolution
@@ -9,7 +11,7 @@ namespace Evolution
 	public class Memory<T>
 	{
 		// How long the data should be kept
-		private const float Retention = 50f;
+		private const float Retention = 10f;
 
 		// TODO: it could have been a stack but we lose the quick search advantages
 		private readonly List<(float time, T data)> m_Memories = new List<(float, T)>();
@@ -64,7 +66,11 @@ namespace Evolution
 			// After a while, forget the old memories :)
 			for (var i = m_Memories.Count - 1; i > 0; i--)
 			{
-				if (Time.time > m_Memories[i].time + Retention) m_Memories.RemoveAt(i);
+				if (Time.time > m_Memories[i].time + Retention)
+				{
+					Debug.Log($"Forget");
+					m_Memories.RemoveAt(i);
+				}
 				else return; // It's ordered ;)
 			}
 		}

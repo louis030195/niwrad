@@ -20,6 +20,7 @@ namespace AI
 
 		public Color SceneGizmoColor = Color.grey;
 		public string Name;
+		public event System.Action Acted;
 
 		public Meme(string name, List<Action> actions, List<Transition> transitions)
 		{
@@ -39,6 +40,7 @@ namespace AI
 		public void UpdateState(MemeController controller)
 		{
 			DoActions(controller);
+			Acted?.Invoke();
 			CheckTransitions(controller);
 		}
 

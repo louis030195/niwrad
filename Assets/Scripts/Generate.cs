@@ -5,7 +5,9 @@ using Net.Realtime;
 using Net.Session;
 using Net.Utils;
 using ProceduralTree;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -13,6 +15,8 @@ public class Generate : MonoBehaviour
 {
 	[SerializeField] private Terrain map;
 	[SerializeField] private GameObject sessionManagerPrefab;
+	[SerializeField] private Slider timescaleSlider;
+	[SerializeField] private TextMeshProUGUI timescaleText;
 
 	[Header("Animals configuration"), Range(0, 20), SerializeField]
 	private int spawnDelay = 5; // Ugly hack to wait for navmesh baking (no clean async ...)
@@ -34,11 +38,18 @@ public class Generate : MonoBehaviour
 	private void Awake()
 	{
 		// TODO: maybe move whole class to host manager or other ... or change name
-		Pool.Preload(animalPrefab, animalAmount); // TODO: move to hm
+		Pool.Preload(animalPrefab, animalAmount*100); // TODO: move to hm
 
 		// If there is already a session manager, it's a client
 		if (FindObjectOfType<SessionManager>() == null)
 		{
+			// Only server can change timescale
+			// TODO: break everything ?
+			// timescaleSlider.onValueChanged.AddListener(value =>
+			// {
+			// 	Time.timeScale = value;
+			// 	timescaleText.text = $"{value}";
+			// });
 			Instantiate(sessionManagerPrefab);
 			InitializeNet();
 		}

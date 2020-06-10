@@ -11,7 +11,7 @@ namespace Evolution
 	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(MemeController))]
 	public abstract class Host : MonoBehaviour
-	{
+	{ // TODO: prob gotta move evolution params into scriptable objects ? for saving good params ... ?
 		[Header("Evolution parameters"), Range(0.1f, 5f)]
 		public float decisionFrequency = 1f;
 		[Header("Initial characteristics"), Range(20, 80)]
@@ -35,6 +35,11 @@ namespace Evolution
 		[HideInInspector] public Dictionary<string, Meme> memes = new Dictionary<string, Meme>();
 
 		protected float LastBreed;
+
+		/// <summary>
+		/// Age represents the life length of an host between 0 and 100
+		/// </summary>
+		protected float Age;
 		// Do plants and animals share senses ? like:
 		// protected Sense<GameObject> feel;
 		// protected Memory<GameObject> feelMemory;
@@ -45,6 +50,7 @@ namespace Evolution
 			health.initialLife = initialLife;
 			attack = GetComponent<Attack>();
 			controller = GetComponent<MemeController>();
+			Age = 0;
 
 			// Not sure required, maybe could be useful to prevent hosts forgetting to implement breeding meme
 			var n = "Breed";
@@ -53,12 +59,20 @@ namespace Evolution
 
 		protected void Update()
 		{
-			health.ChangeHealth(-robustness*Time.deltaTime);
+			if (Age < 100 && Time.frameCount % 5 == 0) Age++;
+			// The older, the weaker
+			health.ChangeHealth(-robustness*Time.deltaTime*(1+Age/100));
 		}
 
 		protected void OnDisable()
 		{
 			controller.aiActive = false;
+		}
+
+		protected float Mutate(float a, float b, float mutationDegree)
+		{
+			var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
+			return (a + b) / 2 * (1 + Random.Range(-md, md));
 		}
 
 		/// <summary>

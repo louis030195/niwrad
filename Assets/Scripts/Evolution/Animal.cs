@@ -27,8 +27,7 @@ namespace Evolution
 		public float sightRange = 20f;
 		[Range(2f, 10.0f)]
 		public float eatRange = 5f;
-		[Range(1, 100.0f)]
-		[Tooltip("How much life eating bring")]
+		[Range(1, 100.0f), Tooltip("How much life eating bring")]
 		public float metabolism = 10f;
 
 		[Header("Reproduction")]
@@ -48,9 +47,15 @@ namespace Evolution
 
 			// An animal see around him, possibly several objects
 			m_VisionSense = new Sense<List<GameObject>>();
-			Func<List<GameObject>> collector = () => Physics.OverlapSphere(transform.position,
-				sightRange, // TODO: fix mask
-				LayerMask.NameToLayer("Animal") & LayerMask.NameToLayer( "Vegetation")).Select(c => c.gameObject).ToList();
+			var res = new Collider[100];
+			Func<List<GameObject>> collector = () =>
+			{
+				Physics.OverlapSphereNonAlloc(transform.position,
+					sightRange,
+					res,
+					LayerMask.GetMask("Animal", "Vegetation"));
+				return res.Where(c => c != null).Select(c => c .gameObject).ToList();
+			};
 			m_VisionSense.ListenTo(collector);
 
 			// It append the seen data in current memory
@@ -58,9 +63,16 @@ namespace Evolution
 			m_VisionSense.Triggered += o => m_VisionMemory.Input(o);
 
 
+			// Collect data before update only
+			controller.BeforeUpdated += () =>
+			{
+				m_VisionSense.Update();
+				m_VisionMemory.Update();
+			};
+
 			var foodAround = new Transition("FoodAround", 0, FoodAround);
-			var partnerAround = new Transition("PartnerAround", -1, PartnerAround);
-			var timeout = new Transition("Timeout", 1, Timeout);
+			var partnerAround = new Transition("PartnerAround", -2, PartnerAround);
+			var timeout = new Transition("Timeout", -1, Timeout);
 			var n = "Wander";
 			memes[n] = new Meme(
 				n,
@@ -85,6 +97,7 @@ namespace Evolution
 				new List<Transition>
 				{
 					new Transition("IsCloseEnoughForEating", 0, IsCloseEnoughForEating),
+					// timeout
 				},
 				Color.red
 			);
@@ -97,7 +110,8 @@ namespace Evolution
 				},
 				new List<Transition>
 				{
-					new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding)
+					new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding),
+					// timeout
 				},
 				Color.red
 			);
@@ -133,14 +147,6 @@ namespace Evolution
 			);
 		}
 
-		protected new void Update()
-		{
-			base.Update();
-			// TODO: for now senses and memory have to be manually updated in the host cuz
-			// u cant do generic monobehaviours but could bring sense and memory together maybe into a monobehaviour ...
-			m_VisionSense.Update();
-			m_VisionMemory.Update();
-		}
 
 		public override void BringToLife()
 		{
@@ -150,20 +156,20 @@ namespace Evolution
 		#region Actions
 		private void ReachFood(MemeController c)
 		{
-			if (movement.remainingDistance <= movement.stoppingDistance + 1)
+			if (movement.remainingDistance <= movement.stoppingDistance)
 			{
 				var closest = m_VisionMemory.Query().Closest(transform.position,
-					1 << LayerMask.GetMask("Vegetation"));
+					LayerMask.NameToLayer("Vegetation"));
 				if (closest != default) movement.MoveTo(closest.transform.position);
 			}
 		}
 
 		private void ReachPartner(MemeController c)
 		{
-			if (movement.remainingDistance <= movement.stoppingDistance + 1)
+			if (movement.remainingDistance <= movement.stoppingDistance)
 			{
 				var closest = m_VisionMemory.Query().Closest(transform.position,
-					1 << LayerMask.GetMask("Animal"));
+					LayerMask.NameToLayer("Animal"));
 				if (closest != default) movement.MoveTo(closest.transform.position);
 			}
 		}
@@ -185,29 +191,35 @@ namespace Evolution
 			// Stop moving
 			movement.isStopped = true;
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Vegetation"));
+				LayerMask.NameToLayer("Vegetation"));
 			if (closest == default) return;
 			attack.EatTarget(closest);
 			closest.GetComponent<Health>().ChangeHealth(-Time.deltaTime*30); // TODO: store params
 			// +metabolism (10) *Time.deltaTime*0.5f // seems balanced
+			// TODO: maybe age reduce life gain on eat ?
 			health.ChangeHealth(+metabolism*Time.deltaTime*50f);
 		}
 
 		private void Reproduce(MemeController c)
 		{
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Animal"));
+				LayerMask.NameToLayer("Animal"));
 			if (closest == default) return;
 			var th = closest.GetComponent<Animal>();
 
 			// Stop moving
 			movement.isStopped = true;
-			health.ChangeHealth(-reproductionLifeLoss);
+			// It's costly to reproduce, proportional to animal age
+			health.ChangeHealth(-reproductionLifeLoss*(1+Age/100));
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var childHost = HostManager.instance.SpawnAnimal(transform.position, Quaternion.identity);
-
+			if (!childHost)
+			{
+				Debug.LogError($"Reproduce couldn't spawn animal");
+				return;
+			}
 
 			// Decrease target life now
 			if (closest)
@@ -219,31 +231,27 @@ namespace Evolution
 				Debug.LogWarning($"Partner died while breeding");
 			}
 
-			var mutate = new Func<float, float, float, float>((a, b, mutationDegree) =>
-			{
-				var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
-				return ((a + b) / 2) * (1 + Random.Range(-md, md));
-			});
+
 			var r = ReflectionExtension.GetRange(GetType(), nameof(initialLife));
-			childHost.initialLife = Mathf.Clamp(mutate(initialLife, th.initialLife, 1f), r.min, r.max);
+			childHost.initialLife = Mathf.Clamp(Mutate(initialLife, th.initialLife, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(initialSpeed));
-			childHost.initialSpeed = Mathf.Clamp(mutate(initialSpeed, th.initialSpeed, 1f), r.min, r.max);
+			childHost.initialSpeed = Mathf.Clamp(Mutate(initialSpeed, th.initialSpeed, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(randomMovementRange));
-			childHost.randomMovementRange = Mathf.Clamp(mutate(randomMovementRange, th.randomMovementRange, 1f), r.min, r.max);
+			childHost.randomMovementRange = Mathf.Clamp(Mutate(randomMovementRange, th.randomMovementRange, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(sightRange));
-			childHost.sightRange = Mathf.Clamp(mutate(sightRange, th.sightRange, 1f), r.min, r.max);
+			childHost.sightRange = Mathf.Clamp(Mutate(sightRange, th.sightRange, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(eatRange));
-			childHost.eatRange = Mathf.Clamp(mutate(eatRange, th.eatRange, 1f), r.min, r.max);
+			childHost.eatRange = Mathf.Clamp(Mutate(eatRange, th.eatRange, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(metabolism));
-			childHost.metabolism = Mathf.Clamp(mutate(metabolism, th.metabolism, 1f), r.min, r.max);
+			childHost.metabolism = Mathf.Clamp(Mutate(metabolism, th.metabolism, 1f), r.min, r.max);
 
 			r = ReflectionExtension.GetRange(GetType(), nameof(robustness));
-			childHost.robustness = Mathf.Clamp(mutate(robustness, th.robustness, 1f), r.min, r.max);
+			childHost.robustness = Mathf.Clamp(Mutate(robustness, th.robustness, 1f), r.min, r.max);
 
 			// go.GetComponent<MeshFilter>().mesh.Mutation();
 
@@ -255,9 +263,11 @@ namespace Evolution
 		#region Transitions
 		private Meme FoodAround(MemeController c)
 		{
-			// TODO: fix
+			// TODO: params
+			if (health.currentHealth > 90f) return memes["Wander"];
+
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Vegetation"));
+				LayerMask.NameToLayer("Vegetation"));
 
 			// No food around OR target is dead / too weak
 			if (closest == default || closest.GetComponent<Health>().dead) return null;
@@ -274,7 +284,7 @@ namespace Evolution
 			if (Time.time > LastBreed + reproductionDelay && health.currentHealth > reproductionThreshold)
 			{
 				var closest = m_VisionMemory.Query().Closest(transform.position,
-					1 << LayerMask.GetMask("Animal"));
+					LayerMask.NameToLayer("Animal"));
 				// TODO: closest with enough life to breed
 				// No animal to breed with around
 				if (closest == default) return null;
@@ -291,7 +301,7 @@ namespace Evolution
 		private Meme IsCloseEnoughForEating(MemeController c)
 		{
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Vegetation"));
+				LayerMask.NameToLayer("Vegetation"));
 			if (closest != default && Vector3.Distance(transform.position, closest.transform.position) < eatRange)
 				return memes["Eat"];
 			return null;
@@ -300,7 +310,7 @@ namespace Evolution
 		private Meme IsCloseEnoughForBreeding(MemeController c)
 		{
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Animal"));
+				LayerMask.NameToLayer("Animal"));
 			if (closest != default && Vector3.Distance(transform.position, closest.transform.position) < 1)
 				return memes["Breed"];
 			return null;
@@ -310,7 +320,7 @@ namespace Evolution
 		private Meme IsTargetAlive(MemeController c)
 		{
 			var closest = m_VisionMemory.Query().Closest(transform.position,
-				1 << LayerMask.GetMask("Animal"));
+				LayerMask.NameToLayer("Animal"));
 
 			return closest != default && closest.GetComponent<Health>().dead ? memes["Wander"] : null;
 		}

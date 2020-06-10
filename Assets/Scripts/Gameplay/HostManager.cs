@@ -18,19 +18,19 @@ namespace Gameplay
 	/// The role of this manager is to request updates and update everything related to hosts.
 	/// Single responsibility.
 	/// </summary>
-	public class HostManager : Singleton<HostManager>
+	public class HostManager : Singleton<HostManager> // TODO: prob need to move to Net.Gameplay
 	{
 		[SerializeField] private GameObject animalPrefab;
 
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
-        private Dictionary<ulong, Animal> m_Animals = new Dictionary<ulong, Animal>();
+        private readonly Dictionary<ulong, Animal> m_Animals = new Dictionary<ulong, Animal>();
 
 		/// <summary>
 		/// Dictionary containing trees
 		/// </summary>
-		private Dictionary<ulong, Vegetation> m_Trees = new Dictionary<ulong, Vegetation>();
+		private readonly Dictionary<ulong, Vegetation> m_Trees = new Dictionary<ulong, Vegetation>();
 
         /// <summary>
         /// Next id to give for new host

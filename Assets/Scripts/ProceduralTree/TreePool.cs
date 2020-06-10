@@ -9,6 +9,9 @@ namespace ProceduralTree
 {
 	public class TreePool : Singleton<TreePool>
 	{
+		public event Action Spawned;
+		public event Action Despawned;
+
 		[SerializeField] private GameObject prefab;
 		private Stack<GameObject> m_TreePool;
 		private int m_TreeCount;
@@ -39,6 +42,7 @@ namespace ProceduralTree
 		/// <returns></returns>
 		public (ProceduralTree go, int seed) Spawn(Vector3 position, Quaternion rotation)
 		{
+			Spawned?.Invoke();
 			m_TreeCount++;
 			GameObject go;
 			if (m_TreePool.Count == 0)
@@ -55,6 +59,17 @@ namespace ProceduralTree
 			var tree = go.GetComponent<ProceduralTree>();
 			tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
 			return (tree, tree.Data.randomSeed);
+		}
+
+		/// <summary>
+		/// Despawn a tree into the pool
+		/// </summary>
+		/// <param name="obj"></param>
+		public void Despawn(GameObject obj)
+		{
+			Despawned?.Invoke();
+			obj.SetActive(false);
+			m_TreePool.Push(obj);
 		}
 
 		private IEnumerator FillSlowly(float delayBetweenFills)

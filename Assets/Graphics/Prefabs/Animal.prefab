@@ -307,20 +307,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1781fda5b6b84dd18501cd4704c8bc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decisionFrequency: 1
-  initialLife: 40
+  decisionFrequency: 0.5
+  initialLife: 80
   robustness: 0.1
-  reproductionThreshold: 80
+  reproductionThreshold: 20
   reproductionDelay: 20
   attack: {fileID: 0}
   health: {fileID: 0}
   id: 0
   controller: {fileID: 0}
-  initialSpeed: 5
-  randomMovementRange: 100
-  sightRange: 400
+  initialSpeed: 10
+  randomMovementRange: 50
+  sightRange: 200
   eatRange: 5
-  metabolism: 10
+  metabolism: 20
   reproductionLifeLoss: 20
   movement: {fileID: 0}
 --- !u!114 &3644157435874668346
@@ -614,7 +614,7 @@ PrefabInstance:
     - target: {fileID: 9127392546385857632, guid: cc540df3d310b14eba30f6015a42cd81,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9127392546385857632, guid: cc540df3d310b14eba30f6015a42cd81,
         type: 3}

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Utils
 {
@@ -17,7 +19,7 @@ namespace Utils
         /// <summary>
         /// The Pool class represents the pool for a particular _prefab.
         /// </summary>
-        class PrefabPool {
+        private class PrefabPool {
             // We append an id to the name of anything we instantiate.
             // This is purely cosmetic.
             private int m_NextId = 1;
@@ -31,6 +33,8 @@ namespace Utils
 
             // The _prefab that we are pooling
             private readonly GameObject m_Prefab;
+
+            public GameObject prefab => m_Prefab;
 
             // Constructor
             public PrefabPool(GameObject prefab, int initialQty) {
@@ -106,14 +110,28 @@ namespace Utils
         private static Dictionary< GameObject, PrefabPool > _pools;
 
         /// <summary>
+        /// Event invoked when this prefab is spawned
+        /// </summary>
+        public static Dictionary<GameObject, Action> Spawned;
+
+        /// <summary>
+        /// Event invoked when this prefab is despawned
+        /// </summary>
+        public static Dictionary<GameObject, Action> Despawned;
+
+        /// <summary>
         /// Initialize our dictionary.
         /// </summary>
         private static void Init (GameObject prefab=null, int qty = DefaultPoolSize) {
             if(_pools == null) {
-                _pools = new Dictionary<GameObject, PrefabPool>();
+	            _pools = new Dictionary<GameObject, PrefabPool>();
+	            Spawned = new Dictionary<GameObject, Action>();
+	            Despawned = new Dictionary<GameObject, Action>();
             }
-            if(prefab!=null && _pools.ContainsKey(prefab) == false) {
+            if (prefab!=null && _pools.ContainsKey(prefab) == false) {
                 _pools[prefab] = new PrefabPool(prefab, qty);
+                Spawned[prefab] = delegate {  };
+                Despawned[prefab] = delegate {  };
             }
         }
 
@@ -129,7 +147,7 @@ namespace Utils
             Init(prefab, qty);
 
             // Make an array to grab the objects we're about to pre-spawn.
-            GameObject[] obs = new GameObject[qty];
+            var obs = new GameObject[qty];
             for (var i = 0; i < qty; i++) {
                 obs[i] = Spawn (prefab, Vector3.zero, Quaternion.identity);
             }
@@ -149,13 +167,13 @@ namespace Utils
         /// </summary>
         public static GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) {
             Init(prefab);
-
+	        Spawned[prefab]?.Invoke();
             return _pools[prefab].Spawn(pos, rot);
         }
 
         public static GameObject Spawn(GameObject prefab) {
             Init(prefab);
-
+            Spawned[prefab]?.Invoke();
             return _pools[prefab].Spawn(Vector3.zero, Quaternion.identity);
         }
 
@@ -165,6 +183,8 @@ namespace Utils
         /// </summary>
         public static void Despawn(GameObject obj) {
             var pm = obj.GetComponent<PoolMember>();
+            Despawned[pm.myPool.prefab]?.Invoke();
+
             if(pm == null) {
                 Debug.Log ("Object '"+obj.name+"' wasn't spawned from a pool. Destroying it instead.");
                 Object.Destroy(obj);
@@ -185,7 +205,8 @@ namespace Utils
         /// </summary>
         public static void Despawn(GameObject obj, int after)
         {
-            Task.Delay(after).ContinueWith(t=> Despawn(obj));
+	        Despawned[obj]?.Invoke();
+	        Task.Delay(after).ContinueWith(t=> Despawn(obj));
         }
 
     }

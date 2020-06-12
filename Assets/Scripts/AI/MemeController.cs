@@ -17,8 +17,8 @@ namespace AI
 
 		private void Update()
 		{
-			if (!aiActive || Time.time < m_LastDecision) return;
-			m_LastDecision = Time.time + m_DecisionFrequency;
+			if (!aiActive || Time.time < m_LastDecision + m_DecisionFrequency) return;
+			m_LastDecision = Time.time;
 			BeforeUpdated?.Invoke();
 			m_CurrentMeme.UpdateState(this);
 		}

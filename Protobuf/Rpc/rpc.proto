@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package rpc;
+
+option csharp_namespace = "Net.Rpc";
+option go_package = "rpc;rpc";
+
+enum CreateMatchCompletionResult {
+	createMatchCompletionResultUnknownInternalFailure        = 0;
+	createMatchCompletionResultSucceeded                     = 1;
+	createMatchCompletionResultUnknownClientFailure          = -100;
+	createMatchCompletionResultAlreadyInMatchOfSpecifiedType = -99;
+	createMatchCompletionResultAlreadyCreatingMatch          = -98;
+	createMatchCompletionResultAlreadyInMatch                = -97;
+	createMatchCompletionResultFailedToCreateMucRoom         = -96;
+	createMatchCompletionResultNoResponse                    = -95;
+	createMatchCompletionResultLoggedOut                     = -94;
+}
+
+message CreateMatchResponse {
+    string match_id = 1;
+    CreateMatchCompletionResult result = 2;
+}

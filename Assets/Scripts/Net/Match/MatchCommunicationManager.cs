@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using JetBrains.Annotations;
 using Nakama;
@@ -139,6 +140,8 @@ namespace Net.Match
                 if (id == null)
                 {
 	                match = await socket.CreateMatchAsync();
+	                // var res = await socket.RpcAsync( "create_match", "");
+
 	                Debug.Log($"Created match with id: {match.Id}");
 	                seed = 1995; // Best generation of hosts
                 }
@@ -197,12 +200,14 @@ namespace Net.Match
         }
 
         /// <param name="p"></param>
-        private void ReceiveMatchStateHandle(Packet p)
+        private async void ReceiveMatchStateHandle(Packet p)
         {
 	        // Outgoing messages can be async but absolutely everything in have to be ran on the main thread
 	        // (few exceptions: pure computing functions ...)
-	        MainThreadDispatcher.instance.Enqueue(() =>
-	        {
+	        await UniTask.SwitchToMainThread();
+
+	        // MainThreadDispatcher.instance.Enqueue(() =>
+	        // {
 		        switch (p.TypeCase)
 	            {
 	                case Packet.TypeOneofCase.UpdateTransform:
@@ -243,7 +248,7 @@ namespace Net.Match
 	                default:
 		                throw new ArgumentOutOfRangeException();
 	            }
-	        });
+	        // });
         }
 
         #endregion

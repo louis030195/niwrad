@@ -307,8 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1781fda5b6b84dd18501cd4704c8bc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decisionFrequency: 0.5
-  initialLife: 80
+  decisionFrequency: 5
+  initialLife: 40
   robustness: 0.1
   reproductionThreshold: 20
   reproductionDelay: 20
@@ -318,8 +318,8 @@ MonoBehaviour:
   controller: {fileID: 0}
   initialSpeed: 10
   randomMovementRange: 50
-  sightRange: 200
-  eatRange: 5
+  sightRange: 20
+  eatRange: 2
   metabolism: 20
   reproductionLifeLoss: 20
   movement: {fileID: 0}

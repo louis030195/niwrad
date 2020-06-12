@@ -72,8 +72,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Nakama
-Server/modules
+# Server/modules
+# *.so
 Server/.cookie
+vendor
 
 # Plugins and Packages
 Assets/Plugins/*

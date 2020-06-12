@@ -12,7 +12,7 @@ namespace Evolution
 	[RequireComponent(typeof(MemeController))]
 	public abstract class Host : MonoBehaviour
 	{ // TODO: prob gotta move evolution params into scriptable objects ? for saving good params ... ?
-		[Header("Evolution parameters"), Range(0.1f, 5f)]
+		[Header("Evolution parameters"), Range(0.1f, 50f)]
 		public float decisionFrequency = 1f;
 		[Header("Initial characteristics"), Range(20, 80)]
 		public float initialLife = 40f;

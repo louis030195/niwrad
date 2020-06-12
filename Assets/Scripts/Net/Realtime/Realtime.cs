@@ -1492,6 +1492,10 @@ namespace Net.Realtime {
         /// <summary>Field number for the "seed" field.</summary>
         public const int SeedFieldNumber = 1;
         private int seed_;
+        /// <summary>
+        /// TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
+        /// like map size, initial evolution parameters ...
+        /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int Seed {
           get { return seed_; }

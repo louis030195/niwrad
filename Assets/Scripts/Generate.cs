@@ -18,8 +18,7 @@ public class Generate : MonoBehaviour
 	[SerializeField] private Slider timescaleSlider;
 	[SerializeField] private TextMeshProUGUI timescaleText;
 
-	[Header("Animals configuration"), Range(0, 20), SerializeField]
-	private int spawnDelay = 5; // Ugly hack to wait for navmesh baking (no clean async ...)
+	[Header("Animals configuration")]
 	[SerializeField]
 	private GameObject animalPrefab;
 	[Range(0, 100_000), SerializeField]
@@ -45,11 +44,12 @@ public class Generate : MonoBehaviour
 		{
 			// Only server can change timescale
 			// TODO: break everything ?
-			// timescaleSlider.onValueChanged.AddListener(value =>
-			// {
-			// 	Time.timeScale = value;
-			// 	timescaleText.text = $"{value}";
-			// });
+			timescaleSlider.onValueChanged.AddListener(value =>
+			{
+				// Debug.Log($"Timescale changed: {value}");
+				Time.timeScale = value;
+				timescaleText.text = $"{value}";
+			});
 			Instantiate(sessionManagerPrefab);
 			InitializeNet();
 		}
@@ -68,7 +68,7 @@ public class Generate : MonoBehaviour
 	private void Start()
 	{
 		// Ugly as hell hack to initialize mtd in main thread
-		var i = MainThreadDispatcher.instance;
+		// var i = MainThreadDispatcher.instance;
 		StartCoroutine(InitializeGameplay());
 	}
 

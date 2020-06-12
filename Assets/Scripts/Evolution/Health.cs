@@ -88,7 +88,6 @@ namespace Evolution
 	        }
 	        HealthChanged?.Invoke(m_CurrentHealth / maxHealth);
 
-
 	        if (m_CurrentHealth <= 0 && !dead)
 	        {
 		        dead = true;

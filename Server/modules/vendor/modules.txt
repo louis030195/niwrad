@@ -1,0 +1,20 @@
+# github.com/The-Tensox/octree v0.0.0-20200502124658-d5eedbdf3820 => /home/louis/go/src/github.com/The-Tensox/octree
+## explicit
+# github.com/The-Tensox/protometry v0.0.0-20200426150542-c1a2b4b9913e => /home/louis/go/src/github.com/The-Tensox/protometry
+## explicit
+# github.com/golang/protobuf v1.3.5
+github.com/golang/protobuf/proto
+github.com/golang/protobuf/ptypes/timestamp
+github.com/golang/protobuf/ptypes/wrappers
+# github.com/heroiclabs/nakama v2.5.1+incompatible
+## explicit
+github.com/heroiclabs/nakama/api
+github.com/heroiclabs/nakama/rtapi
+github.com/heroiclabs/nakama/runtime
+# github.com/heroiclabs/nakama-common v1.5.1
+## explicit
+github.com/heroiclabs/nakama-common/api
+github.com/heroiclabs/nakama-common/rtapi
+github.com/heroiclabs/nakama-common/runtime
+# github.com/The-Tensox/octree => /home/louis/go/src/github.com/The-Tensox/octree
+# github.com/The-Tensox/protometry => /home/louis/go/src/github.com/The-Tensox/protometry

@@ -1,6 +1,8 @@
 
 # niwrad
 
+![demo](docs/images/demo.gif)
+
 ## Installation
 
 1. [Download and import Nakama unitypackage](https://github.com/heroiclabs/nakama-unity) to Assets/Plugins for example.
@@ -28,3 +30,4 @@ make client
 - [ ] bounding volume hierarchy optimization, possibility is so to use an [octree](https://github.com/The-Tensox/octree) on nakama side, probably as a service to avoid concurrency issues, let's see ...
 - [ ] Regular state persistence allowing resiliency but especially for allowing to stop and restart server with same state
 - [ ] Animals can become carnivorous if there is plenty of animals and few vegetables ?
+- [ ] Fix the Assets/Plugins and Assets/Packages (make something automatic download and add to gitignore ..)

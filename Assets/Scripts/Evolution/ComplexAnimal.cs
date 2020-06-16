@@ -2,48 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AI;
+using Cysharp.Threading.Tasks.Triggers;
 using Gameplay;
-using Net.Match;
-using Net.Realtime;
-using Net.Utils;
 using UnityEngine;
 using Utils;
 using Action = AI.Action;
 using Quaternion = UnityEngine.Quaternion;
-using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 namespace Evolution
 {
 	[RequireComponent(typeof(Movement))]
-	public class Animal : Host
+	public class ComplexAnimal : CommonAnimal
 	{
-		[Header("Initial characteristics")]
-		[Range(2, 20)]
-		public float initialSpeed = 5f;
-		[Range(1, 1000)]
-		public float randomMovementRange = 20f;
-		[Range(1, 1000)]
-		public float sightRange = 20f;
-		[Range(2f, 10.0f)]
-		public float eatRange = 5f;
-		[Range(1, 100.0f), Tooltip("How much life eating bring")]
-		public float metabolism = 10f;
-
-		[Header("Reproduction")]
-		[Range(20, 80)]
-		public float reproductionLifeLoss = 50f;
-
-		[HideInInspector] public Movement movement;
-
 		private Sense<List<GameObject>> m_VisionSense;
 		private Memory<GameObject> m_VisionMemory;
 
 		protected new void OnEnable()
 		{
 			base.OnEnable();
-			movement = GetComponent<Movement>();
-			movement.speed = initialSpeed;
 
 			// An animal see around him, possibly several objects
 			m_VisionSense = new Sense<List<GameObject>>();
@@ -148,11 +125,6 @@ namespace Evolution
 		}
 
 
-		public override void BringToLife()
-		{
-			controller.SetupAi(memes["Wander"], true, decisionFrequency);
-		}
-
 		#region Actions
 		private void ReachFood(MemeController c)
 		{
@@ -171,18 +143,6 @@ namespace Evolution
 				var closest = m_VisionMemory.Query().Closest(transform.position,
 					LayerMask.NameToLayer("Animal"));
 				if (closest != default) movement.MoveTo(closest.transform.position);
-			}
-		}
-
-		private void RandomMovement(MemeController _)
-		{
-			if (movement.remainingDistance <= movement.stoppingDistance + 1)
-			{
-				// Try to find a random position on map, otherwise will just go to zero
-				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(randomMovementRange,
-					default,
-					0);
-				movement.MoveTo(p);
 			}
 		}
 
@@ -205,58 +165,7 @@ namespace Evolution
 			var closest = m_VisionMemory.Query().Closest(transform.position,
 				LayerMask.NameToLayer("Animal"));
 			if (closest == default) return;
-			var th = closest.GetComponent<Animal>();
-
-			// Stop moving
-			movement.isStopped = true;
-			// It's costly to reproduce, proportional to animal age
-			health.ChangeHealth(-reproductionLifeLoss*(1+Age/100));
-
-			// Spawning a child around
-			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
-			var childHost = HostManager.instance.SpawnAnimal(transform.position, Quaternion.identity);
-			if (!childHost)
-			{
-				Debug.LogError($"Reproduce couldn't spawn animal");
-				return;
-			}
-
-			// Decrease target life now
-			if (closest)
-			{
-				closest.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
-			}
-			else
-			{
-				Debug.LogWarning($"Partner died while breeding");
-			}
-
-
-			var r = ReflectionExtension.GetRange(GetType(), nameof(initialLife));
-			childHost.initialLife = Mathf.Clamp(Mutate(initialLife, th.initialLife, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(initialSpeed));
-			childHost.initialSpeed = Mathf.Clamp(Mutate(initialSpeed, th.initialSpeed, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(randomMovementRange));
-			childHost.randomMovementRange = Mathf.Clamp(Mutate(randomMovementRange, th.randomMovementRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(sightRange));
-			childHost.sightRange = Mathf.Clamp(Mutate(sightRange, th.sightRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(eatRange));
-			childHost.eatRange = Mathf.Clamp(Mutate(eatRange, th.eatRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(metabolism));
-			childHost.metabolism = Mathf.Clamp(Mutate(metabolism, th.metabolism, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(robustness));
-			childHost.robustness = Mathf.Clamp(Mutate(robustness, th.robustness, 1f), r.min, r.max);
-
-			// go.GetComponent<MeshFilter>().mesh.Mutation();
-
-			// TODO: the new host should have its memes tweaked by meme controller (mutation ...)
-			LastBreed = Time.time;
+			BreedAndMutate(closest);
 		}
 		#endregion
 

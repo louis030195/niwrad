@@ -25,7 +25,7 @@ namespace Gameplay
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
-        private readonly Dictionary<ulong, Animal> m_Animals = new Dictionary<ulong, Animal>();
+        private readonly Dictionary<ulong, CommonAnimal> m_Animals = new Dictionary<ulong, CommonAnimal>();
 
 		/// <summary>
 		/// Dictionary containing trees
@@ -57,7 +57,7 @@ namespace Gameplay
 
         #region PUBLIC METHODS
 
-        public Animal SpawnAnimal(Vector3 p, Quaternion r)
+        public CommonAnimal SpawnAnimal(Vector3 p, Quaternion r)
         {
 	        var packet = new Packet()
 		        .Basic()
@@ -72,7 +72,7 @@ namespace Gameplay
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Animal GetAnimal(ulong id)
+        public CommonAnimal GetAnimal(ulong id)
         {
 	        m_Animals.TryGetValue(id, out var animal);
 	        return animal;
@@ -82,7 +82,7 @@ namespace Gameplay
         /// Removes given animal from dictionary
         /// </summary>
         /// <param name="animal"></param>
-        public bool RemoveAnimal(Animal animal)
+        public bool RemoveAnimal(CommonAnimal animal)
         {
             return m_Animals.Remove(animal.id);
         }
@@ -161,10 +161,10 @@ namespace Gameplay
 	        MatchCommunicationManager.instance.TransformUpdated += OnTransformUpdated;
         }
 
-        private Animal SpawnAnimal(Net.Realtime.Transform obj)
+        private CommonAnimal SpawnAnimal(Net.Realtime.Transform obj)
         {
 	        var a = Pool.Spawn(animalPrefab, obj.Position.ToVector3(), obj.Rotation.ToQuaternion());
-	        m_Animals[obj.Id] = a.GetComponent<Animal>();
+	        m_Animals[obj.Id] = a.GetComponent<CommonAnimal>();
 	        m_Animals[obj.Id].BringToLife();
 	        return m_Animals[obj.Id];
         }

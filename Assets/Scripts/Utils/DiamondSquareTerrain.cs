@@ -38,7 +38,9 @@ namespace Utils
 		/// </summary>
 		private void Awake()
 		{
-        	m_Data = transform.GetComponent<Terrain>().terrainData;
+			m_Data = new TerrainData {size = new Vector3(100, 100, 100)};
+			GetComponent<Terrain>().terrainData = m_Data;
+			GetComponent<TerrainCollider>().terrainData = m_Data;
         	m_Size = m_Data.heightmapResolution;
 			Reset();
 		}

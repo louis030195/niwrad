@@ -31,3 +31,4 @@ make client
 - [ ] Regular state persistence allowing resiliency but especially for allowing to stop and restart server with same state
 - [ ] Animals can become carnivorous if there is plenty of animals and few vegetables ?
 - [ ] Fix the Assets/Plugins and Assets/Packages (make something automatic download and add to gitignore ..)
+- [ ] Diamond square on Nakama side

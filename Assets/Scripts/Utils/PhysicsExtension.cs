@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Utils
 {
 	public static class PhysicsExtension
 	{
+		private static readonly Collider[] Results = new Collider[1000];
 		/// <summary>
-		/// Returns the closest GameObject around to this position given mask
+		/// Returns the closest GameObject around to this position given mask.
+		/// Doesn't guarantee closest when there is more than 1000 colliders around with the given mask
 		/// </summary>
 		/// <param name="center"></param>
 		/// <param name="radius"></param>
@@ -17,19 +20,17 @@ namespace Utils
 		/// <returns></returns>
 		public static GameObject Closest(this Vector3 center, float radius, LayerMask mask, bool skipInactive = true)
 		{
-			var hit = Physics.OverlapSphere(center, radius, mask);
-			var last = hit.LastOrDefault();
-			if (last == null) return null;
-			var min = last.gameObject;
-			foreach (var c in hit)
+			if (Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
+			var min = Results[0].gameObject;
+			Results.ToList().ForEach(c =>
 			{
-				if (skipInactive && !c.gameObject.activeInHierarchy) continue;
+				if (c == null || skipInactive && !c.gameObject.activeInHierarchy) return;
 				if (Vector3.Distance(c.transform.position, center) <
 				    Vector3.Distance(min.transform.position, center))
 				{
 					min = c.gameObject;
 				}
-			}
+			});
 
 			return min;
 		}

@@ -15,7 +15,6 @@ namespace ProceduralTree
 		[SerializeField] private GameObject prefab;
 		private Stack<GameObject> m_TreePool;
 		private int m_TreeCount;
-		private int m_MaxTrees;
 
 		protected override void Awake()
 		{
@@ -28,10 +27,11 @@ namespace ProceduralTree
 		/// </summary>
 		/// <param name="maxTrees"></param>
 		/// <param name="delayBetweenFills"></param>
-		public void FillSlowly(int maxTrees, float delayBetweenFills = 10f)
+		/// <param name="initialTrees"></param>
+		public void FillSlowly(int maxTrees, float delayBetweenFills = 100f, int initialTrees = 100)
 		{
-			m_MaxTrees = maxTrees;
-			StartCoroutine(FillSlowly(delayBetweenFills));
+			StartCoroutine(FillSlowly(0, initialTrees)); // Fill initial
+			StartCoroutine(FillSlowly(delayBetweenFills, maxTrees));
 		}
 
 		/// <summary>
@@ -72,11 +72,11 @@ namespace ProceduralTree
 			m_TreePool.Push(obj);
 		}
 
-		private IEnumerator FillSlowly(float delayBetweenFills)
+		private IEnumerator FillSlowly(float delayBetweenFills, int max)
 		{
 			// TODO: one solution to have same seed sync across net is to make an event
 			// triggered when a slow fill is done, the seed should be sync-ed
-			while (m_TreeCount < m_MaxTrees)
+			while (m_TreeCount < max)
 			{
 				var go = Instantiate(prefab, Vector3.one*1000, Quaternion.identity);
 				var tree = go.GetComponent<ProceduralTree>();

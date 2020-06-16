@@ -70,6 +70,7 @@ namespace Evolution
 		}
 		private void Reproduce(MemeController c)
 		{
+			return; // off now
 			// There is a probability of reproduction
 			if (Random.value * 100 > reproductionProbability) return;
 

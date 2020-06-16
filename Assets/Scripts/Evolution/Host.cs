@@ -59,9 +59,11 @@ namespace Evolution
 
 		protected void Update()
 		{
-			if (Age < 100 && Time.frameCount % 5 == 0) Age++;
+			if (Time.frameCount % 5 != 0) return;
+			
+			Age++;
 			// The older, the weaker
-			health.ChangeHealth(-robustness*Time.deltaTime*(1+Age/100));
+			health.ChangeHealth(-robustness*Time.deltaTime*(1+Age/10));
 		}
 
 		protected void OnDisable()

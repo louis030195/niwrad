@@ -7,6 +7,14 @@ namespace Utils
 	public static class Spatial
 	{
 		/// <summary>
+		/// Non alloc field for raycasts
+		/// </summary>
+		private static readonly RaycastHit[] Hit = new RaycastHit[1];
+		/// <summary>
+		/// Non alloc field for overlap sphere casts
+		/// </summary>
+		private static Collider[] _results = new Collider[1];
+		/// <summary>
 		/// Return position above ground relatively from the prefab size
 		/// Global position
 		/// </summary>
@@ -14,7 +22,7 @@ namespace Utils
 		/// <param name="prefabHeight">Prefab height needed in order to place well on top of ground</param>
 		/// <param name="transform">Transform parent</param>
 		/// <param name="layerMask">Layers to ignore</param>
-		/// <returns></returns>
+		/// <returns></returns> // TODO: Big O
 		public static Vector3 PositionAboveGround(this Vector3 position,
 			float prefabHeight = 1f,
 			Transform transform = null,
@@ -25,17 +33,18 @@ namespace Utils
 
 
 			// Current position is below ground
-			if (Physics.Raycast(p, Vector3.up, out var hit, Mathf.Infinity, ~layerMask))
+			if (Physics.RaycastNonAlloc(p, Vector3.up, Hit, Mathf.Infinity, ~layerMask) > 0)
 			{
-				p.y += hit.distance + prefabHeight * 0.5f;
+				// TODO: maybe should check if _hit[0].collider != null
+				p.y += Hit[0].distance + prefabHeight * 0.5f;
 				return p;
 			}
 
 
 			// Current position is above ground
-			if (Physics.Raycast(p, Vector3.down, out hit, Mathf.Infinity, ~layerMask))
+			if (Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) > 0)
 			{
-				p.y -= hit.distance - prefabHeight * 0.5f;
+				p.y -= Hit[0].distance - prefabHeight * 0.5f;
 				return p;
 			}
 
@@ -47,7 +56,7 @@ namespace Utils
 		/// This function will find a position to spawn above ground and far enough from other objects of the given layer
 		/// Returns Vector3 zero in case it couldn't find a free position
 		/// </summary>
-		/// <returns></returns>
+		/// <returns></returns> // TODO: Big O
 		public static Vector3 RandomPositionAroundAboveGroundWithDistance(this Vector3 center,
 			float radius,
 			LayerMask layerMask,
@@ -75,10 +84,10 @@ namespace Utils
 					continue;
 				}
 				// Then we check if this spot is free (from the given layer)
-				var hitColliders = Physics.OverlapSphere(newPos, distance, layerMask);
+				var size = Physics.OverlapSphereNonAlloc(newPos, distance, _results, layerMask);
 
 				// If no objects of the same layer is detected, this spot is free, return
-				if (hitColliders.Length == 0) return newPos;
+				if (size == 0) return newPos;
 
 				tries++;
 			}

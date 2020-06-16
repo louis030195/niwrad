@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 791804037700393416}
   - component: {fileID: 2858898823043359598}
   - component: {fileID: 5397089416142658211}
-  - component: {fileID: 1155260659787561356}
+  - component: {fileID: 2465079733198963464}
   - component: {fileID: 3644157435874668346}
   - component: {fileID: 5912512372570204910}
   - component: {fileID: 8147413370159133988}
@@ -295,7 +295,7 @@ MonoBehaviour:
   walkingAnimations: []
   runningAnimations: []
   navMeshAgent: {fileID: 0}
---- !u!114 &1155260659787561356
+--- !u!114 &2465079733198963464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,10 +304,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4443387354701748607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1781fda5b6b84dd18501cd4704c8bc20, type: 3}
+  m_Script: {fileID: 11500000, guid: 34725d74d42f428fa845bf7833fe11d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decisionFrequency: 5
+  decisionFrequency: 1
   initialLife: 40
   robustness: 0.1
   reproductionThreshold: 20
@@ -316,11 +316,11 @@ MonoBehaviour:
   health: {fileID: 0}
   id: 0
   controller: {fileID: 0}
-  initialSpeed: 10
-  randomMovementRange: 50
+  initialSpeed: 5
+  randomMovementRange: 20
   sightRange: 20
-  eatRange: 2
-  metabolism: 20
+  eatRange: 5
+  metabolism: 10
   reproductionLifeLoss: 20
   movement: {fileID: 0}
 --- !u!114 &3644157435874668346

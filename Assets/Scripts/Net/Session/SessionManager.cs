@@ -63,8 +63,6 @@ namespace Net.Session
         /// Used to communicate with Nakama server.
         /// For the user to send and receive messages from the server, <see cref="session"/> must not be expired.
         /// Default expiration time is 60s, but for this demo we set it to 3 weeks (1 814 400 seconds).
-        /// To initialize the session, call <see cref="AuthenticateDeviceIdAsync"/>.
-        /// To reinitialize expired session, call <see cref="Reauthenticate"/> method.
         /// </summary>
         public ISession session { get; private set; }
 
@@ -199,8 +197,12 @@ namespace Net.Session
         /// Invokes <see cref="ConnectionSucceed"/> or <see cref="ConnectionFailed"/>.
         /// </summary>
         /// <returns></returns>
-        public async Task<(bool success, string message)> ConnectAsync(string email, string password, bool create = false)
+        public async Task<(bool success, string message)> ConnectAsync(string email,
+	        string password,
+	        bool create = false,
+	        string ip = "localhost")
         {
+	        ipAddress = ip;
 	        try
 	        {
 		        session = await client.AuthenticateEmailAsync(email, password, create: create);

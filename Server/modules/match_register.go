@@ -11,7 +11,7 @@ const (
 	serviceName = "Niwrad"
 )
 
-// Registers the collection of functions with Nakama required to provide an OnlinePartyService from Unreal Engine.
+// Register the collection of functions with Nakama required to provide an OnlinePartyService from Unreal Engine.
 func Register(initializer runtime.Initializer) error {
 	createPartyMatch := func(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule) (runtime.Match, error) {
 		return &Match{}, nil
@@ -20,7 +20,7 @@ func Register(initializer runtime.Initializer) error {
 	if err := initializer.RegisterMatch("Niwrad", createPartyMatch); err != nil {
 		return err
 	}
-	if err := initializer.RegisterRpc("create_match", rpcCreateParty); err != nil {
+	if err := initializer.RegisterRpc("create_match", rpcCreateMatch); err != nil {
 		return err
 	}
 	return nil

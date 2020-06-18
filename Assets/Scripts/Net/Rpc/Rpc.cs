@@ -24,26 +24,30 @@ namespace Net.Rpc {
     static RpcReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChZQcm90b2J1Zi9ScGMvcnBjLnByb3RvEgNycGMiWQoTQ3JlYXRlTWF0Y2hS",
+            "ChZQcm90b2J1Zi9ScGMvcnBjLnByb3RvEgNycGMiWAoSQ3JlYXRlTWF0Y2hS",
+            "ZXF1ZXN0EhIKCm1hdGNoX3R5cGUYASABKAkSLgoNY29uZmlndXJhdGlvbhgC",
+            "IAEoCzIXLnJwYy5NYXRjaENvbmZpZ3VyYXRpb24iWQoTQ3JlYXRlTWF0Y2hS",
             "ZXNwb25zZRIQCghtYXRjaF9pZBgBIAEoCRIwCgZyZXN1bHQYAiABKA4yIC5y",
-            "cGMuQ3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0Kp8EChtDcmVhdGVNYXRj",
-            "aENvbXBsZXRpb25SZXN1bHQSNQoxY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVz",
-            "dWx0VW5rbm93bkludGVybmFsRmFpbHVyZRAAEigKJGNyZWF0ZU1hdGNoQ29t",
-            "cGxldGlvblJlc3VsdFN1Y2NlZWRlZBABEjwKL2NyZWF0ZU1hdGNoQ29tcGxl",
-            "dGlvblJlc3VsdFVua25vd25DbGllbnRGYWlsdXJlEJz//////////wESRQo4",
-            "Y3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFkeUluTWF0Y2hPZlNw",
-            "ZWNpZmllZFR5cGUQnf//////////ARI8Ci9jcmVhdGVNYXRjaENvbXBsZXRp",
-            "b25SZXN1bHRBbHJlYWR5Q3JlYXRpbmdNYXRjaBCe//////////8BEjYKKWNy",
-            "ZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlJbk1hdGNoEJ//////",
-            "/////wESPQowY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0RmFpbGVkVG9D",
-            "cmVhdGVNdWNSb29tEKD//////////wESMgolY3JlYXRlTWF0Y2hDb21wbGV0",
-            "aW9uUmVzdWx0Tm9SZXNwb25zZRCh//////////8BEjEKJGNyZWF0ZU1hdGNo",
-            "Q29tcGxldGlvblJlc3VsdExvZ2dlZE91dBCi//////////8BQhNaB3JwYzty",
-            "cGOqAgdOZXQuUnBjYgZwcm90bzM="));
+            "cGMuQ3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0IhQKEk1hdGNoQ29uZmln",
+            "dXJhdGlvbiqfBAobQ3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0EjUKMWNy",
+            "ZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFVua25vd25JbnRlcm5hbEZhaWx1",
+            "cmUQABIoCiRjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRTdWNjZWVkZWQQ",
+            "ARI8Ci9jcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRVbmtub3duQ2xpZW50",
+            "RmFpbHVyZRCc//////////8BEkUKOGNyZWF0ZU1hdGNoQ29tcGxldGlvblJl",
+            "c3VsdEFscmVhZHlJbk1hdGNoT2ZTcGVjaWZpZWRUeXBlEJ3//////////wES",
+            "PAovY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFkeUNyZWF0aW5n",
+            "TWF0Y2gQnv//////////ARI2CiljcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1",
+            "bHRBbHJlYWR5SW5NYXRjaBCf//////////8BEj0KMGNyZWF0ZU1hdGNoQ29t",
+            "cGxldGlvblJlc3VsdEZhaWxlZFRvQ3JlYXRlTXVjUm9vbRCg//////////8B",
+            "EjIKJWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdE5vUmVzcG9uc2UQof//",
+            "////////ARIxCiRjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRMb2dnZWRP",
+            "dXQQov//////////AUITWgdycGM7cnBjqgIHTmV0LlJwY2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Net.Rpc.CreateMatchCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchResponse), global::Net.Rpc.CreateMatchResponse.Parser, new[]{ "MatchId", "Result" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchRequest), global::Net.Rpc.CreateMatchRequest.Parser, new[]{ "MatchType", "Configuration" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchResponse), global::Net.Rpc.CreateMatchResponse.Parser, new[]{ "MatchId", "Result" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.MatchConfiguration), global::Net.Rpc.MatchConfiguration.Parser, null, null, null, null)
           }));
     }
     #endregion
@@ -65,6 +69,169 @@ namespace Net.Rpc {
   #endregion
 
   #region Messages
+  public sealed partial class CreateMatchRequest : pb::IMessage<CreateMatchRequest> {
+    private static readonly pb::MessageParser<CreateMatchRequest> _parser = new pb::MessageParser<CreateMatchRequest>(() => new CreateMatchRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CreateMatchRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateMatchRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateMatchRequest(CreateMatchRequest other) : this() {
+      matchType_ = other.matchType_;
+      configuration_ = other.configuration_ != null ? other.configuration_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CreateMatchRequest Clone() {
+      return new CreateMatchRequest(this);
+    }
+
+    /// <summary>Field number for the "match_type" field.</summary>
+    public const int MatchTypeFieldNumber = 1;
+    private string matchType_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MatchType {
+      get { return matchType_; }
+      set {
+        matchType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "configuration" field.</summary>
+    public const int ConfigurationFieldNumber = 2;
+    private global::Net.Rpc.MatchConfiguration configuration_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Rpc.MatchConfiguration Configuration {
+      get { return configuration_; }
+      set {
+        configuration_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CreateMatchRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CreateMatchRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MatchType != other.MatchType) return false;
+      if (!object.Equals(Configuration, other.Configuration)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MatchType.Length != 0) hash ^= MatchType.GetHashCode();
+      if (configuration_ != null) hash ^= Configuration.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MatchType.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(MatchType);
+      }
+      if (configuration_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Configuration);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MatchType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchType);
+      }
+      if (configuration_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Configuration);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CreateMatchRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MatchType.Length != 0) {
+        MatchType = other.MatchType;
+      }
+      if (other.configuration_ != null) {
+        if (configuration_ == null) {
+          Configuration = new global::Net.Rpc.MatchConfiguration();
+        }
+        Configuration.MergeFrom(other.Configuration);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            MatchType = input.ReadString();
+            break;
+          }
+          case 18: {
+            if (configuration_ == null) {
+              Configuration = new global::Net.Rpc.MatchConfiguration();
+            }
+            input.ReadMessage(Configuration);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class CreateMatchResponse : pb::IMessage<CreateMatchResponse> {
     private static readonly pb::MessageParser<CreateMatchResponse> _parser = new pb::MessageParser<CreateMatchResponse>(() => new CreateMatchResponse());
     private pb::UnknownFieldSet _unknownFields;
@@ -73,7 +240,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -216,6 +383,107 @@ namespace Net.Rpc {
             Result = (global::Net.Rpc.CreateMatchCompletionResult) input.ReadEnum();
             break;
           }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class MatchConfiguration : pb::IMessage<MatchConfiguration> {
+    private static readonly pb::MessageParser<MatchConfiguration> _parser = new pb::MessageParser<MatchConfiguration>(() => new MatchConfiguration());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<MatchConfiguration> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MatchConfiguration() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MatchConfiguration(MatchConfiguration other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MatchConfiguration Clone() {
+      return new MatchConfiguration(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as MatchConfiguration);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(MatchConfiguration other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(MatchConfiguration other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
         }
       }
     }

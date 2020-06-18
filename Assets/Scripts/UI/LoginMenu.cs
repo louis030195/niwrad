@@ -11,15 +11,19 @@ namespace UI
 		[SerializeField] private TMP_InputField username;
 		[SerializeField] private TMP_InputField password;
 		[SerializeField] private TextMeshProUGUI response;
+		[SerializeField] private GameObject serverIpGameObject;
 
+
+		private TMP_InputField m_ServerIp;
 		private void Start()
 		{
+			m_ServerIp = serverIpGameObject.GetComponent<TMP_InputField>();
 			if (SessionManager.instance.debug) Connect("aaaa@aaaa.com", "aaaaaaaa");
 		}
 
 		private async void Connect(string u, string p, bool create = false)
 		{
-			var result = await SessionManager.instance.ConnectAsync(u, p, create);
+			var result = await SessionManager.instance.ConnectAsync(u, p, create, m_ServerIp.text);
 			response.text = result.message;
 			StartCoroutine(ClearResponse());
 			if (result.success) StartCoroutine(LoadMainMenu());
@@ -60,6 +64,9 @@ namespace UI
 			Connect(username.text, password.text, true);
 		}
 
-
+		public void Debug(bool value)
+		{
+			serverIpGameObject.SetActive(value);
+		}
 	}
 }

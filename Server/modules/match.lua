@@ -4,7 +4,7 @@ local nk = require("nakama")
 
 function list_matches(context, payload)
     local limit = 1000
-    local authoritative = false
+    local authoritative = true
     local min_size = 0
     local max_size = 1200
 

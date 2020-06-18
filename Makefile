@@ -36,8 +36,8 @@ server:
 	./Builds/Linux/Server/$(NS).x86_64
 
 nakama:
-	#docker-compose -f Server/docker-compose-auto.yml up --build nakama
-	docker-compose -f Server/docker-compose.yml up
+	docker-compose -f Server/docker-compose-auto.yml up --build nakama
+	#docker-compose -f Server/docker-compose.yml up
 
 proto:
 	protoc --csharp_out=Assets/Scripts/Net/Realtime Protobuf/*.proto

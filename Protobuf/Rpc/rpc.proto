@@ -16,8 +16,15 @@ enum CreateMatchCompletionResult {
 	createMatchCompletionResultNoResponse                    = -95;
 	createMatchCompletionResultLoggedOut                     = -94;
 }
+message CreateMatchRequest {
+    string match_type = 1;
+    MatchConfiguration configuration = 2;
+}
 
 message CreateMatchResponse {
     string match_id = 1;
     CreateMatchCompletionResult result = 2;
+}
+
+message MatchConfiguration {
 }

@@ -1,7 +1,11 @@
 
 # niwrad
 
+![Acquire activation file](https://github.com/louis030195/niwrad/workflows/Acquire%20activation%20file/badge.svg)
+![Build project](https://github.com/louis030195/niwrad/workflows/Build%20project/badge.svg)
+
 ![demo](docs/images/demo.gif)
+![demo](docs/images/demo2.gif)
 
 ## Installation
 

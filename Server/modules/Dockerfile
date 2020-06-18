@@ -5,12 +5,15 @@ ENV CGO_ENABLED 1
 
 WORKDIR /backend
 COPY . .
+# This is ugly as hell ?
+RUN cp -r rpc /usr/local/go/src
 
-# RUN go mod download
-# RUN go mod vendor
+#RUN go mod download
+#RUN go mod vendor
 
 RUN go build --trimpath --buildmode=plugin -o ./backend.so
 
 FROM heroiclabs/nakama:2.12.0
 
-COPY --from=builder /backend/backend.so /nakama/data/modules
+COPY --from=builder /backend/*.so /nakama/data/modules
+COPY --from=builder /backend/*.lua /nakama/data/modules

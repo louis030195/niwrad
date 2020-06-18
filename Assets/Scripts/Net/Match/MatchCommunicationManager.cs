@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
@@ -8,6 +9,7 @@ using JetBrains.Annotations;
 using Nakama;
 using Nakama.TinyJson;
 using Net.Realtime;
+using Net.Rpc;
 using Net.Session;
 using UnityEngine;
 using Utils;
@@ -136,25 +138,35 @@ namespace Net.Match
                 socket.ReceivedMatchPresence += OnMatchPresence;
                 socket.ReceivedMatchState += ReceiveMatchStateMessage;
                 socket.ReceivedStreamState += OnReceivedStreamState;
-                IMatch match;
                 if (id == null)
                 {
-	                match = await socket.CreateMatchAsync();
-	                // var res = await socket.RpcAsync( "create_match", "");
+	                // match = await socket.CreateMatchAsync();
+	                var p = new CreateMatchRequest
+	                {
+		                MatchType = "yolo",
+		                Configuration = new MatchConfiguration()
+	                }.ToByteString().ToStringUtf8();
 
-	                Debug.Log($"Created match with id: {match.Id}");
+	                var res = await socket.RpcAsync( "create_match", p);
+	                var parsed = CreateMatchResponse.Parser
+		                .ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
+	                if (parsed == null || parsed.Result != CreateMatchCompletionResult.Succeeded)
+	                {
+		                Debug.LogException(new Exception($"Failed to create match {parsed}"));
+		                return;
+	                }
+	                matchId = parsed.MatchId;
+	                id = parsed.MatchId;
+	                Debug.Log($"Created match with id: {parsed.MatchId}");
 	                seed = 1995; // Best generation of hosts
                 }
-                else
-                {
+                // else
+                // {
 	                // Join the match
-	                match = await socket.JoinMatchAsync(id);
+	                var match = await socket.JoinMatchAsync(id);
+	                matchId = match.Id;
 	                Debug.Log($"Joined match with id: {match.Id}; presences count: {match.Presences.Count()}");
-                }
-
-                // Set current match id
-                // It will be used to leave the match later
-                matchId = match.Id;
+                // }
             }
             catch (Exception e)
             {
@@ -261,6 +273,7 @@ namespace Net.Match
         /// <param name="e"></param>
         private void OnMatchPresence(IMatchPresenceEvent e)
         {
+	        Debug.Log($"allo");
             foreach (var user in e.Joins)
             {
 	            // If user is not already in the list

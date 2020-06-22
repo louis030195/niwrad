@@ -13,6 +13,7 @@ namespace Evolution
         [SerializeField]
         private bool destroyOnDeath;
         public event Action<float> HealthChanged;
+        public event Action Died;
 
         [Header("Audio")]
         [Tooltip("Clips to play when dying."), SerializeField]
@@ -93,7 +94,7 @@ namespace Evolution
 		        dead = true;
 		        if (destroyOnDeath)
 		        {
-			        Pool.Despawn(gameObject);
+			        Died?.Invoke();
 			        if (deathEffects.Length > 0) // Unused, prob not ready for working
 			        {
 				        var p = transform.position;

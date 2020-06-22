@@ -53,12 +53,18 @@ public class Generate : MonoBehaviour
 			Instantiate(sessionManagerPrefab);
 			InitializeNet();
 		}
+		else
+		{
+			// Clients can't tweak timescale
+			timescaleSlider.gameObject.SetActive(false);
+			timescaleText.gameObject.SetActive(false);
+		}
 	}
 
 	private async void InitializeNet()
 	{
 		// Server account !
-		await SessionManager.instance.ConnectAsync("bbbb@bbbb.com", "bbbbbbbb");
+		await SessionManager.instance.ConnectAsync("bbbb@bbbb.com", "bbbbbbbb"/*, ip:"192.168.1.20"*/);
 		await SessionManager.instance.ConnectSocketAsync();
 		// Join match with null id = create
 		await MatchCommunicationManager.instance.JoinMatchAsync();
@@ -90,11 +96,12 @@ public class Generate : MonoBehaviour
 		yield return new WaitUntil(() => diamondSquare.navMeshBaked);
 		Debug.Log($"Navmesh baked, ready for gameplay");
 		// Notifying self and others that we can handle game play
-		MatchCommunicationManager.instance.Rpc(new Packet
-			{
-				Initialized = new Packet.Types.InitializedPacket()
-			}
-			.Basic(), Recipient.All);
+		var msg = new Packet {Initialized = new Initialized()};
+		foreach (var instancePlayer in MatchCommunicationManager.instance.players)
+		{
+			msg.Recipients.Add(instancePlayer.UserId);
+		}
+		MatchCommunicationManager.instance.Rpc(msg);
 
 		// Start filling the pool
 		TreePool.instance.FillSlowly(vegetationMaxAmount);
@@ -102,10 +109,8 @@ public class Generate : MonoBehaviour
 		// From now the server handle the spawning
 		if (!SessionManager.instance.isServer)
 		{
-			// gameObject.SetActive(false);
-			Destroy(this);
+			yield break;
 		}
-
 		var s = map.terrainData.size;
 		for (var i = 0; i < vegetationAmount; i++)
 		{
@@ -115,6 +120,7 @@ public class Generate : MonoBehaviour
 					5f);
 			HostManager.instance.SpawnTree(p, Quaternion.identity);
 		}
+
 		for (var i = 0; i < animalAmount; i++)
 		{
 			var p = (s * animalSpawnCenter)

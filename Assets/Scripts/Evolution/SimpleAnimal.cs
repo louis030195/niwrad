@@ -95,18 +95,18 @@ namespace Evolution
 		#region Actions
 		private void ReachFood(MemeController c)
 		{
-			if (movement.remainingDistance <= movement.stoppingDistance)
-			{
+			// if (movement.remainingDistance <= movement.stoppingDistance)
+			// {
 				movement.MoveTo(m_Target.transform.position);
-			}
+			// }
 		}
 
 		private void ReachPartner(MemeController c)
 		{
-			if (movement.remainingDistance <= movement.stoppingDistance)
-			{
+			// if (movement.remainingDistance <= movement.stoppingDistance)
+			// {
 				movement.MoveTo(m_Target.transform.position);
-			}
+			// }
 		}
 
 		private void Eat(MemeController c)
@@ -135,7 +135,7 @@ namespace Evolution
 			var layerMask = 1 << LayerMask.NameToLayer("Vegetation");
 
 			// Any matching object around ? Try to get the closest if any
-			var closest = transform.position.Closest(sightRange, layerMask);
+			var closest = gameObject.Closest(sightRange, layerMask);
 
 			// No food around OR target is dead / too weak
 			if (closest == default || closest.GetComponent<Health>().dead) return null;
@@ -157,9 +157,9 @@ namespace Evolution
 				var layerMask = 1 << LayerMask.NameToLayer("Animal");
 
 				// Any matching object around ? Try to get the closest if any
-				var closest = transform.position.Closest(sightRange, layerMask);
+				var closest = gameObject.Closest(sightRange, layerMask);
 				// No animal to breed with around
-				if (closest == null) return null;
+				if (closest == default) return null;
 				m_Target = closest;
 
 				// Stop current movement

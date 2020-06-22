@@ -12,21 +12,25 @@ namespace UI
 		[SerializeField] private TMP_InputField password;
 		[SerializeField] private TextMeshProUGUI response;
 		[SerializeField] private GameObject serverIpGameObject;
+		[SerializeField] private GameObject serverPortGameObject; // TODO: unused yet, who cares ?
 
 
 		private TMP_InputField m_ServerIp;
 		private void Start()
 		{
 			m_ServerIp = serverIpGameObject.GetComponent<TMP_InputField>();
-			if (SessionManager.instance.debug) Connect("aaaa@aaaa.com", "aaaaaaaa");
+			username.text = PlayerPrefs.GetString("username");
+			password.text = PlayerPrefs.GetString("password");
+			m_ServerIp.text = PlayerPrefs.GetString("serverIp");
 		}
 
 		private async void Connect(string u, string p, bool create = false)
 		{
-			var result = await SessionManager.instance.ConnectAsync(u, p, create, m_ServerIp.text);
-			response.text = result.message;
+			var (success, message) = await SessionManager.instance
+				.ConnectAsync(u, p, create, m_ServerIp.text);
+			response.text = message;
 			StartCoroutine(ClearResponse());
-			if (result.success) StartCoroutine(LoadMainMenu());
+			if (success) StartCoroutine(LoadMainMenu());
 		}
 
 		private IEnumerator ClearResponse()
@@ -38,8 +42,12 @@ namespace UI
 		/// <summary>
 		/// Starts the game scene and joins the main menu
 		/// </summary>
-		private static IEnumerator LoadMainMenu()
+		private IEnumerator LoadMainMenu()
 		{
+			PlayerPrefs.SetString("username", username.text);
+			PlayerPrefs.SetString("password", password.text); // TODO: "save password" checkbox
+			PlayerPrefs.SetString("serverIp", m_ServerIp.text);
+			PlayerPrefs.Save();
 			// Wait a few second to let the user see authentication result
 			yield return new WaitForSeconds(2f);
 
@@ -67,6 +75,7 @@ namespace UI
 		public void Debug(bool value)
 		{
 			serverIpGameObject.SetActive(value);
+			serverPortGameObject.SetActive(value);
 		}
 	}
 }

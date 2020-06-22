@@ -3,17 +3,19 @@ package main
 import (
 	"context"
 	"database/sql"
+	"niwrad/realtime"
 	"strconv"
 
+	"github.com/golang/protobuf/proto"
 	c "github.com/heroiclabs/nakama-common/runtime"
 )
 
 var (
-	tickRate int64 = 5
+	tickRate int64 = 30
 )
 
 type MatchState struct {
-	creator   string
+	creator   c.Presence
 	matchID   string
 	presences map[string]c.Presence
 }
@@ -21,14 +23,7 @@ type MatchState struct {
 type Match struct{}
 
 func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c.NakamaModule, params map[string]interface{}) (interface{}, int, string) {
-	logger.Info("params %v", params)
-	creator, ok := params["creator"].(string)
-	if !ok {
-		logger.Error("Error creating match, no creator in params")
-		return nil, 0, ""
-	}
 	state := &MatchState{
-		creator:   creator,
 		matchID:   ctx.Value(c.RUNTIME_CTX_MATCH_ID).(string),
 		presences: make(map[string]c.Presence),
 	}
@@ -48,27 +43,12 @@ func (m *Match) MatchJoin(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	logger.Info("MatchJoin, %v", presences)
 	mState, _ := state.(*MatchState)
 
-	// var rtapiPresences []*rtapi.UserPresence
-
 	for _, p := range presences {
+		if len(mState.presences) == 0 {
+			mState.creator = p
+		}
 		mState.presences[p.GetUserId()] = p
-		// rtapiPresences = append(rtapiPresences, &rtapi.UserPresence{
-		// 	UserId:      p.GetUserId(),
-		// 	SessionId:   p.GetSessionId(),
-		// 	Username:    p.GetUsername(),
-		// 	Persistence: p.GetPersistence(),
-		// })
 	}
-	// Notify everyone of this player arrival
-	// matchPresence, err := proto.Marshal(&rtapi.MatchPresenceEvent{
-	// 	MatchId: mState.matchID,
-	// 	Joins:   rtapiPresences,
-	// })
-	// if err != nil {
-	// 	return err
-	// }
-	// dispatcher.BroadcastMessage(1, matchPresence, nil, nil, true)
-
 	return mState
 }
 
@@ -77,9 +57,8 @@ func (m *Match) MatchLeave(ctx context.Context, logger c.Logger, db *sql.DB, nk 
 	mState, _ := state.(*MatchState)
 	for _, p := range presences {
 		delete(mState.presences, p.GetUserId())
-		if p.GetUserId() == mState.creator {
-			mState.creator = ""
-			// return nil // end match
+		if p.GetUserId() == mState.creator.GetUserId() {
+			return nil // end match
 		}
 	}
 
@@ -89,25 +68,28 @@ func (m *Match) MatchLeave(ctx context.Context, logger c.Logger, db *sql.DB, nk 
 func (m *Match) MatchLoop(ctx context.Context, logger c.Logger, db *sql.DB, nk c.NakamaModule, dispatcher c.MatchDispatcher, tick int64, state interface{}, messages []c.MatchData) interface{} {
 	mState, _ := state.(*MatchState)
 	for _, message := range messages {
-		// logger.Info("Received %v from %v", string(message.GetData()), message.GetUserId())
-
-		// Don't send to sender
-		others := []c.Presence{message}
-		idx := -1
-		for i := range others {
-			if others[i].GetUserId() == message.GetUserId() {
-				idx = i
-				break
-			}
+		var s realtime.Packet
+		if err := proto.Unmarshal(message.GetData(), &s); err != nil {
+			logger.Error("Failed to parse match packet:", err)
 		}
-		// Should panic if idx == -1 (sender isn't in presences ???)
-		others = append(others[:idx], others[idx+1:]...)
 
-		dispatcher.BroadcastMessage(1, message.GetData(), others, nil, true)
+		// No recipients set, "nil" = send to everyone
+		// if len(s.Recipients) == 0 {
+		// 	dispatcher.BroadcastMessage(1, message.GetData(), nil, nil, true)
+		// 	continue
+		// }
+		for _, r := range s.Recipients {
+			presence, ok := mState.presences[r]
+			if !ok {
+				logger.Error("Tried to send message to in-existent player")
+			}
+			logger.Info("Sending message to %v - %v", r, s.Type)
+			dispatcher.BroadcastMessage(1, message.GetData(), []c.Presence{presence}, nil, true)
+		}
 	}
 
 	// Stop match if empty after a while
-	if tick > tickRate*20 && len(mState.presences) == 0 {
+	if tick > tickRate*3 && len(mState.presences) == 0 {
 		logger.Info("Match %v is empty, terminating it", mState.matchID)
 		// Terminate match when empty
 		m.MatchTerminate(ctx, logger, db, nk, dispatcher, tick, state, 2)

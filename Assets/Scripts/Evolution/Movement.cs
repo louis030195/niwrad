@@ -65,11 +65,8 @@ namespace Evolution
 			navMeshAgent = GetComponent<NavMeshAgent>();
 			m_Rbody = GetComponent<Rigidbody>();
 			m_AudioSource = GetComponent<AudioSource>();
-			if (debugPath)
-			{
-				m_Path = new List<Vector3>();
-				if (gameObject.GetComponent<LineRenderer>() == null) m_Lr = gameObject.AddComponent<LineRenderer>();
-			}
+			m_Path = new List<Vector3>();
+			if (gameObject.GetComponent<LineRenderer>() == null) m_Lr = gameObject.AddComponent<LineRenderer>();
 		}
 
 		private void OnDisable()

@@ -1,13 +1,14 @@
-UNITY_PROJECT_PATH ?= $(HOME)/Documents/unity/niwrad
+PROJECT_PATH ?= $(HOME)/Documents/unity/niwrad
 NS ?= niwrad
 VERSION ?= 1.0.0
-EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2019.2.17f1/Editor/Unity
+EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2019.4.0f1/Editor/Unity
 IMAGE_NAME ?= niwrad
 CONTAINER_NAME ?= niwrad
 CONTAINER_INSTANCE ?= default
 
 
-.PHONY: help build build-headless client server nakama proto docker-build docker-run
+# TODO: clean this makefile :)
+.PHONY: help build-client build-headless build client server nakama nakama_and_server proto docker-build docker-run
 help:
 		@echo ''
 		@echo 'Usage: make [TARGET]'
@@ -16,18 +17,19 @@ help:
 		@echo ''
 
 
-build:
+build-client:
 	rm -rf Builds/Linux
-	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(UNITY_PROJECT_PATH) \
-		-buildLinux64Player $(UNITY_PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
+	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
 		-silent-crashes -headless 
 
 build-headless:
 	rm -rf Builds/Linux
-	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(UNITY_PROJECT_PATH) \
-		-buildLinux64Player $(UNITY_PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
+	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
 		-silent-crashes -headless
 
+build: build-client build-headless
 
 client:
 	./Builds/Linux/Client/$(NS).x86_64
@@ -39,9 +41,17 @@ nakama:
 	docker-compose -f Server/docker-compose-auto.yml up --build nakama
 	#docker-compose -f Server/docker-compose.yml up
 
+nakama_and_server: 
+	docker-compose -f Server/docker-compose-auto.yml up --build nakama &
+	# TODO: wait for docker boot :)
+	sleep 20
+	./Builds/Linux/Server/$(NS).x86_64
+
 proto:
-	protoc --csharp_out=Assets/Scripts/Net/Realtime Protobuf/*.proto
-	protoc --go_out=Server/modules --csharp_out=Assets/Scripts/Net/Rpc Protobuf/Rpc/*.proto
+	protoc -I $(PROJECT_PATH)/realtime \
+	--csharp_out=Assets/Scripts/Net/Realtime --go_out=Server/modules $(PROJECT_PATH)/realtime/*.proto
+	protoc -I $(PROJECT_PATH)/rpc \
+	--csharp_out=Assets/Scripts/Net/Rpc --go_out=Server/modules $(PROJECT_PATH)/rpc/*.proto
 
 
 docker-build:

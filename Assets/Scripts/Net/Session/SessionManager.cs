@@ -206,6 +206,7 @@ namespace Net.Session
 	        try
 	        {
 		        session = await client.AuthenticateEmailAsync(email, password, create: create);
+		        account = await GetAccountAsync();
 	        }
 	        catch (ApiResponseException ex)
 	        {

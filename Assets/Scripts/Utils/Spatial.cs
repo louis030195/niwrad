@@ -22,7 +22,7 @@ namespace Utils
 		/// <param name="prefabHeight">Prefab height needed in order to place well on top of ground</param>
 		/// <param name="transform">Transform parent</param>
 		/// <param name="layerMask">Layers to ignore</param>
-		/// <returns></returns> // TODO: Big O
+		/// <returns></returns> // TODO: FIX
 		public static Vector3 PositionAboveGround(this Vector3 position,
 			float prefabHeight = 1f,
 			Transform transform = null,
@@ -49,7 +49,7 @@ namespace Utils
 			}
 
 			// There is no ground above or below, outside map
-			return Vector3.zero;
+			return Vector3.positiveInfinity;
 		}
 
 		/// <summary>
@@ -78,7 +78,7 @@ namespace Utils
 				var newPos = center + Random.insideUnitSphere * radius;
 				// center.y += 1000; // Security check, AboveGround check below first
 				newPos = newPos.PositionAboveGround(prefabHeight, transform);
-				if (newPos == Vector3.zero) // Outside map
+				if (newPos == Vector3.positiveInfinity) // Outside map
 				{
 					tries++;
 					continue;

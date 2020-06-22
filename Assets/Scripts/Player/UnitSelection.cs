@@ -23,6 +23,7 @@ namespace Player {
 		private Quaternion m_Rotation;
 		private bool m_IsSelecting;
 		private Vector3 m_LastMousePosition;
+		private bool m_Disable; // Can disable, useful for example when interacting with UI
 
 		private void Awake()
 		{
@@ -51,7 +52,11 @@ namespace Player {
 				Cursor.lockState = CursorLockMode.None;
 			}
 #endif
-
+			if (m_Disable)
+			{
+				m_IsSelecting = false;
+				return;
+			}
 			var mouse = Input.mousePosition;
 			var ray = m_Cam.ScreenPointToRay(mouse);
 			m_Hit = Physics.Raycast(ray, out var info, float.MaxValue);
@@ -195,6 +200,11 @@ namespace Player {
 			}
 		}
 
+
+		public void Disable(bool value)
+		{
+			m_Disable = value;
+		}
 	}
 
 }

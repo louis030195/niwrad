@@ -6,10 +6,11 @@ ENV CGO_ENABLED 1
 WORKDIR /backend
 COPY . .
 # This is ugly as hell ?
+RUN cp -r realtime /usr/local/go/src
 RUN cp -r rpc /usr/local/go/src
 
 #RUN go mod download
-#RUN go mod vendor
+# RUN go mod vendor
 
 RUN go build --trimpath --buildmode=plugin -o ./backend.so
 

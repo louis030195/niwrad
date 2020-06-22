@@ -54,6 +54,7 @@ namespace UI
 
 		private async Task RefreshList()
 		{
+			// TODO: only delete if changed
 			// Use case: scene is unloading
 			if (scrollViewContent == null) return;
 

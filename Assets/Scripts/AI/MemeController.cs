@@ -37,6 +37,7 @@ namespace AI
 			m_CurrentMeme = currentMeme;
 			aiActive = activate;
 			m_DecisionFrequency = decisionFrequency;
+			MemeChanged?.Invoke(m_CurrentMeme);
 		}
 
 		public void Transition(Meme nextMeme)

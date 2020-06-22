@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package rpc;
+package niwrad.rpc;
 
 option csharp_namespace = "Net.Rpc";
 option go_package = "rpc;rpc";
@@ -17,8 +17,9 @@ enum CreateMatchCompletionResult {
 	createMatchCompletionResultLoggedOut                     = -94;
 }
 message CreateMatchRequest {
-    string match_type = 1;
-    MatchConfiguration configuration = 2;
+	string match_type = 1;
+	int64 seed = 2;
+    MatchConfiguration configuration = 3;
 }
 
 message CreateMatchResponse {

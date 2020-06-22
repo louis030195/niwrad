@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"rpc"
+	"niwrad/rpc"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/heroiclabs/nakama-common/runtime"
@@ -33,7 +33,6 @@ func unpackContext(ctx context.Context) (*sessionContext, error) {
 	return &sessionContext{UserID: userID, SessionID: sessionID}, nil
 }
 func rpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
-	// logger.Info("received payload %v", payload)
 	var session *sessionContext
 	var err error
 	if session, err = unpackContext(ctx); err != nil {
@@ -43,15 +42,12 @@ func rpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 
 	var request rpc.CreateMatchRequest
 	if err = proto.Unmarshal([]byte(payload), &request); err != nil {
-		logger.Error("unmarshalling failed: %v", err)
+		logger.Error("unmarshalling failed: %v %v", payload, err)
 		return "", errUnmarshal
 	}
-	// logger.Info("session: %v, req %v", session, request)
 	// Create the party match.
 	matchID, err := nk.MatchCreate(ctx, "Niwrad", map[string]interface{}{
 		"creator": session.UserID,
-		// "type_id": request.MatchType,
-		// "config":  request.Configuration,
 	})
 
 	if err != nil {
@@ -75,20 +71,5 @@ func rpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	if err != nil {
 		return "", errMarshal
 	}
-	// var err error
-	// var payloadJson map[string]string
-	// json.Unmarshal([]byte(payload), &payloadJson)
-
-	// // Create the party match.
-	// matchID, err := nk.MatchCreate(ctx, "Niwrad", map[string]interface{}{})
-
-	// response, err := proto.Marshal(&rpc.CreateMatchResponse{
-	// 	MatchId: matchID,
-	// 	Result:  rpc.CreateMatchCompletionResult_createMatchCompletionResultSucceeded,
-	// })
-
-	// if err != nil {
-	// 	return "", ErrJsonMarshal
-	// }
 	return string(responseBytes), nil
 }

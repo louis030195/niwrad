@@ -9,25 +9,31 @@ namespace Utils
 	public static class PhysicsExtension
 	{
 		private static readonly Collider[] Results = new Collider[1000];
+
 		/// <summary>
 		/// Returns the closest GameObject around to this position given mask.
 		/// Doesn't guarantee closest when there is more than 1000 colliders around with the given mask
 		/// </summary>
-		/// <param name="center"></param>
+		/// <param name="go"></param>
 		/// <param name="radius"></param>
 		/// <param name="mask"></param>
 		/// <param name="skipInactive"></param>
 		/// <returns></returns>
-		public static GameObject Closest(this Vector3 center, float radius, LayerMask mask, bool skipInactive = true)
+		public static GameObject Closest(this GameObject go, float radius, LayerMask mask, bool skipInactive = true)
 		{
+			var center = go.transform.position;
 			if (Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
-			var min = Results[0].gameObject;
+			var min = default(GameObject);
 			Results.ToList().ForEach(c =>
 			{
-				if (c == null || skipInactive && !c.gameObject.activeInHierarchy) return;
-				if (Vector3.Distance(c.transform.position, center) <
+				// Skip inactive ? Skip self
+				if (c == null || skipInactive && !c.gameObject.activeInHierarchy || c.gameObject.Equals(go)) return;
+				if (min == default ||
+					Vector3.Distance(c.transform.position, center) <
 				    Vector3.Distance(min.transform.position, center))
 				{
+					// Debug.Log($"Found animal closer: {c.transform.position} {c.gameObject.activeInHierarchy}");
+
 					min = c.gameObject;
 				}
 			});

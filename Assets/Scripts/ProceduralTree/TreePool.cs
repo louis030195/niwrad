@@ -28,7 +28,7 @@ namespace ProceduralTree
 		/// <param name="maxTrees"></param>
 		/// <param name="delayBetweenFills"></param>
 		/// <param name="initialTrees"></param>
-		public void FillSlowly(int maxTrees, float delayBetweenFills = 100f, int initialTrees = 100)
+		public void FillSlowly(int maxTrees, float delayBetweenFills = 100f, int initialTrees = 20)
 		{
 			// TODO: convert to unitask
 			StartCoroutine(FillSlowly(0, initialTrees)); // Fill initial

@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using AI;
 using Gameplay;
+using Net.Match;
+using Net.Realtime;
+using Net.Session;
+using Net.Utils;
 using UnityEngine;
 using Utils;
 using Action = AI.Action;
+using Meme = AI.Meme;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -32,11 +37,29 @@ namespace Evolution
 
 		[HideInInspector] public Movement movement;
 
+		private void OnDied()
+		{
+			HostManager.instance.DestroyAnimal(id);
+		}
+
 		protected new void OnEnable()
 		{
 			base.OnEnable();
 			movement = GetComponent<Movement>();
 			movement.speed = initialSpeed;
+			if (SessionManager.instance.isServer)
+			{
+				health.Died += OnDied;
+			}
+		}
+
+		protected new void OnDisable()
+		{
+			base.OnDisable();
+			if (SessionManager.instance && SessionManager.instance.isServer)
+			{
+				health.Died -= OnDied;
+			}
 		}
 
 		protected void BreedAndMutate(GameObject other)
@@ -51,14 +74,14 @@ namespace Evolution
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var childHost = HostManager.instance.SpawnAnimal(transform.position, Quaternion.identity);
-			if (!childHost)
+			if (childHost == null)
 			{
 				Debug.LogError($"Reproduce couldn't spawn animal");
 				return;
 			}
 
 			// Decrease target life now
-			if (other)
+			if (other != null)
 			{
 				other.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
 			}

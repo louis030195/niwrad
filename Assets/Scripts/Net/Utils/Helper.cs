@@ -14,11 +14,11 @@ namespace Net.Utils
 			return new UnityEngine.Vector3(v.X, v.Y, v.Z);
 		}
 
-		public static Quaternion ToQuaternion(this UnityEngine.Quaternion q)
+		public static Quaternion Net(this UnityEngine.Quaternion q)
 		{
 			return new Quaternion {X = q.x, Y = q.y, Z = q.z, W = q.w};
 		}
-		public static Vector3 ToVector3(this UnityEngine.Vector3 v)
+		public static Vector3 Net(this UnityEngine.Vector3 v)
 		{
 			return new Vector3 { X = v.x, Y = v.y,  Z = v.z};
 		}
@@ -35,34 +35,93 @@ namespace Net.Utils
 			return p;
 		}
 
+		public static Packet ReqSpawnAnimal(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		{
+			p.RequestSpawn = new Spawn
+			{
+				Animal = new Animal
+				{
+					Transform = new Transform
+					{
+						Position = v.Net(),
+						Rotation = q.Net()
+					}
+				}
+			};
+			return p;
+		}
 		public static Packet SpawnAnimal(this Packet p, ulong id, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
 		{
-			p.Spawn = new Packet.Types.SpawnPacket
+			p.Spawn = new Spawn
 			{
-				Animal = new Packet.Types.SpawnPacket.Types.AnimalObject
+				Animal = new Animal
 				{
-					ObjectTransform = new Transform
+					Transform = new Transform
 					{
 						Id = id,
-						Position = v.ToVector3(),
-						Rotation = q.ToQuaternion()
+						Position = v.Net(),
+						Rotation = q.Net()
+					}
+				}
+			};
+			return p;
+		}
+		public static Packet ReqSpawnTree(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		{
+			p.RequestSpawn = new Spawn
+			{
+				Tree = new Tree
+				{
+					Transform = new Transform
+					{
+						Position = v.Net(),
+						Rotation = q.Net()
+					}
+				}
+			};
+			return p;
+		}
+		public static Packet SpawnTree(this Packet p, ulong id, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		{
+			p.Spawn = new Spawn
+			{
+				Tree = new Tree
+				{
+					Transform = new Transform
+					{
+						Id = id,
+						Position = v.Net(),
+						Rotation = q.Net()
 					}
 				}
 			};
 			return p;
 		}
 
-		public static Packet SpawnTree(this Packet p, ulong id, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		public static Packet DestroyAnimal(this Packet p, ulong id)
 		{
-			p.Spawn = new Packet.Types.SpawnPacket
+			p.Destroy = new Destroy
 			{
-				Tree = new Packet.Types.SpawnPacket.Types.TreeObject
+				Animal = new Animal
 				{
-					ObjectTransform = new Transform
+					Transform = new Transform
 					{
-						Id = id,
-						Position = v.ToVector3(),
-						Rotation = q.ToQuaternion()
+						Id = id
+					}
+				}
+			};
+			return p;
+		}
+
+		public static Packet DestroyTree(this Packet p, ulong id)
+		{
+			p.Destroy = new Destroy
+			{
+				Tree = new Tree
+				{
+					Transform = new Transform
+					{
+						Id = id
 					}
 				}
 			};

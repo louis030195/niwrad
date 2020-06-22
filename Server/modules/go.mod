@@ -3,8 +3,8 @@ module niwrad
 go 1.14
 
 require (
-	// github.com/The-Tensox/octree v0.0.0-20200502124658-d5eedbdf3820 // indirect
-	// github.com/The-Tensox/protometry v0.0.0-20200426150542-c1a2b4b9913e // indirect
+	// github.com/The-Tensox/octree v0.0.0-20200502124658-d5eedbdf3820
+	// github.com/The-Tensox/protometry v0.0.0-20200502124743-c5fd69c974e2
 	github.com/heroiclabs/nakama-common v1.5.1
 	github.com/golang/protobuf v1.3.5
 )

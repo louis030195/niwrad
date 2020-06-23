@@ -29,3 +29,10 @@ message CreateMatchResponse {
 
 message MatchConfiguration {
 }
+
+message RunServerRequest {
+	// Some configuration ...
+}
+
+message RunServerResponse {
+}

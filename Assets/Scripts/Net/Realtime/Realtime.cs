@@ -24,19 +24,22 @@ namespace Net.Realtime {
     static RealtimeReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5yZWFsdGltZS5wcm90bxIPbml3cmFkLnJlYWx0aW1lIuADCgZQYWNrZXQS",
+            "Cg5yZWFsdGltZS5wcm90bxIPbml3cmFkLnJlYWx0aW1lIpsECgZQYWNrZXQS",
             "EQoJc2VuZGVyX2lkGAEgASgJEhEKCWlzX3NlcnZlchgCIAEoCBISCgpyZWNp",
             "cGllbnRzGAMgAygJEjwKEHVwZGF0ZV90cmFuc2Zvcm0YBCABKAsyIC5uaXdy",
-            "YWQucmVhbHRpbWUuVXBkYXRlVHJhbnNmb3JtSAASJwoFc3Bhd24YBSABKAsy",
-            "Fi5uaXdyYWQucmVhbHRpbWUuU3Bhd25IABIvCg1yZXF1ZXN0X3NwYXduGAYg",
-            "ASgLMhYubml3cmFkLnJlYWx0aW1lLlNwYXduSAASKwoHZGVzdHJveRgHIAEo",
-            "CzIYLm5pd3JhZC5yZWFsdGltZS5EZXN0cm95SAASMwoPcmVxdWVzdF9kZXN0",
-            "cm95GAggASgLMhgubml3cmFkLnJlYWx0aW1lLkRlc3Ryb3lIABIlCgRtZW1l",
-            "GAogASgLMhUubml3cmFkLnJlYWx0aW1lLk1lbWVIABI+ChFtYXRjaF9pbmZv",
-            "cm1hdGlvbhgLIAEoCzIhLm5pd3JhZC5yZWFsdGltZS5NYXRjaEluZm9ybWF0",
-            "aW9uSAASMwoLaW5pdGlhbGl6ZWQYDCABKAsyHC5uaXdyYWQucmVhbHRpbWUu",
-            "SW5pdGlhbGl6ZWRIAEIGCgR0eXBlIkAKD1VwZGF0ZVRyYW5zZm9ybRItCgl0",
-            "cmFuc2Zvcm0YASABKAsyGi5uaXdyYWQucmVhbHRpbWUuVHJhbnNmb3JtIowB",
+            "YWQucmVhbHRpbWUuVXBkYXRlVHJhbnNmb3JtSAASOQoPbmF2X21lc2hfdXBk",
+            "YXRlGAUgASgLMh4ubml3cmFkLnJlYWx0aW1lLk5hdk1lc2hVcGRhdGVIABIn",
+            "CgVzcGF3bhgGIAEoCzIWLm5pd3JhZC5yZWFsdGltZS5TcGF3bkgAEi8KDXJl",
+            "cXVlc3Rfc3Bhd24YByABKAsyFi5uaXdyYWQucmVhbHRpbWUuU3Bhd25IABIr",
+            "CgdkZXN0cm95GAggASgLMhgubml3cmFkLnJlYWx0aW1lLkRlc3Ryb3lIABIz",
+            "Cg9yZXF1ZXN0X2Rlc3Ryb3kYCSABKAsyGC5uaXdyYWQucmVhbHRpbWUuRGVz",
+            "dHJveUgAEiUKBG1lbWUYCiABKAsyFS5uaXdyYWQucmVhbHRpbWUuTWVtZUgA",
+            "Ej4KEW1hdGNoX2luZm9ybWF0aW9uGAsgASgLMiEubml3cmFkLnJlYWx0aW1l",
+            "Lk1hdGNoSW5mb3JtYXRpb25IABIzCgtpbml0aWFsaXplZBgMIAEoCzIcLm5p",
+            "d3JhZC5yZWFsdGltZS5Jbml0aWFsaXplZEgAQgYKBHR5cGUiQAoPVXBkYXRl",
+            "VHJhbnNmb3JtEi0KCXRyYW5zZm9ybRgBIAEoCzIaLm5pd3JhZC5yZWFsdGlt",
+            "ZS5UcmFuc2Zvcm0iSgoNTmF2TWVzaFVwZGF0ZRIKCgJpZBgBIAEoBBItCgtk",
+            "ZXN0aW5hdGlvbhgCIAEoCzIYLm5pd3JhZC5yZWFsdGltZS5WZWN0b3IzIowB",
             "CgVTcGF3bhIpCgNhbnkYASABKAsyGi5uaXdyYWQucmVhbHRpbWUuVHJhbnNm",
             "b3JtSAASJQoEdHJlZRgCIAEoCzIVLm5pd3JhZC5yZWFsdGltZS5UcmVlSAAS",
             "KQoGYW5pbWFsGAMgASgLMhcubml3cmFkLnJlYWx0aW1lLkFuaW1hbEgAQgYK",
@@ -57,8 +60,9 @@ namespace Net.Realtime {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet), global::Net.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "Recipients", "UpdateTransform", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "MatchInformation", "Initialized" }, new[]{ "Type" }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Packet), global::Net.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "Recipients", "UpdateTransform", "NavMeshUpdate", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "MatchInformation", "Initialized" }, new[]{ "Type" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.UpdateTransform), global::Net.Realtime.UpdateTransform.Parser, new[]{ "Transform" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.NavMeshUpdate), global::Net.Realtime.NavMeshUpdate.Parser, new[]{ "Id", "Destination" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Spawn), global::Net.Realtime.Spawn.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Destroy), global::Net.Realtime.Destroy.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Realtime.Meme), global::Net.Realtime.Meme.Parser, new[]{ "Id", "MemeName" }, null, null, null),
@@ -106,6 +110,9 @@ namespace Net.Realtime {
       switch (other.TypeCase) {
         case TypeOneofCase.UpdateTransform:
           UpdateTransform = other.UpdateTransform.Clone();
+          break;
+        case TypeOneofCase.NavMeshUpdate:
+          NavMeshUpdate = other.NavMeshUpdate.Clone();
           break;
         case TypeOneofCase.Spawn:
           Spawn = other.Spawn.Clone();
@@ -184,8 +191,19 @@ namespace Net.Realtime {
       }
     }
 
+    /// <summary>Field number for the "nav_mesh_update" field.</summary>
+    public const int NavMeshUpdateFieldNumber = 5;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.NavMeshUpdate NavMeshUpdate {
+      get { return typeCase_ == TypeOneofCase.NavMeshUpdate ? (global::Net.Realtime.NavMeshUpdate) type_ : null; }
+      set {
+        type_ = value;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.NavMeshUpdate;
+      }
+    }
+
     /// <summary>Field number for the "spawn" field.</summary>
-    public const int SpawnFieldNumber = 5;
+    public const int SpawnFieldNumber = 6;
     /// <summary>
     /// Evolution
     /// </summary>
@@ -199,7 +217,7 @@ namespace Net.Realtime {
     }
 
     /// <summary>Field number for the "request_spawn" field.</summary>
-    public const int RequestSpawnFieldNumber = 6;
+    public const int RequestSpawnFieldNumber = 7;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Net.Realtime.Spawn RequestSpawn {
       get { return typeCase_ == TypeOneofCase.RequestSpawn ? (global::Net.Realtime.Spawn) type_ : null; }
@@ -210,7 +228,7 @@ namespace Net.Realtime {
     }
 
     /// <summary>Field number for the "destroy" field.</summary>
-    public const int DestroyFieldNumber = 7;
+    public const int DestroyFieldNumber = 8;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Net.Realtime.Destroy Destroy {
       get { return typeCase_ == TypeOneofCase.Destroy ? (global::Net.Realtime.Destroy) type_ : null; }
@@ -221,7 +239,7 @@ namespace Net.Realtime {
     }
 
     /// <summary>Field number for the "request_destroy" field.</summary>
-    public const int RequestDestroyFieldNumber = 8;
+    public const int RequestDestroyFieldNumber = 9;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Net.Realtime.Destroy RequestDestroy {
       get { return typeCase_ == TypeOneofCase.RequestDestroy ? (global::Net.Realtime.Destroy) type_ : null; }
@@ -272,10 +290,11 @@ namespace Net.Realtime {
     public enum TypeOneofCase {
       None = 0,
       UpdateTransform = 4,
-      Spawn = 5,
-      RequestSpawn = 6,
-      Destroy = 7,
-      RequestDestroy = 8,
+      NavMeshUpdate = 5,
+      Spawn = 6,
+      RequestSpawn = 7,
+      Destroy = 8,
+      RequestDestroy = 9,
       Meme = 10,
       MatchInformation = 11,
       Initialized = 12,
@@ -309,6 +328,7 @@ namespace Net.Realtime {
       if (IsServer != other.IsServer) return false;
       if(!recipients_.Equals(other.recipients_)) return false;
       if (!object.Equals(UpdateTransform, other.UpdateTransform)) return false;
+      if (!object.Equals(NavMeshUpdate, other.NavMeshUpdate)) return false;
       if (!object.Equals(Spawn, other.Spawn)) return false;
       if (!object.Equals(RequestSpawn, other.RequestSpawn)) return false;
       if (!object.Equals(Destroy, other.Destroy)) return false;
@@ -327,6 +347,7 @@ namespace Net.Realtime {
       if (IsServer != false) hash ^= IsServer.GetHashCode();
       hash ^= recipients_.GetHashCode();
       if (typeCase_ == TypeOneofCase.UpdateTransform) hash ^= UpdateTransform.GetHashCode();
+      if (typeCase_ == TypeOneofCase.NavMeshUpdate) hash ^= NavMeshUpdate.GetHashCode();
       if (typeCase_ == TypeOneofCase.Spawn) hash ^= Spawn.GetHashCode();
       if (typeCase_ == TypeOneofCase.RequestSpawn) hash ^= RequestSpawn.GetHashCode();
       if (typeCase_ == TypeOneofCase.Destroy) hash ^= Destroy.GetHashCode();
@@ -361,20 +382,24 @@ namespace Net.Realtime {
         output.WriteRawTag(34);
         output.WriteMessage(UpdateTransform);
       }
-      if (typeCase_ == TypeOneofCase.Spawn) {
+      if (typeCase_ == TypeOneofCase.NavMeshUpdate) {
         output.WriteRawTag(42);
+        output.WriteMessage(NavMeshUpdate);
+      }
+      if (typeCase_ == TypeOneofCase.Spawn) {
+        output.WriteRawTag(50);
         output.WriteMessage(Spawn);
       }
       if (typeCase_ == TypeOneofCase.RequestSpawn) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(RequestSpawn);
       }
       if (typeCase_ == TypeOneofCase.Destroy) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(Destroy);
       }
       if (typeCase_ == TypeOneofCase.RequestDestroy) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(RequestDestroy);
       }
       if (typeCase_ == TypeOneofCase.Meme) {
@@ -406,6 +431,9 @@ namespace Net.Realtime {
       size += recipients_.CalculateSize(_repeated_recipients_codec);
       if (typeCase_ == TypeOneofCase.UpdateTransform) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateTransform);
+      }
+      if (typeCase_ == TypeOneofCase.NavMeshUpdate) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(NavMeshUpdate);
       }
       if (typeCase_ == TypeOneofCase.Spawn) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Spawn);
@@ -452,6 +480,12 @@ namespace Net.Realtime {
             UpdateTransform = new global::Net.Realtime.UpdateTransform();
           }
           UpdateTransform.MergeFrom(other.UpdateTransform);
+          break;
+        case TypeOneofCase.NavMeshUpdate:
+          if (NavMeshUpdate == null) {
+            NavMeshUpdate = new global::Net.Realtime.NavMeshUpdate();
+          }
+          NavMeshUpdate.MergeFrom(other.NavMeshUpdate);
           break;
         case TypeOneofCase.Spawn:
           if (Spawn == null) {
@@ -530,6 +564,15 @@ namespace Net.Realtime {
             break;
           }
           case 42: {
+            global::Net.Realtime.NavMeshUpdate subBuilder = new global::Net.Realtime.NavMeshUpdate();
+            if (typeCase_ == TypeOneofCase.NavMeshUpdate) {
+              subBuilder.MergeFrom(NavMeshUpdate);
+            }
+            input.ReadMessage(subBuilder);
+            NavMeshUpdate = subBuilder;
+            break;
+          }
+          case 50: {
             global::Net.Realtime.Spawn subBuilder = new global::Net.Realtime.Spawn();
             if (typeCase_ == TypeOneofCase.Spawn) {
               subBuilder.MergeFrom(Spawn);
@@ -538,7 +581,7 @@ namespace Net.Realtime {
             Spawn = subBuilder;
             break;
           }
-          case 50: {
+          case 58: {
             global::Net.Realtime.Spawn subBuilder = new global::Net.Realtime.Spawn();
             if (typeCase_ == TypeOneofCase.RequestSpawn) {
               subBuilder.MergeFrom(RequestSpawn);
@@ -547,7 +590,7 @@ namespace Net.Realtime {
             RequestSpawn = subBuilder;
             break;
           }
-          case 58: {
+          case 66: {
             global::Net.Realtime.Destroy subBuilder = new global::Net.Realtime.Destroy();
             if (typeCase_ == TypeOneofCase.Destroy) {
               subBuilder.MergeFrom(Destroy);
@@ -556,7 +599,7 @@ namespace Net.Realtime {
             Destroy = subBuilder;
             break;
           }
-          case 66: {
+          case 74: {
             global::Net.Realtime.Destroy subBuilder = new global::Net.Realtime.Destroy();
             if (typeCase_ == TypeOneofCase.RequestDestroy) {
               subBuilder.MergeFrom(RequestDestroy);
@@ -736,6 +779,169 @@ namespace Net.Realtime {
 
   }
 
+  public sealed partial class NavMeshUpdate : pb::IMessage<NavMeshUpdate> {
+    private static readonly pb::MessageParser<NavMeshUpdate> _parser = new pb::MessageParser<NavMeshUpdate>(() => new NavMeshUpdate());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NavMeshUpdate> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NavMeshUpdate() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NavMeshUpdate(NavMeshUpdate other) : this() {
+      id_ = other.id_;
+      destination_ = other.destination_ != null ? other.destination_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NavMeshUpdate Clone() {
+      return new NavMeshUpdate(this);
+    }
+
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private ulong id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "destination" field.</summary>
+    public const int DestinationFieldNumber = 2;
+    private global::Net.Realtime.Vector3 destination_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Realtime.Vector3 Destination {
+      get { return destination_; }
+      set {
+        destination_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NavMeshUpdate);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NavMeshUpdate other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (!object.Equals(Destination, other.Destination)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0UL) hash ^= Id.GetHashCode();
+      if (destination_ != null) hash ^= Destination.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0UL) {
+        output.WriteRawTag(8);
+        output.WriteUInt64(Id);
+      }
+      if (destination_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Destination);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
+      }
+      if (destination_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Destination);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NavMeshUpdate other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0UL) {
+        Id = other.Id;
+      }
+      if (other.destination_ != null) {
+        if (destination_ == null) {
+          Destination = new global::Net.Realtime.Vector3();
+        }
+        Destination.MergeFrom(other.Destination);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Id = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            if (destination_ == null) {
+              Destination = new global::Net.Realtime.Vector3();
+            }
+            input.ReadMessage(Destination);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class Spawn : pb::IMessage<Spawn> {
     private static readonly pb::MessageParser<Spawn> _parser = new pb::MessageParser<Spawn>(() => new Spawn());
     private pb::UnknownFieldSet _unknownFields;
@@ -744,7 +950,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -993,7 +1199,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1242,7 +1448,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1405,7 +1611,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1541,7 +1747,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1645,7 +1851,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1842,7 +2048,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1980,7 +2186,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2118,7 +2324,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2303,7 +2509,7 @@ namespace Net.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Net.Realtime.RealtimeReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

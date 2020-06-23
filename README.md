@@ -89,3 +89,5 @@ The principle is to simulate few similar key points among darwinian evolution, o
 - [ ] Custom script unity-builder github workflow (building headless, client etc.)
 - [ ] Keyboard hack to request/kill a server via client
 - [ ] Fix ugly as hell hacks nakama side (go files mods, protos imports etc.)
+- [ ] Android controller
+- [ ] Find out why hosts die so fast in net ?

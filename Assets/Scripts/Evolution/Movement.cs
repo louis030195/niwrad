@@ -23,6 +23,7 @@ namespace Evolution
 		private string[] runningAnimations;
 
 		[HideInInspector] public NavMeshAgent navMeshAgent;
+		public event Action<Vector3> destinationChanged;
 
 		private Animator m_Animator;
 		private Rigidbody m_Rbody;
@@ -76,7 +77,7 @@ namespace Evolution
 
 		private void Update()
 		{
-			if (debugPath & m_Lr != null && m_Path != null && m_Path.Count > 1)
+			if (debugPath && m_Path != null && m_Path.Count > 1)
 			{
 				m_Lr.positionCount = m_Path.Count;
 				for (int i = 0; i < m_Path.Count; i++)
@@ -89,6 +90,7 @@ namespace Evolution
 		public void MoveTo(Vector3 destination)
 		{
 			navMeshAgent.destination = destination;
+			destinationChanged?.Invoke(destination);
 			isStopped = false;
 
 			if (debugPath)

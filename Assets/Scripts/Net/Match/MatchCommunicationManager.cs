@@ -35,6 +35,7 @@ namespace Net.Match
 
         // General objects
         public event Action<Realtime.Transform> TransformUpdated;
+        public event Action<NavMeshUpdate> NavMeshUpdated;
 
         // Evolution
         public event Action<Realtime.Transform> AnimalSpawned;
@@ -202,6 +203,9 @@ namespace Net.Match
                 case Packet.TypeOneofCase.UpdateTransform:
                     TransformUpdated?.Invoke(p.UpdateTransform.Transform);
                     break;
+                case Packet.TypeOneofCase.NavMeshUpdate:
+	                NavMeshUpdated?.Invoke(p.NavMeshUpdate);
+	                break;
                 case Packet.TypeOneofCase.RequestSpawn:
 	                switch (p.RequestSpawn.TypeCase)
 	                {

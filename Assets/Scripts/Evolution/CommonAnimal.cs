@@ -50,6 +50,7 @@ namespace Evolution
 			if (SessionManager.instance.isServer)
 			{
 				health.Died += OnDied;
+				movement.destinationChanged += OnDestinationChanged;
 			}
 		}
 
@@ -116,6 +117,18 @@ namespace Evolution
 
 			// TODO: the new host should have its memes tweaked by meme controller (mutation ...)
 			LastBreed = Time.time;
+		}
+
+		private void OnDestinationChanged(Vector3 obj)
+		{
+			MatchCommunicationManager.instance.Rpc(new Packet
+			{
+				NavMeshUpdate = new NavMeshUpdate
+				{
+					Id = id,
+					Destination = obj.Net()
+				}
+			});
 		}
 
 

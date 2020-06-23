@@ -57,6 +57,7 @@ namespace Gameplay
 	        MatchCommunicationManager.instance.TreeDestroyRequested -= OnTreeDestroyRequested;
 	        MatchCommunicationManager.instance.MemeUpdated -= OnMemeUpdated;
 	        MatchCommunicationManager.instance.TransformUpdated -= OnTransformUpdated;
+	        MatchCommunicationManager.instance.NavMeshUpdated -= OnNavMeshUpdated;
         }
 
         #endregion
@@ -127,6 +128,7 @@ namespace Gameplay
 	        MatchCommunicationManager.instance.TreeDestroyRequested += OnTreeDestroyRequested;
 	        MatchCommunicationManager.instance.MemeUpdated += OnMemeUpdated;
 	        MatchCommunicationManager.instance.TransformUpdated += OnTransformUpdated;
+	        MatchCommunicationManager.instance.NavMeshUpdated += OnNavMeshUpdated;
         }
 
         private void SyncGlobalState(string senderId)
@@ -178,8 +180,8 @@ namespace Gameplay
 	        if (SessionManager.instance.isServer)
 	        {
 		        m_Animals[obj.Id].BringToLife();
-		        var tSync = m_Animals[obj.Id].gameObject.AddComponent<TransformSync>();
-		        tSync.id = obj.Id;
+		        // var tSync = m_Animals[obj.Id].gameObject.AddComponent<TransformSync>();
+		        // tSync.id = obj.Id;
 	        }
 	        return m_Animals[obj.Id];
         }
@@ -276,7 +278,7 @@ namespace Gameplay
 	        }
         }
 
-        private void OnTransformUpdated(Net.Realtime.Transform obj) // TODO: merge spawn and update ?
+        private void OnTransformUpdated(Transform obj) // TODO: merge spawn and update ?
         {
 	        if (!m_Animals.ContainsKey(obj.Id))
 	        {
@@ -286,6 +288,17 @@ namespace Gameplay
 
 	        m_Animals[obj.Id].transform.position = obj.Position.ToVector3();
 	        m_Animals[obj.Id].transform.rotation = obj.Rotation.ToQuaternion();
+        }
+
+        private void OnNavMeshUpdated(NavMeshUpdate obj)
+        {
+	        if (!m_Animals.ContainsKey(obj.Id))
+	        {
+		        // Debug.LogError($"Tried to update in-existent animal {obj.Id}"); // TODO: maybe should pass client id
+		        return;
+	        }
+
+	        m_Animals[obj.Id].movement.MoveTo(obj.Destination.ToVector3());
         }
 
         #endregion

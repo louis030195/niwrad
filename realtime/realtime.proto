@@ -12,12 +12,13 @@ message Packet {
     oneof type {
         // General physical objects
         UpdateTransform update_transform = 4;
+        NavMeshUpdate nav_mesh_update = 5;
 
         // Evolution
-        Spawn spawn = 5;
-        Spawn request_spawn = 6;
-        Destroy destroy = 7;
-        Destroy request_destroy = 8;
+        Spawn spawn = 6;
+        Spawn request_spawn = 7;
+        Destroy destroy = 8;
+        Destroy request_destroy = 9;
         Meme meme = 10;
         
         // Player
@@ -29,6 +30,11 @@ message Packet {
 // General purpose transform update typically shared by several different types of objects
 message UpdateTransform {
     Transform transform = 1;
+}
+
+message NavMeshUpdate {
+    uint64 id = 1;
+    Vector3 destination = 2;
 }
 
 

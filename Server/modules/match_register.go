@@ -23,6 +23,9 @@ func Register(initializer runtime.Initializer) error {
 	if err := initializer.RegisterRpc("create_match", rpcCreateMatch); err != nil {
 		return err
 	}
+	if err := initializer.RegisterRpc("run_unity_server", rpcRunUnityServer); err != nil {
+		return err
+	}
 	return nil
 }
 

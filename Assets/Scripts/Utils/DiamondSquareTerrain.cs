@@ -10,7 +10,7 @@ namespace Utils
 	/// </summary>
 	[RequireComponent(typeof(Terrain))]
 	// [ExecuteInEditMode]
-	public class DiamondSquareTerrain : MonoBehaviour {
+	public class DiamondSquareTerrain : MonoBehaviour { // TODO: archive this ugly as hell script
 		// Data container for heights of a terrain
 		private TerrainData m_Data;
 		// Size of the sides of a terrain
@@ -33,17 +33,6 @@ namespace Utils
 		/// </summary>
 		public bool navMeshBaked;
 
-		/// <summary>
-		/// Used for initialization
-		/// </summary>
-		private void Awake()
-		{
-			m_Data = new TerrainData {size = new Vector3(100, 100, 100)};
-			GetComponent<Terrain>().terrainData = m_Data;
-			GetComponent<TerrainCollider>().terrainData = m_Data;
-        	m_Size = m_Data.heightmapResolution;
-			Reset();
-		}
 
 
 		/// <summary>
@@ -81,7 +70,17 @@ namespace Utils
 		/// <summary>
 		/// Executes the DiamondSquare algorithm on the terrain.
 		/// </summary>
-		public void ExecuteDiamondSquare() {
+		public void ExecuteDiamondSquare(int size)
+		{
+			m_Data = new TerrainData {size = new Vector3(size, size, size)};
+
+			GetComponent<Terrain>().terrainData = m_Data;
+			GetComponent<TerrainCollider>().terrainData = m_Data;
+			m_Size = m_Data.heightmapResolution;
+			Reset();
+
+			Debug.Log($"Generating terrain with config: size: {size}, roughness: {roughness}");
+
 			m_Heights = new float[m_Size, m_Size];
 			var range = 0.5f;
 			int sideLength;

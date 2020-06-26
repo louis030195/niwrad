@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 	"os/exec"
 
@@ -82,11 +83,23 @@ func rpcRunUnityServer(ctx context.Context, logger runtime.Logger, db *sql.DB, n
 		logger.Error("unmarshalling failed: %v %v", payload, err)
 		return "", errUnmarshal
 	}
+	logger.Info("A server creation has been asked with config: %v", request)
 
-	cmd := exec.Command("./Server/StandaloneLinux64")
-	if err := cmd.Run(); err != nil {
+	args := []string{"./niwrad.x86_64", "--terrainSize", "1000", "--initialAnimals", "50", "--initialPlants", "100"}
+	if request.TerrainSize > -1 {
+		args[2] = fmt.Sprintf("%v", request.TerrainSize)
+	}
+	if request.InitialAnimals > -1 {
+		args[4] = fmt.Sprintf("%v", request.InitialAnimals)
+	}
+	if request.InitialPlants > -1 {
+		args[6] = fmt.Sprintf("%v", request.InitialPlants)
+	}
+	cmd := exec.Command(args[0], args...)
+	if err := cmd.Start(); err != nil {
 		log.Fatal(err)
 	}
+	logger.Info("New server %v", args)
 
 	// Return result to user.
 	response := &rpc.RunServerResponse{}

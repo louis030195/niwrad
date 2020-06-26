@@ -1,5 +1,7 @@
 using System;
-using Gameplay;
+using Cysharp.Threading.Tasks;
+using Net.Match;
+using Net.Session;
 using ProceduralTree;
 using TMPro;
 using UnityEngine;
@@ -27,7 +29,13 @@ namespace UI
 		[SerializeField]
 		private TextMeshProUGUI vegetationGenerations;
 
-		private void Start()
+		private async void Start()
+		{
+			await UniTask.WaitUntil(() => MatchCommunicationManager.instance != null);
+			MatchCommunicationManager.instance.Initialized += OnInitialized;
+		}
+
+		private void OnInitialized(string _)
 		{
 			Pool.Spawned[animalPrefab] += IncrementAnimalBirths;
 			TreePool.instance.Spawned += IncrementVegetationBirths;

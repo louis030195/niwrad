@@ -108,6 +108,8 @@ namespace Gameplay
         /// <param name="senderId"></param>
         private void Initialized(string senderId)
         {
+	        Pool.Preload(animalPrefab, 1000);
+
 	        var syncingGlobalState = MatchCommunicationManager.instance.isHost &&
 	                                 MatchCommunicationManager.instance.self.UserId != senderId;
 	        var m = syncingGlobalState ? " sending global state" : "";

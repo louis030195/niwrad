@@ -68,7 +68,7 @@ namespace Utils
 			if (distance > radius)
 			{
 				Debug.LogError("Distance must be inferior to radius");
-				return Vector3.zero;
+				return Vector3.positiveInfinity;
 			}
 			var tries = 0;
 			// While we didn't find a free position
@@ -78,7 +78,7 @@ namespace Utils
 				var newPos = center + Random.insideUnitSphere * radius;
 				// center.y += 1000; // Security check, AboveGround check below first
 				newPos = newPos.PositionAboveGround(prefabHeight, transform);
-				if (newPos == Vector3.positiveInfinity) // Outside map
+				if (newPos.Equals(Vector3.positiveInfinity)) // Outside map
 				{
 					tries++;
 					continue;
@@ -92,7 +92,7 @@ namespace Utils
 				tries++;
 			}
 
-			return Vector3.zero;
+			return Vector3.positiveInfinity;
 		}
 	}
 }

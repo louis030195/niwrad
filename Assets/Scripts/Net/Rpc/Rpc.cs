@@ -29,28 +29,29 @@ namespace Net.Rpc {
             "cmF0aW9uGAMgASgLMh4ubml3cmFkLnJwYy5NYXRjaENvbmZpZ3VyYXRpb24i",
             "YAoTQ3JlYXRlTWF0Y2hSZXNwb25zZRIQCghtYXRjaF9pZBgBIAEoCRI3CgZy",
             "ZXN1bHQYAiABKA4yJy5uaXdyYWQucnBjLkNyZWF0ZU1hdGNoQ29tcGxldGlv",
-            "blJlc3VsdCIUChJNYXRjaENvbmZpZ3VyYXRpb24iEgoQUnVuU2VydmVyUmVx",
-            "dWVzdCITChFSdW5TZXJ2ZXJSZXNwb25zZSqfBAobQ3JlYXRlTWF0Y2hDb21w",
-            "bGV0aW9uUmVzdWx0EjUKMWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFVu",
-            "a25vd25JbnRlcm5hbEZhaWx1cmUQABIoCiRjcmVhdGVNYXRjaENvbXBsZXRp",
-            "b25SZXN1bHRTdWNjZWVkZWQQARI8Ci9jcmVhdGVNYXRjaENvbXBsZXRpb25S",
-            "ZXN1bHRVbmtub3duQ2xpZW50RmFpbHVyZRCc//////////8BEkUKOGNyZWF0",
-            "ZU1hdGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlJbk1hdGNoT2ZTcGVjaWZp",
-            "ZWRUeXBlEJ3//////////wESPAovY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVz",
-            "dWx0QWxyZWFkeUNyZWF0aW5nTWF0Y2gQnv//////////ARI2CiljcmVhdGVN",
-            "YXRjaENvbXBsZXRpb25SZXN1bHRBbHJlYWR5SW5NYXRjaBCf//////////8B",
-            "Ej0KMGNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdEZhaWxlZFRvQ3JlYXRl",
-            "TXVjUm9vbRCg//////////8BEjIKJWNyZWF0ZU1hdGNoQ29tcGxldGlvblJl",
-            "c3VsdE5vUmVzcG9uc2UQof//////////ARIxCiRjcmVhdGVNYXRjaENvbXBs",
-            "ZXRpb25SZXN1bHRMb2dnZWRPdXQQov//////////AUITWgdycGM7cnBjqgIH",
-            "TmV0LlJwY2IGcHJvdG8z"));
+            "blJlc3VsdCIUChJNYXRjaENvbmZpZ3VyYXRpb24iWQoQUnVuU2VydmVyUmVx",
+            "dWVzdBIUCgx0ZXJyYWluX3NpemUYASABKAUSFwoPaW5pdGlhbF9hbmltYWxz",
+            "GAIgASgFEhYKDmluaXRpYWxfcGxhbnRzGAMgASgFIhMKEVJ1blNlcnZlclJl",
+            "c3BvbnNlKp8EChtDcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHQSNQoxY3Jl",
+            "YXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0VW5rbm93bkludGVybmFsRmFpbHVy",
+            "ZRAAEigKJGNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFN1Y2NlZWRlZBAB",
+            "EjwKL2NyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFVua25vd25DbGllbnRG",
+            "YWlsdXJlEJz//////////wESRQo4Y3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVz",
+            "dWx0QWxyZWFkeUluTWF0Y2hPZlNwZWNpZmllZFR5cGUQnf//////////ARI8",
+            "Ci9jcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRBbHJlYWR5Q3JlYXRpbmdN",
+            "YXRjaBCe//////////8BEjYKKWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3Vs",
+            "dEFscmVhZHlJbk1hdGNoEJ///////////wESPQowY3JlYXRlTWF0Y2hDb21w",
+            "bGV0aW9uUmVzdWx0RmFpbGVkVG9DcmVhdGVNdWNSb29tEKD//////////wES",
+            "MgolY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0Tm9SZXNwb25zZRCh////",
+            "//////8BEjEKJGNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdExvZ2dlZE91",
+            "dBCi//////////8BQhNaB3JwYztycGOqAgdOZXQuUnBjYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Net.Rpc.CreateMatchCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchRequest), global::Net.Rpc.CreateMatchRequest.Parser, new[]{ "MatchType", "Seed", "Configuration" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchResponse), global::Net.Rpc.CreateMatchResponse.Parser, new[]{ "MatchId", "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.MatchConfiguration), global::Net.Rpc.MatchConfiguration.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.RunServerRequest), global::Net.Rpc.RunServerRequest.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.RunServerRequest), global::Net.Rpc.RunServerRequest.Parser, new[]{ "TerrainSize", "InitialAnimals", "InitialPlants" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.RunServerResponse), global::Net.Rpc.RunServerResponse.Parser, null, null, null, null)
           }));
     }
@@ -522,9 +523,6 @@ namespace Net.Rpc {
 
   }
 
-  /// <summary>
-  /// Some configuration ...
-  /// </summary>
   public sealed partial class RunServerRequest : pb::IMessage<RunServerRequest> {
     private static readonly pb::MessageParser<RunServerRequest> _parser = new pb::MessageParser<RunServerRequest>(() => new RunServerRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -550,12 +548,48 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public RunServerRequest(RunServerRequest other) : this() {
+      terrainSize_ = other.terrainSize_;
+      initialAnimals_ = other.initialAnimals_;
+      initialPlants_ = other.initialPlants_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public RunServerRequest Clone() {
       return new RunServerRequest(this);
+    }
+
+    /// <summary>Field number for the "terrain_size" field.</summary>
+    public const int TerrainSizeFieldNumber = 1;
+    private int terrainSize_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int TerrainSize {
+      get { return terrainSize_; }
+      set {
+        terrainSize_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "initial_animals" field.</summary>
+    public const int InitialAnimalsFieldNumber = 2;
+    private int initialAnimals_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int InitialAnimals {
+      get { return initialAnimals_; }
+      set {
+        initialAnimals_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "initial_plants" field.</summary>
+    public const int InitialPlantsFieldNumber = 3;
+    private int initialPlants_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int InitialPlants {
+      get { return initialPlants_; }
+      set {
+        initialPlants_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -571,12 +605,18 @@ namespace Net.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (TerrainSize != other.TerrainSize) return false;
+      if (InitialAnimals != other.InitialAnimals) return false;
+      if (InitialPlants != other.InitialPlants) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (TerrainSize != 0) hash ^= TerrainSize.GetHashCode();
+      if (InitialAnimals != 0) hash ^= InitialAnimals.GetHashCode();
+      if (InitialPlants != 0) hash ^= InitialPlants.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -590,6 +630,18 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (TerrainSize != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(TerrainSize);
+      }
+      if (InitialAnimals != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(InitialAnimals);
+      }
+      if (InitialPlants != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(InitialPlants);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -598,6 +650,15 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (TerrainSize != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TerrainSize);
+      }
+      if (InitialAnimals != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(InitialAnimals);
+      }
+      if (InitialPlants != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(InitialPlants);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -608,6 +669,15 @@ namespace Net.Rpc {
     public void MergeFrom(RunServerRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.TerrainSize != 0) {
+        TerrainSize = other.TerrainSize;
+      }
+      if (other.InitialAnimals != 0) {
+        InitialAnimals = other.InitialAnimals;
+      }
+      if (other.InitialPlants != 0) {
+        InitialPlants = other.InitialPlants;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -620,6 +690,18 @@ namespace Net.Rpc {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            TerrainSize = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            InitialAnimals = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            InitialPlants = input.ReadInt32();
+            break;
+          }
         }
       }
     }

@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Gameplay;
 using Net.Match;
 using Net.Realtime;
+using Net.Rpc;
 using Net.Session;
 using Net.Utils;
 using ProceduralTree;
@@ -10,25 +13,33 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 using Quaternion = UnityEngine.Quaternion;
+using Random = UnityEngine.Random;
 
 public class Generate : MonoBehaviour
 {
+	private const string CliTerrainSize = "--terrainSize";
+	private const string CliInitialAnimals = "--initialAnimals"; // TODO: maybe just pick protobuf prop names
+	private const string CliInitialPlants = "--initialPlants";
+
 	[SerializeField] private Terrain map;
 	[SerializeField] private GameObject sessionManagerPrefab;
 	[SerializeField] private Slider timescaleSlider;
 	[SerializeField] private TextMeshProUGUI timescaleText;
 
+	// [Range(0, 100_000), SerializeField]
+	private int m_TerrainSize = 2000;
+
 	[Header("Animals configuration")]
 	[SerializeField]
 	private GameObject animalPrefab;
-	[Range(0, 100_000), SerializeField]
-	private int animalAmount = 5;
+	// [Range(0, 100_000), SerializeField]
+	private int m_AnimalAmount = 5;
 	[Tooltip("Percentage position on the diagonal"), Range(0.1f, 0.9f), SerializeField]
 	private float animalSpawnCenter = 0.5f;
 
 	[Header("Vegetation configuration")]
-	[Range(0, 100_000), SerializeField]
-	private int vegetationAmount = 5;
+	// [Range(0, 100_000), SerializeField]
+	private int m_VegetationAmount = 5;
 	[Range(1, 100_000), SerializeField]
 	private int vegetationMaxAmount = 1000;
 	[Tooltip("Percentage position on the diagonal"), Range(0.1f, 0.9f), SerializeField]
@@ -37,11 +48,33 @@ public class Generate : MonoBehaviour
 	private void Awake()
 	{
 		// TODO: maybe move whole class to host manager or other ... or change name
-		Pool.Preload(animalPrefab, animalAmount*100); // TODO: move to hm
 
 		// If there is already a session manager, it's a client
 		if (FindObjectOfType<SessionManager>() == null)
 		{
+			// Helper function for getting the command line arguments
+			var args = Environment.GetCommandLineArgs();
+			for (var i = 0; i < args.Length; i++)
+			{
+				// Got the cli param and it's value ?
+				if (args[i] == CliTerrainSize && args.Length > i + 1)
+				{
+					m_TerrainSize = int.Parse(args[i + 1]); // We trust nakama for giving parseable args
+				}
+				if (args[i] == CliInitialAnimals && args.Length > i + 1)
+				{
+					m_AnimalAmount = int.Parse(args[i + 1]);
+				}
+				if (args[i] == CliInitialPlants && args.Length > i + 1)
+				{
+					m_VegetationAmount = int.Parse(args[i + 1]);
+				}
+
+				var ar = args.Length > i + 1 ? args[i + 1] : string.Empty;
+				Debug.Log($"args: {args[i]}: {ar}");
+			}
+
+
 			// Only server can change timescale
 			// TODO: break everything ?
 			timescaleSlider.onValueChanged.AddListener(value =>
@@ -90,7 +123,7 @@ public class Generate : MonoBehaviour
 		// Once the seed is loaded, we can generate the map to have a deterministically same map than others
 		var diamondSquare = map.GetComponent<DiamondSquareTerrain>();
 		Debug.Log($"Generating map and navmesh");
-		diamondSquare.ExecuteDiamondSquare();
+		diamondSquare.ExecuteDiamondSquare(m_TerrainSize);
 
 		// Wait until it's generated and baked
 		yield return new WaitUntil(() => diamondSquare.navMeshBaked);
@@ -112,7 +145,7 @@ public class Generate : MonoBehaviour
 			yield break;
 		}
 		var s = map.terrainData.size;
-		for (var i = 0; i < vegetationAmount; i++)
+		for (var i = 0; i < m_VegetationAmount; i++)
 		{
 			var p = (s * vegetationSpawnCenter)
 				.RandomPositionAroundAboveGroundWithDistance((1 - vegetationSpawnCenter) * s.x,
@@ -121,7 +154,7 @@ public class Generate : MonoBehaviour
 			HostManager.instance.SpawnTree(p, Quaternion.identity);
 		}
 
-		for (var i = 0; i < animalAmount; i++)
+		for (var i = 0; i < m_AnimalAmount; i++)
 		{
 			var p = (s * animalSpawnCenter)
 				.RandomPositionAroundAboveGroundWithDistance((1 - animalSpawnCenter) * s.x,

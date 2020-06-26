@@ -6,7 +6,6 @@ ENV CGO_ENABLED 1
 WORKDIR /backend
 
 # Get the Unity server artifact
-COPY ../../Builds/Linux/Server Server
 COPY . .
 # This is ugly as hell ?
 RUN cp -r realtime /usr/local/go/src

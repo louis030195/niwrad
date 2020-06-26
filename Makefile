@@ -38,7 +38,9 @@ server:
 	./Builds/Linux/Server/$(NS).x86_64
 
 nakama:
+	cp -r ./Builds/Linux/Server Server/modules
 	docker-compose -f Server/docker-compose-auto.yml up --build nakama
+	# rm -rf Server/modules/Server # risky as fk
 	#docker-compose -f Server/docker-compose.yml up
 
 nakama_and_server: 

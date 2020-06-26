@@ -39,17 +39,39 @@ function list_matches(context, payload)
 end
 nk.register_rpc(list_matches, "list_matches")
 
--- TODO: hooks not registered ??
-local function on_match_create(context, payload)
-    nk.logger_info("[Match] match created" .. payload)
-    return nk.json_encode({["lol"] = "lol"})
-end
-nk.register_req_after(on_match_create, "MatchCreate")
 
-local function on_match_join(context, payload)
-    nk.logger_info("[Match] player joined, " .. payload)
-    return nk.json_encode({["yo"] = "yo"})
-end
-nk.register_req_after(on_match_join, "MatchJoin")
+-- function create_server(context, payload)
+--     if payload == nil then
+--         return nk.json_encode({ response = false, message = "payload is nil" })
+--     end
 
--- TODO: on_match_leave if empty delete match
+--     data = nk.json_decode(payload)
+--     local response = {}
+--     logger.Info("A server creation has been asked with config: %v", request)
+
+-- 	args := []string{"./niwrad.x86_64", "--terrainSize", "1000", "--initialAnimals", "50", "--initialPlants", "100"}
+-- 	if request.TerrainSize > -1 {
+-- 		args[2] = fmt.Sprintf("%v", request.TerrainSize)
+-- 	}
+-- 	if request.InitialAnimals > -1 {
+-- 		args[4] = fmt.Sprintf("%v", request.InitialAnimals)
+-- 	}
+-- 	if request.InitialPlants > -1 {
+-- 		args[6] = fmt.Sprintf("%v", request.InitialPlants)
+-- 	}
+-- 	cmd := exec.Command(args[0], args...)
+-- 	if err := cmd.Start(); err != nil {
+-- 		log.Fatal(err)
+-- 	}
+-- 	logger.Info("New server %v", args)
+
+-- 	// Return result to user.
+-- 	response := &rpc.RunServerResponse{}
+-- 	responseBytes, err := proto.Marshal(response)
+-- 	if err != nil {
+-- 		return "", errMarshal
+-- 	}
+-- 	return string(responseBytes), nil
+--     return nk.json_encode(response)
+-- end
+-- nk.register_rpc(create_server, "create_server")

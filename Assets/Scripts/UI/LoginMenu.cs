@@ -24,10 +24,10 @@ namespace UI
 			m_ServerIp.text = PlayerPrefs.GetString("serverIp");
 		}
 
-		private async void Connect(string u, string p, bool create = false)
+		private async void Connect(string u, string p, string ip, bool create = false)
 		{
 			var (success, message) = await SessionManager.instance
-				.ConnectAsync(u, p, create, m_ServerIp.text);
+				.ConnectAsync(u, p, create, ip);
 			response.text = message;
 			StartCoroutine(ClearResponse());
 			if (success) StartCoroutine(LoadMainMenu());
@@ -64,12 +64,12 @@ namespace UI
 
 		public void Login()
 		{
-			Connect(username.text, password.text);
+			Connect(username.text, password.text, m_ServerIp.text);
 		}
 
 		public void Register()
 		{
-			Connect(username.text, password.text, true);
+			Connect(username.text, password.text, m_ServerIp.text, true);
 		}
 
 		public void Debug(bool value)

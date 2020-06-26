@@ -31,7 +31,9 @@ message MatchConfiguration {
 }
 
 message RunServerRequest {
-	// Some configuration ...
+	int32 terrain_size = 1;
+	int32 initial_animals = 2;
+	int32 initial_plants = 3;
 }
 
 message RunServerResponse {

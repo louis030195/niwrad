@@ -80,7 +80,7 @@ namespace Net.Session
         {
             get
             {
-                if (m_Client == null || m_Client.Host != ipAddress) // Not created or host changed
+                if (m_Client == null || m_Client.Host != ipAddress || m_Client.Port != port) // Not created or host changed
                 {
                     // "defaultkey" should be changed when releasing the app
                     // see https://heroiclabs.com/docs/install-configuration/#socket
@@ -200,9 +200,11 @@ namespace Net.Session
         public async Task<(bool success, string message)> ConnectAsync(string email,
 	        string password,
 	        bool create = false,
-	        string ip = "localhost")
+	        string ip = "localhost",
+	        int p = 7350)
         {
 	        ipAddress = ip;
+	        port = p;
 	        try
 	        {
 		        session = await client.AuthenticateEmailAsync(email, password, create: create);

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Utils;
 using Random = UnityEngine.Random;
@@ -28,11 +30,10 @@ namespace ProceduralTree
 		/// <param name="maxTrees"></param>
 		/// <param name="delayBetweenFills"></param>
 		/// <param name="initialTrees"></param>
-		public void FillSlowly(int maxTrees, float delayBetweenFills = 100f, int initialTrees = 20)
+		public async void FillSlowly(int maxTrees, float delayBetweenFills = 100f, int initialTrees = 20)
 		{
-			// TODO: convert to unitask
-			StartCoroutine(FillSlowly(0, initialTrees)); // Fill initial
-			StartCoroutine(FillSlowly(delayBetweenFills, maxTrees));
+			await FillSlowly(0, initialTrees); // Fill initial
+			await FillSlowly(delayBetweenFills, maxTrees);
 		}
 
 		/// <summary>
@@ -73,7 +74,7 @@ namespace ProceduralTree
 			m_TreePool.Push(obj);
 		}
 
-		private IEnumerator FillSlowly(float delayBetweenFills, int max)
+		private async UniTask FillSlowly(float delayBetweenFills, int max)
 		{
 			// TODO: one solution to have same seed sync across net is to make an event
 			// triggered when a slow fill is done, the seed should be sync-ed
@@ -83,7 +84,7 @@ namespace ProceduralTree
 				var tree = go.GetComponent<ProceduralTree>();
 				// TODO: all clients should receive same seed
 				tree.Data.randomSeed = Random.Range(int.MinValue, int.MaxValue);
-				yield return new WaitForSeconds(delayBetweenFills);
+				await UniTask.Delay((int)delayBetweenFills);
 				go.SetActive(false);
 				m_TreePool.Push(go);
 				m_TreeCount++;

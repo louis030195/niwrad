@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cockroachdb
+  name: cockroachdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cockroachdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cockroachdb
+    spec:
+      containers:
+      - args:
+        - start
+        - --insecure
+        - --store=attrs=ssd,path=/var/lib/cockroach/
+        image: cockroachdb/cockroach:v19.2.5
+        imagePullPolicy: ""
+        name: cockroachdb
+        ports:
+        - containerPort: 26257
+        - containerPort: 8080
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/cockroach
+          name: data
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
+status: {}

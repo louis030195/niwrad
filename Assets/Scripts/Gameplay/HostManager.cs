@@ -65,36 +65,36 @@ namespace Gameplay
         #region PUBLIC METHODS
 
         public void RequestSpawnAnimal(Vector3 p, Quaternion r)
-			=> MatchCommunicationManager.instance.Rpc(new Packet().ReqSpawnAnimal(p, r));
+			=> MatchCommunicationManager.instance.RpcAsync(new Packet().ReqSpawnAnimal(p, r));
 
         public void RequestSpawnTree(Vector3 p, Quaternion r)
-	        => MatchCommunicationManager.instance.Rpc(new Packet().ReqSpawnTree(p, r));
+	        => MatchCommunicationManager.instance.RpcAsync(new Packet().ReqSpawnTree(p, r));
 
         public CommonAnimal SpawnAnimal(Vector3 p, Quaternion r)
         {
 	        var packet = new Packet().SpawnAnimal(++m_NextId, p, r);
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        return SpawnAnimal(packet.Spawn.Animal.Transform);
         }
 
         public void DestroyAnimal(ulong id)
         {
 	        var packet = new Packet().DestroyAnimal(id);
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 			DestroyAnimal(packet.Destroy.Animal.Transform);
         }
 
         public Vegetation SpawnTree(Vector3 p, Quaternion r)
         {
 	        var packet = new Packet().SpawnTree(++m_NextId, p, r);
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        return SpawnTree(packet.Spawn.Tree.Transform);
         }
 
         public void DestroyTree(ulong id)
         {
 	        var packet = new Packet().DestroyTree(id);
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        DestroyTree(packet.Destroy.Tree.Transform);
         }
 
@@ -141,7 +141,7 @@ namespace Gameplay
 		        var p = new Packet()
 			        .SpawnAnimal(kv.Key, t.position, t.rotation);
 		        p.Recipients.Add(senderId);
-		        MatchCommunicationManager.instance.Rpc(p);
+		        MatchCommunicationManager.instance.RpcAsync(p);
 	        }
 	        foreach (var kv in m_Trees)
 	        {
@@ -149,7 +149,7 @@ namespace Gameplay
 		        var p = new Packet()
 			        .SpawnTree(kv.Key, t.position, t.rotation);
 		        p.Recipients.Add(senderId);
-		        MatchCommunicationManager.instance.Rpc(p);
+		        MatchCommunicationManager.instance.RpcAsync(p);
 	        }
         }
         private void OnAnimalSpawned(Transform obj) => SpawnAnimal(obj);
@@ -167,13 +167,13 @@ namespace Gameplay
 			        Transform = obj
 		        }
 	        };
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        SpawnAnimal(obj);
         }
 
         private CommonAnimal SpawnAnimal(Transform obj)
         {
-	        Debug.Log($"Spawning animal {obj}");
+	        // Debug.Log($"Spawning animal {obj}");
 	        m_NextId = obj.Id;
 	        var a = Pool.Spawn(animalPrefab, obj.Position.ToVector3(), obj.Rotation.ToQuaternion());
 	        m_Animals[obj.Id] = a.GetComponent<CommonAnimal>();
@@ -217,7 +217,7 @@ namespace Gameplay
 			        Transform = obj
 		        }
 	        };
-	        MatchCommunicationManager.instance.Rpc(packet);
+	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        SpawnTree(obj);
         }
 

@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
+using System.Text;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using Nakama;
+using Nakama.TinyJson;
 using Net.Match;
 using Net.Rpc;
 using Net.Session;
@@ -21,6 +24,7 @@ namespace UI
 		[SerializeField] private GameObject scrollViewContent;
 		[SerializeField] private Button join;
 
+		private float m_MatchPrefabHeight = 30f;
 		private string m_MatchId = string.Empty;
 		private TMP_InputField m_TerrainSize;
 		private TMP_InputField m_InitialAnimals;
@@ -34,6 +38,7 @@ namespace UI
 			m_TerrainSize = ifs[0];
 			m_InitialAnimals = ifs[1];
 			m_InitialPlants = ifs[2];
+			m_MatchPrefabHeight = matchPrefab.GetComponent<RectTransform>().sizeDelta.y;
 		}
 
 		private void Update()
@@ -49,14 +54,14 @@ namespace UI
 				Debug.LogError($"Failed to open socket");
 				return;
 			}
-			while (true)
-			{
-				await RefreshList();
-				await Task.Delay(2000);
-			}
+			// while (true)
+			// {
+			// 	await RefreshList();
+			// 	await Task.Delay(2000);
+			// }
 		}
 
-		private async Task RefreshList()
+		public async void RefreshList()
 		{
 			// TODO: only delete if changed
 			// Use case: scene is unloading
@@ -69,10 +74,18 @@ namespace UI
 			}
 
 			var matches = await MatchCommunicationManager.instance.GetMatchListAsync();
-			foreach (var m in matches)
+			for (var i = 0; i < matches.Length; i++)
 			{
+				var m = matches[i];
+
 				// Append the matches to the scroll view content
 				var go = Instantiate(matchPrefab, scrollViewContent.transform);
+
+				var p = go.transform.localPosition;
+				// Spacing between matches
+				go.transform.localPosition = new Vector3(p.x,
+					-i * m_MatchPrefabHeight,
+					p.z);
 
 				// Set the button text to the match id
 				go.GetComponentInChildren<TextMeshProUGUI>().text = $"ID: {m}";
@@ -89,25 +102,17 @@ namespace UI
 		/// <summary>
 		/// Starts the game scene and joins the match
 		/// </summary>
-		private static IEnumerator LoadGame()
+		private async void LoadGame()
 		{
 			Destroy(Camera.main);
 			SessionManager.instance.isServer = false;
-			var asyncLoad = UnityEngine.SceneManagement.SceneManager.
-				LoadSceneAsync("Game", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-
-			while (!asyncLoad.isDone)
-			{
-				yield return null;
-			}
-
-			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("SecondMenu");
+			await UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game");
 		}
 
 		public async void JoinMatch()
 		{
 			await MatchCommunicationManager.instance.JoinMatchAsync(m_MatchId);
-			StartCoroutine(LoadGame());
+			LoadGame();
 		}
 
 		/// <summary>
@@ -119,7 +124,7 @@ namespace UI
 			createServerPanel.SetActive(!joinOrCreatePanel.activeInHierarchy);
 		}
 
-		public void CreateServer()
+		public async void CreateServer()
 		{
 			var tsOk = int.TryParse(m_TerrainSize.text, out var ts);
 			var iaOk = int.TryParse(m_InitialAnimals.text, out var ia);
@@ -130,11 +135,17 @@ namespace UI
 			          $"Initial plants: {ip}");
 			var p = new RunServerRequest
 			{
-				TerrainSize = tsOk ? ts : 0,
-				InitialAnimals = iaOk ? ia : 0,
-				InitialPlants = ipOk ? ip : 0,
+				Configuration = new MatchConfiguration
+				{
+					TerrainSize = tsOk ? ts : 0,
+					InitialAnimals = iaOk ? ia : 0,
+					InitialPlants = ipOk ? ip : 0,
+				}
 			}.ToByteString().ToStringUtf8();
-			SessionManager.instance.socket.RpcAsync("run_unity_server", p);
+			// Debug.Log($"p: {p}");
+			var protoResponse = await SessionManager.instance.socket.RpcAsync("run_unity_server", p);
+			var response = RunServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
+			Debug.Log($"Response: {response}");
 		}
 	}
 }

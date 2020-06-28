@@ -163,7 +163,7 @@ namespace Net.Match
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="message"></param>
-        public void Rpc<T>(T message)
+        public void RpcAsync<T>(T message)
             where T : IMessage<T> // TODO: should it be possible to have a single client recipient?
         {
 	        try
@@ -313,7 +313,7 @@ namespace Net.Match
                     // Server notify the new player of the current seed for deterministic behaviours
                     if (SessionManager.instance.isServer)
                     {
-	                    Rpc(new Packet
+	                    RpcAsync(new Packet
 	                    {
 		                    MatchInformation = new MatchInformation{ Seed = seed },
 		                    Recipients = { user.UserId }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Gameplay;
 using Net.Match;
 using Net.Realtime;
@@ -27,7 +28,7 @@ public class Generate : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI timescaleText;
 
 	// [Range(0, 100_000), SerializeField]
-	private int m_TerrainSize = 2000;
+	private int m_TerrainSize = 100;
 
 	[Header("Animals configuration")]
 	[SerializeField]
@@ -71,7 +72,7 @@ public class Generate : MonoBehaviour
 				}
 
 				var ar = args.Length > i + 1 ? args[i + 1] : string.Empty;
-				Debug.Log($"args: {args[i]}: {ar}");
+				// Debug.Log($"args: {args[i]}: {ar}");
 			}
 
 
@@ -92,6 +93,7 @@ public class Generate : MonoBehaviour
 			timescaleSlider.gameObject.SetActive(false);
 			timescaleText.gameObject.SetActive(false);
 		}
+		InitializeGameplay();
 	}
 
 	private async void InitializeNet()
@@ -104,19 +106,12 @@ public class Generate : MonoBehaviour
 		SessionManager.instance.isServer = true;
 	}
 
-	private void Start()
-	{
-		// Ugly as hell hack to initialize mtd in main thread
-		// var i = MainThreadDispatcher.instance;
-		StartCoroutine(InitializeGameplay());
-	}
-
-	private IEnumerator InitializeGameplay()
+	private async void InitializeGameplay()
 	{
 		// Seems to be best to wait a bit before spawning things as there is navmesh baking
 		// Camera stuff, opengl thing
 		Debug.Log($"Initializing gameplay ...");
-		yield return new WaitUntil(() => MatchCommunicationManager.instance.seed != -1);
+		await UniTask.WaitUntil(() => MatchCommunicationManager.instance.seed != -1);
 		Random.InitState(MatchCommunicationManager.instance.seed);
 		Debug.Log($"Seed loaded value: {MatchCommunicationManager.instance.seed}");
 
@@ -126,7 +121,7 @@ public class Generate : MonoBehaviour
 		diamondSquare.ExecuteDiamondSquare(m_TerrainSize);
 
 		// Wait until it's generated and baked
-		yield return new WaitUntil(() => diamondSquare.navMeshBaked);
+		await UniTask.WaitUntil(() => diamondSquare.navMeshBaked);
 		Debug.Log($"Navmesh baked, ready for gameplay");
 		// Notifying self and others that we can handle game play
 		var msg = new Packet {Initialized = new Initialized()};
@@ -134,7 +129,7 @@ public class Generate : MonoBehaviour
 		{
 			msg.Recipients.Add(instancePlayer.UserId);
 		}
-		MatchCommunicationManager.instance.Rpc(msg);
+		MatchCommunicationManager.instance.RpcAsync(msg);
 
 		// Start filling the pool
 		TreePool.instance.FillSlowly(vegetationMaxAmount);
@@ -142,8 +137,12 @@ public class Generate : MonoBehaviour
 		// From now the server handle the spawning
 		if (!SessionManager.instance.isServer)
 		{
-			yield break;
+			return;
 		}
+
+		// ?
+		await UniTask.Delay(1000);
+
 		var s = map.terrainData.size;
 		for (var i = 0; i < m_VegetationAmount; i++)
 		{

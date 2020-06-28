@@ -56,7 +56,7 @@ namespace Net.Realtime
 				m_Rotation.Y = r.y;
 				m_Rotation.Z = r.z;
 				m_Rotation.W = r.w;
-				MatchCommunicationManager.instance.Rpc(m_Packet);
+				MatchCommunicationManager.instance.RpcAsync(m_Packet);
 				m_LastPosition = p;
 			}
 		}

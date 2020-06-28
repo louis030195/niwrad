@@ -1,0 +1,22 @@
+{
+    "files.exclude": {
+        "*.csproj": true,
+        "*.sln": true,
+        "**/*.user": true,
+        "**/*.meta": true,
+        "**/*.unity": true,
+        "**/*.cookie": true,
+        "**/*.sum": true,
+        "UserSettings": true,
+        "ProjectSettings": true,
+        "Builds": true,
+        "Library": true,
+        "obj": true,
+        "Packages": true,
+        "Assets/Packages": true,
+        "Assets/Plugins": true,
+        "Assets/Scenes": true,
+        "Assets/ScriptableObjects": true,
+        "Assets/Graphics": true
+    }
+}

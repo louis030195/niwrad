@@ -28,13 +28,27 @@ message CreateMatchResponse {
 }
 
 message MatchConfiguration {
-}
-
-message RunServerRequest {
 	int32 terrain_size = 1;
 	int32 initial_animals = 2;
 	int32 initial_plants = 3;
 }
 
+message RunServerRequest {
+	MatchConfiguration configuration = 1;
+}
+enum RunServerCompletionResult {
+	runServerCompletionResultUnknownInternalFailure        = 0;
+	runServerCompletionResultSucceeded                     = 1;
+}
 message RunServerResponse {
+	RunServerCompletionResult result = 1;
+}
+
+message UnityServer {
+	int32 pid = 1; // Process id
+	MatchConfiguration configuration = 2;
+}
+
+message User {
+	repeated int32 servers = 1;
 }

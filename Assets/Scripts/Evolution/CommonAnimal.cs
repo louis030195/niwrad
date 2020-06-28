@@ -121,7 +121,7 @@ namespace Evolution
 
 		private void OnDestinationChanged(Vector3 obj)
 		{
-			MatchCommunicationManager.instance.Rpc(new Packet
+			MatchCommunicationManager.instance.RpcAsync(new Packet
 			{
 				NavMeshUpdate = new NavMeshUpdate
 				{

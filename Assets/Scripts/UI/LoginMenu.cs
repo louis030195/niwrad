@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using Net.Session;
 using TMPro;
 using UnityEngine;
@@ -16,60 +17,55 @@ namespace UI
 
 
 		private TMP_InputField m_ServerIp;
+		private TMP_InputField m_ServerPort;
 		private void Start()
 		{
 			m_ServerIp = serverIpGameObject.GetComponent<TMP_InputField>();
+			m_ServerPort = serverPortGameObject.GetComponent<TMP_InputField>();
 			username.text = PlayerPrefs.GetString("username");
 			password.text = PlayerPrefs.GetString("password");
 			m_ServerIp.text = PlayerPrefs.GetString("serverIp");
+			m_ServerPort.text = PlayerPrefs.GetString("serverPort");
 		}
 
-		private async void Connect(string u, string p, string ip, bool create = false)
+		private async void Connect(string u, string p, string ip, int port, bool create = false)
 		{
 			var (success, message) = await SessionManager.instance
-				.ConnectAsync(u, p, create, ip);
+				.ConnectAsync(u, p, create, ip, port);
 			response.text = message;
-			StartCoroutine(ClearResponse());
-			if (success) StartCoroutine(LoadMainMenu());
+			await ClearResponse();
+			if (success) LoadMainMenu();
 		}
 
-		private IEnumerator ClearResponse()
+		private async UniTask ClearResponse()
 		{
-			yield return new WaitForSeconds(5f);
+			await UniTask.Delay(5000);
 			response.text = $"";
 		}
 
 		/// <summary>
 		/// Starts the game scene and joins the main menu
 		/// </summary>
-		private IEnumerator LoadMainMenu()
+		private async void LoadMainMenu()
 		{
 			PlayerPrefs.SetString("username", username.text);
 			PlayerPrefs.SetString("password", password.text); // TODO: "save password" checkbox
 			PlayerPrefs.SetString("serverIp", m_ServerIp.text);
+			PlayerPrefs.SetString("serverPort", m_ServerPort.text);
 			PlayerPrefs.Save();
 			// Wait a few second to let the user see authentication result
-			yield return new WaitForSeconds(2f);
-
-			var asyncLoad = UnityEngine.SceneManagement.SceneManager.
-				LoadSceneAsync("SecondMenu", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-
-			while (!asyncLoad.isDone)
-			{
-				yield return null;
-			}
-
-			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("LoginMenu");
+			await UniTask.Delay(2000);
+			await UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("SecondMenu");
 		}
 
 		public void Login()
 		{
-			Connect(username.text, password.text, m_ServerIp.text);
+			Connect(username.text, password.text, m_ServerIp.text, int.Parse(m_ServerPort.text));
 		}
 
 		public void Register()
 		{
-			Connect(username.text, password.text, m_ServerIp.text, true);
+			Connect(username.text, password.text, m_ServerIp.text, int.Parse(m_ServerPort.text), true);
 		}
 
 		public void Debug(bool value)

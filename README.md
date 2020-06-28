@@ -29,6 +29,28 @@ make nakama_and_server
 make client
 ```
 
+## Deploy server
+
+### Using Helm and Kubernetes
+
+1. [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+2. [Install helm](https://helm.sh/docs/intro/install/)
+3. [Install minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) (only local k8s yet)
+
+`make nakama`
+
+### Using Docker
+
+Something like:
+
+```bash
+docker-compose -f Server/docker-compose.yml up --build nakama
+```
+
+### Bare metal
+
+good luck
+
 ## OVHcloud deployment
 
 1. Go to ovhcloud website -> login -> public cloud -> create an instance -> pick any
@@ -77,7 +99,21 @@ The principle is to simulate few similar key points among darwinian evolution, o
 - According to these implementations, the hosts will evolve by natural selection, some characteristics that help survival (speed ... ?) will increase, some that harm survival will decrease
 - The fun part: players can do some actions that will trigger artificial selection, e.g. like we human selected the cows that produce the most milk, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some targeted hosts (high speed hosts ? big hosts ...)
 
-## TODO
+## Development
+
+Some useful commands
+
+```bash
+# [Use local Docker images within k8s](https://dzone.com/articles/running-local-docker-images-in-kubernetes-1)
+eval $(minikube docker-env)
+docker build -t nakama Server/modules
+# Get service url
+minikube service list
+#
+helm install niwrad Server/base
+```
+
+### TODO
 
 - [ ] [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file) and [nakama config](https://github.com/heroiclabs/nakama/blob/master/server/config.go)
 - [ ] bounding volume hierarchy optimization, possibility is so to use an [octree](https://github.com/The-Tensox/octree) on nakama side to reduce client-side unnecessary packets. 

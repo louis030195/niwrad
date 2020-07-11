@@ -39,6 +39,7 @@ namespace UI
 			m_InitialAnimals = ifs[1];
 			m_InitialPlants = ifs[2];
 			m_MatchPrefabHeight = matchPrefab.GetComponent<RectTransform>().sizeDelta.y;
+			RefreshList();
 		}
 
 		private void Update()
@@ -52,13 +53,7 @@ namespace UI
 			if (!await SessionManager.instance.ConnectSocketAsync())
 			{
 				Debug.LogError($"Failed to open socket");
-				return;
 			}
-			// while (true)
-			// {
-			// 	await RefreshList();
-			// 	await Task.Delay(2000);
-			// }
 		}
 
 		public async void RefreshList()
@@ -95,6 +90,10 @@ namespace UI
 				{
 					Debug.Log($"Match {m} selected");
 					m_MatchId = m;
+				});
+				go.GetComponentInChildren<Button>().onClick.AddListener(() =>
+				{
+					StopServer(m);
 				});
 			}
 		}
@@ -145,7 +144,18 @@ namespace UI
 			// Debug.Log($"p: {p}");
 			var protoResponse = await SessionManager.instance.socket.RpcAsync("run_unity_server", p);
 			var response = RunServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
-			Debug.Log($"Response: {response}");
+			Debug.Log($"CreateServer Response: {response}");
+		}
+
+		private async void StopServer(string m)
+		{
+			var p = new StopServerRequest
+			{
+				MatchId = m
+			}.ToByteString().ToStringUtf8();
+			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_unity_server", p);
+			var response = StopServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
+			Debug.Log($"StopServer response: {response}");
 		}
 	}
 }

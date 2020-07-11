@@ -118,7 +118,9 @@ namespace Net.Match
         /// Joins given match or create it if the given id is null
         /// </summary>
         /// <param name="id"></param>
-        public async Task JoinMatchAsync([CanBeNull] string id = null)
+        /// <param name="workerId">In case of a create, process / k8s deployment id</param>
+        /// <param name="matchConfiguration"></param>
+        public async Task JoinMatchAsync(string id = null, string workerId = null, MatchConfiguration matchConfiguration = null)
         {
 	        //Filling list of match participants
             players = new List<IUserPresence>();
@@ -132,14 +134,22 @@ namespace Net.Match
                 socket.Closed += Application.Quit; // Stop when server close
                 if (id == null)
                 {
-	                var p = new CreateMatchRequest().ToByteString().ToStringUtf8();
+	                Debug.Log($"Request match creation with workerId {workerId}, configuration {matchConfiguration}");
+	                var cmr = new CreateMatchRequest
+	                {
+		                WorkerId = workerId,
+		                Configuration = matchConfiguration,
+		                MatchType = "a",
+		                Seed = 1995
+	                };
+	                var p = cmr.ToByteString().ToStringUtf8();
 	                var res = await socket.RpcAsync( "create_match", p);
+	                if (res == null) throw new Exception($"Failed to create match {cmr}");
 	                var parsed = CreateMatchResponse.Parser
 		                .ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
 	                if (parsed == null || parsed.Result != CreateMatchCompletionResult.Succeeded)
 	                {
-		                Debug.LogException(new Exception($"Failed to create match {parsed}"));
-		                return;
+		                throw new Exception($"Failed to create match {parsed}");
 	                }
 	                matchId = parsed.MatchId;
 	                id = parsed.MatchId;
@@ -155,6 +165,7 @@ namespace Net.Match
             catch (Exception e)
             {
                 Debug.Log($"Couldn't join match: {e.Message}");
+                Application.Quit();
             }
         }
 

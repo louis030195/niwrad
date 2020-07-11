@@ -44,7 +44,7 @@ make client
 Something like:
 
 ```bash
-docker-compose -f Server/docker-compose.yml up --build nakama
+docker-compose -f Nakama/docker-compose.yml up --build nakama
 ```
 
 ### Bare metal
@@ -106,24 +106,22 @@ Some useful commands
 ```bash
 # [Use local Docker images within k8s](https://dzone.com/articles/running-local-docker-images-in-kubernetes-1)
 eval $(minikube docker-env)
-docker build -t nakama Server/modules
+docker build -t nakama Nakama/modules
 # Get service url
 minikube service list
 #
-helm install niwrad Server/base
+helm install niwrad helm
 ```
 
 ### TODO
 
 - [ ] [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file) and [nakama config](https://github.com/heroiclabs/nakama/blob/master/server/config.go)
-- [ ] bounding volume hierarchy optimization, possibility is so to use an [octree](https://github.com/The-Tensox/octree) on nakama side to reduce client-side unnecessary packets. 
-- [ ] Regular state persistence allowing resiliency but especially for allowing to stop and restart server with same state
 - [ ] Fix the Assets/Plugins and Assets/Packages (make something automatic download and add to gitignore ..)
 - [ ] Implement "robot": a creature that will tweak evolution according to our will, e.g. "I want fast animals" it will kill all slow animals\
     Basically anything that can allow players to apply artificial selection
-- [ ] Make the Unity host headless mode Nakama IP/port configurable
-- [ ] Custom script unity-builder github workflow (building headless, client etc.)
-- [ ] Keyboard hack to request/kill a server via client
-- [ ] Fix ugly as hell hacks nakama side (go files mods, protos imports etc.)
+- [ ] finish github workflow (github page deployment)
 - [ ] Android controller
 - [ ] Find out why hosts die so fast in net ?
+- [ ] Finish helm + k8s deployment
+- [ ] See if it's doable to do distributed unity servers: multiple containers per pods, each handling a part of the map coordinated within Nakama using Octree data structure
+- [ ] Deploy persistent server on the cloud

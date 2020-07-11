@@ -1,0 +1,25 @@
+unity:
+  replicaCount: 0
+
+  image:
+    repository: niwrad-unity
+    pullPolicy: Never
+
+nakama:
+  replicaCount: 1
+
+  image:
+    repository: nakama
+    pullPolicy: Never
+
+  service:
+    type: NodePort
+    port: 80 # TODO: ports for nakama
+
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80

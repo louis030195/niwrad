@@ -80,7 +80,7 @@ namespace Net.Session
         {
             get
             {
-                if (m_Client == null || m_Client.Host != ipAddress || m_Client.Port != port) // Not created or host changed
+                if (m_Client == null || m_Client.Host != ipAddress || m_Client.Port != port) // Not created or host/port changed
                 {
                     // "defaultkey" should be changed when releasing the app
                     // see https://heroiclabs.com/docs/install-configuration/#socket

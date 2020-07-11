@@ -54,7 +54,7 @@ namespace UI
 			PlayerPrefs.SetString("serverPort", m_ServerPort.text);
 			PlayerPrefs.Save();
 			// Wait a few second to let the user see authentication result
-			await UniTask.Delay(2000);
+			await UniTask.Delay(500);
 			await UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("SecondMenu");
 		}
 

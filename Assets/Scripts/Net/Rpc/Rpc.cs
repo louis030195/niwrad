@@ -24,45 +24,55 @@ namespace Net.Rpc {
     static RpcReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CglycGMucHJvdG8SCm5pd3JhZC5ycGMibQoSQ3JlYXRlTWF0Y2hSZXF1ZXN0",
-            "EhIKCm1hdGNoX3R5cGUYASABKAkSDAoEc2VlZBgCIAEoAxI1Cg1jb25maWd1",
-            "cmF0aW9uGAMgASgLMh4ubml3cmFkLnJwYy5NYXRjaENvbmZpZ3VyYXRpb24i",
-            "YAoTQ3JlYXRlTWF0Y2hSZXNwb25zZRIQCghtYXRjaF9pZBgBIAEoCRI3CgZy",
-            "ZXN1bHQYAiABKA4yJy5uaXdyYWQucnBjLkNyZWF0ZU1hdGNoQ29tcGxldGlv",
-            "blJlc3VsdCJbChJNYXRjaENvbmZpZ3VyYXRpb24SFAoMdGVycmFpbl9zaXpl",
-            "GAEgASgFEhcKD2luaXRpYWxfYW5pbWFscxgCIAEoBRIWCg5pbml0aWFsX3Bs",
-            "YW50cxgDIAEoBSJJChBSdW5TZXJ2ZXJSZXF1ZXN0EjUKDWNvbmZpZ3VyYXRp",
-            "b24YASABKAsyHi5uaXdyYWQucnBjLk1hdGNoQ29uZmlndXJhdGlvbiJKChFS",
-            "dW5TZXJ2ZXJSZXNwb25zZRI1CgZyZXN1bHQYASABKA4yJS5uaXdyYWQucnBj",
-            "LlJ1blNlcnZlckNvbXBsZXRpb25SZXN1bHQiUQoLVW5pdHlTZXJ2ZXISCwoD",
-            "cGlkGAEgASgFEjUKDWNvbmZpZ3VyYXRpb24YAiABKAsyHi5uaXdyYWQucnBj",
-            "Lk1hdGNoQ29uZmlndXJhdGlvbiIXCgRVc2VyEg8KB3NlcnZlcnMYASADKAUq",
-            "nwQKG0NyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdBI1CjFjcmVhdGVNYXRj",
-            "aENvbXBsZXRpb25SZXN1bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASKAok",
-            "Y3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAESPAovY3Jl",
-            "YXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0VW5rbm93bkNsaWVudEZhaWx1cmUQ",
-            "nP//////////ARJFCjhjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRBbHJl",
-            "YWR5SW5NYXRjaE9mU3BlY2lmaWVkVHlwZRCd//////////8BEjwKL2NyZWF0",
-            "ZU1hdGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlDcmVhdGluZ01hdGNoEJ7/",
-            "/////////wESNgopY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFk",
-            "eUluTWF0Y2gQn///////////ARI9CjBjcmVhdGVNYXRjaENvbXBsZXRpb25S",
-            "ZXN1bHRGYWlsZWRUb0NyZWF0ZU11Y1Jvb20QoP//////////ARIyCiVjcmVh",
-            "dGVNYXRjaENvbXBsZXRpb25SZXN1bHROb1Jlc3BvbnNlEKH//////////wES",
-            "MQokY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0TG9nZ2VkT3V0EKL/////",
-            "/////wEqeAoZUnVuU2VydmVyQ29tcGxldGlvblJlc3VsdBIzCi9ydW5TZXJ2",
-            "ZXJDb21wbGV0aW9uUmVzdWx0VW5rbm93bkludGVybmFsRmFpbHVyZRAAEiYK",
-            "InJ1blNlcnZlckNvbXBsZXRpb25SZXN1bHRTdWNjZWVkZWQQAUITWgdycGM7",
-            "cnBjqgIHTmV0LlJwY2IGcHJvdG8z"));
+            "CglycGMucHJvdG8SEW5ha2FtYS5uaXdyYWQucnBjIocBChJDcmVhdGVNYXRj",
+            "aFJlcXVlc3QSEQoJd29ya2VyX2lkGAEgASgJEhIKCm1hdGNoX3R5cGUYAiAB",
+            "KAkSDAoEc2VlZBgDIAEoAxI8Cg1jb25maWd1cmF0aW9uGAQgASgLMiUubmFr",
+            "YW1hLm5pd3JhZC5ycGMuTWF0Y2hDb25maWd1cmF0aW9uImcKE0NyZWF0ZU1h",
+            "dGNoUmVzcG9uc2USEAoIbWF0Y2hfaWQYASABKAkSPgoGcmVzdWx0GAIgASgO",
+            "Mi4ubmFrYW1hLm5pd3JhZC5ycGMuQ3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVz",
+            "dWx0IlsKEk1hdGNoQ29uZmlndXJhdGlvbhIUCgx0ZXJyYWluX3NpemUYASAB",
+            "KAUSFwoPaW5pdGlhbF9hbmltYWxzGAIgASgFEhYKDmluaXRpYWxfcGxhbnRz",
+            "GAMgASgFIlAKEFJ1blNlcnZlclJlcXVlc3QSPAoNY29uZmlndXJhdGlvbhgB",
+            "IAEoCzIlLm5ha2FtYS5uaXdyYWQucnBjLk1hdGNoQ29uZmlndXJhdGlvbiJR",
+            "ChFSdW5TZXJ2ZXJSZXNwb25zZRI8CgZyZXN1bHQYASABKA4yLC5uYWthbWEu",
+            "bml3cmFkLnJwYy5SdW5TZXJ2ZXJDb21wbGV0aW9uUmVzdWx0IiUKEVN0b3BT",
+            "ZXJ2ZXJSZXF1ZXN0EhAKCG1hdGNoX2lkGAEgASgJIlMKElN0b3BTZXJ2ZXJS",
+            "ZXNwb25zZRI9CgZyZXN1bHQYASABKA4yLS5uYWthbWEubml3cmFkLnJwYy5T",
+            "dG9wU2VydmVyQ29tcGxldGlvblJlc3VsdCJwCgtVbml0eVNlcnZlchIRCgl3",
+            "b3JrZXJfaWQYASABKAkSEAoIbWF0Y2hfaWQYAiABKAkSPAoNY29uZmlndXJh",
+            "dGlvbhgDIAEoCzIlLm5ha2FtYS5uaXdyYWQucnBjLk1hdGNoQ29uZmlndXJh",
+            "dGlvbiIhCgRVc2VyEhkKEXNlcnZlcnNfd29ya2VyX2lkGAEgAygJKp8EChtD",
+            "cmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHQSNQoxY3JlYXRlTWF0Y2hDb21w",
+            "bGV0aW9uUmVzdWx0VW5rbm93bkludGVybmFsRmFpbHVyZRAAEigKJGNyZWF0",
+            "ZU1hdGNoQ29tcGxldGlvblJlc3VsdFN1Y2NlZWRlZBABEjwKL2NyZWF0ZU1h",
+            "dGNoQ29tcGxldGlvblJlc3VsdFVua25vd25DbGllbnRGYWlsdXJlEJz/////",
+            "/////wESRQo4Y3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFkeUlu",
+            "TWF0Y2hPZlNwZWNpZmllZFR5cGUQnf//////////ARI8Ci9jcmVhdGVNYXRj",
+            "aENvbXBsZXRpb25SZXN1bHRBbHJlYWR5Q3JlYXRpbmdNYXRjaBCe////////",
+            "//8BEjYKKWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlJbk1h",
+            "dGNoEJ///////////wESPQowY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0",
+            "RmFpbGVkVG9DcmVhdGVNdWNSb29tEKD//////////wESMgolY3JlYXRlTWF0",
+            "Y2hDb21wbGV0aW9uUmVzdWx0Tm9SZXNwb25zZRCh//////////8BEjEKJGNy",
+            "ZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdExvZ2dlZE91dBCi//////////8B",
+            "KngKGVJ1blNlcnZlckNvbXBsZXRpb25SZXN1bHQSMwovcnVuU2VydmVyQ29t",
+            "cGxldGlvblJlc3VsdFVua25vd25JbnRlcm5hbEZhaWx1cmUQABImCiJydW5T",
+            "ZXJ2ZXJDb21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAEqewoaU3RvcFNlcnZl",
+            "ckNvbXBsZXRpb25SZXN1bHQSNAowc3RvcFNlcnZlckNvbXBsZXRpb25SZXN1",
+            "bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASJwojc3RvcFNlcnZlckNvbXBs",
+            "ZXRpb25SZXN1bHRTdWNjZWVkZWQQAUIhWhVuYWthbWEvbml3cmFkL3JwYzty",
+            "cGOqAgdOZXQuUnBjYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Net.Rpc.CreateMatchCompletionResult), typeof(global::Net.Rpc.RunServerCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchRequest), global::Net.Rpc.CreateMatchRequest.Parser, new[]{ "MatchType", "Seed", "Configuration" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Net.Rpc.CreateMatchCompletionResult), typeof(global::Net.Rpc.RunServerCompletionResult), typeof(global::Net.Rpc.StopServerCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchRequest), global::Net.Rpc.CreateMatchRequest.Parser, new[]{ "WorkerId", "MatchType", "Seed", "Configuration" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.CreateMatchResponse), global::Net.Rpc.CreateMatchResponse.Parser, new[]{ "MatchId", "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.MatchConfiguration), global::Net.Rpc.MatchConfiguration.Parser, new[]{ "TerrainSize", "InitialAnimals", "InitialPlants" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.RunServerRequest), global::Net.Rpc.RunServerRequest.Parser, new[]{ "Configuration" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.RunServerResponse), global::Net.Rpc.RunServerResponse.Parser, new[]{ "Result" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.UnityServer), global::Net.Rpc.UnityServer.Parser, new[]{ "Pid", "Configuration" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.User), global::Net.Rpc.User.Parser, new[]{ "Servers" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.StopServerRequest), global::Net.Rpc.StopServerRequest.Parser, new[]{ "MatchId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.StopServerResponse), global::Net.Rpc.StopServerResponse.Parser, new[]{ "Result" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.UnityServer), global::Net.Rpc.UnityServer.Parser, new[]{ "WorkerId", "MatchId", "Configuration" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Net.Rpc.User), global::Net.Rpc.User.Parser, new[]{ "ServersWorkerId" }, null, null, null)
           }));
     }
     #endregion
@@ -84,6 +94,11 @@ namespace Net.Rpc {
   public enum RunServerCompletionResult {
     [pbr::OriginalName("runServerCompletionResultUnknownInternalFailure")] UnknownInternalFailure = 0,
     [pbr::OriginalName("runServerCompletionResultSucceeded")] Succeeded = 1,
+  }
+
+  public enum StopServerCompletionResult {
+    [pbr::OriginalName("stopServerCompletionResultUnknownInternalFailure")] UnknownInternalFailure = 0,
+    [pbr::OriginalName("stopServerCompletionResultSucceeded")] Succeeded = 1,
   }
 
   #endregion
@@ -114,6 +129,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CreateMatchRequest(CreateMatchRequest other) : this() {
+      workerId_ = other.workerId_;
       matchType_ = other.matchType_;
       seed_ = other.seed_;
       configuration_ = other.configuration_ != null ? other.configuration_.Clone() : null;
@@ -125,8 +141,22 @@ namespace Net.Rpc {
       return new CreateMatchRequest(this);
     }
 
+    /// <summary>Field number for the "worker_id" field.</summary>
+    public const int WorkerIdFieldNumber = 1;
+    private string workerId_ = "";
+    /// <summary>
+    /// e.g. process / k8s deployment ...
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string WorkerId {
+      get { return workerId_; }
+      set {
+        workerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "match_type" field.</summary>
-    public const int MatchTypeFieldNumber = 1;
+    public const int MatchTypeFieldNumber = 2;
     private string matchType_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string MatchType {
@@ -137,7 +167,7 @@ namespace Net.Rpc {
     }
 
     /// <summary>Field number for the "seed" field.</summary>
-    public const int SeedFieldNumber = 2;
+    public const int SeedFieldNumber = 3;
     private long seed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public long Seed {
@@ -148,7 +178,7 @@ namespace Net.Rpc {
     }
 
     /// <summary>Field number for the "configuration" field.</summary>
-    public const int ConfigurationFieldNumber = 3;
+    public const int ConfigurationFieldNumber = 4;
     private global::Net.Rpc.MatchConfiguration configuration_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Net.Rpc.MatchConfiguration Configuration {
@@ -171,6 +201,7 @@ namespace Net.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (WorkerId != other.WorkerId) return false;
       if (MatchType != other.MatchType) return false;
       if (Seed != other.Seed) return false;
       if (!object.Equals(Configuration, other.Configuration)) return false;
@@ -180,6 +211,7 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (WorkerId.Length != 0) hash ^= WorkerId.GetHashCode();
       if (MatchType.Length != 0) hash ^= MatchType.GetHashCode();
       if (Seed != 0L) hash ^= Seed.GetHashCode();
       if (configuration_ != null) hash ^= Configuration.GetHashCode();
@@ -196,16 +228,20 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MatchType.Length != 0) {
+      if (WorkerId.Length != 0) {
         output.WriteRawTag(10);
+        output.WriteString(WorkerId);
+      }
+      if (MatchType.Length != 0) {
+        output.WriteRawTag(18);
         output.WriteString(MatchType);
       }
       if (Seed != 0L) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt64(Seed);
       }
       if (configuration_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(Configuration);
       }
       if (_unknownFields != null) {
@@ -216,6 +252,9 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (WorkerId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(WorkerId);
+      }
       if (MatchType.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchType);
       }
@@ -235,6 +274,9 @@ namespace Net.Rpc {
     public void MergeFrom(CreateMatchRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.WorkerId.Length != 0) {
+        WorkerId = other.WorkerId;
       }
       if (other.MatchType.Length != 0) {
         MatchType = other.MatchType;
@@ -260,14 +302,18 @@ namespace Net.Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            WorkerId = input.ReadString();
+            break;
+          }
+          case 18: {
             MatchType = input.ReadString();
             break;
           }
-          case 16: {
+          case 24: {
             Seed = input.ReadInt64();
             break;
           }
-          case 26: {
+          case 34: {
             if (configuration_ == null) {
               Configuration = new global::Net.Rpc.MatchConfiguration();
             }
@@ -886,6 +932,267 @@ namespace Net.Rpc {
 
   }
 
+  public sealed partial class StopServerRequest : pb::IMessage<StopServerRequest> {
+    private static readonly pb::MessageParser<StopServerRequest> _parser = new pb::MessageParser<StopServerRequest>(() => new StopServerRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<StopServerRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerRequest(StopServerRequest other) : this() {
+      matchId_ = other.matchId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerRequest Clone() {
+      return new StopServerRequest(this);
+    }
+
+    /// <summary>Field number for the "match_id" field.</summary>
+    public const int MatchIdFieldNumber = 1;
+    private string matchId_ = "";
+    /// <summary>
+    /// TODO: maybe enum: Stop (stop but possibility to restart), Delete (erase totally all data), ...
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MatchId {
+      get { return matchId_; }
+      set {
+        matchId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as StopServerRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(StopServerRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MatchId != other.MatchId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MatchId.Length != 0) hash ^= MatchId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MatchId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(MatchId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MatchId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(StopServerRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MatchId.Length != 0) {
+        MatchId = other.MatchId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            MatchId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class StopServerResponse : pb::IMessage<StopServerResponse> {
+    private static readonly pb::MessageParser<StopServerResponse> _parser = new pb::MessageParser<StopServerResponse>(() => new StopServerResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<StopServerResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerResponse(StopServerResponse other) : this() {
+      result_ = other.result_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StopServerResponse Clone() {
+      return new StopServerResponse(this);
+    }
+
+    /// <summary>Field number for the "result" field.</summary>
+    public const int ResultFieldNumber = 1;
+    private global::Net.Rpc.StopServerCompletionResult result_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Net.Rpc.StopServerCompletionResult Result {
+      get { return result_; }
+      set {
+        result_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as StopServerResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(StopServerResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Result != other.Result) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Result != 0) hash ^= Result.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Result != 0) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Result);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Result != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(StopServerResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Result != 0) {
+        Result = other.Result;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Result = (global::Net.Rpc.StopServerCompletionResult) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class UnityServer : pb::IMessage<UnityServer> {
     private static readonly pb::MessageParser<UnityServer> _parser = new pb::MessageParser<UnityServer>(() => new UnityServer());
     private pb::UnknownFieldSet _unknownFields;
@@ -894,7 +1201,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -911,7 +1218,8 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UnityServer(UnityServer other) : this() {
-      pid_ = other.pid_;
+      workerId_ = other.workerId_;
+      matchId_ = other.matchId_;
       configuration_ = other.configuration_ != null ? other.configuration_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -921,22 +1229,33 @@ namespace Net.Rpc {
       return new UnityServer(this);
     }
 
-    /// <summary>Field number for the "pid" field.</summary>
-    public const int PidFieldNumber = 1;
-    private int pid_;
+    /// <summary>Field number for the "worker_id" field.</summary>
+    public const int WorkerIdFieldNumber = 1;
+    private string workerId_ = "";
     /// <summary>
-    /// Process id
+    /// Process id or k8s deployment
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Pid {
-      get { return pid_; }
+    public string WorkerId {
+      get { return workerId_; }
       set {
-        pid_ = value;
+        workerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "match_id" field.</summary>
+    public const int MatchIdFieldNumber = 2;
+    private string matchId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MatchId {
+      get { return matchId_; }
+      set {
+        matchId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "configuration" field.</summary>
-    public const int ConfigurationFieldNumber = 2;
+    public const int ConfigurationFieldNumber = 3;
     private global::Net.Rpc.MatchConfiguration configuration_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Net.Rpc.MatchConfiguration Configuration {
@@ -959,7 +1278,8 @@ namespace Net.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Pid != other.Pid) return false;
+      if (WorkerId != other.WorkerId) return false;
+      if (MatchId != other.MatchId) return false;
       if (!object.Equals(Configuration, other.Configuration)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -967,7 +1287,8 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Pid != 0) hash ^= Pid.GetHashCode();
+      if (WorkerId.Length != 0) hash ^= WorkerId.GetHashCode();
+      if (MatchId.Length != 0) hash ^= MatchId.GetHashCode();
       if (configuration_ != null) hash ^= Configuration.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -982,12 +1303,16 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Pid != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Pid);
+      if (WorkerId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(WorkerId);
+      }
+      if (MatchId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MatchId);
       }
       if (configuration_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(Configuration);
       }
       if (_unknownFields != null) {
@@ -998,8 +1323,11 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Pid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Pid);
+      if (WorkerId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(WorkerId);
+      }
+      if (MatchId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MatchId);
       }
       if (configuration_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Configuration);
@@ -1015,8 +1343,11 @@ namespace Net.Rpc {
       if (other == null) {
         return;
       }
-      if (other.Pid != 0) {
-        Pid = other.Pid;
+      if (other.WorkerId.Length != 0) {
+        WorkerId = other.WorkerId;
+      }
+      if (other.MatchId.Length != 0) {
+        MatchId = other.MatchId;
       }
       if (other.configuration_ != null) {
         if (configuration_ == null) {
@@ -1035,11 +1366,15 @@ namespace Net.Rpc {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Pid = input.ReadInt32();
+          case 10: {
+            WorkerId = input.ReadString();
             break;
           }
           case 18: {
+            MatchId = input.ReadString();
+            break;
+          }
+          case 26: {
             if (configuration_ == null) {
               Configuration = new global::Net.Rpc.MatchConfiguration();
             }
@@ -1060,7 +1395,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Net.Rpc.RpcReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1077,7 +1412,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public User(User other) : this() {
-      servers_ = other.servers_.Clone();
+      serversWorkerId_ = other.serversWorkerId_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1086,14 +1421,14 @@ namespace Net.Rpc {
       return new User(this);
     }
 
-    /// <summary>Field number for the "servers" field.</summary>
-    public const int ServersFieldNumber = 1;
-    private static readonly pb::FieldCodec<int> _repeated_servers_codec
-        = pb::FieldCodec.ForInt32(10);
-    private readonly pbc::RepeatedField<int> servers_ = new pbc::RepeatedField<int>();
+    /// <summary>Field number for the "servers_worker_id" field.</summary>
+    public const int ServersWorkerIdFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_serversWorkerId_codec
+        = pb::FieldCodec.ForString(10);
+    private readonly pbc::RepeatedField<string> serversWorkerId_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> Servers {
-      get { return servers_; }
+    public pbc::RepeatedField<string> ServersWorkerId {
+      get { return serversWorkerId_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1109,14 +1444,14 @@ namespace Net.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!servers_.Equals(other.servers_)) return false;
+      if(!serversWorkerId_.Equals(other.serversWorkerId_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= servers_.GetHashCode();
+      hash ^= serversWorkerId_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1130,7 +1465,7 @@ namespace Net.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      servers_.WriteTo(output, _repeated_servers_codec);
+      serversWorkerId_.WriteTo(output, _repeated_serversWorkerId_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1139,7 +1474,7 @@ namespace Net.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += servers_.CalculateSize(_repeated_servers_codec);
+      size += serversWorkerId_.CalculateSize(_repeated_serversWorkerId_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1151,7 +1486,7 @@ namespace Net.Rpc {
       if (other == null) {
         return;
       }
-      servers_.Add(other.servers_);
+      serversWorkerId_.Add(other.serversWorkerId_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1163,9 +1498,8 @@ namespace Net.Rpc {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10:
-          case 8: {
-            servers_.AddEntriesFrom(input, _repeated_servers_codec);
+          case 10: {
+            serversWorkerId_.AddEntriesFrom(input, _repeated_serversWorkerId_codec);
             break;
           }
         }

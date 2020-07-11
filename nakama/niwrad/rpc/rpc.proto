@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package nakama.niwrad.rpc;
+
+option csharp_namespace = "Net.Rpc";
+option go_package = "nakama/niwrad/rpc;rpc";
+
+enum CreateMatchCompletionResult {
+	createMatchCompletionResultUnknownInternalFailure        = 0;
+	createMatchCompletionResultSucceeded                     = 1;
+	createMatchCompletionResultUnknownClientFailure          = -100;
+	createMatchCompletionResultAlreadyInMatchOfSpecifiedType = -99;
+	createMatchCompletionResultAlreadyCreatingMatch          = -98;
+	createMatchCompletionResultAlreadyInMatch                = -97;
+	createMatchCompletionResultFailedToCreateMucRoom         = -96;
+	createMatchCompletionResultNoResponse                    = -95;
+	createMatchCompletionResultLoggedOut                     = -94;
+}
+message CreateMatchRequest {
+	string worker_id = 1; // e.g. process / k8s deployment ...
+	string match_type = 2;
+	int64 seed = 3;
+    MatchConfiguration configuration = 4;
+}
+
+message CreateMatchResponse {
+    string match_id = 1;
+    CreateMatchCompletionResult result = 2;
+}
+
+message MatchConfiguration {
+	int32 terrain_size = 1;
+	int32 initial_animals = 2;
+	int32 initial_plants = 3;
+}
+
+message RunServerRequest {
+	MatchConfiguration configuration = 1;
+}
+enum RunServerCompletionResult {
+	runServerCompletionResultUnknownInternalFailure        = 0;
+	runServerCompletionResultSucceeded                     = 1;
+}
+message RunServerResponse {
+	RunServerCompletionResult result = 1;
+}
+
+message StopServerRequest {
+	string match_id = 1;
+	// TODO: maybe enum: Stop (stop but possibility to restart), Delete (erase totally all data), ...
+}
+
+enum StopServerCompletionResult {
+	stopServerCompletionResultUnknownInternalFailure        = 0;
+	stopServerCompletionResultSucceeded                     = 1;
+}
+message StopServerResponse {
+	StopServerCompletionResult result = 1;
+}
+
+message UnityServer {
+	string worker_id = 1; // Process id or k8s deployment
+	string match_id = 2;
+	MatchConfiguration configuration = 3;
+}
+
+message User {
+	repeated string servers_worker_id = 1;
+}

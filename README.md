@@ -7,7 +7,7 @@
 ![demo](docs/images/demo.gif)
 ![demo](docs/images/demo2.gif)
 
-## Local usage
+## Usage
 
 1. [Download and import Nakama unitypackage](https://github.com/heroiclabs/nakama-unity) to Assets/Plugins for example.
 2. [Download and import NuGet unitypackage](https://github.com/GlitchEnzo/NuGetForUnity) to Assets/Plugins for example.
@@ -16,37 +16,18 @@
 5. Install docker and docker-compose
 6. Install make
 
-### Running
-
-```bash
-# Build Unity client and server
-make build
-
-# Start Nakama server and Unity server
-make nakama_and_server
-
-# In another tab, run a client
-make client
-```
-
-## Deploy server
-
-### Using Helm and Kubernetes
+### Helm and Kubernetes
 
 1. [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 2. [Install helm](https://helm.sh/docs/intro/install/)
 3. [Install minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) (only local k8s yet)
 
-`make nakama`
-
-### Using Docker
-
-Something like:
-
 ```bash
-docker-compose -f Nakama/docker-compose.yml up --build nakama
+minikube start --driver=docker
+helm install niwrad helm
 ```
 
+<!--
 ### Bare metal
 
 good luck
@@ -79,7 +60,7 @@ curl https://github.com/louis030195/niwrad/suites/809531407/artifacts/8821692
 tmux new -s niwrad
 make nakama_and_server
 ```
-
+-->
 ## How it works
 
 ### Architecture
@@ -87,7 +68,12 @@ make nakama_and_server
 Simulate physics is hard. Unity does it decently using Physx under the hood.\
 It's easier to just use Unity for that instead of the Nakama server.
 
-![xd](docs/images/niwrad.png)
+![high-level architecture](docs/images/niwrad.png)
+
+Under the hood Nakama is used as a coordinator to spawn kubernetes pods that handle each a specific box of the map.  
+An Octree data structure is used for that.  
+
+![high-level architecture](docs/images/octree.png)
 
 ### Evolution
 
@@ -99,29 +85,13 @@ The principle is to simulate few similar key points among darwinian evolution, o
 - According to these implementations, the hosts will evolve by natural selection, some characteristics that help survival (speed ... ?) will increase, some that harm survival will decrease
 - The fun part: players can do some actions that will trigger artificial selection, e.g. like we human selected the cows that produce the most milk, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some targeted hosts (high speed hosts ? big hosts ...)
 
-## Development
-
-Some useful commands
-
-```bash
-# [Use local Docker images within k8s](https://dzone.com/articles/running-local-docker-images-in-kubernetes-1)
-eval $(minikube docker-env)
-docker build -t nakama Nakama/modules
-# Get service url
-minikube service list
-#
-helm install niwrad helm
-```
-
 ### TODO
 
-- [ ] [Nakama config file](https://heroiclabs.com/docs/install-configuration/#example-file) and [nakama config](https://github.com/heroiclabs/nakama/blob/master/server/config.go)
 - [ ] Fix the Assets/Plugins and Assets/Packages (make something automatic download and add to gitignore ..)
 - [ ] Implement "robot": a creature that will tweak evolution according to our will, e.g. "I want fast animals" it will kill all slow animals\
     Basically anything that can allow players to apply artificial selection
 - [ ] finish github workflow (github page deployment)
 - [ ] Android controller
-- [ ] Find out why hosts die so fast in net ?
 - [ ] Finish helm + k8s deployment
-- [ ] See if it's doable to do distributed unity servers: multiple containers per pods, each handling a part of the map coordinated within Nakama using Octree data structure
+- [ ] Implement distributed unity server based on Octree coordination
 - [ ] Deploy persistent server on the cloud

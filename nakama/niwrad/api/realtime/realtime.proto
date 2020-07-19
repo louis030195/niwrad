@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package nakama.niwrad.api.realtime;
+
+option csharp_namespace = "Api.Realtime";
+option go_package = "nakama/niwrad/api/realtime;realtime";
+
+message Packet {
+    string sender_id = 1;
+    bool is_server = 2;
+    repeated string recipients = 3;
+    oneof type {
+        // General physical objects
+        UpdateTransform update_transform = 4;
+        NavMeshUpdate nav_mesh_update = 5;
+
+        // Evolution
+        Spawn spawn = 6;
+        Spawn request_spawn = 7;
+        Destroy destroy = 8;
+        Destroy request_destroy = 9;
+        Meme meme = 10;
+        
+        // Player
+        MatchInformation match_information = 11;
+        Initialized initialized = 12;
+    }
+}
+
+// General purpose transform update typically shared by several different types of objects
+message UpdateTransform {
+    Transform transform = 1;
+}
+
+message NavMeshUpdate {
+    uint64 id = 1;
+    Vector3 destination = 2;
+}
+
+
+message Spawn {
+    oneof type {
+        Transform any = 1; // Any object, no special behaviour
+        Tree tree = 2;
+        Animal animal = 3;
+        // TODO: other ?
+    }
+}
+
+message Destroy {
+    oneof type {
+        Transform any = 1; // Any object, no special behaviour
+        Tree tree = 2;
+        Animal animal = 3;
+        // TODO: other ?
+    }
+}
+
+message Meme {
+    uint64 id = 1;
+    string meme_name = 2; // Not really efficient but ok
+}
+
+// Server sending some information on the current state before starting
+message MatchInformation {
+    // TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
+    // like map size, initial evolution parameters ...
+    int32 seed = 1;
+}
+
+// Client notifying being ready to handle gameplay
+message Initialized {
+}
+
+message Transform { // TODO: is it worthwhile to add like "owner_id" ... ?
+    uint64 id = 1;
+    Vector3 position = 2;
+    Quaternion rotation = 3;
+}
+
+message Tree {
+    Transform transform = 1;
+    // TODO: other stats
+}
+message Animal {
+    Transform transform = 1;
+    // TODO: other stats
+}
+
+message Vector3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message Quaternion {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float w = 4;
+}
+
+// Ask a logic server to transfer ownership of an object
+message RequestTransferOwnership {
+    Transform transform = 1;
+}

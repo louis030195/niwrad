@@ -1,4 +1,5 @@
 PROJECT_PATH ?= $(HOME)/Documents/unity/niwrad
+PROTOS = $(PROJECT_PATH)/nakama/niwrad/api
 NS ?= niwrad
 VERSION ?= 1.0.0
 EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2019.4.0f1/Editor/Unity
@@ -41,10 +42,13 @@ nakama:
 	# docker run niwrad-unity /app/niwrad.x86_64 --nakamaIp 127.0.0.1 --nakamaPort 7350
 
 proto:
-	protoc -I $(PROJECT_PATH)/nakama/niwrad/realtime \
-	--csharp_out=Assets/Scripts/Net/Realtime --go_out=. $(PROJECT_PATH)/nakama/niwrad/realtime/*.proto
-	protoc -I $(PROJECT_PATH)/nakama/niwrad/rpc \
-	--csharp_out=Assets/Scripts/Net/Rpc --go_out=. $(PROJECT_PATH)/nakama/niwrad/rpc/*.proto
+	mkdir -p Assets/Scripts/Api/Realtime Assets/Scripts/Api/Rpc
+	protoc -I $(PROTOS)/realtime \
+		--csharp_out=Assets/Scripts/Api/Realtime \
+		--go_out=. $(PROTOS)/realtime/*.proto
+	protoc -I $(PROTOS)/rpc \
+		--csharp_out=Assets/Scripts/Api/Rpc \
+		--go_out=. $(PROTOS)/rpc/*.proto
 
 helm:
 	helm install $(NS) helm

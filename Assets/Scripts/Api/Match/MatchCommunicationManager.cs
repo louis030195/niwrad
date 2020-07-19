@@ -1,0 +1,416 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Google.Protobuf;
+using JetBrains.Annotations;
+using Nakama;
+using Nakama.TinyJson;
+using Api.Realtime;
+using Api.Rpc;
+using Api.Session;
+using Api.Utils;
+using UnityEngine;
+using Utils;
+
+namespace Api.Match
+{
+	/// <summary>
+    /// Role of this manager is sending match information to other players
+    /// and receiving match messages from them through Nakama Server.
+    /// Should be kept as single responsibility without mixing with logic / gameplay.
+    /// </summary>
+    public class MatchCommunicationManager : Singleton<MatchCommunicationManager>
+    {
+	    //This region contains events for all type of match messages that could be send in the game.
+        //Events are fired after getting message sent by other players from Nakama server
+        #region PUBLIC EVENTS
+
+        // Match states
+        public event Action<string> Initialized; // Client's game play handlers initialized, calling for state sync
+        // TODO: maybe will require other states ?
+
+        // General objects
+        public event Action<Realtime.Transform> TransformUpdated;
+        public event Action<NavMeshUpdate> NavMeshUpdated;
+
+        // Evolution
+        public event Action<Realtime.Transform> AnimalSpawned;
+        public event Action<Realtime.Transform> TreeSpawned;
+        public event Action<Realtime.Transform> AnimalDestroyed;
+        public event Action<Realtime.Transform> TreeDestroyed;
+        public event Action<Realtime.Transform> AnimalSpawnRequested;
+        public event Action<Realtime.Transform> TreeSpawnRequested;
+        public event Action<Realtime.Transform> AnimalDestroyRequested;
+        public event Action<Realtime.Transform> TreeDestroyRequested;
+        public event Action<Meme> MemeUpdated;
+
+
+        #endregion
+
+        #region PROPERTIES
+
+        /// <summary>
+        /// List of IUserPresence of all players
+        /// </summary>
+        public List<IUserPresence> players { get; private set; }
+
+        /// <summary>
+        /// Id of current match
+        /// </summary>
+        public string matchId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Current socket which connects client to Nakama server. Through this socket are sent match messages.
+        /// </summary>
+        private ISocket socket => SessionManager.instance.socket;
+
+        /// <summary>
+        /// Behaviours are dependent on randomness, we want it deterministic across server and clients
+        /// so we can avoid to sync many things
+        /// </summary>
+        public int seed
+        {
+	        get;
+	        private set;
+        } = -1;
+
+        public IUserPresence host { get; private set; }
+        public IUserPresence self { get; private set; }
+        public bool isHost => Equals(self, host);
+
+        #endregion
+
+        #region PRIVATE FIELDS
+
+
+        #endregion
+
+        #region MONO
+
+        #endregion
+
+        #region PUBLIC METHODS
+
+
+        /// <summary>
+        /// Get match lists
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string[]> GetMatchListAsync()
+        {
+	        // The message containing last match id we send to server in order to receive required match info
+	        var response = await SessionManager.instance.client
+		        .RpcAsync(SessionManager.instance.session, "list_matches");
+	        var result = response.Payload.FromJson<Dictionary<string, string[]>>();
+	        return result.ContainsKey("matches") ? result["matches"] : new string[]{};
+        }
+
+
+        /// <summary>
+        /// Joins given match or create it if the given id is null
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="workerId">In case of a create, process / k8s deployment id</param>
+        /// <param name="matchConfiguration"></param>
+        public async Task JoinMatchAsync(string id = null, string workerId = null, MatchConfiguration matchConfiguration = null)
+        {
+	        //Filling list of match participants
+            players = new List<IUserPresence>();
+
+            try
+            {
+                // Listen to incoming match messages and user connection changes
+                socket.ReceivedMatchPresence += OnMatchPresence;
+                socket.ReceivedMatchState += ReceiveMatchStateMessage;
+                socket.ReceivedStreamState += OnReceivedStreamState;
+                socket.Closed += Application.Quit; // Stop when server close
+                if (id == null)
+                {
+	                Debug.Log($"Request match creation with workerId {workerId}, configuration {matchConfiguration}");
+	                var cmr = new CreateMatchRequest
+	                {
+		                WorkerId = workerId,
+		                Configuration = matchConfiguration,
+		                MatchType = "a",
+		                Seed = 1995
+	                };
+	                var p = cmr.ToByteString().ToStringUtf8();
+	                var res = await socket.RpcAsync( "create_match", p);
+	                if (res == null) throw new Exception($"Failed to create match {cmr}");
+	                var parsed = CreateMatchResponse.Parser
+		                .ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
+	                if (parsed == null || parsed.Result != CreateMatchCompletionResult.Succeeded)
+	                {
+		                throw new Exception($"Failed to create match {parsed}");
+	                }
+	                matchId = parsed.MatchId;
+	                id = parsed.MatchId;
+	                Debug.Log($"Created match with id: {parsed.MatchId}");
+	                seed = 1995; // Best generation of hosts
+                }
+                // Join the match
+                var match = await socket.JoinMatchAsync(id);
+                matchId = match.Id;
+                players.AddRange(match.Presences);
+                Debug.Log($"Joined match with id: {match.Id}; presences count: {match.Presences.Count()}");
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Couldn't join match: {e.Message}");
+                Application.Quit();
+            }
+        }
+
+        /// <summary>
+        /// This method sends match state message to other players through Nakama server.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="message"></param>
+        public void RpcAsync<T>(T message)
+            where T : IMessage<T> // TODO: should it be possible to have a single client recipient?
+        {
+	        try
+	        {
+		        var p = message as Packet;
+		        if (p == null) throw new Exception("Tried to send something else than Packet");
+
+		        // No recipients has been set, send to others by default
+		        if (p.Recipients.Count == 0)
+		        {
+			        for (var i = 0; i < players.Count; i++)
+			        {
+				        if (players[i].UserId != self.UserId) p.Recipients.Add(players[i].UserId);
+			        }
+		        }
+
+		        // Set some metadata
+		        p.SenderId = self.UserId;
+		        p.IsServer = isHost;
+		        //Then server sends it to other players
+		        socket.SendMatchStateAsync(matchId, 0, p.ToByteArray());
+	        }
+	        catch (Exception e)
+            {
+                Debug.Log($"Error while sending match state: {e.Message}");
+            }
+        }
+
+        /// <param name="p"></param>
+        private async void ReceiveMatchStateHandle(Packet p)
+        {
+	        // Outgoing messages can be async but absolutely everything in have to be ran on the main thread
+	        // (few exceptions: pure computing functions ...)
+	        await UniTask.SwitchToMainThread();
+	        switch (p.TypeCase)
+            {
+                case Packet.TypeOneofCase.UpdateTransform:
+                    TransformUpdated?.Invoke(p.UpdateTransform.Transform);
+                    break;
+                case Packet.TypeOneofCase.NavMeshUpdate:
+	                NavMeshUpdated?.Invoke(p.NavMeshUpdate);
+	                break;
+                case Packet.TypeOneofCase.RequestSpawn:
+	                switch (p.RequestSpawn.TypeCase)
+	                {
+		                case Spawn.TypeOneofCase.Any:
+			                break;
+		                case Spawn.TypeOneofCase.Tree:
+			                TreeSpawnRequested?.Invoke(p.RequestSpawn.Tree.Transform);
+			                break;
+		                case Spawn.TypeOneofCase.Animal:
+			                AnimalSpawnRequested?.Invoke(p.RequestSpawn.Animal.Transform);
+			                break;
+		                case Spawn.TypeOneofCase.None:
+			                break;
+		                default:
+			                throw new ArgumentOutOfRangeException();
+	                }
+	                break;
+                case Packet.TypeOneofCase.RequestDestroy:
+	                switch (p.RequestDestroy.TypeCase)
+	                {
+		                case Realtime.Destroy.TypeOneofCase.Any:
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.Tree:
+			                TreeDestroyRequested?.Invoke(p.RequestDestroy.Tree.Transform);
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.Animal:
+			                AnimalDestroyRequested?.Invoke(p.RequestDestroy.Animal.Transform);
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.None:
+			                break;
+		                default:
+			                throw new ArgumentOutOfRangeException();
+	                }
+	                break;
+                case Packet.TypeOneofCase.Spawn:
+	                switch (p.Spawn.TypeCase)
+	                {
+		                case Spawn.TypeOneofCase.Any:
+			                break;
+		                case Spawn.TypeOneofCase.Tree:
+			                TreeSpawned?.Invoke(p.Spawn.Tree.Transform);
+			                break;
+		                case Spawn.TypeOneofCase.Animal:
+			                AnimalSpawned?.Invoke(p.Spawn.Animal.Transform);
+			                break;
+		                case Spawn.TypeOneofCase.None:
+			                break;
+		                default:
+			                throw new ArgumentOutOfRangeException();
+	                }
+	                break;
+                case Packet.TypeOneofCase.Destroy:
+	                switch (p.Destroy.TypeCase)
+	                {
+		                case Realtime.Destroy.TypeOneofCase.Any:
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.Animal:
+			                AnimalDestroyed?.Invoke(p.Destroy.Animal.Transform);
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.Tree:
+			                TreeDestroyed?.Invoke(p.Destroy.Tree.Transform);
+			                break;
+		                case Realtime.Destroy.TypeOneofCase.None:
+			                break;
+		                default:
+			                throw new ArgumentOutOfRangeException();
+	                }
+	                break;
+                case Packet.TypeOneofCase.Meme:
+	                MemeUpdated?.Invoke(p.Meme);
+	                break;
+                case Packet.TypeOneofCase.Initialized:
+	                Initialized?.Invoke(p.SenderId);
+	                break;
+                case Packet.TypeOneofCase.MatchInformation:
+	                host = players.Find(up => up.UserId == p.SenderId);
+	                seed = p.MatchInformation.Seed;
+	                break;
+                case Packet.TypeOneofCase.None:
+	                break;
+                default:
+	                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #endregion
+
+        #region PRIVATE METHODS
+
+        /// <summary>
+        /// Method fired when any user leaves or joins the match
+        /// </summary>
+        /// <param name="e"></param>
+        private void OnMatchPresence(IMatchPresenceEvent e)
+        {
+	        foreach (var user in e.Joins)
+            {
+	            if (SessionManager.instance.session.UserId == user.UserId) self = user; // Set myself
+	            // If user is not already in the list
+	            if (players.FindIndex(x => x.UserId == user.UserId) == -1)
+                {
+                    players.Add(user);
+                    Debug.Log($"User {user.UserId} joined match {e.MatchId}");
+
+                    // Server notify the new player of the current seed for deterministic behaviours
+                    if (SessionManager.instance.isServer)
+                    {
+	                    RpcAsync(new Packet
+	                    {
+		                    MatchInformation = new MatchInformation{ Seed = seed },
+		                    Recipients = { user.UserId }
+	                    });
+                    }
+                }
+	            else
+	            {
+		            // User is already present in the game
+		            // Two devices use the same account, this is not allowed
+		            Debug.LogError("Two devices uses the same account, this is not allowed");
+		            // TODO: kick him ?
+	            }
+            }
+
+            foreach (var user in e.Leaves)
+            {
+	            if (players.FindIndex(x => x.UserId == user.UserId) != -1)
+	            {
+		            Debug.Log($"User {user.UserId} left match");
+		            players.Remove(user);
+	            }
+	            else
+	            {
+		            // User is already present in the game
+		            // Two devices use the same account, this is not allowed
+		            Debug.LogError($"New user {user.UserId} tried to leave the game ? WTF ?");
+	            }
+            }
+            if (players.Count == 1) host = self; // First player is host
+        }
+
+        private void ReceiveMatchStateMessage(IMatchState matchState) => ReceiveMatchStateMessage(matchState.State);
+
+        /// <summary>
+        /// Decodes match state message json from byte form of matchState.State and then sends it to ReceiveMatchStateHandle
+        /// for further reading and handling
+        /// </summary>
+        /// <param name="matchState"></param>
+        private void ReceiveMatchStateMessage(byte[] matchState)
+        {
+            var message= Packet.Parser.ParseFrom(matchState);
+
+            if (message == null)
+            {
+                return;
+            }
+
+            ReceiveMatchStateHandle(message);
+        }
+
+        /// <summary>
+        /// See <a href="https://heroiclabs.com/docs/advanced-streams/#built-in-streams">Nakama docs</a>
+        /// </summary>
+        /// <param name="state"></param>
+        private void OnReceivedStreamState(IStreamState state)
+        {
+	        try
+	        {
+		        // switch (state.Sender.UserId) // TODO: case server, case player ...
+		        // {
+			       //  case "":
+				      //   SessionManager.instance.sessio
+		        // }
+		        // state.Stream.
+		        switch (state.Stream.Mode)
+		        {
+			        case 0: // Notifications
+			        case 1: // Status
+			        case 2: // Chat Channel
+			        case 3: // Group Chat
+			        case 4: // Direct Message
+			        case 5: // Relayed Match
+				        throw new NotImplementedException();
+			        case 6: // Authoritative Match
+				        ReceiveMatchStateMessage(Encoding.UTF8.GetBytes(state.State));
+				        break;
+		        }
+	        }
+	        catch (Exception ex)
+	        {
+		        Debug.LogError($"Server sent incorrect message through stream {ex}");
+	        }
+        }
+
+        #endregion
+    }
+
+}

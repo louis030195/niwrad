@@ -1,5 +1,9 @@
+using System;
 using Api.Realtime;
 using Api.Session;
+using Protometry.Quaternion;
+using Protometry.Vector3;
+using Protometry.Volume;
 
 namespace Api.Utils
 {
@@ -7,11 +11,11 @@ namespace Api.Utils
 	{
 		public static UnityEngine.Quaternion ToQuaternion(this Quaternion q)
 		{
-			return new UnityEngine.Quaternion(q.X, q.Y, q.Z, q.W);
+			return new UnityEngine.Quaternion((float) q.X, (float) q.Y, (float) q.Z, (float) q.W);
 		}
 		public static UnityEngine.Vector3 ToVector3(this Vector3 v)
 		{
-			return new UnityEngine.Vector3(v.X, v.Y, v.Z);
+			return new UnityEngine.Vector3((float) v.X, (float) v.Y, (float) v.Z);
 		}
 
 		public static Quaternion Net(this UnityEngine.Quaternion q)
@@ -22,16 +26,32 @@ namespace Api.Utils
 		{
 			return new Vector3 { X = v.x, Y = v.y,  Z = v.z};
 		}
+        
+        public static Box OfSize(this Box b, double x, double y, double z, double size)
+        {
+            b.Min.X = x - size / 2;
+            b.Min.Y = y - size / 2;
+            b.Min.Z = z - size / 2;
+            
+            b.Max.X = x + size / 2;
+            b.Max.Y = y + size / 2;
+            b.Max.Z = z + size / 2;
 
-		/// <summary>
-		/// Initialize a Packet with basic information retrieved in the current state
-		/// </summary>
-		/// <param name="p"></param>
-		/// <returns></returns>
-		public static Packet Basic(this Packet p)
+            return b;
+        }
+
+        /// <summary>
+        /// Initialize a Packet with basic information retrieved in the current state
+        /// By default has a global impact
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="impact">specify a spatial impact or global and leave null</param>
+        /// <returns></returns>
+        public static Packet Basic(this Packet p, Vector3 impact = null)
 		{
 			p.SenderId = SessionManager.instance.session.UserId;
 			p.IsServer = SessionManager.instance.isServer;
+            p.Impact = impact;
 			return p;
 		}
 
@@ -127,5 +147,19 @@ namespace Api.Utils
 			};
 			return p;
 		}
+
+        public static float[,] To2dArray(this Matrix m)
+        {
+            var twoDArray = new float[m.Cols.Count, m.Cols[0].Rows.Count];
+            for (var i = 0; i < m.Cols.Count; i++)
+            {
+                for (var j = 0; j < m.Cols[0].Rows.Count; j++)
+                {
+                    // TODO: i,j or j,i ?
+                    twoDArray[i, j] = (float)m.Cols[i].Rows[j];
+                }
+            }
+            return twoDArray;
+        }
 	}
 }

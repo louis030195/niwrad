@@ -41,27 +41,27 @@ namespace Api.Rpc {
             "Lm5ha2FtYS5uaXdyYWQuYXBpLnJwYy5TdG9wU2VydmVyQ29tcGxldGlvblJl",
             "c3VsdCJ0CgtVbml0eVNlcnZlchIRCgl3b3JrZXJfaWQYASABKAkSEAoIbWF0",
             "Y2hfaWQYAiABKAkSQAoNY29uZmlndXJhdGlvbhgDIAEoCzIpLm5ha2FtYS5u",
-            "aXdyYWQuYXBpLnJwYy5NYXRjaENvbmZpZ3VyYXRpb24iIQoEVXNlchIZChFz",
-            "ZXJ2ZXJzX3dvcmtlcl9pZBgBIAMoCSqfBAobQ3JlYXRlTWF0Y2hDb21wbGV0",
-            "aW9uUmVzdWx0EjUKMWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFVua25v",
-            "d25JbnRlcm5hbEZhaWx1cmUQABIoCiRjcmVhdGVNYXRjaENvbXBsZXRpb25S",
-            "ZXN1bHRTdWNjZWVkZWQQARI8Ci9jcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1",
-            "bHRVbmtub3duQ2xpZW50RmFpbHVyZRCc//////////8BEkUKOGNyZWF0ZU1h",
-            "dGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlJbk1hdGNoT2ZTcGVjaWZpZWRU",
-            "eXBlEJ3//////////wESPAovY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0",
-            "QWxyZWFkeUNyZWF0aW5nTWF0Y2gQnv//////////ARI2CiljcmVhdGVNYXRj",
-            "aENvbXBsZXRpb25SZXN1bHRBbHJlYWR5SW5NYXRjaBCf//////////8BEj0K",
-            "MGNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdEZhaWxlZFRvQ3JlYXRlTXVj",
-            "Um9vbRCg//////////8BEjIKJWNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3Vs",
-            "dE5vUmVzcG9uc2UQof//////////ARIxCiRjcmVhdGVNYXRjaENvbXBsZXRp",
-            "b25SZXN1bHRMb2dnZWRPdXQQov//////////ASp4ChlSdW5TZXJ2ZXJDb21w",
-            "bGV0aW9uUmVzdWx0EjMKL3J1blNlcnZlckNvbXBsZXRpb25SZXN1bHRVbmtu",
-            "b3duSW50ZXJuYWxGYWlsdXJlEAASJgoicnVuU2VydmVyQ29tcGxldGlvblJl",
-            "c3VsdFN1Y2NlZWRlZBABKnsKGlN0b3BTZXJ2ZXJDb21wbGV0aW9uUmVzdWx0",
-            "EjQKMHN0b3BTZXJ2ZXJDb21wbGV0aW9uUmVzdWx0VW5rbm93bkludGVybmFs",
-            "RmFpbHVyZRAAEicKI3N0b3BTZXJ2ZXJDb21wbGV0aW9uUmVzdWx0U3VjY2Vl",
-            "ZGVkEAFCJVoZbmFrYW1hL25pd3JhZC9hcGkvcnBjO3JwY6oCB0FwaS5ScGNi",
-            "BnByb3RvMw=="));
+            "aXdyYWQuYXBpLnJwYy5NYXRjaENvbmZpZ3VyYXRpb24iHQoEVXNlchIVCg1t",
+            "YXRjaGVzX293bmVkGAEgAygJKp8EChtDcmVhdGVNYXRjaENvbXBsZXRpb25S",
+            "ZXN1bHQSNQoxY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0VW5rbm93bklu",
+            "dGVybmFsRmFpbHVyZRAAEigKJGNyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3Vs",
+            "dFN1Y2NlZWRlZBABEjwKL2NyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdFVu",
+            "a25vd25DbGllbnRGYWlsdXJlEJz//////////wESRQo4Y3JlYXRlTWF0Y2hD",
+            "b21wbGV0aW9uUmVzdWx0QWxyZWFkeUluTWF0Y2hPZlNwZWNpZmllZFR5cGUQ",
+            "nf//////////ARI8Ci9jcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRBbHJl",
+            "YWR5Q3JlYXRpbmdNYXRjaBCe//////////8BEjYKKWNyZWF0ZU1hdGNoQ29t",
+            "cGxldGlvblJlc3VsdEFscmVhZHlJbk1hdGNoEJ///////////wESPQowY3Jl",
+            "YXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0RmFpbGVkVG9DcmVhdGVNdWNSb29t",
+            "EKD//////////wESMgolY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0Tm9S",
+            "ZXNwb25zZRCh//////////8BEjEKJGNyZWF0ZU1hdGNoQ29tcGxldGlvblJl",
+            "c3VsdExvZ2dlZE91dBCi//////////8BKngKGVJ1blNlcnZlckNvbXBsZXRp",
+            "b25SZXN1bHQSMwovcnVuU2VydmVyQ29tcGxldGlvblJlc3VsdFVua25vd25J",
+            "bnRlcm5hbEZhaWx1cmUQABImCiJydW5TZXJ2ZXJDb21wbGV0aW9uUmVzdWx0",
+            "U3VjY2VlZGVkEAEqewoaU3RvcFNlcnZlckNvbXBsZXRpb25SZXN1bHQSNAow",
+            "c3RvcFNlcnZlckNvbXBsZXRpb25SZXN1bHRVbmtub3duSW50ZXJuYWxGYWls",
+            "dXJlEAASJwojc3RvcFNlcnZlckNvbXBsZXRpb25SZXN1bHRTdWNjZWVkZWQQ",
+            "AUIlWhluYWthbWEvbml3cmFkL2FwaS9ycGM7cnBjqgIHQXBpLlJwY2IGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Api.Rpc.CreateMatchCompletionResult), typeof(global::Api.Rpc.RunServerCompletionResult), typeof(global::Api.Rpc.StopServerCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
@@ -73,7 +73,7 @@ namespace Api.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.StopServerRequest), global::Api.Rpc.StopServerRequest.Parser, new[]{ "MatchId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.StopServerResponse), global::Api.Rpc.StopServerResponse.Parser, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.UnityServer), global::Api.Rpc.UnityServer.Parser, new[]{ "WorkerId", "MatchId", "Configuration" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.User), global::Api.Rpc.User.Parser, new[]{ "ServersWorkerId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.User), global::Api.Rpc.User.Parser, new[]{ "MatchesOwned" }, null, null, null)
           }));
     }
     #endregion
@@ -1413,7 +1413,7 @@ namespace Api.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public User(User other) : this() {
-      serversWorkerId_ = other.serversWorkerId_.Clone();
+      matchesOwned_ = other.matchesOwned_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1422,14 +1422,14 @@ namespace Api.Rpc {
       return new User(this);
     }
 
-    /// <summary>Field number for the "servers_worker_id" field.</summary>
-    public const int ServersWorkerIdFieldNumber = 1;
-    private static readonly pb::FieldCodec<string> _repeated_serversWorkerId_codec
+    /// <summary>Field number for the "matches_owned" field.</summary>
+    public const int MatchesOwnedFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_matchesOwned_codec
         = pb::FieldCodec.ForString(10);
-    private readonly pbc::RepeatedField<string> serversWorkerId_ = new pbc::RepeatedField<string>();
+    private readonly pbc::RepeatedField<string> matchesOwned_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<string> ServersWorkerId {
-      get { return serversWorkerId_; }
+    public pbc::RepeatedField<string> MatchesOwned {
+      get { return matchesOwned_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1445,14 +1445,14 @@ namespace Api.Rpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!serversWorkerId_.Equals(other.serversWorkerId_)) return false;
+      if(!matchesOwned_.Equals(other.matchesOwned_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= serversWorkerId_.GetHashCode();
+      hash ^= matchesOwned_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1466,7 +1466,7 @@ namespace Api.Rpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      serversWorkerId_.WriteTo(output, _repeated_serversWorkerId_codec);
+      matchesOwned_.WriteTo(output, _repeated_matchesOwned_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1475,7 +1475,7 @@ namespace Api.Rpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += serversWorkerId_.CalculateSize(_repeated_serversWorkerId_codec);
+      size += matchesOwned_.CalculateSize(_repeated_matchesOwned_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1487,7 +1487,7 @@ namespace Api.Rpc {
       if (other == null) {
         return;
       }
-      serversWorkerId_.Add(other.serversWorkerId_);
+      matchesOwned_.Add(other.matchesOwned_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1500,7 +1500,7 @@ namespace Api.Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            serversWorkerId_.AddEntriesFrom(input, _repeated_serversWorkerId_codec);
+            matchesOwned_.AddEntriesFrom(input, _repeated_matchesOwned_codec);
             break;
           }
         }

@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
-using JetBrains.Annotations;
 using Nakama;
 using Nakama.TinyJson;
 using Api.Realtime;
-using Api.Rpc;
 using Api.Session;
-using Api.Utils;
 using UnityEngine;
 using Utils;
 
@@ -30,6 +26,7 @@ namespace Api.Match
         #region PUBLIC EVENTS
 
         // Match states
+        public event Action<MatchInformation> MatchJoined;
         public event Action<string> Initialized; // Client's game play handlers initialized, calling for state sync
         // TODO: maybe will require other states ?
 
@@ -118,9 +115,7 @@ namespace Api.Match
         /// Joins given match or create it if the given id is null
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="workerId">In case of a create, process / k8s deployment id</param>
-        /// <param name="matchConfiguration"></param>
-        public async Task JoinMatchAsync(string id = null, string workerId = null, MatchConfiguration matchConfiguration = null)
+        public async Task JoinMatchAsync(string id = null)
         {
 	        //Filling list of match participants
             players = new List<IUserPresence>();
@@ -132,30 +127,6 @@ namespace Api.Match
                 socket.ReceivedMatchState += ReceiveMatchStateMessage;
                 socket.ReceivedStreamState += OnReceivedStreamState;
                 socket.Closed += Application.Quit; // Stop when server close
-                if (id == null)
-                {
-	                Debug.Log($"Request match creation with workerId {workerId}, configuration {matchConfiguration}");
-	                var cmr = new CreateMatchRequest
-	                {
-		                WorkerId = workerId,
-		                Configuration = matchConfiguration,
-		                MatchType = "a",
-		                Seed = 1995
-	                };
-	                var p = cmr.ToByteString().ToStringUtf8();
-	                var res = await socket.RpcAsync( "create_match", p);
-	                if (res == null) throw new Exception($"Failed to create match {cmr}");
-	                var parsed = CreateMatchResponse.Parser
-		                .ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
-	                if (parsed == null || parsed.Result != CreateMatchCompletionResult.Succeeded)
-	                {
-		                throw new Exception($"Failed to create match {parsed}");
-	                }
-	                matchId = parsed.MatchId;
-	                id = parsed.MatchId;
-	                Debug.Log($"Created match with id: {parsed.MatchId}");
-	                seed = 1995; // Best generation of hosts
-                }
                 // Join the match
                 var match = await socket.JoinMatchAsync(id);
                 matchId = match.Id;
@@ -211,6 +182,9 @@ namespace Api.Match
 	        await UniTask.SwitchToMainThread();
 	        switch (p.TypeCase)
             {
+                case Packet.TypeOneofCase.MatchJoin:
+                    MatchJoined?.Invoke(p.MatchJoin.Information);
+                    break;
                 case Packet.TypeOneofCase.UpdateTransform:
                     TransformUpdated?.Invoke(p.UpdateTransform.Transform);
                     break;
@@ -291,10 +265,6 @@ namespace Api.Match
                 case Packet.TypeOneofCase.Initialized:
 	                Initialized?.Invoke(p.SenderId);
 	                break;
-                case Packet.TypeOneofCase.MatchInformation:
-	                host = players.Find(up => up.UserId == p.SenderId);
-	                seed = p.MatchInformation.Seed;
-	                break;
                 case Packet.TypeOneofCase.None:
 	                break;
                 default:
@@ -320,16 +290,6 @@ namespace Api.Match
                 {
                     players.Add(user);
                     Debug.Log($"User {user.UserId} joined match {e.MatchId}");
-
-                    // Server notify the new player of the current seed for deterministic behaviours
-                    if (SessionManager.instance.isServer)
-                    {
-	                    RpcAsync(new Packet
-	                    {
-		                    MatchInformation = new MatchInformation{ Seed = seed },
-		                    Recipients = { user.UserId }
-	                    });
-                    }
                 }
 	            else
 	            {

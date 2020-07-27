@@ -5,14 +5,7 @@ ENV CGO_ENABLED 1
 
 WORKDIR /backend
 
-# Get the Unity server artifact
-COPY .. .
-# This is ugly as hell ?
-#RUN cp -r realtime /usr/local/go/src/niwrad
-#RUN cp -r rpc /usr/local/go/src/niwrad
-
-#RUN go mod download
-#RUN go mod vendor
+COPY . .
 
 RUN go build --trimpath --buildmode=plugin -o ./backend.so
 

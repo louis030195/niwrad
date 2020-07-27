@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Api.Match;
 using Api.Realtime;
-using Api.Rpc;
 using Api.Session;
+using Api.Utils;
 using Cysharp.Threading.Tasks;
 using ProceduralTree;
+using Protometry.Vector3;
+using Protometry.Volume;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -20,11 +22,9 @@ namespace Gameplay
     {
         private static readonly Dictionary<string, string> Envs = new Dictionary<string, string>
         {
-            {"INITIAL_REGION", ""},
-            {"TERRAIN_SIZE", "100"},
             {"NAKAMA_IP", "127.0.0.1"},
             {"NAKAMA_PORT", "6666"},
-            {"WORKER_ID", "unityIDE"},
+            {"MATCH_ID", ""},
         };
 
         [SerializeField] private Terrain map;
@@ -65,7 +65,8 @@ namespace Gameplay
                 timescaleSlider.gameObject.SetActive(false);
                 timescaleText.gameObject.SetActive(false);
             }
-            InitializeGameplay();
+
+            MatchCommunicationManager.instance.MatchJoined += InitializeGameplay;
         }
 
         private async UniTask InitializeNet()
@@ -86,39 +87,25 @@ namespace Gameplay
                 Application.Quit();
             }
             await SessionManager.instance.ConnectSocketAsync();
-            // Join match with null id = create
-            await MatchCommunicationManager.instance.JoinMatchAsync(workerId: Envs["WORKER_ID"],
-                matchConfiguration:
-                new MatchConfiguration
-                {
-                    TerrainSize = int.Parse(Envs["TERRAIN_SIZE"])
-                });
             SessionManager.instance.isServer = true;
+            await MatchCommunicationManager.instance.JoinMatchAsync(Envs["MATCH_ID"]);
         }
 
-        private async void InitializeGameplay()
+        private async void InitializeGameplay(MatchInformation info)
         {
-            // Seems to be best to wait a bit before spawning things as there is navmesh baking
-            // Camera stuff, opengl thing
-            Debug.Log($"Initializing gameplay ...");
-            await UniTask.WaitUntil(() => MatchCommunicationManager.instance.seed != -1);
-            Random.InitState(MatchCommunicationManager.instance.seed);
-            Debug.Log($"Seed loaded value: {MatchCommunicationManager.instance.seed}");
-
-            // Once the seed is loaded, we can generate the map to have a deterministically same map than others
-            var diamondSquare = map.GetComponent<DiamondSquareTerrain>();
-            Debug.Log($"Generating map and navmesh");
-            diamondSquare.ExecuteDiamondSquare(int.Parse(Envs["TERRAIN_SIZE"]));
-
-            // Wait until it's generated and baked
-            await UniTask.WaitUntil(() => diamondSquare.navMeshBaked);
-            Debug.Log($"Navmesh baked, ready for gameplay");
+            Random.InitState(info.Seed);
+            Debug.Log($"Seed loaded value: {info.Seed}");
+            map.terrainData.SetHeights(0, 0, info.Map.To2dArray());
+            var m = map.GetComponent<NavMeshBaker>();
+            Debug.Log($"Generating map and baking it for path finding");
+            m.Bake();
             // Notifying self and others that we can handle game play
-            var msg = new Packet {Initialized = new Initialized()};
+            var msg = new Packet {Initialized = new Initialized()}.Basic();
             foreach (var instancePlayer in MatchCommunicationManager.instance.players)
             {
                 msg.Recipients.Add(instancePlayer.UserId);
             }
+
             MatchCommunicationManager.instance.RpcAsync(msg);
 
             // Start filling the pool

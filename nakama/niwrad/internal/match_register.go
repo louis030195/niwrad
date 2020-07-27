@@ -3,7 +3,6 @@ package niwrad
 import (
 	"context"
 	"database/sql"
-
 	"github.com/heroiclabs/nakama-common/runtime"
 )
 
@@ -16,17 +15,16 @@ func Register(initializer runtime.Initializer) error {
 	createPartyMatch := func(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule) (runtime.Match, error) {
 		return &Match{}, nil
 	}
-
 	if err := initializer.RegisterMatch(serviceName, createPartyMatch); err != nil {
 		return err
 	}
 	if err := initializer.RegisterRpc("create_match", rpcCreateMatch); err != nil {
 		return err
 	}
-	if err := initializer.RegisterRpc("run_unity_server", rpcRunUnityServer); err != nil {
+	if err := initializer.RegisterRpc("stop_match", rpcStopMatch); err != nil {
 		return err
 	}
-	if err := initializer.RegisterRpc("stop_unity_server", rpcStopUnityServer); err != nil {
+	if err := initializer.RegisterAfterAuthenticateEmail(afterAuthenticateEmail); err != nil {
 		return err
 	}
 	return nil

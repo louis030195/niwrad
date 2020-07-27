@@ -4,27 +4,55 @@ package nakama.niwrad.api.realtime;
 
 option csharp_namespace = "Api.Realtime";
 option go_package = "nakama/niwrad/api/realtime;realtime";
+import "github.com/louis030195/protometry/api/vector3/vector3.proto";
+import "github.com/louis030195/protometry/api/quaternion/quaternion.proto";
+import "github.com/louis030195/protometry/api/volume/volume.proto";
 
+// TODO: kind of ugly to use same struct for client -> server and server -> client ?
 message Packet {
     string sender_id = 1;
-    bool is_server = 2;
+    bool is_server = 2; // TODO: reduce headers
     repeated string recipients = 3;
+    // TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
+    protometry.vector3.Vector3 impact = 4; // Whom for ? Does xXxD4rkK1ll3rxXx care about the message 1 km away ?
     oneof type {
+        // Events
+        MatchJoin match_join = 7; 
+
         // General physical objects
-        UpdateTransform update_transform = 4;
-        NavMeshUpdate nav_mesh_update = 5;
+        UpdateTransform update_transform = 10;
+        NavMeshUpdate nav_mesh_update = 11;
 
         // Evolution
-        Spawn spawn = 6;
-        Spawn request_spawn = 7;
-        Destroy destroy = 8;
-        Destroy request_destroy = 9;
-        Meme meme = 10;
+        Spawn spawn = 15;
+        Spawn request_spawn = 16;
+        Destroy destroy = 17;
+        Destroy request_destroy = 18;
+        Meme meme = 19;
         
         // Player
-        MatchInformation match_information = 11;
-        Initialized initialized = 12;
+        Initialized initialized = 25;
     }
+}
+
+message MatchJoin{
+    MatchInformation information = 1;
+}
+
+// Server sending some information on the current state before starting
+message MatchInformation {
+    // TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
+    // TODO: map data
+    protometry.volume.Box region = 1;
+    Matrix map = 2;
+    int32 seed = 3;
+}
+message Matrix {
+    // packed: see https://developers.google.com/protocol-buffers/docs/proto#specifying_field_rules
+    repeated Array cols = 1 [packed=true];
+}
+message Array {
+    repeated double rows = 1 [packed=true];
 }
 
 // General purpose transform update typically shared by several different types of objects
@@ -34,7 +62,7 @@ message UpdateTransform {
 
 message NavMeshUpdate {
     uint64 id = 1;
-    Vector3 destination = 2;
+    protometry.vector3.Vector3 destination = 2;
 }
 
 
@@ -61,21 +89,14 @@ message Meme {
     string meme_name = 2; // Not really efficient but ok
 }
 
-// Server sending some information on the current state before starting
-message MatchInformation {
-    // TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
-    // like map size, initial evolution parameters ...
-    int32 seed = 1;
-}
-
 // Client notifying being ready to handle gameplay
 message Initialized {
 }
 
 message Transform { // TODO: is it worthwhile to add like "owner_id" ... ?
     uint64 id = 1;
-    Vector3 position = 2;
-    Quaternion rotation = 3;
+    protometry.vector3.Vector3 position = 2;
+    protometry.quaternion.Quaternion rotation = 3;
 }
 
 message Tree {
@@ -85,19 +106,6 @@ message Tree {
 message Animal {
     Transform transform = 1;
     // TODO: other stats
-}
-
-message Vector3 {
-    float x = 1;
-    float y = 2;
-    float z = 3;
-}
-
-message Quaternion {
-    float x = 1;
-    float y = 2;
-    float z = 3;
-    float w = 4;
 }
 
 // Ask a logic server to transfer ownership of an object

@@ -3,6 +3,8 @@ using Api.Match;
 using Api.Session;
 using Api.Utils;
 using UnityEngine;
+using Quaternion = Protometry.Quaternion.Quaternion;
+using Vector3 = Protometry.Vector3.Vector3;
 
 namespace Api.Realtime
 {
@@ -29,7 +31,7 @@ namespace Api.Realtime
 		private void Start()
 		{
 			m_Packet = new Packet();
-			m_Position = transform.position.Net();
+            m_Position = transform.position.Net();
 			m_Rotation = transform.rotation.Net();
 			m_Packet.UpdateTransform = new UpdateTransform
 			{

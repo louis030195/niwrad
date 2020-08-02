@@ -64,36 +64,56 @@ namespace Gameplay
 
         #region PUBLIC METHODS
 
+        public void InitializeGameplay()
+        {
+            Pool.Preload(animalPrefab, 1000);
+
+            // Now that we are initialized, can handle gameplay
+            MatchCommunicationManager.instance.AnimalSpawned += OnAnimalSpawned;
+            MatchCommunicationManager.instance.AnimalDestroyed += OnAnimalDestroyed;
+            MatchCommunicationManager.instance.TreeSpawned += OnTreeSpawned;
+            MatchCommunicationManager.instance.TreeDestroyed += OnTreeDestroyed;
+            MatchCommunicationManager.instance.AnimalSpawnRequested += OnAnimalSpawnRequested;
+            MatchCommunicationManager.instance.AnimalDestroyRequested += OnAnimalDestroyRequested;
+            MatchCommunicationManager.instance.TreeSpawnRequested += OnTreeSpawnRequested;
+            MatchCommunicationManager.instance.TreeDestroyRequested += OnTreeDestroyRequested;
+            MatchCommunicationManager.instance.MemeUpdated += OnMemeUpdated;
+            MatchCommunicationManager.instance.TransformUpdated += OnTransformUpdated;
+            MatchCommunicationManager.instance.NavMeshUpdated += OnNavMeshUpdated;
+        }
+
         public void RequestSpawnAnimal(Vector3 p, Quaternion r)
-			=> MatchCommunicationManager.instance.RpcAsync(new Packet().ReqSpawnAnimal(p, r));
+			=> MatchCommunicationManager.instance.RpcAsync(new Packet().Basic(p.Net()).ReqSpawnAnimal(p, r));
 
         public void RequestSpawnTree(Vector3 p, Quaternion r)
-	        => MatchCommunicationManager.instance.RpcAsync(new Packet().ReqSpawnTree(p, r));
+	        => MatchCommunicationManager.instance.RpcAsync(new Packet().Basic(p.Net()).ReqSpawnTree(p, r));
 
         public CommonAnimal SpawnAnimal(Vector3 p, Quaternion r)
         {
-	        var packet = new Packet().SpawnAnimal(++m_NextId, p, r);
+	        var packet = new Packet().Basic(p.Net()).SpawnAnimal(++m_NextId, p, r);
 	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        return SpawnAnimal(packet.Spawn.Animal.Transform);
         }
 
         public void DestroyAnimal(ulong id)
         {
-	        var packet = new Packet().DestroyAnimal(id);
+            var p = m_Animals[id].transform.position;
+	        var packet = new Packet().Basic(p.Net()).DestroyAnimal(id);
 	        MatchCommunicationManager.instance.RpcAsync(packet);
 			DestroyAnimal(packet.Destroy.Animal.Transform);
         }
 
         public Vegetation SpawnTree(Vector3 p, Quaternion r)
         {
-	        var packet = new Packet().SpawnTree(++m_NextId, p, r);
+	        var packet = new Packet().Basic(p.Net()).SpawnTree(++m_NextId, p, r);
 	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        return SpawnTree(packet.Spawn.Tree.Transform);
         }
 
         public void DestroyTree(ulong id)
         {
-	        var packet = new Packet().DestroyTree(id);
+            var p = m_Trees[id].transform.position;
+            var packet = new Packet().Basic(p.Net()).DestroyTree(id);
 	        MatchCommunicationManager.instance.RpcAsync(packet);
 	        DestroyTree(packet.Destroy.Tree.Transform);
         }
@@ -108,57 +128,38 @@ namespace Gameplay
         /// <param name="senderId"></param>
         private void Initialized(string senderId)
         {
-	        Pool.Preload(animalPrefab, 1000);
-
-	        var syncingGlobalState = MatchCommunicationManager.instance.isHost &&
-	                                 MatchCommunicationManager.instance.self.UserId != senderId;
+            var syncingGlobalState = SessionManager.instance.isServer;
 	        var m = syncingGlobalState ? " sending global state" : "";
 	        Debug.Log($"Player {senderId} game play is initialized{m}");
+            if (!syncingGlobalState) return;
 	        // Slight different use case: client joined, i'm server, send him the current state and return
-	        if (syncingGlobalState)
-	        {
-				SyncGlobalState(senderId);
-				return;
-	        }
-	        MatchCommunicationManager.instance.AnimalSpawned += OnAnimalSpawned;
-	        MatchCommunicationManager.instance.AnimalDestroyed += OnAnimalDestroyed;
-	        MatchCommunicationManager.instance.TreeSpawned += OnTreeSpawned;
-	        MatchCommunicationManager.instance.TreeDestroyed += OnTreeDestroyed;
-	        MatchCommunicationManager.instance.AnimalSpawnRequested += OnAnimalSpawnRequested;
-	        MatchCommunicationManager.instance.AnimalDestroyRequested += OnAnimalDestroyRequested;
-	        MatchCommunicationManager.instance.TreeSpawnRequested += OnTreeSpawnRequested;
-	        MatchCommunicationManager.instance.TreeDestroyRequested += OnTreeDestroyRequested;
-	        MatchCommunicationManager.instance.MemeUpdated += OnMemeUpdated;
-	        MatchCommunicationManager.instance.TransformUpdated += OnTransformUpdated;
-	        MatchCommunicationManager.instance.NavMeshUpdated += OnNavMeshUpdated;
+            foreach (var kv in m_Animals)
+            {
+                var t = kv.Value.transform;
+                var position = t.position;
+                var p = new Packet().Basic(position.Net())
+                    .SpawnAnimal(kv.Key, position, t.rotation);
+                p.Recipients.Add(senderId);
+                MatchCommunicationManager.instance.RpcAsync(p);
+            }
+            foreach (var kv in m_Trees)
+            {
+                var t = kv.Value.transform;
+                var position = t.position;
+                var p = new Packet().Basic(position.Net())
+                    .SpawnTree(kv.Key, position, t.rotation);
+                p.Recipients.Add(senderId);
+                MatchCommunicationManager.instance.RpcAsync(p);
+            }
         }
-
-        private void SyncGlobalState(string senderId)
-        {
-	        foreach (var kv in m_Animals)
-	        {
-		        var t = kv.Value.transform;
-		        var p = new Packet()
-			        .SpawnAnimal(kv.Key, t.position, t.rotation);
-		        p.Recipients.Add(senderId);
-		        MatchCommunicationManager.instance.RpcAsync(p);
-	        }
-	        foreach (var kv in m_Trees)
-	        {
-		        var t = kv.Value.transform;
-		        var p = new Packet()
-			        .SpawnTree(kv.Key, t.position, t.rotation);
-		        p.Recipients.Add(senderId);
-		        MatchCommunicationManager.instance.RpcAsync(p);
-	        }
-        }
+        
         private void OnAnimalSpawned(Transform obj) => SpawnAnimal(obj);
         private void OnAnimalDestroyed(Transform obj) => DestroyAnimal(obj);
         private void OnAnimalDestroyRequested(Transform obj) => throw new NotImplementedException();
         private void OnAnimalSpawnRequested(Transform obj)
         {
 	        Debug.Log($"S1 requested animal spawn");
-	        var packet = new Packet();
+	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;
 	        packet.Spawn = new Spawn
 	        {
@@ -208,7 +209,7 @@ namespace Gameplay
         private void OnTreeSpawnRequested(Transform obj)
         {
 	        Debug.Log($"S1 requested tree spawn");
-	        var packet = new Packet();
+	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;
 	        packet.Spawn = new Spawn
 	        {

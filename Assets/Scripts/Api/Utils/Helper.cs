@@ -49,7 +49,6 @@ namespace Api.Utils
         /// <returns></returns>
         public static Packet Basic(this Packet p, Vector3 impact = null)
 		{
-			p.SenderId = SessionManager.instance.session.UserId;
 			p.IsServer = SessionManager.instance.isServer;
             p.Impact = impact;
 			return p;
@@ -150,16 +149,22 @@ namespace Api.Utils
 
         public static float[,] To2dArray(this Matrix m)
         {
-            var twoDArray = new float[m.Cols.Count, m.Cols[0].Rows.Count];
-            for (var i = 0; i < m.Cols.Count; i++)
+            var twoDArray = new float[m.Rows.Count, m.Rows[0].Cols.Count];
+            for (var i = 0; i < m.Rows.Count; i++)
             {
-                for (var j = 0; j < m.Cols[0].Rows.Count; j++)
+                for (var j = 0; j < m.Rows[0].Cols.Count; j++)
                 {
-                    // TODO: i,j or j,i ?
-                    twoDArray[i, j] = (float)m.Cols[i].Rows[j];
+                    twoDArray[i, j] = (float)m.Rows[i].Cols[j];
                 }
             }
             return twoDArray;
+        }
+
+        public static UnityEngine.Vector3 GetCenter(this Box b)
+        {
+            var max = b.Max.ToVector3();
+            var min = b.Min.ToVector3();
+            return UnityEngine.Vector3.Lerp(min, max , 0.5f);
         }
 	}
 }

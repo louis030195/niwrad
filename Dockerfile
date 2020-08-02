@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-RUN apt update && apt install -y curl
-
 # TODO: actually should be a 2 stage dockerfile: builder unity artifact then runner
 COPY Builds/Linux/Server /app
 

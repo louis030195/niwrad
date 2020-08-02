@@ -80,7 +80,7 @@ namespace UI
         public void StopDraggingAnimal()
         {
 	        if (!StopDragging(out var hitPos)) return;
-	        if (MatchCommunicationManager.instance.isHost)
+	        if (SessionManager.instance.isServer)
 	        {
 		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
 		        if (p.Equals(Vector3.positiveInfinity))
@@ -105,7 +105,7 @@ namespace UI
         public void StopDraggingTree()
         {
 	        if (!StopDragging(out var hitPos)) return;
-	        if (MatchCommunicationManager.instance.isHost)
+	        if (SessionManager.instance.isServer)
 	        {
 		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
 		        if (p.Equals(Vector3.positiveInfinity))

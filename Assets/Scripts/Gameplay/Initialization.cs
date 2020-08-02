@@ -12,6 +12,7 @@ using Protometry.Volume;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
@@ -25,6 +26,8 @@ namespace Gameplay
             {"NAKAMA_IP", "127.0.0.1"},
             {"NAKAMA_PORT", "6666"},
             {"MATCH_ID", ""},
+            {"EMAIL", ""},
+            {"PASSWORD", ""},
         };
 
         [SerializeField] private Terrain map;
@@ -34,20 +37,16 @@ namespace Gameplay
     
         private async void Awake()
         {
-            // TODO: maybe move whole class to host manager or other ... or change name
 
-            // If there is no session manager it's a host
+            // If there is no session manager it's a server
             if (FindObjectOfType<SessionManager>() == null)
             {
+                // MatchCommunicationManager.instance
                 foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
                 {
                     var k = kv.Key as string;
                     var v = kv.Value as string;
                     if (k != null) Envs[k] = v;
-                }
-                foreach (var environmentVariable in Envs)
-                {
-                    Debug.Log($"env var:{environmentVariable.Key}:{environmentVariable.Value}");
                 }
 
                 // Only server can change timescale
@@ -66,18 +65,18 @@ namespace Gameplay
                 timescaleText.gameObject.SetActive(false);
             }
 
-            MatchCommunicationManager.instance.MatchJoined += InitializeGameplay;
+            await UniTask.WaitUntil(() => MatchCommunicationManager.instance.region != null);
+            InitializeGameplay();
         }
 
         private async UniTask InitializeNet()
         {
             Debug.Log($"Trying to connect to nakama at {Envs["NAKAMA_IP"]}:{Envs["NAKAMA_PORT"]}");
             // Server account !
-            var (res, msg) = await SessionManager.instance.ConnectAsync("bbbb@bbbb.com",
-                "bbbbbbbb",
+            var (res, msg) = await SessionManager.instance.ConnectAsync(Envs["EMAIL"],
+                Envs["PASSWORD"],
                 ip: Envs["NAKAMA_IP"],
-                p: int.Parse(Envs["NAKAMA_PORT"]),
-                create: true);
+                p: int.Parse(Envs["NAKAMA_PORT"]));
             if (!res)
             {
                 Debug.LogError($"Failed to connect to Nakama {msg}");
@@ -91,25 +90,27 @@ namespace Gameplay
             await MatchCommunicationManager.instance.JoinMatchAsync(Envs["MATCH_ID"]);
         }
 
-        private async void InitializeGameplay(MatchInformation info)
+        private void InitializeGameplay()
         {
-            Random.InitState(info.Seed);
-            Debug.Log($"Seed loaded value: {info.Seed}");
-            map.terrainData.SetHeights(0, 0, info.Map.To2dArray());
-            var m = map.GetComponent<NavMeshBaker>();
+            Random.InitState((int) MatchCommunicationManager.instance.seed);
+            Debug.Log($"Seed loaded value: {MatchCommunicationManager.instance.seed}");
+            // map.terrainData.SetHeights(0, 0, info.Map.To2dArray());
+            var m = map.GetComponent<NavMeshSurface>();
             Debug.Log($"Generating map and baking it for path finding");
-            m.Bake();
-            // Notifying self and others that we can handle game play
-            var msg = new Packet {Initialized = new Initialized()}.Basic();
-            foreach (var instancePlayer in MatchCommunicationManager.instance.players)
-            {
-                msg.Recipients.Add(instancePlayer.UserId);
-            }
-
-            MatchCommunicationManager.instance.RpcAsync(msg);
-
-            // Start filling the pool
+            m.BuildNavMesh();
+            var pos = MatchCommunicationManager.instance.region.GetCenter();
+            transform.position = pos;
+            // Start filling the tree pool
             TreePool.instance.FillSlowly(100);
+            if (SessionManager.instance.isServer)
+            {
+                HostManager.instance.InitializeGameplay();
+                return;
+            }
+            // Client notify everyone that it's ready to handle game-play
+            // TODO: wondering if we should send to everyone to have player in state globally for global messages ?
+            var msg = new Packet {Initialized = new Initialized()}.Basic(pos.Net());
+            MatchCommunicationManager.instance.RpcAsync(msg);
         }
     }
 }

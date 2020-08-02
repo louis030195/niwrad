@@ -1351,9 +1351,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TerrainData
       value: 
-      objectReference: {fileID: 15600000, guid: 603f11b7faf3cb47dbb15fb84cb0ee4c,
+      objectReference: {fileID: 15600000, guid: a4a6b812b0c6d1b53ae74edd4fe4a822,
         type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6196834953632369531, guid: a2e2c01dad865daaeb2e481886f94b1a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2e2c01dad865daaeb2e481886f94b1a, type: 3}
 --- !u!1001 &2102592035
 PrefabInstance:

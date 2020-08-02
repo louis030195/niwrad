@@ -19,11 +19,16 @@ var (
 )
 
 type sessionContext struct {
+    Username string
 	UserID    string
 	SessionID string
 }
 
 func unpackContext(ctx context.Context) (*sessionContext, error) {
+    username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
+    if !ok {
+        return nil, errBadContext
+    }
 	userID, ok := ctx.Value(runtime.RUNTIME_CTX_USER_ID).(string)
 	if !ok {
 		return nil, errBadContext
@@ -32,12 +37,12 @@ func unpackContext(ctx context.Context) (*sessionContext, error) {
 	if !ok {
 		return nil, errBadContext
 	}
-	return &sessionContext{UserID: userID, SessionID: sessionID}, nil
+	return &sessionContext{Username: username, UserID: userID, SessionID: sessionID}, nil
 }
 
-// Client request for match creation, checking if allowed and if yes creating a match with x containers
+// RpcCreateMatch Client request for match creation, checking if allowed and if yes creating a match with x containers
 // And updating storage accordingly
-func rpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
+func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
 	var session *sessionContext
 	var err error
 	if session, err = unpackContext(ctx); err != nil {
@@ -97,7 +102,7 @@ func rpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	return string(responseBytes), nil
 }
 
-func rpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
+func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
 	var session *sessionContext
 	var err error
 	if session, err = unpackContext(ctx); err != nil {

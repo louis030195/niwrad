@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6196834953632369533}
   - component: {fileID: 6196834953632369534}
   - component: {fileID: 6196834953632369535}
-  - component: {fileID: 6196834953632369531}
   - component: {fileID: 6196834953632369532}
   - component: {fileID: 6196834953632369530}
   - component: {fileID: 6196834953632369528}
@@ -45,7 +44,7 @@ Terrain:
   m_GameObject: {fileID: 6196834953632369504}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 53c841a1383657a3f92bfb52221441fd, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: a0637bdf6096d8b1ba69ab3253d27aa8, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -78,25 +77,8 @@ TerrainCollider:
   m_GameObject: {fileID: 6196834953632369504}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 53c841a1383657a3f92bfb52221441fd, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: a0637bdf6096d8b1ba69ab3253d27aa8, type: 2}
   m_EnableTreeColliders: 1
---- !u!114 &6196834953632369531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6196834953632369504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd41d8270ea74f3281eea8efeaad12b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roughness: 1.2
-  randomizeCornerValues: 0
-  surfaces:
-  - {fileID: 6196834953632369530}
-  navMeshBaked: 0
 --- !u!114 &6196834953632369532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,13 +96,6 @@ MonoBehaviour:
     type: 3}
   timescaleSlider: {fileID: 0}
   timescaleText: {fileID: 0}
-  animalPrefab: {fileID: 4443387354701748607, guid: f9982c60569558577aaf00e50619bcea,
-    type: 3}
-  animalAmount: 10
-  animalSpawnCenter: 0.5
-  vegetationAmount: 20
-  vegetationMaxAmount: 20
-  vegetationSpawnCenter: 0.5
 --- !u!114 &6196834953632369530
 MonoBehaviour:
   m_ObjectHideFlags: 0

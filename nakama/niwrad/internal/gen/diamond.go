@@ -15,9 +15,12 @@ func DiamondSquare(terrainPoints int, roughness float64, seed float64) (*realtim
 		return nil, errors.New("must be a power of two plus one")
 	}
 	dataSize := terrainPoints // must be a power of two plus one
-	data := realtime.Matrix{Cols: []*realtime.Array{}}
+	data := realtime.Matrix{Rows: []*realtime.Array{}}
+	for i := 0; i < dataSize; i++ {
+		data.Rows = append(data.Rows, &realtime.Array{Cols: make([]float64, dataSize)})
+	}
 	rand.Seed(int64(seed))
-	data.Cols[0].Rows[0], data.Cols[0].Rows[dataSize-1], data.Cols[dataSize-1].Rows[0], data.Cols[dataSize-1].Rows[dataSize-1] = seed, seed, seed, seed
+	data.Rows[0].Cols[0], data.Rows[0].Cols[dataSize-1], data.Rows[dataSize-1].Cols[0], data.Rows[dataSize-1].Cols[dataSize-1] = seed, seed, seed, seed
 	h := roughness //the range (-h -> +h) for the average offset - affects roughness
 
 	for sideLength := dataSize - 1; sideLength >= 2; {
@@ -29,12 +32,12 @@ func DiamondSquare(terrainPoints int, roughness float64, seed float64) (*realtim
 			for y := 0; y < dataSize-1; y += sideLength {
 				//x, y is upper left corner of square
 				//calculate average of existing corners
-				avg := data.Cols[x].Rows[y] + data.Cols[x+sideLength].Rows[y] +
-					data.Cols[x].Rows[y+sideLength] + data.Cols[x+sideLength].Rows[y+sideLength]
+				avg := data.Rows[x].Cols[y] + data.Rows[x+sideLength].Cols[y] +
+					data.Rows[x].Cols[y+sideLength] + data.Rows[x+sideLength].Cols[y+sideLength]
 				avg /= 4.0
 
 				//center is average plus random offset
-				data.Cols[x+halfSide].Rows[y+halfSide] = avg + (rand.Float64() * 2 * h) - h
+				data.Rows[x+halfSide].Cols[y+halfSide] = avg + (rand.Float64() * 2 * h) - h
 			}
 		}
 		//generate the diamond values
@@ -51,10 +54,10 @@ func DiamondSquare(terrainPoints int, roughness float64, seed float64) (*realtim
 				//x, y is center of diamond
 				//note we must use mod  and add DATA_SIZE for subtraction
 				//so that we can wrap around the array to find the corners
-				avg := data.Cols[(x-halfSide+dataSize)%dataSize].Rows[y] +
-					data.Cols[(x+halfSide)%dataSize].Rows[y] +
-					data.Cols[x].Rows[(y+halfSide)%dataSize] + //below center
-					data.Cols[x].Rows[(y-halfSide+dataSize)%dataSize] //above center
+				avg := data.Rows[(x-halfSide+dataSize)%dataSize].Cols[y] +
+					data.Rows[(x+halfSide)%dataSize].Cols[y] +
+					data.Rows[x].Cols[(y+halfSide)%dataSize] + //below center
+					data.Rows[x].Cols[(y-halfSide+dataSize)%dataSize] //above center
 				avg /= 4.0
 
 				//new value = average plus random offset
@@ -63,16 +66,16 @@ func DiamondSquare(terrainPoints int, roughness float64, seed float64) (*realtim
 				//in the range (-h, +h)
 				avg = avg + (rand.Float64() * 2 * h) - h
 				//update value for center of diamond
-				data.Cols[x].Rows[y] = avg
+				data.Rows[x].Cols[y] = avg
 
 				//wrap values on the edges, remove
 				//this and adjust loop condition above
 				//for non-wrapping values.
 				if x == 0 {
-					data.Cols[dataSize-1].Rows[y] = avg
+					data.Rows[dataSize-1].Cols[y] = avg
 				}
 				if y == 0 {
-					data.Cols[x].Rows[dataSize-1] = avg
+					data.Rows[x].Cols[dataSize-1] = avg
 				}
 			}
 		}

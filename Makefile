@@ -8,30 +8,39 @@ PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 
 
-.PHONY: help build-client build-images build-proto deploy client
+.PHONY: help build-client build-server build-images build-proto deploy un-deploy client
 help:
 		@echo ''
 		@echo 'Usage: make [TARGET]'
 		@echo 'Targets:'
 		@echo '  build    		build unity client, docker images and protobufs'
 		@echo '  build-client    	build unity client'
+		@echo '  build-server    	build unity server'
 		@echo '  build-images    	build docker images'
 		@echo '  build-proto    	build protobuf stubs'
 		@echo '  deploy    		deploy cluster'
+		@echo '  un-deploy    		un-deploy cluster'
 		@echo '  client    		launch Linux client'
 		@echo ''
 
-build: build-client build-images build-proto
+build: build-client build-server build-images build-proto
 
 build-client:
-	rm -rf Builds/Linux
-	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+	@rm -rf Builds/Linux
+	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
 		-silent-crashes -headless
-	@echo "Unity built"
+	@echo "Unity client built"
+
+build-server:
+	@rm -rf Builds/Linux
+	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
+		-silent-crashes -headless
+	@echo "Unity server built"
 
 build-images:
-	# Don't forget to run eval $(minikube -p minikube docker-env) if using minikube :)
+	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
 	docker build -t nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
 	docker build -t niwrad-unity .
 
@@ -63,5 +72,11 @@ deploy:
 	@helm install $(NS) helm
 	@echo "Cluster deployed"
 
+un-deploy:
+	@helm uninstall $(NS)
+	@kubectl delete -n default deployment $(NS)-unity > /dev/null
+	@echo "Cluster un-deployed"
+
 client:
-	./Builds/Linux/Client/$(NS).x86_64
+	@./Builds/Linux/Client/$(NS).x86_64
+	@echo "Running Linux client"

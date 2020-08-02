@@ -6,6 +6,7 @@ import (
 	"github.com/heroiclabs/nakama-common/runtime"
 	"github.com/louis030195/niwrad/api/rpc"
 	"github.com/louis030195/niwrad/internal/storage"
+	"github.com/louis030195/niwrad/internal/utils"
 	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -37,12 +38,34 @@ func spawnUnityProcess(sessionID string, conf rpc.MatchConfiguration) (*string, 
 	return &res, nil
 }
 
-// Create an authoritative nakama match and spawn a StatefulSet deployment with x distributed containers
+type Account struct {
+	email    string
+	password string
+	userID   string
+}
+
+// Create an authoritative nakama match and spawn a deployment with x distributed containers
 // distribution correspond to the number of containers handling this match
 func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, distribution int) (string, error) {
-	matchId, err := nk.MatchCreate(ctx, "Niwrad", map[string]interface{}{
-		"distribution": distribution,
-	})
+	// Creating some admin accounts for the server containers
+	var adminAccounts []Account
+	params := make(map[string]interface{})
+	for i := 0; i < distribution; i++ {
+		email := fmt.Sprintf("admin%d@niwrad.com", i)
+		password := utils.RandString(16)
+		// Register, if fail try to login
+		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", i), true)
+		if err != nil {
+            userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", i), false)
+            if err != nil {
+                return "", err
+            }
+		}
+		adminAccounts = append(adminAccounts, Account{email, password, userID})
+		params[fmt.Sprintf("admin%d", i)] = userID
+	}
+	params["distribution"] = distribution
+	matchId, err := nk.MatchCreate(ctx, "Niwrad", params)
 
 	if err != nil {
 		return "", err
@@ -58,13 +81,13 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 		return "", err
 	}
 
-	deploymentsClient := c.AppsV1().StatefulSets(apiv1.NamespaceDefault)
+	deploymentsClient := c.AppsV1().Deployments(apiv1.NamespaceDefault)
 	// TODO: check whats the purpose of those names except label selector
-	deployment := &appsv1.StatefulSet{
+	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "niwrad-unity",
 		},
-		Spec: appsv1.StatefulSetSpec{
+		Spec: appsv1.DeploymentSpec{
 			Selector: &metav1.LabelSelector{
 				MatchLabels: map[string]string{
 					"app": fmt.Sprintf("niwrad-unity-%s", matchId),
@@ -76,13 +99,17 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 						"app": fmt.Sprintf("niwrad-unity-%s", matchId),
 					},
 				},
+				Spec: apiv1.PodSpec{
+				    // https://github.com/kubernetes/kubernetes/issues/24725
+                    //RestartPolicy: apiv1.RestartPolicyNever, // Non-redundant pods currently
+                },
 			},
 		},
 	}
 	for i := 0; i < distribution; i++ {
 		deployment.Spec.Template.Spec.Containers = append(deployment.Spec.Template.Spec.Containers,
 			apiv1.Container{
-				Name:  "niwrad-unity",
+				Name:  fmt.Sprintf("niwrad-unity-%d", i),
 				Image: "niwrad-unity",
 				Command: []string{ // TODO: maybe should get/create nakama account for this  host and pass
 					"/app/niwrad.x86_64",
@@ -99,6 +126,14 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 					{
 						Name:  "MATCH_ID",
 						Value: matchId,
+					},
+					{
+						Name:  "EMAIL",
+						Value: adminAccounts[i].email,
+					},
+					{
+						Name:  "PASSWORD",
+						Value: adminAccounts[i].password,
 					},
 				},
 				ImagePullPolicy: apiv1.PullNever,
@@ -126,7 +161,7 @@ func stopMatch(matchId string) error {
 	if err != nil {
 		return err
 	}
-	deploymentsClient := c.AppsV1().StatefulSets(apiv1.NamespaceDefault)
+	deploymentsClient := c.AppsV1().Deployments(apiv1.NamespaceDefault)
 	err = deploymentsClient.DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{
 		LabelSelector: fmt.Sprintf("niwrad-unity-%s", matchId),
 	})

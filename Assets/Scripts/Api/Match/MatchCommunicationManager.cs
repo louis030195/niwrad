@@ -9,6 +9,7 @@ using Nakama;
 using Nakama.TinyJson;
 using Api.Realtime;
 using Api.Session;
+using Protometry.Volume;
 using UnityEngine;
 using Utils;
 
@@ -26,7 +27,6 @@ namespace Api.Match
         #region PUBLIC EVENTS
 
         // Match states
-        public event Action<MatchInformation> MatchJoined;
         public event Action<string> Initialized; // Client's game play handlers initialized, calling for state sync
         // TODO: maybe will require other states ?
 
@@ -58,11 +58,7 @@ namespace Api.Match
         /// <summary>
         /// Id of current match
         /// </summary>
-        public string matchId
-        {
-            get;
-            private set;
-        }
+        public string matchId { get; private set; }
 
         /// <summary>
         /// Current socket which connects client to Nakama server. Through this socket are sent match messages.
@@ -73,15 +69,10 @@ namespace Api.Match
         /// Behaviours are dependent on randomness, we want it deterministic across server and clients
         /// so we can avoid to sync many things
         /// </summary>
-        public int seed
-        {
-	        get;
-	        private set;
-        } = -1;
+        public long seed { get; private set; }
 
-        public IUserPresence host { get; private set; }
         public IUserPresence self { get; private set; }
-        public bool isHost => Equals(self, host);
+        public Box region { get; private set; }
 
         #endregion
 
@@ -112,10 +103,10 @@ namespace Api.Match
 
 
         /// <summary>
-        /// Joins given match or create it if the given id is null
+        /// Joins given match
         /// </summary>
         /// <param name="id"></param>
-        public async Task JoinMatchAsync(string id = null)
+        public async Task JoinMatchAsync(string id)
         {
 	        //Filling list of match participants
             players = new List<IUserPresence>();
@@ -145,8 +136,7 @@ namespace Api.Match
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="message"></param>
-        public void RpcAsync<T>(T message)
-            where T : IMessage<T> // TODO: should it be possible to have a single client recipient?
+        public void RpcAsync<T>(T message) where T : IMessage<T>
         {
 	        try
 	        {
@@ -164,7 +154,6 @@ namespace Api.Match
 
 		        // Set some metadata
 		        p.SenderId = self.UserId;
-		        p.IsServer = isHost;
 		        //Then server sends it to other players
 		        socket.SendMatchStateAsync(matchId, 0, p.ToByteArray());
 	        }
@@ -183,7 +172,9 @@ namespace Api.Match
 	        switch (p.TypeCase)
             {
                 case Packet.TypeOneofCase.MatchJoin:
-                    MatchJoined?.Invoke(p.MatchJoin.Information);
+                    Debug.Log($"Received match information {p.MatchJoin}");
+                    seed = p.MatchJoin.Seed;
+                    region = p.MatchJoin.Region;
                     break;
                 case Packet.TypeOneofCase.UpdateTransform:
                     TransformUpdated?.Invoke(p.UpdateTransform.Transform);
@@ -314,7 +305,6 @@ namespace Api.Match
 		            Debug.LogError($"New user {user.UserId} tried to leave the game ? WTF ?");
 	            }
             }
-            if (players.Count == 1) host = self; // First player is host
         }
 
         private void ReceiveMatchStateMessage(IMatchState matchState) => ReceiveMatchStateMessage(matchState.State);

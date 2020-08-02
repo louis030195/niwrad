@@ -86,12 +86,12 @@ namespace UI
 				go.GetComponentInChildren<TextMeshProUGUI>().text = $"ID: {m}";
 
 				// On button click, update the currently selected match id
-				go.GetComponentInChildren<Button>().onClick.AddListener(() =>
+				go.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
 				{
 					Debug.Log($"Match {m} selected");
 					m_MatchId = m;
 				});
-				go.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                go.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
 				{
 					StopServer(m);
 				});
@@ -142,7 +142,7 @@ namespace UI
 				}
 			}.ToByteString().ToStringUtf8();
 			// Debug.Log($"p: {p}");
-			var protoResponse = await SessionManager.instance.socket.RpcAsync("run_unity_server", p);
+			var protoResponse = await SessionManager.instance.socket.RpcAsync("create_match", p);
 			var response = RunServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"CreateServer Response: {response}");
 		}
@@ -153,7 +153,7 @@ namespace UI
 			{
 				MatchId = m
 			}.ToByteString().ToStringUtf8();
-			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_unity_server", p);
+			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_match", p);
 			var response = StopServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"StopServer response: {response}");
 		}

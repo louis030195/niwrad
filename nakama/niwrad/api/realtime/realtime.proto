@@ -12,12 +12,14 @@ import "github.com/louis030195/protometry/api/volume/volume.proto";
 message Packet {
     string sender_id = 1;
     bool is_server = 2; // TODO: reduce headers
-    repeated string recipients = 3;
+    repeated string recipients = 3; // TODO: actually rare use case, should maybe just be a type of message
+    // like "request to send to specific recipients ..." too many headers !!!
     // TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
     protometry.vector3.Vector3 impact = 4; // Whom for ? Does xXxD4rkK1ll3rxXx care about the message 1 km away ?
     oneof type {
         // Events
         MatchJoin match_join = 7; 
+        Map map = 8;
 
         // General physical objects
         UpdateTransform update_transform = 10;
@@ -36,23 +38,21 @@ message Packet {
 }
 
 message MatchJoin{
-    MatchInformation information = 1;
+    protometry.volume.Box region = 1;
+    int64 seed = 2;
 }
 
-// Server sending some information on the current state before starting
-message MatchInformation {
-    // TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
-    // TODO: map data
-    protometry.volume.Box region = 1;
-    Matrix map = 2;
-    int32 seed = 3;
+message Map {
+    // Offsets of the chunk of map data
+    int64 x_base = 1;
+    int64 y_base = 2;
+    Matrix map = 3;
 }
 message Matrix {
-    // packed: see https://developers.google.com/protocol-buffers/docs/proto#specifying_field_rules
-    repeated Array cols = 1 [packed=true];
+    repeated Array rows = 1;
 }
 message Array {
-    repeated double rows = 1 [packed=true];
+    repeated double cols = 1 [packed=true];
 }
 
 // General purpose transform update typically shared by several different types of objects

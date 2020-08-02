@@ -29,57 +29,58 @@ namespace Api.Realtime {
             "My92ZWN0b3IzLnByb3RvGkFnaXRodWIuY29tL2xvdWlzMDMwMTk1L3Byb3Rv",
             "bWV0cnkvYXBpL3F1YXRlcm5pb24vcXVhdGVybmlvbi5wcm90bxo5Z2l0aHVi",
             "LmNvbS9sb3VpczAzMDE5NS9wcm90b21ldHJ5L2FwaS92b2x1bWUvdm9sdW1l",
-            "LnByb3RvIp0FCgZQYWNrZXQSEQoJc2VuZGVyX2lkGAEgASgJEhEKCWlzX3Nl",
+            "LnByb3RvIs0FCgZQYWNrZXQSEQoJc2VuZGVyX2lkGAEgASgJEhEKCWlzX3Nl",
             "cnZlchgCIAEoCBISCgpyZWNpcGllbnRzGAMgAygJEisKBmltcGFjdBgEIAEo",
             "CzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzEjsKCm1hdGNoX2pvaW4Y",
             "ByABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5NYXRjaEpvaW5I",
-            "ABJHChB1cGRhdGVfdHJhbnNmb3JtGAogASgLMisubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuVXBkYXRlVHJhbnNmb3JtSAASRAoPbmF2X21lc2hfdXBk",
-            "YXRlGAsgASgLMikubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuTmF2TWVz",
-            "aFVwZGF0ZUgAEjIKBXNwYXduGA8gASgLMiEubmFrYW1hLm5pd3JhZC5hcGku",
-            "cmVhbHRpbWUuU3Bhd25IABI6Cg1yZXF1ZXN0X3NwYXduGBAgASgLMiEubmFr",
-            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuU3Bhd25IABI2CgdkZXN0cm95GBEg",
-            "ASgLMiMubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRGVzdHJveUgAEj4K",
-            "D3JlcXVlc3RfZGVzdHJveRgSIAEoCzIjLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
-            "YWx0aW1lLkRlc3Ryb3lIABIwCgRtZW1lGBMgASgLMiAubmFrYW1hLm5pd3Jh",
-            "ZC5hcGkucmVhbHRpbWUuTWVtZUgAEj4KC2luaXRpYWxpemVkGBkgASgLMicu",
-            "bmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuSW5pdGlhbGl6ZWRIAEIGCgR0",
-            "eXBlIk4KCU1hdGNoSm9pbhJBCgtpbmZvcm1hdGlvbhgBIAEoCzIsLm5ha2Ft",
-            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLk1hdGNoSW5mb3JtYXRpb24ieQoQTWF0",
-            "Y2hJbmZvcm1hdGlvbhImCgZyZWdpb24YASABKAsyFi5wcm90b21ldHJ5LnZv",
-            "bHVtZS5Cb3gSLwoDbWFwGAIgASgLMiIubmFrYW1hLm5pd3JhZC5hcGkucmVh",
-            "bHRpbWUuTWF0cml4EgwKBHNlZWQYAyABKAUiOQoGTWF0cml4Ei8KBGNvbHMY",
-            "ASADKAsyIS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5BcnJheSIVCgVB",
-            "cnJheRIMCgRyb3dzGAEgAygBIksKD1VwZGF0ZVRyYW5zZm9ybRI4Cgl0cmFu",
-            "c2Zvcm0YASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFu",
-            "c2Zvcm0iTQoNTmF2TWVzaFVwZGF0ZRIKCgJpZBgBIAEoBBIwCgtkZXN0aW5h",
-            "dGlvbhgCIAEoCzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzIq0BCgVT",
-            "cGF3bhI0CgNhbnkYASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGlt",
-            "ZS5UcmFuc2Zvcm1IABIwCgR0cmVlGAIgASgLMiAubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuVHJlZUgAEjQKBmFuaW1hbBgDIAEoCzIiLm5ha2FtYS5u",
-            "aXdyYWQuYXBpLnJlYWx0aW1lLkFuaW1hbEgAQgYKBHR5cGUirwEKB0Rlc3Ry",
-            "b3kSNAoDYW55GAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
-            "VHJhbnNmb3JtSAASMAoEdHJlZRgCIAEoCzIgLm5ha2FtYS5uaXdyYWQuYXBp",
-            "LnJlYWx0aW1lLlRyZWVIABI0CgZhbmltYWwYAyABKAsyIi5uYWthbWEubml3",
-            "cmFkLmFwaS5yZWFsdGltZS5BbmltYWxIAEIGCgR0eXBlIiUKBE1lbWUSCgoC",
-            "aWQYASABKAQSEQoJbWVtZV9uYW1lGAIgASgJIg0KC0luaXRpYWxpemVkInsK",
-            "CVRyYW5zZm9ybRIKCgJpZBgBIAEoBBItCghwb3NpdGlvbhgCIAEoCzIbLnBy",
-            "b3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzEjMKCHJvdGF0aW9uGAMgASgLMiEu",
-            "cHJvdG9tZXRyeS5xdWF0ZXJuaW9uLlF1YXRlcm5pb24iQAoEVHJlZRI4Cgl0",
-            "cmFuc2Zvcm0YASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5U",
-            "cmFuc2Zvcm0iQgoGQW5pbWFsEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2Ft",
-            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLlRyYW5zZm9ybSJUChhSZXF1ZXN0VHJh",
-            "bnNmZXJPd25lcnNoaXASOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5p",
-            "d3JhZC5hcGkucmVhbHRpbWUuVHJhbnNmb3JtQjRaI25ha2FtYS9uaXdyYWQv",
-            "YXBpL3JlYWx0aW1lO3JlYWx0aW1lqgIMQXBpLlJlYWx0aW1lYgZwcm90bzM="));
+            "ABIuCgNtYXAYCCABKAsyHy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5N",
+            "YXBIABJHChB1cGRhdGVfdHJhbnNmb3JtGAogASgLMisubmFrYW1hLm5pd3Jh",
+            "ZC5hcGkucmVhbHRpbWUuVXBkYXRlVHJhbnNmb3JtSAASRAoPbmF2X21lc2hf",
+            "dXBkYXRlGAsgASgLMikubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuTmF2",
+            "TWVzaFVwZGF0ZUgAEjIKBXNwYXduGA8gASgLMiEubmFrYW1hLm5pd3JhZC5h",
+            "cGkucmVhbHRpbWUuU3Bhd25IABI6Cg1yZXF1ZXN0X3NwYXduGBAgASgLMiEu",
+            "bmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuU3Bhd25IABI2CgdkZXN0cm95",
+            "GBEgASgLMiMubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRGVzdHJveUgA",
+            "Ej4KD3JlcXVlc3RfZGVzdHJveRgSIAEoCzIjLm5ha2FtYS5uaXdyYWQuYXBp",
+            "LnJlYWx0aW1lLkRlc3Ryb3lIABIwCgRtZW1lGBMgASgLMiAubmFrYW1hLm5p",
+            "d3JhZC5hcGkucmVhbHRpbWUuTWVtZUgAEj4KC2luaXRpYWxpemVkGBkgASgL",
+            "MicubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuSW5pdGlhbGl6ZWRIAEIG",
+            "CgR0eXBlIkEKCU1hdGNoSm9pbhImCgZyZWdpb24YASABKAsyFi5wcm90b21l",
+            "dHJ5LnZvbHVtZS5Cb3gSDAoEc2VlZBgCIAEoAyJWCgNNYXASDgoGeF9iYXNl",
+            "GAEgASgDEg4KBnlfYmFzZRgCIAEoAxIvCgNtYXAYAyABKAsyIi5uYWthbWEu",
+            "bml3cmFkLmFwaS5yZWFsdGltZS5NYXRyaXgiOQoGTWF0cml4Ei8KBHJvd3MY",
+            "ASADKAsyIS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5BcnJheSIZCgVB",
+            "cnJheRIQCgRjb2xzGAEgAygBQgIQASJLCg9VcGRhdGVUcmFuc2Zvcm0SOAoJ",
+            "dHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
+            "VHJhbnNmb3JtIk0KDU5hdk1lc2hVcGRhdGUSCgoCaWQYASABKAQSMAoLZGVz",
+            "dGluYXRpb24YAiABKAsyGy5wcm90b21ldHJ5LnZlY3RvcjMuVmVjdG9yMyKt",
+            "AQoFU3Bhd24SNAoDYW55GAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVh",
+            "bHRpbWUuVHJhbnNmb3JtSAASMAoEdHJlZRgCIAEoCzIgLm5ha2FtYS5uaXdy",
+            "YWQuYXBpLnJlYWx0aW1lLlRyZWVIABI0CgZhbmltYWwYAyABKAsyIi5uYWth",
+            "bWEubml3cmFkLmFwaS5yZWFsdGltZS5BbmltYWxIAEIGCgR0eXBlIq8BCgdE",
+            "ZXN0cm95EjQKA2FueRgBIAEoCzIlLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
+            "aW1lLlRyYW5zZm9ybUgAEjAKBHRyZWUYAiABKAsyIC5uYWthbWEubml3cmFk",
+            "LmFwaS5yZWFsdGltZS5UcmVlSAASNAoGYW5pbWFsGAMgASgLMiIubmFrYW1h",
+            "Lm5pd3JhZC5hcGkucmVhbHRpbWUuQW5pbWFsSABCBgoEdHlwZSIlCgRNZW1l",
+            "EgoKAmlkGAEgASgEEhEKCW1lbWVfbmFtZRgCIAEoCSINCgtJbml0aWFsaXpl",
+            "ZCJ7CglUcmFuc2Zvcm0SCgoCaWQYASABKAQSLQoIcG9zaXRpb24YAiABKAsy",
+            "Gy5wcm90b21ldHJ5LnZlY3RvcjMuVmVjdG9yMxIzCghyb3RhdGlvbhgDIAEo",
+            "CzIhLnByb3RvbWV0cnkucXVhdGVybmlvbi5RdWF0ZXJuaW9uIkAKBFRyZWUS",
+            "OAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
+            "bWUuVHJhbnNmb3JtIkIKBkFuaW1hbBI4Cgl0cmFuc2Zvcm0YASABKAsyJS5u",
+            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0iVAoYUmVxdWVz",
+            "dFRyYW5zZmVyT3duZXJzaGlwEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2Ft",
+            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLlRyYW5zZm9ybUI0WiNuYWthbWEvbml3",
+            "cmFkL2FwaS9yZWFsdGltZTtyZWFsdGltZaoCDEFwaS5SZWFsdGltZWIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Packet), global::Api.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "Recipients", "Impact", "MatchJoin", "UpdateTransform", "NavMeshUpdate", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "Initialized" }, new[]{ "Type" }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.MatchJoin), global::Api.Realtime.MatchJoin.Parser, new[]{ "Information" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.MatchInformation), global::Api.Realtime.MatchInformation.Parser, new[]{ "Region", "Map", "Seed" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Matrix), global::Api.Realtime.Matrix.Parser, new[]{ "Cols" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Array), global::Api.Realtime.Array.Parser, new[]{ "Rows" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Packet), global::Api.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "Recipients", "Impact", "MatchJoin", "Map", "UpdateTransform", "NavMeshUpdate", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "Initialized" }, new[]{ "Type" }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.MatchJoin), global::Api.Realtime.MatchJoin.Parser, new[]{ "Region", "Seed" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Map), global::Api.Realtime.Map.Parser, new[]{ "XBase", "YBase", "Map_" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Matrix), global::Api.Realtime.Matrix.Parser, new[]{ "Rows" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Array), global::Api.Realtime.Array.Parser, new[]{ "Cols" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.UpdateTransform), global::Api.Realtime.UpdateTransform.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.NavMeshUpdate), global::Api.Realtime.NavMeshUpdate.Parser, new[]{ "Id", "Destination" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Spawn), global::Api.Realtime.Spawn.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, null),
@@ -96,6 +97,9 @@ namespace Api.Realtime {
 
   }
   #region Messages
+  /// <summary>
+  /// TODO: kind of ugly to use same struct for client -> server and server -> client ?
+  /// </summary>
   public sealed partial class Packet : pb::IMessage<Packet> {
     private static readonly pb::MessageParser<Packet> _parser = new pb::MessageParser<Packet>(() => new Packet());
     private pb::UnknownFieldSet _unknownFields;
@@ -128,6 +132,9 @@ namespace Api.Realtime {
       switch (other.TypeCase) {
         case TypeOneofCase.MatchJoin:
           MatchJoin = other.MatchJoin.Clone();
+          break;
+        case TypeOneofCase.Map:
+          Map = other.Map.Clone();
           break;
         case TypeOneofCase.UpdateTransform:
           UpdateTransform = other.UpdateTransform.Clone();
@@ -202,7 +209,7 @@ namespace Api.Realtime {
     public const int ImpactFieldNumber = 4;
     private global::Protometry.Vector3.Vector3 impact_;
     /// <summary>
-    /// Whom for ? Does xXxD4rkK1ll3rxXx care about the message 1 km away ?
+    /// TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protometry.Vector3.Vector3 Impact {
@@ -223,6 +230,17 @@ namespace Api.Realtime {
       set {
         type_ = value;
         typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.MatchJoin;
+      }
+    }
+
+    /// <summary>Field number for the "map" field.</summary>
+    public const int MapFieldNumber = 8;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Map Map {
+      get { return typeCase_ == TypeOneofCase.Map ? (global::Api.Realtime.Map) type_ : null; }
+      set {
+        type_ = value;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Map;
       }
     }
 
@@ -328,6 +346,7 @@ namespace Api.Realtime {
     public enum TypeOneofCase {
       None = 0,
       MatchJoin = 7,
+      Map = 8,
       UpdateTransform = 10,
       NavMeshUpdate = 11,
       Spawn = 15,
@@ -367,6 +386,7 @@ namespace Api.Realtime {
       if(!recipients_.Equals(other.recipients_)) return false;
       if (!object.Equals(Impact, other.Impact)) return false;
       if (!object.Equals(MatchJoin, other.MatchJoin)) return false;
+      if (!object.Equals(Map, other.Map)) return false;
       if (!object.Equals(UpdateTransform, other.UpdateTransform)) return false;
       if (!object.Equals(NavMeshUpdate, other.NavMeshUpdate)) return false;
       if (!object.Equals(Spawn, other.Spawn)) return false;
@@ -387,6 +407,7 @@ namespace Api.Realtime {
       hash ^= recipients_.GetHashCode();
       if (impact_ != null) hash ^= Impact.GetHashCode();
       if (typeCase_ == TypeOneofCase.MatchJoin) hash ^= MatchJoin.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Map) hash ^= Map.GetHashCode();
       if (typeCase_ == TypeOneofCase.UpdateTransform) hash ^= UpdateTransform.GetHashCode();
       if (typeCase_ == TypeOneofCase.NavMeshUpdate) hash ^= NavMeshUpdate.GetHashCode();
       if (typeCase_ == TypeOneofCase.Spawn) hash ^= Spawn.GetHashCode();
@@ -425,6 +446,10 @@ namespace Api.Realtime {
       if (typeCase_ == TypeOneofCase.MatchJoin) {
         output.WriteRawTag(58);
         output.WriteMessage(MatchJoin);
+      }
+      if (typeCase_ == TypeOneofCase.Map) {
+        output.WriteRawTag(66);
+        output.WriteMessage(Map);
       }
       if (typeCase_ == TypeOneofCase.UpdateTransform) {
         output.WriteRawTag(82);
@@ -478,6 +503,9 @@ namespace Api.Realtime {
       }
       if (typeCase_ == TypeOneofCase.MatchJoin) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MatchJoin);
+      }
+      if (typeCase_ == TypeOneofCase.Map) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Map);
       }
       if (typeCase_ == TypeOneofCase.UpdateTransform) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateTransform);
@@ -533,6 +561,12 @@ namespace Api.Realtime {
             MatchJoin = new global::Api.Realtime.MatchJoin();
           }
           MatchJoin.MergeFrom(other.MatchJoin);
+          break;
+        case TypeOneofCase.Map:
+          if (Map == null) {
+            Map = new global::Api.Realtime.Map();
+          }
+          Map.MergeFrom(other.Map);
           break;
         case TypeOneofCase.UpdateTransform:
           if (UpdateTransform == null) {
@@ -621,6 +655,15 @@ namespace Api.Realtime {
             }
             input.ReadMessage(subBuilder);
             MatchJoin = subBuilder;
+            break;
+          }
+          case 66: {
+            global::Api.Realtime.Map subBuilder = new global::Api.Realtime.Map();
+            if (typeCase_ == TypeOneofCase.Map) {
+              subBuilder.MergeFrom(Map);
+            }
+            input.ReadMessage(subBuilder);
+            Map = subBuilder;
             break;
           }
           case 82: {
@@ -726,7 +769,8 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public MatchJoin(MatchJoin other) : this() {
-      information_ = other.information_ != null ? other.information_.Clone() : null;
+      region_ = other.region_ != null ? other.region_.Clone() : null;
+      seed_ = other.seed_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -735,14 +779,25 @@ namespace Api.Realtime {
       return new MatchJoin(this);
     }
 
-    /// <summary>Field number for the "information" field.</summary>
-    public const int InformationFieldNumber = 1;
-    private global::Api.Realtime.MatchInformation information_;
+    /// <summary>Field number for the "region" field.</summary>
+    public const int RegionFieldNumber = 1;
+    private global::Protometry.Volume.Box region_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.MatchInformation Information {
-      get { return information_; }
+    public global::Protometry.Volume.Box Region {
+      get { return region_; }
       set {
-        information_ = value;
+        region_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "seed" field.</summary>
+    public const int SeedFieldNumber = 2;
+    private long seed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Seed {
+      get { return seed_; }
+      set {
+        seed_ = value;
       }
     }
 
@@ -759,174 +814,7 @@ namespace Api.Realtime {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(Information, other.Information)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (information_ != null) hash ^= Information.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (information_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Information);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (information_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Information);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(MatchJoin other) {
-      if (other == null) {
-        return;
-      }
-      if (other.information_ != null) {
-        if (information_ == null) {
-          Information = new global::Api.Realtime.MatchInformation();
-        }
-        Information.MergeFrom(other.Information);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (information_ == null) {
-              Information = new global::Api.Realtime.MatchInformation();
-            }
-            input.ReadMessage(Information);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  /// Server sending some information on the current state before starting
-  /// </summary>
-  public sealed partial class MatchInformation : pb::IMessage<MatchInformation> {
-    private static readonly pb::MessageParser<MatchInformation> _parser = new pb::MessageParser<MatchInformation>(() => new MatchInformation());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<MatchInformation> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MatchInformation() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MatchInformation(MatchInformation other) : this() {
-      region_ = other.region_ != null ? other.region_.Clone() : null;
-      map_ = other.map_ != null ? other.map_.Clone() : null;
-      seed_ = other.seed_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public MatchInformation Clone() {
-      return new MatchInformation(this);
-    }
-
-    /// <summary>Field number for the "region" field.</summary>
-    public const int RegionFieldNumber = 1;
-    private global::Protometry.Volume.Box region_;
-    /// <summary>
-    /// TODO: some state config https://heroiclabs.com/docs/tutorial-remote-configuration/
-    /// TODO: map data
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protometry.Volume.Box Region {
-      get { return region_; }
-      set {
-        region_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "map" field.</summary>
-    public const int MapFieldNumber = 2;
-    private global::Api.Realtime.Matrix map_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Matrix Map {
-      get { return map_; }
-      set {
-        map_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "seed" field.</summary>
-    public const int SeedFieldNumber = 3;
-    private int seed_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Seed {
-      get { return seed_; }
-      set {
-        seed_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as MatchInformation);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(MatchInformation other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
       if (!object.Equals(Region, other.Region)) return false;
-      if (!object.Equals(Map, other.Map)) return false;
       if (Seed != other.Seed) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -935,8 +823,7 @@ namespace Api.Realtime {
     public override int GetHashCode() {
       int hash = 1;
       if (region_ != null) hash ^= Region.GetHashCode();
-      if (map_ != null) hash ^= Map.GetHashCode();
-      if (Seed != 0) hash ^= Seed.GetHashCode();
+      if (Seed != 0L) hash ^= Seed.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -954,13 +841,9 @@ namespace Api.Realtime {
         output.WriteRawTag(10);
         output.WriteMessage(Region);
       }
-      if (map_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Map);
-      }
-      if (Seed != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(Seed);
+      if (Seed != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Seed);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -973,11 +856,8 @@ namespace Api.Realtime {
       if (region_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Region);
       }
-      if (map_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Map);
-      }
-      if (Seed != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Seed);
+      if (Seed != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Seed);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -986,7 +866,7 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(MatchInformation other) {
+    public void MergeFrom(MatchJoin other) {
       if (other == null) {
         return;
       }
@@ -996,13 +876,7 @@ namespace Api.Realtime {
         }
         Region.MergeFrom(other.Region);
       }
-      if (other.map_ != null) {
-        if (map_ == null) {
-          Map = new global::Api.Realtime.Matrix();
-        }
-        Map.MergeFrom(other.Map);
-      }
-      if (other.Seed != 0) {
+      if (other.Seed != 0L) {
         Seed = other.Seed;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1023,15 +897,202 @@ namespace Api.Realtime {
             input.ReadMessage(Region);
             break;
           }
-          case 18: {
-            if (map_ == null) {
-              Map = new global::Api.Realtime.Matrix();
-            }
-            input.ReadMessage(Map);
+          case 16: {
+            Seed = input.ReadInt64();
             break;
           }
-          case 24: {
-            Seed = input.ReadInt32();
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Map : pb::IMessage<Map> {
+    private static readonly pb::MessageParser<Map> _parser = new pb::MessageParser<Map>(() => new Map());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Map> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Map() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Map(Map other) : this() {
+      xBase_ = other.xBase_;
+      yBase_ = other.yBase_;
+      map_ = other.map_ != null ? other.map_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Map Clone() {
+      return new Map(this);
+    }
+
+    /// <summary>Field number for the "x_base" field.</summary>
+    public const int XBaseFieldNumber = 1;
+    private long xBase_;
+    /// <summary>
+    /// Offsets of the chunk of map data
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long XBase {
+      get { return xBase_; }
+      set {
+        xBase_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y_base" field.</summary>
+    public const int YBaseFieldNumber = 2;
+    private long yBase_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long YBase {
+      get { return yBase_; }
+      set {
+        yBase_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "map" field.</summary>
+    public const int Map_FieldNumber = 3;
+    private global::Api.Realtime.Matrix map_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Matrix Map_ {
+      get { return map_; }
+      set {
+        map_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Map);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Map other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (XBase != other.XBase) return false;
+      if (YBase != other.YBase) return false;
+      if (!object.Equals(Map_, other.Map_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (XBase != 0L) hash ^= XBase.GetHashCode();
+      if (YBase != 0L) hash ^= YBase.GetHashCode();
+      if (map_ != null) hash ^= Map_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (XBase != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(XBase);
+      }
+      if (YBase != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(YBase);
+      }
+      if (map_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Map_);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (XBase != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(XBase);
+      }
+      if (YBase != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(YBase);
+      }
+      if (map_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Map_);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Map other) {
+      if (other == null) {
+        return;
+      }
+      if (other.XBase != 0L) {
+        XBase = other.XBase;
+      }
+      if (other.YBase != 0L) {
+        YBase = other.YBase;
+      }
+      if (other.map_ != null) {
+        if (map_ == null) {
+          Map_ = new global::Api.Realtime.Matrix();
+        }
+        Map_.MergeFrom(other.Map_);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            XBase = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            YBase = input.ReadInt64();
+            break;
+          }
+          case 26: {
+            if (map_ == null) {
+              Map_ = new global::Api.Realtime.Matrix();
+            }
+            input.ReadMessage(Map_);
             break;
           }
         }
@@ -1065,7 +1126,7 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Matrix(Matrix other) : this() {
-      cols_ = other.cols_.Clone();
+      rows_ = other.rows_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1074,14 +1135,14 @@ namespace Api.Realtime {
       return new Matrix(this);
     }
 
-    /// <summary>Field number for the "cols" field.</summary>
-    public const int ColsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Api.Realtime.Array> _repeated_cols_codec
+    /// <summary>Field number for the "rows" field.</summary>
+    public const int RowsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Api.Realtime.Array> _repeated_rows_codec
         = pb::FieldCodec.ForMessage(10, global::Api.Realtime.Array.Parser);
-    private readonly pbc::RepeatedField<global::Api.Realtime.Array> cols_ = new pbc::RepeatedField<global::Api.Realtime.Array>();
+    private readonly pbc::RepeatedField<global::Api.Realtime.Array> rows_ = new pbc::RepeatedField<global::Api.Realtime.Array>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Api.Realtime.Array> Cols {
-      get { return cols_; }
+    public pbc::RepeatedField<global::Api.Realtime.Array> Rows {
+      get { return rows_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1091,127 +1152,6 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool Equals(Matrix other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!cols_.Equals(other.cols_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= cols_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      cols_.WriteTo(output, _repeated_cols_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += cols_.CalculateSize(_repeated_cols_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Matrix other) {
-      if (other == null) {
-        return;
-      }
-      cols_.Add(other.cols_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            cols_.AddEntriesFrom(input, _repeated_cols_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class Array : pb::IMessage<Array> {
-    private static readonly pb::MessageParser<Array> _parser = new pb::MessageParser<Array>(() => new Array());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Array> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[4]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Array() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Array(Array other) : this() {
-      rows_ = other.rows_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Array Clone() {
-      return new Array(this);
-    }
-
-    /// <summary>Field number for the "rows" field.</summary>
-    public const int RowsFieldNumber = 1;
-    private static readonly pb::FieldCodec<double> _repeated_rows_codec
-        = pb::FieldCodec.ForDouble(10);
-    private readonly pbc::RepeatedField<double> rows_ = new pbc::RepeatedField<double>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<double> Rows {
-      get { return rows_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as Array);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Array other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1256,7 +1196,7 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Array other) {
+    public void MergeFrom(Matrix other) {
       if (other == null) {
         return;
       }
@@ -1272,9 +1212,130 @@ namespace Api.Realtime {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 10: {
+            rows_.AddEntriesFrom(input, _repeated_rows_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Array : pb::IMessage<Array> {
+    private static readonly pb::MessageParser<Array> _parser = new pb::MessageParser<Array>(() => new Array());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Array> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Array() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Array(Array other) : this() {
+      cols_ = other.cols_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Array Clone() {
+      return new Array(this);
+    }
+
+    /// <summary>Field number for the "cols" field.</summary>
+    public const int ColsFieldNumber = 1;
+    private static readonly pb::FieldCodec<double> _repeated_cols_codec
+        = pb::FieldCodec.ForDouble(10);
+    private readonly pbc::RepeatedField<double> cols_ = new pbc::RepeatedField<double>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<double> Cols {
+      get { return cols_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Array);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Array other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!cols_.Equals(other.cols_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= cols_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      cols_.WriteTo(output, _repeated_cols_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += cols_.CalculateSize(_repeated_cols_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Array other) {
+      if (other == null) {
+        return;
+      }
+      cols_.Add(other.cols_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
           case 10:
           case 9: {
-            rows_.AddEntriesFrom(input, _repeated_rows_codec);
+            cols_.AddEntriesFrom(input, _repeated_cols_codec);
             break;
           }
         }

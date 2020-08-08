@@ -71,10 +71,12 @@ build-proto:
 deploy:
 	@helm install $(NS) helm
 	@echo "Cluster deployed"
+#	Trick to print Nakama endpoint after deployment, a smarter approach would use something like k8s Ingress
+	@pgrep -x minikube >/dev/null && (echo "Nakama endpoint:" && minikube service list | grep 7350) || true
 
 un-deploy:
 	@helm uninstall $(NS)
-	@kubectl delete -n default deployment $(NS)-unity > /dev/null
+	@kubectl delete -n default deployment $(NS)-unity || true && echo "Ignoring ..."
 	@echo "Cluster un-deployed"
 
 client:

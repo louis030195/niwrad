@@ -159,6 +159,10 @@ namespace Gameplay
         private void OnAnimalSpawnRequested(Transform obj)
         {
 	        Debug.Log($"S1 requested animal spawn");
+            
+            // Someone requested an animal spawn, adjust to put it on top of ground
+            obj.Position.Y = Mathf.Infinity; // TODO: see @Utils.Spatial.PositionAboveGround
+            obj.Position = obj.Position.ToVector3().PositionAboveGround().Net();
 	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;
 	        packet.Spawn = new Spawn
@@ -209,6 +213,9 @@ namespace Gameplay
         private void OnTreeSpawnRequested(Transform obj)
         {
 	        Debug.Log($"S1 requested tree spawn");
+            // Someone requested a tree spawn, adjust to put it on top of ground
+            obj.Position.Y = Mathf.Infinity; // TODO: see @Utils.Spatial.PositionAboveGround
+            obj.Position = obj.Position.ToVector3().PositionAboveGround().Net();
 	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;
 	        packet.Spawn = new Spawn

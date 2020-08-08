@@ -14,43 +14,39 @@ namespace Utils
 		/// Non alloc field for overlap sphere casts
 		/// </summary>
 		private static Collider[] _results = new Collider[1];
-		/// <summary>
-		/// Return position above ground relatively from the prefab size
-		/// Global position
-		/// </summary>
-		/// <param name="position"></param>
-		/// <param name="prefabHeight">Prefab height needed in order to place well on top of ground</param>
-		/// <param name="transform">Transform parent</param>
-		/// <param name="layerMask">Layers to ignore</param>
-		/// <returns></returns> // TODO: FIX
-		public static Vector3 PositionAboveGround(this Vector3 position,
+
+        /// <summary>
+        /// Return position above ground relatively from the prefab size
+        /// Global position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="prefabHeight">Prefab height needed in order to place well on top of ground</param>
+        /// <param name="layerMask">Layers to ignore</param>
+        /// <returns></returns> // TODO: FIX
+        public static Vector3 PositionAboveGround(this Vector3 position,
 			float prefabHeight = 1f,
-			Transform transform = null,
 			LayerMask layerMask = default)
 		{
 			var p = position;
-			if (transform != null) p += transform.position;
-
-
+            
+            // TODO: do we even care about "below ground" ?
 			// Current position is below ground
-			if (Physics.RaycastNonAlloc(p, Vector3.up, Hit, Mathf.Infinity, ~layerMask) > 0)
-			{
-				// TODO: maybe should check if _hit[0].collider != null
-				p.y += Hit[0].distance + prefabHeight * 0.5f;
-				return p;
-			}
-
-
+			// if (Physics.RaycastNonAlloc(p, Vector3.up, Hit, Mathf.Infinity, ~layerMask) > 0)
+			// {
+			// 	// TODO: maybe should check if _hit[0].collider != null
+			// 	p.y += Hit[0].distance + prefabHeight * 0.5f;
+   //              return p;
+			// }
+			
+			
 			// Current position is above ground
-			if (Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) > 0)
-			{
-				p.y -= Hit[0].distance - prefabHeight * 0.5f;
-				return p;
-			}
+            if (Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) <= 0)
+                return Vector3.positiveInfinity;
+            p.y -= Hit[0].distance - prefabHeight * 0.5f;
+            return p;
 
-			// There is no ground above or below, outside map
-			return Vector3.positiveInfinity;
-		}
+            // There is no ground above or below, outside map
+        }
 
 		/// <summary>
 		/// This function will find a position to spawn above ground and far enough from other objects of the given layer
@@ -62,7 +58,6 @@ namespace Utils
 			LayerMask layerMask,
 			float distance,
 			float prefabHeight = 1f,
-			Transform transform = null,
 			int numberOfTries = 10)
 		{
 			if (distance > radius)
@@ -76,8 +71,8 @@ namespace Utils
 			{
 				// We pick a random position around above ground
 				var newPos = center + Random.insideUnitSphere * radius;
-				// center.y += 1000; // Security check, AboveGround check below first
-				newPos = newPos.PositionAboveGround(prefabHeight, transform);
+				center.y += 1000;
+				newPos = newPos.PositionAboveGround(prefabHeight);
 				if (newPos.Equals(Vector3.positiveInfinity)) // Outside map
 				{
 					tries++;

@@ -86,3 +86,4 @@ make client
 * [ ] [Easy] Android controller
 * [ ] [Easy] Deploy persistent, resilient, fenced server on the cloud
 * [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen hypothesis
+* [ ] [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots ?

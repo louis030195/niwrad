@@ -16,6 +16,10 @@ nakama:
     type: NodePort
     port: 80 # TODO: ports for nakama
 
+  default:
+    username: azerty@azerty.com
+    password: azertyazerty
+
 
   autoscaling:
     enabled: false
@@ -23,3 +27,10 @@ nakama:
     maxReplicas: 100
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
+  
+js:
+  replicaCount: 0
+
+  image:
+    repository: niwrad-js
+    pullPolicy: Never

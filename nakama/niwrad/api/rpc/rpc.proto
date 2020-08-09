@@ -5,6 +5,10 @@ package nakama.niwrad.api.rpc;
 option csharp_namespace = "Api.Rpc";
 option go_package = "nakama/niwrad/api/rpc;rpc";
 
+
+message CreateMatchRequest {
+}
+
 enum CreateMatchCompletionResult {
 	createMatchCompletionResultUnknownInternalFailure        = 0;
 	createMatchCompletionResultSucceeded                     = 1;
@@ -16,54 +20,29 @@ enum CreateMatchCompletionResult {
 	createMatchCompletionResultNoResponse                    = -95;
 	createMatchCompletionResultLoggedOut                     = -94;
 }
-message CreateMatchRequest {
-	string worker_id = 1; // e.g. process / k8s deployment ...
-	string match_type = 2;
-	int64 seed = 3;
-    MatchConfiguration configuration = 4;
-}
 
 message CreateMatchResponse {
     string match_id = 1;
     CreateMatchCompletionResult result = 2;
 }
 
-message MatchConfiguration {
-	int32 terrain_size = 1;
-	int32 initial_animals = 2;
-	int32 initial_plants = 3;
-}
-
-message RunServerRequest {
-	MatchConfiguration configuration = 1;
-}
-enum RunServerCompletionResult {
-	runServerCompletionResultUnknownInternalFailure        = 0;
-	runServerCompletionResultSucceeded                     = 1;
-}
-message RunServerResponse {
-	RunServerCompletionResult result = 1;
-}
-
-message StopServerRequest {
+message StopMatchRequest {
 	string match_id = 1;
-	// TODO: maybe enum: Stop (stop but possibility to restart), Delete (erase totally all data), ...
 }
 
-enum StopServerCompletionResult {
+enum StopMatchCompletionResult {
 	stopServerCompletionResultUnknownInternalFailure        = 0;
 	stopServerCompletionResultSucceeded                     = 1;
 }
-message StopServerResponse {
-	StopServerCompletionResult result = 1;
-}
 
-message UnityServer {
-	string worker_id = 1; // Process id or k8s deployment
-	string match_id = 2;
-	MatchConfiguration configuration = 3;
+message StopMatchResponse {
+	StopMatchCompletionResult result = 1;
 }
 
 message User {
 	repeated string matches_owned = 1;
+}
+
+message UnityServer {
+	string match_id = 1;
 }

@@ -93,7 +93,7 @@ namespace UI
 				});
                 go.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
 				{
-					StopServer(m);
+					StopMatch(m);
 				});
 			}
 		}
@@ -132,29 +132,20 @@ namespace UI
 			          $"Terrain size: {ts}, " +
 			          $"Initial animals: {ia}, " +
 			          $"Initial plants: {ip}");
-			var p = new RunServerRequest
-			{
-				Configuration = new MatchConfiguration
-				{
-					TerrainSize = tsOk ? ts : 0,
-					InitialAnimals = iaOk ? ia : 0,
-					InitialPlants = ipOk ? ip : 0,
-				}
-			}.ToByteString().ToStringUtf8();
-			// Debug.Log($"p: {p}");
+			var p = new CreateMatchRequest().ToByteString().ToStringUtf8();
 			var protoResponse = await SessionManager.instance.socket.RpcAsync("create_match", p);
-			var response = RunServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
+			var response = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"CreateServer Response: {response}");
 		}
 
-		private async void StopServer(string m)
+		private async void StopMatch(string m)
 		{
-			var p = new StopServerRequest
+			var p = new StopMatchRequest()
 			{
 				MatchId = m
 			}.ToByteString().ToStringUtf8();
 			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_match", p);
-			var response = StopServerResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
+			var response = StopMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"StopServer response: {response}");
 		}
 	}

@@ -61,7 +61,7 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 		return "", err
 	}
 
-	var request rpc.RunServerRequest
+	var request rpc.CreateMatchRequest
 	if err := proto.Unmarshal([]byte(payload), &request); err != nil {
 		logger.Error("unmarshalling failed: %v %v", payload, err)
 		return "", errUnmarshal
@@ -92,8 +92,9 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	}
 
 	// Return result to user.
-	response := &rpc.RunServerResponse{
-		Result: rpc.RunServerCompletionResult_runServerCompletionResultSucceeded,
+	response := &rpc.CreateMatchResponse{
+	    MatchId: matchId,
+		Result: rpc.CreateMatchCompletionResult_createMatchCompletionResultSucceeded,
 	}
 	responseBytes, err := proto.Marshal(response)
 	if err != nil {
@@ -131,7 +132,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		return "", err
 	}
 
-	var request rpc.StopServerRequest
+	var request rpc.StopMatchRequest
 	if err := proto.Unmarshal([]byte(payload), &request); err != nil {
 		logger.Error("unmarshalling failed: %v %v", payload, err)
 		return "", errUnmarshal
@@ -167,8 +168,8 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 	//    return "", err
 	//}
 	// Return result to user.
-	response := &rpc.StopServerResponse{
-		Result: rpc.StopServerCompletionResult_stopServerCompletionResultSucceeded,
+	response := &rpc.StopMatchResponse{
+		Result: rpc.StopMatchCompletionResult_stopServerCompletionResultSucceeded,
 	}
 	responseBytes, err := proto.Marshal(response)
 	if err != nil {

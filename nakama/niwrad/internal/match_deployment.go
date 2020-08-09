@@ -1,42 +1,17 @@
 package niwrad
 
 import (
-	"context"
-	"fmt"
-	"github.com/heroiclabs/nakama-common/runtime"
-	"github.com/louis030195/niwrad/api/rpc"
-	"github.com/louis030195/niwrad/internal/storage"
-	"github.com/louis030195/niwrad/internal/utils"
-	appsv1 "k8s.io/api/apps/v1"
-	apiv1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
-	"os/exec"
+    "context"
+    "fmt"
+    "github.com/heroiclabs/nakama-common/runtime"
+    "github.com/louis030195/niwrad/internal/storage"
+    "github.com/louis030195/niwrad/internal/utils"
+    appsv1 "k8s.io/api/apps/v1"
+    apiv1 "k8s.io/api/core/v1"
+    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/client-go/kubernetes"
+    "k8s.io/client-go/rest"
 )
-
-func spawnUnityDocker(sessionID string, conf rpc.MatchConfiguration) (*string, error) {
-    args := []string{
-        "run",
-        "--name", fmt.Sprintf("%s", sessionID), // TODO: prob not atomic: a user can have only one server ?
-        "niwrad-unity",
-        "/app/niwrad.x86_64",
-        "--terrainSize", fmt.Sprintf("%d", conf.TerrainSize),
-        "--initialAnimals", fmt.Sprintf("%d", conf.InitialAnimals),
-        "--initialPlants", fmt.Sprintf("%d", conf.InitialPlants),
-        "--nakamaIp", "niwrad",
-        "--nakamaPort", "7350",
-    }
-    // docker run -ti -e NAKAMA_IP=127.0.0.1 -e NAKAMA_PORT=7350 -e MATCH_ID=x -e EMAIL=x -e PASSWORD=x niwrad-unity
-    // TODO: imply having the artifact inside nakama docker (volume mount or copy)
-    cmd := exec.Command("docker", args...) // TODO: executable name may vary (cloud build ...)
-    //cmd.Stdout = os.Stdout
-    if err := cmd.Start(); err != nil {
-        return nil, err
-    }
-    res := fmt.Sprintf("%d", cmd.Process.Pid)
-    return &res, nil
-}
 
 type Account struct {
 	email    string

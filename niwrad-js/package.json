@@ -1,0 +1,42 @@
+{
+  "name": "niwrad-js",
+  "version": "1.0.0",
+  "description": "Javascript API for niwrad",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louis030195/niwrad.git"
+  },
+  "keywords": [
+    "game-development",
+    "game",
+    "unity",
+    "golang",
+    "lua",
+    "multiplayer",
+    "evolution",
+    "biology"
+  ],
+  "author": "louis030195",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/louis030195/niwrad/issues"
+  },
+  "homepage": "https://github.com/louis030195/niwrad#readme",
+  "dependencies": {
+    "@heroiclabs/nakama-js": "^2.0.1",
+    "atob": "^2.1.2",
+    "btoa": "^1.2.1",
+    "es6-promise": "^4.2.8",
+    "google-protobuf": "^3.12.4",
+    "isomorphic-fetch": "^2.2.1",
+    "url-search-params": "^1.1.0",
+    "ws": "^7.3.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
+  }
+}

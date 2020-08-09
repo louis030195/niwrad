@@ -200,6 +200,9 @@ namespace Api.Realtime {
     private static readonly pb::FieldCodec<string> _repeated_recipients_codec
         = pb::FieldCodec.ForString(26);
     private readonly pbc::RepeatedField<string> recipients_ = new pbc::RepeatedField<string>();
+    /// <summary>
+    /// TODO: actually rare use case, should maybe just be a type of message
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<string> Recipients {
       get { return recipients_; }
@@ -209,6 +212,7 @@ namespace Api.Realtime {
     public const int ImpactFieldNumber = 4;
     private global::Protometry.Vector3.Vector3 impact_;
     /// <summary>
+    /// like "request to send to specific recipients ..." too many headers !!!
     /// TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

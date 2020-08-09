@@ -88,3 +88,4 @@ make client
 * [ ] [Easy] Deploy persistent, resilient, fenced server on the cloud
 * [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen hypothesis
 * [ ] [Easy] Consider splitting in multiple repositories each component (Nakama, Unity, APIs: js) especially if things grows too much
+* [ ] [Easy] Consider using lua and/or go but if both, both should always use protobuf messages, no json !!!

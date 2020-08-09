@@ -28,6 +28,7 @@ type Packet struct {
 	SenderId   string   `protobuf:"bytes,1,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
 	IsServer   bool     `protobuf:"varint,2,opt,name=is_server,json=isServer,proto3" json:"is_server,omitempty"`
 	Recipients []string `protobuf:"bytes,3,rep,name=recipients,proto3" json:"recipients,omitempty"`
+	// like "request to send to specific recipients ..." too many headers !!!
 	// TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
 	Impact *vector3.Vector3 `protobuf:"bytes,4,opt,name=impact,proto3" json:"impact,omitempty"`
 	// Types that are valid to be assigned to Type:

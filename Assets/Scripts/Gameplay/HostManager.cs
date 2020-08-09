@@ -80,6 +80,8 @@ namespace Gameplay
             MatchCommunicationManager.instance.MemeUpdated += OnMemeUpdated;
             MatchCommunicationManager.instance.TransformUpdated += OnTransformUpdated;
             MatchCommunicationManager.instance.NavMeshUpdated += OnNavMeshUpdated;
+            
+            Debug.Log($"Initialized");
         }
 
         public void RequestSpawnAnimal(Vector3 p, Quaternion r)
@@ -131,26 +133,27 @@ namespace Gameplay
             var syncingGlobalState = SessionManager.instance.isServer;
 	        var m = syncingGlobalState ? " sending global state" : "";
 	        Debug.Log($"Player {senderId} game play is initialized{m}");
-            if (!syncingGlobalState) return;
-	        // Slight different use case: client joined, i'm server, send him the current state and return
-            foreach (var kv in m_Animals)
-            {
-                var t = kv.Value.transform;
-                var position = t.position;
-                var p = new Packet().Basic(position.Net())
-                    .SpawnAnimal(kv.Key, position, t.rotation);
-                p.Recipients.Add(senderId);
-                MatchCommunicationManager.instance.RpcAsync(p);
-            }
-            foreach (var kv in m_Trees)
-            {
-                var t = kv.Value.transform;
-                var position = t.position;
-                var p = new Packet().Basic(position.Net())
-                    .SpawnTree(kv.Key, position, t.rotation);
-                p.Recipients.Add(senderId);
-                MatchCommunicationManager.instance.RpcAsync(p);
-            }
+            // TODO: unit test ?
+         //    if (!syncingGlobalState) return;
+	        // // Slight different use case: client joined, i'm server, send him the current state and return
+         //    foreach (var kv in m_Animals)
+         //    {
+         //        var t = kv.Value.transform;
+         //        var position = t.position;
+         //        var p = new Packet().Basic(position.Net())
+         //            .SpawnAnimal(kv.Key, position, t.rotation);
+         //        p.Recipients.Add(senderId);
+         //        MatchCommunicationManager.instance.RpcAsync(p);
+         //    }
+         //    foreach (var kv in m_Trees)
+         //    {
+         //        var t = kv.Value.transform;
+         //        var position = t.position;
+         //        var p = new Packet().Basic(position.Net())
+         //            .SpawnTree(kv.Key, position, t.rotation);
+         //        p.Recipients.Add(senderId);
+         //        MatchCommunicationManager.instance.RpcAsync(p);
+         //    }
         }
         
         private void OnAnimalSpawned(Transform obj) => SpawnAnimal(obj);
@@ -161,7 +164,7 @@ namespace Gameplay
 	        Debug.Log($"S1 requested animal spawn");
             
             // Someone requested an animal spawn, adjust to put it on top of ground
-            obj.Position.Y = Mathf.Infinity; // TODO: see @Utils.Spatial.PositionAboveGround
+            obj.Position.Y = 1000; // TODO: see @Utils.Spatial.PositionAboveGround
             obj.Position = obj.Position.ToVector3().PositionAboveGround().Net();
 	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;
@@ -214,7 +217,7 @@ namespace Gameplay
         {
 	        Debug.Log($"S1 requested tree spawn");
             // Someone requested a tree spawn, adjust to put it on top of ground
-            obj.Position.Y = Mathf.Infinity; // TODO: see @Utils.Spatial.PositionAboveGround
+            obj.Position.Y = 1000; // TODO: see @Utils.Spatial.PositionAboveGround
             obj.Position = obj.Position.ToVector3().PositionAboveGround().Net();
 	        var packet = new Packet().Basic(obj.Position);
 	        obj.Id = ++m_NextId;

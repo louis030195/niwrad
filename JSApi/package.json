@@ -1,0 +1,29 @@
+{
+  "name": "niwrad-js",
+  "version": "1.0.0",
+  "description": "Javascript API for niwrad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louis030195/niwrad.git"
+  },
+  "keywords": [
+    "game-development",
+    "game",
+    "unity",
+    "golang",
+    "lua",
+    "multiplayer",
+    "evolution",
+    "biology"
+  ],
+  "author": "louis030195",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/louis030195/niwrad/issues"
+  },
+  "homepage": "https://github.com/louis030195/niwrad#readme"
+}

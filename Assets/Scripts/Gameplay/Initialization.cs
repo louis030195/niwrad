@@ -44,6 +44,7 @@ namespace Gameplay
                 // MatchCommunicationManager.instance
                 foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
                 {
+                    Debug.Log($"{kv.Key}={kv.Value}");
                     var k = kv.Key as string;
                     var v = kv.Value as string;
                     if (k != null) Envs[k] = v;

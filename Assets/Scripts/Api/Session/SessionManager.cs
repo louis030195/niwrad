@@ -180,6 +180,11 @@ namespace Api.Session
             Disconnect();
         }
 
+        private void OnApplicationQuit()
+        {
+            // TODO: get last log and push somewhere
+        }
+
         #endregion
 
         #region Authentication

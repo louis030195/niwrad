@@ -7,44 +7,36 @@ GOPATH=$(HOME)/go/src
 PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 
+help: ## Display this help
+	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-.PHONY: help build-client build-server build-images build-proto deploy un-deploy client
-help:
-		@echo ''
-		@echo 'Usage: make [TARGET]'
-		@echo 'Targets:'
-		@echo '  build    		build unity client, docker images and protobufs'
-		@echo '  build-client    	build unity client'
-		@echo '  build-server    	build unity server'
-		@echo '  build-images    	build docker images'
-		@echo '  build-proto    	build protobuf stubs'
-		@echo '  deploy    		deploy cluster'
-		@echo '  un-deploy    		un-deploy cluster'
-		@echo '  client    		launch Linux client'
-		@echo ''
+build: build-client build-server build-images build-proto ## build unity client, docker images and protobufs
 
-build: build-client build-server build-images build-proto
-
-build-client:
+build-client: ## build unity client
 	@rm -rf Builds/Linux
 	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
 		-silent-crashes -headless
 	@echo "Unity client built"
 
-build-server:
+build-server: ## build unity server
 	@rm -rf Builds/Linux
 	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
 		-silent-crashes -headless
 	@echo "Unity server built"
 
-build-images:
+build-image-unity: ## build unity server docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
 	docker build -t niwrad-unity .
 
-build-proto:
+build-image-nakama: ## build nakama docker image
+	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
+	docker build -t nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
+
+build-images: build-image-unity build-image-nakama ## build docker images
+
+build-proto: ## build protobuf stubs
 	@mkdir -p Assets/Scripts/Api/Protometry Assets/Scripts/Api/Realtime Assets/Scripts/Api/Rpc
 	@protoc -I $(GOPATH) \
 		-I $(PROTOMETRY)/api/vector3 \
@@ -68,17 +60,17 @@ build-proto:
 		--go_out=. $(PROTOS)/rpc/*.proto
 	@echo "Protocol buffer compiled"
 
-deploy:
+deploy: ## deploy cluster
 	@helm install $(NS) helm
 	@echo "Cluster deployed"
 #	Trick to print Nakama endpoint after deployment, a smarter approach would use something like k8s Ingress
 	@pgrep -x minikube >/dev/null && (echo "Nakama endpoint:" && minikube service list | grep 7350) || true
 
-un-deploy:
+un-deploy: ## un-deploy cluster
 	@helm uninstall $(NS)
-	@kubectl delete -n default deployment $(NS)-unity || true && echo "Ignoring ..."
+	@kubectl delete -n default deployment $(NS)-unity || (true && echo "Ignoring ...")
 	@echo "Cluster un-deployed"
 
-client:
+client: ## Run client
 	@./Builds/Linux/Client/$(NS).x86_64
 	@echo "Running Linux client"

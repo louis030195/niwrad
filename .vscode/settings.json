@@ -1,0 +1,26 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.meta": true,
+        "**/*.*.meta": true,
+        "**/*.unity": true,
+        "**/*.unityproj": true,
+        "**/*.csproj": true,
+        "**/*.sln": true,
+        "**/*.user": true,
+        "**/*.mat": true,
+        "**/*.fbx": true,
+        "**/*.FBX": true,
+        "**/*.tga": true,
+        "**/*.cubemap": true,
+        "**/*.prefab": true,
+        "**/Library": true,
+        "**/obj": true,
+        "**/ProjectSettings": true,
+        "**/UserSettings": true,
+        "**/Temp": true,
+        "**/Builds": true
+    }
+}

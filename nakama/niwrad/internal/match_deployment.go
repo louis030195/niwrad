@@ -15,27 +15,27 @@ import (
 	"os/exec"
 )
 
-func spawnUnityProcess(sessionID string, conf rpc.MatchConfiguration) (*string, error) {
-	args := []string{
-		"run",
-		"--name", fmt.Sprintf("%s", sessionID), // TODO: prob not atomic: a user can have only one server ?
-		"niwrad-unity",
-		"/app/niwrad.x86_64",
-		"--terrainSize", fmt.Sprintf("%d", conf.TerrainSize),
-		"--initialAnimals", fmt.Sprintf("%d", conf.InitialAnimals),
-		"--initialPlants", fmt.Sprintf("%d", conf.InitialPlants),
-		"--nakamaIp", "niwrad",
-		"--nakamaPort", "7350",
-	}
-
-	// TODO: imply having the artifact inside nakama docker (volume mount or copy)
-	cmd := exec.Command("./niwrad.x86_64", args...) // TODO: executable name may vary (cloud build ...)
-	//cmd.Stdout = os.Stdout
-	if err := cmd.Start(); err != nil {
-		return nil, err
-	}
-	res := fmt.Sprintf("%d", cmd.Process.Pid)
-	return &res, nil
+func spawnUnityDocker(sessionID string, conf rpc.MatchConfiguration) (*string, error) {
+    args := []string{
+        "run",
+        "--name", fmt.Sprintf("%s", sessionID), // TODO: prob not atomic: a user can have only one server ?
+        "niwrad-unity",
+        "/app/niwrad.x86_64",
+        "--terrainSize", fmt.Sprintf("%d", conf.TerrainSize),
+        "--initialAnimals", fmt.Sprintf("%d", conf.InitialAnimals),
+        "--initialPlants", fmt.Sprintf("%d", conf.InitialPlants),
+        "--nakamaIp", "niwrad",
+        "--nakamaPort", "7350",
+    }
+    // docker run -ti -e NAKAMA_IP=127.0.0.1 -e NAKAMA_PORT=7350 -e MATCH_ID=x -e EMAIL=x -e PASSWORD=x niwrad-unity
+    // TODO: imply having the artifact inside nakama docker (volume mount or copy)
+    cmd := exec.Command("docker", args...) // TODO: executable name may vary (cloud build ...)
+    //cmd.Stdout = os.Stdout
+    if err := cmd.Start(); err != nil {
+        return nil, err
+    }
+    res := fmt.Sprintf("%d", cmd.Process.Pid)
+    return &res, nil
 }
 
 type Account struct {
@@ -111,9 +111,9 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 			apiv1.Container{
 				Name:  fmt.Sprintf("niwrad-unity-%d", i),
 				Image: "niwrad-unity",
-				Command: []string{ // TODO: maybe should get/create nakama account for this  host and pass
-					"/app/niwrad.x86_64",
-				},
+				//Command: []string{
+				//	"/app/niwrad.x86_64",
+				//},
 				Env: []apiv1.EnvVar{
 					{
 						Name:  "NAKAMA_IP",

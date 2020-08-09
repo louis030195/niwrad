@@ -78,12 +78,13 @@ make client
 
 ### TODO
 
-* [ ] [Medium] Unit testing some client-side physics like Vector3.PositionAboveGround()
-* [ ] [Hard] Mock test Nakama (rpcs, hooks ...), Kubernetes (rpcs that spawn k8s stuff are hand tested, not safe), real lack of testing, at least can split into small functions that can be tested.
+* [x] [Medium] Unit testing some client-side physics like Vector3.PositionAboveGround()
+* [ ] Doing [Hard] Mock test Nakama (rpcs, hooks ...), Kubernetes (rpcs that spawn k8s stuff are hand tested, not safe), real lack of testing, at least can split into small functions that can be tested.
+* [ ] Doing [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots and testing.
 * [ ] [Easy] Implement "robot": a creature that will tweak evolution according to our will, e.g. "I want fast animals" it will kill all slow animals\
     Basically anything that can allow players to apply artificial selection
 * [ ] [Easy] finish github workflow (github page deployment)
 * [ ] [Easy] Android controller
 * [ ] [Easy] Deploy persistent, resilient, fenced server on the cloud
 * [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen hypothesis
-* [ ] [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots ?
+* [ ] [Easy] Consider splitting in multiple repositories each component (Nakama, Unity, APIs: js) especially if things grows too much

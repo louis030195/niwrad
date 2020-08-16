@@ -14,9 +14,9 @@ spec:
   - name: "7349"
     port: 7349
     targetPort: 7349
-  - name: "7350"
-    port: 7350
-    targetPort: 7350
+  - name: {{ .Values.nakama.service.portApi | quote }}
+    port: {{ .Values.nakama.service.portApi }}
+    targetPort: {{ .Values.nakama.service.portApi }}
   - name: "7351"
     port: 7351
     targetPort: 7351

@@ -43,3 +43,8 @@ basic()
 ```
 
 See [example](examples/basic.js)
+
+## Roadmap
+
+- Working helm tests
+- Browser version, sort of web "management" interface ?

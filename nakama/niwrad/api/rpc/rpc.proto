@@ -4,6 +4,7 @@ package nakama.niwrad.api.rpc;
 
 option csharp_namespace = "Api.Rpc";
 option go_package = "nakama/niwrad/api/rpc;rpc";
+// import "github.com/heroiclabs/nakama-common/rtapi/realtime.proto";
 
 
 message CreateMatchRequest {
@@ -37,12 +38,4 @@ enum StopMatchCompletionResult {
 
 message StopMatchResponse {
 	StopMatchCompletionResult result = 1;
-}
-
-message User {
-	repeated string matches_owned = 1;
-}
-
-message UnityServer {
-	string match_id = 1;
 }

@@ -22,10 +22,9 @@ It's easier to just use Unity for that instead of the Nakama server.
 
 ![high-level architecture](docs/images/niwrad.png)
 
-Under the hood Nakama is used as a coordinator to spawn kubernetes pods that handle each a specific box of the map.  
-An Octree data structure is used for that.  
-
-![high-level architecture](docs/images/octree.png)
+Nakama is used as a coordinator which spawn kubernetes nodes that handle each a specific box of the map.  
+In other words a sharding strategy is used for the distributed system.  
+An [Octree](https://github.com/louis030195/octree) data structure is used for that.  
 
 ### Features & direction
 
@@ -57,16 +56,23 @@ git clone https://github.com/louis030195/niwrad
 3. [protoc, protoc-gen-go, protoc-gen-csharp](https://github.com/protocolbuffers/protobuf) (optional)
 
 ```make
-Usage: make [TARGET]
+Usage: make <target>
+
 Targets:
-  build                 build unity client, docker images and protobufs
-  build-client          build unity client
-  build-server          build unity server
-  build-images          build docker images
-  build-proto           build protobuf stubs
-  deploy                deploy cluster
-  un-deploy             un-deploy cluster
-  client                launch Linux client
+  help        Display this help
+  build       Build unity client, docker images and protobufs
+  build-client-artifact  Build unity client
+  build-server-artifact  Build unity server
+  build-unity-image  Build unity server docker image
+  build-js-image  Build js client docker image
+  build-integration-tests-image  Build integration tests docker image
+  build-nakama-image  Build nakama docker image
+  build-images  Build docker images
+  build-proto  Build protobuf stubs
+  deploy      Deploy cluster
+  un-deploy   Un-deploy cluster
+  client      Run client
+  test        Run unit tests and integration tests
 ```
 
 So you can try by deploying cluster & runnning client:
@@ -78,9 +84,9 @@ make client
 
 ### TODO
 
-* [x] [Medium] Unit testing some client-side physics like Vector3.PositionAboveGround()
-* [ ] Doing [Hard] Mock test Nakama (rpcs, hooks ...), Kubernetes (rpcs that spawn k8s stuff are hand tested, not safe), real lack of testing, at least can split into small functions that can be tested.
-* [ ] Doing [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots and testing.
+* [x] [Medium] Unit testing Unity.
+* [x] [Medium] Helm integration tests.
+* [ ] [stale, Nakama-js doesn't support protobuf] [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots and testing.
 * [ ] [Easy] Implement "robot": a creature that will tweak evolution according to our will, e.g. "I want fast animals" it will kill all slow animals\
     Basically anything that can allow players to apply artificial selection
 * [ ] [Easy] finish github workflow (github page deployment)

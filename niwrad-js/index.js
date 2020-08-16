@@ -1,5 +1,5 @@
 const EventEmitter = require('events').EventEmitter
-const nakamajs = require('@heroiclabs/nakama-js')
+const nakamajs = require('@heroiclabs/nakama-js-base')
 
 // Protos
 const rpc = require('./lib/proto/rpc_pb')
@@ -45,7 +45,7 @@ class Bot extends EventEmitter {
 
   async connect(options) {
     try {
-      this._client = new nakamajs.Client("defaultkey", options.host, options.port)
+      this._client = new nakamajs.Client("defaultkey", options.host, options.port, new nakamajs.WebSocketAdapterPb())
       this._client.ssl = options.ssl ? options.ssl : false
       this.username = options.username
       this._session = await this._client.authenticateEmail({ email: options.username, password: options.password })
@@ -80,7 +80,7 @@ class Bot extends EventEmitter {
       this._socket.onstreamdata = (data) => {
         this.emit('streamData', data)
       }
-      await this._socket.connect(this._session)
+      this._session = await this._socket.connect(this._session)
     } catch (err) {
       this.emit('error', err)
     }

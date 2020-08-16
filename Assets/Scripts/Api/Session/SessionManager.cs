@@ -99,18 +99,7 @@ namespace Api.Session
         /// <summary>
         /// Socket responsible for maintaining connection with Nakama server and exchange realtime messages.
         /// </summary>
-        public ISocket socket
-        {
-            get
-            {
-                if (m_Socket == null)
-                {
-                    // Initializing socket
-                    m_Socket = m_Client.NewSocket();
-                }
-                return m_Socket;
-            }
-        }
+        public ISocket socket => m_Socket ?? (m_Socket = m_Client.NewSocket());
 
         /// <summary>
         /// Returns true if <see cref="session"/> between this device and Nakama server exists.

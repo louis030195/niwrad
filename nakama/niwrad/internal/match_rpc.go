@@ -3,7 +3,8 @@ package niwrad
 import (
 	"context"
 	"database/sql"
-	"github.com/golang/protobuf/proto"
+    "fmt"
+    "github.com/golang/protobuf/proto"
 	"github.com/heroiclabs/nakama-common/runtime"
 	"github.com/louis030195/niwrad/api/rpc"
 	"github.com/louis030195/niwrad/internal/storage"
@@ -27,15 +28,21 @@ type sessionContext struct {
 func unpackContext(ctx context.Context) (*sessionContext, error) {
     username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
     if !ok {
-        return nil, errBadContext
+        err := errBadContext
+        err.Message = "RUNTIME_CTX_USERNAME " + err.Message
+        return nil, err
     }
 	userID, ok := ctx.Value(runtime.RUNTIME_CTX_USER_ID).(string)
 	if !ok {
-		return nil, errBadContext
+        err := errBadContext
+        err.Message = "RUNTIME_CTX_USER_ID " + err.Message
+        return nil, err
 	}
 	sessionID, ok := ctx.Value(runtime.RUNTIME_CTX_SESSION_ID).(string)
 	if !ok {
-		return nil, errBadContext
+        err := errBadContext
+        err.Message = "RUNTIME_CTX_SESSION_ID " + err.Message
+        return nil, err
 	}
 	return &sessionContext{Username: username, UserID: userID, SessionID: sessionID}, nil
 }
@@ -50,7 +57,7 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 		return "", errBadContext
 	}
 
-	users, usersStorage, err := storage.GetUsers(ctx, nk, session.UserID)
+	usersStorage, err := storage.GetUsers(ctx, nk, session.UserID)
 	if err != nil {
 		logger.Error("failed to get user info %v", err)
 		return "", err
@@ -68,8 +75,7 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	}
 
 	if len(usersStorage) == 1 { // TODO: right to create server
-		logger.Info("A server creation has been asked by username: %s, storage:%v with config: %v",
-			users[0].Username,
+		logger.Info("A server creation has been asked by user:%v with config: %v",
 			usersStorage[0],
 			request)
 	}
@@ -111,7 +117,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		return "", errBadContext
 	}
 
-	users, usersStorage, err := storage.GetUsers(ctx, nk, session.UserID)
+	usersStorage, err := storage.GetUsers(ctx, nk, session.UserID)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err
@@ -122,11 +128,11 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		return "", err
 	}
 	if len(usersStorage) == 0 {
-		err = runtime.NewError("unknown user !", 45)
+		err = runtime.NewError(fmt.Sprintf("unknown user %s", session.UserID), 45)
 		logger.Error(err.Error())
 		return "", err
 	}
-	servers, err := storage.GetServers(ctx, nk, usersStorage[0].MatchesOwned...)
+	servers, err := storage.GetMatches(ctx, nk, usersStorage[0].MatchesOwned...)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err
@@ -137,8 +143,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		logger.Error("unmarshalling failed: %v %v", payload, err)
 		return "", errUnmarshal
 	}
-	logger.Info("A server deletion has been asked by {\"username\": %s, \"storage\":%v, \"servers\":%v} with config: %v",
-		users[0].Username,
+	logger.Info("A server deletion has been asked by {\"user\":%v, \"servers\":%v} with config: %v",
 		usersStorage[0],
 		servers,
 		request)
@@ -150,7 +155,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		return "", err
 	}
 	// TODO: Do we want to erase it ? or keep for later restart ?
-	//if err := storage.DeleteServer(ctx, nk, request.MatchId, session.UserID); err != nil {
+	//if err := storage.DeleteMatch(ctx, nk, request.MatchId, session.UserID); err != nil {
 	//    logger.Error(err.Error())
 	//    return "", err
 	//}

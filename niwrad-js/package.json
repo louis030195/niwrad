@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/louis030195/niwrad#readme",
   "dependencies": {
-    "@heroiclabs/nakama-js": "^2.0.1",
     "atob": "^2.1.2",
     "btoa": "^1.2.1",
     "es6-promise": "^4.2.8",

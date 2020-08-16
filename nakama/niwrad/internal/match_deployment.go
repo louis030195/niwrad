@@ -2,6 +2,7 @@ package niwrad
 
 import (
     "context"
+    "errors"
     "fmt"
     "github.com/heroiclabs/nakama-common/runtime"
     "github.com/louis030195/niwrad/internal/storage"
@@ -11,6 +12,7 @@ import (
     metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
     "k8s.io/client-go/kubernetes"
     "k8s.io/client-go/rest"
+    "sync/atomic"
 )
 
 type Account struct {
@@ -18,6 +20,10 @@ type Account struct {
 	password string
 	userID   string
 }
+
+var (
+    adminCounter uint64
+)
 
 // Create an authoritative nakama match and spawn a deployment with x distributed containers
 // distribution correspond to the number of containers handling this match
@@ -28,14 +34,16 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	for i := 0; i < distribution; i++ {
 		email := fmt.Sprintf("admin%d@niwrad.com", i)
 		password := utils.RandString(16)
+		// TODO: do we care about these acc ? to be updated after feature "stop/restart" match happen
 		// Register, if fail try to login
-		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", i), true)
+		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), true)
 		if err != nil {
-            userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", i), false)
+            userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), false)
             if err != nil {
-                return "", err
+                return "", errors.New("couldn't log the unity node to an account")
             }
 		}
+        atomic.AddUint64(&adminCounter, 1)
 		adminAccounts = append(adminAccounts, Account{email, password, userID})
 		params[fmt.Sprintf("admin%d", i)] = userID
 	}
@@ -56,6 +64,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 		return "", err
 	}
 
+	// TODO: could also deploy directly pods btw
 	deploymentsClient := c.AppsV1().Deployments(apiv1.NamespaceDefault)
 	// TODO: check whats the purpose of those names except label selector
 	deployment := &appsv1.Deployment{
@@ -121,7 +130,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 		return "", err
 	}
 
-	if err := storage.UpdateServer(ctx, nk, matchId, userID); err != nil {
+	if err := storage.UpdateMatch(ctx, nk, matchId, userID); err != nil {
 		return "", err
 	}
 	return matchId, nil

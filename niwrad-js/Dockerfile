@@ -1,4 +1,5 @@
 FROM node:lts
 
-COPY niwrad-js .
-RUN npm i
+COPY . .
+
+ENTRYPOINT [ "npm", "test" ]

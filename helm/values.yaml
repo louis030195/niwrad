@@ -15,6 +15,7 @@ nakama:
   service:
     type: NodePort
     port: 80 # TODO: ports for nakama
+    portApi: 7350
 
   default:
     username: azerty@azerty.com
@@ -33,4 +34,9 @@ js:
 
   image:
     repository: niwrad-js
+    pullPolicy: Never
+
+test:
+  image:
+    repository: niwrad-integration-tests
     pullPolicy: Never

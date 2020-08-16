@@ -1,58 +1,65 @@
 package storage
 
 import (
-	"context"
-	"encoding/json"
-
-	"github.com/golang/protobuf/jsonpb"
-	"github.com/heroiclabs/nakama-common/api"
-	"github.com/heroiclabs/nakama-common/runtime"
-	"github.com/louis030195/niwrad/api/rpc"
+    "context"
+    "encoding/json"
+    "github.com/golang/protobuf/jsonpb"
+    "github.com/heroiclabs/nakama-common/api"
+    "github.com/heroiclabs/nakama-common/runtime"
 )
 
 var (
 	errGetAccount = runtime.NewError("cannot find account", 14)
 )
 
+type User struct {
+    api.User
+    MatchesOwned []string
+}
+
 // GetUsers retrieves users from database and return them
-func GetUsers(ctx context.Context, nk runtime.NakamaModule, usersID ...string) ([]*api.User, []rpc.User, error) {
+func GetUsers(ctx context.Context, nk runtime.NakamaModule, usersID ...string) ([]User, error) {
 	var users []*api.User
 	var err error
 	// I don't know if it's possible to have err == nil and len == 0
 	if users, err = nk.UsersGetId(ctx, usersID); err != nil || len(users) == 0 {
-		return nil, nil, errGetAccount
+		return nil, errGetAccount
 	}
-
 	var objectIds []*runtime.StorageRead
-	for _, userID := range usersID {
+	for _, user := range users {
 		objectIds = append(objectIds, &runtime.StorageRead{
 			Collection: "user",
-			Key:        userID,
+			Key:        user.Id,
+			UserID: user.Id,
 		})
 	}
 
+	// We need to read our custom stored users
 	objects, err := nk.StorageRead(ctx, objectIds)
 	if err != nil {
-		return nil, nil, errGetAccount
+		return nil, errGetAccount
 	}
-	var usersStorage []rpc.User
-	for _, o := range objects {
-		var user rpc.User
+
+    var usersStorage []User
+	for i, o := range objects {
+		var user User
 		if err = jsonpb.UnmarshalString(o.Value, &user); err != nil {
-			return nil, nil, err
+			return nil, err
 		}
+		user.User = *users[i]
 		usersStorage = append(usersStorage, user)
 	}
-	return users, usersStorage, nil
+
+    return usersStorage, nil
 }
 
 // Retrieves servers in database and return them
-func GetServers(ctx context.Context, nk runtime.NakamaModule, serversID ...string) ([]rpc.UnityServer, error) {
+func GetMatches(ctx context.Context, nk runtime.NakamaModule, matchesID ...string) ([]api.Match, error) {
 	var objectIds []*runtime.StorageRead
-	for _, serverID := range serversID {
+	for _, matchID := range matchesID {
 		objectIds = append(objectIds, &runtime.StorageRead{
-			Collection: "server",
-			Key:        serverID,
+			Collection: "match",
+			Key:        matchID,
 		})
 	}
 
@@ -60,19 +67,19 @@ func GetServers(ctx context.Context, nk runtime.NakamaModule, serversID ...strin
 	if err != nil {
 		return nil, err
 	}
-	var servers []rpc.UnityServer
+	var matches []api.Match
 	for _, o := range objects {
-		var server rpc.UnityServer
-		if err = jsonpb.UnmarshalString(o.Value, &server); err != nil {
+		var match api.Match
+		if err = jsonpb.UnmarshalString(o.Value, &match); err != nil {
 			return nil, err
 		}
-		servers = append(servers, server)
+        matches = append(matches, match)
 	}
-	return servers, nil
+	return matches, nil
 }
 
 func UpdateUser(ctx context.Context, nk runtime.NakamaModule, userID string, matchesOwned []string) error {
-	user := rpc.User{MatchesOwned: matchesOwned}
+	user := User{MatchesOwned: matchesOwned}
 	jsonUser, err := json.Marshal(user)
 	if err != nil {
 		return err
@@ -94,18 +101,18 @@ func UpdateUser(ctx context.Context, nk runtime.NakamaModule, userID string, mat
 	return nil
 }
 
-func UpdateServer(ctx context.Context, nk runtime.NakamaModule, serverID string, userID string) error {
-	server := rpc.UnityServer{MatchId: serverID}
-	jsonServer, err := json.Marshal(server)
+func UpdateMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, userID string) error {
+	match := api.Match{MatchId: matchID}
+	jsonMatch, err := json.Marshal(match)
 	if err != nil {
 		return err
 	}
 	objects := []*runtime.StorageWrite{
 		{
-			Collection:      "server",
-			Key:             serverID,
+			Collection:      "match",
+			Key:             matchID,
 			UserID:          userID,
-			Value:           string(jsonServer),
+			Value:           string(jsonMatch),
 			PermissionRead:  2,
 			PermissionWrite: 1,
 		},
@@ -117,15 +124,15 @@ func UpdateServer(ctx context.Context, nk runtime.NakamaModule, serverID string,
 	return nil
 }
 
-func DeleteServer(ctx context.Context, nk runtime.NakamaModule, matchID string, userID string) error {
+func DeleteMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, userID string) error {
 	objects := []*runtime.StorageDelete{
 		{
-			Collection: "server",
+			Collection: "match",
 			Key:        matchID,
 			UserID:     userID,
 		},
 	}
-	// Delete server from storage
+	// Delete match from storage
 	if err := nk.StorageDelete(ctx, objects); err != nil {
 		return err
 	}

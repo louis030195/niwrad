@@ -1,5 +1,7 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:latest
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster
 
-COPY . .
+COPY Assets Assets
+COPY Library Library
+COPY helm helm
 
-ENTRYPOINT [ "dotnet", "test" ]
+ENTRYPOINT [ "dotnet", "test", "helm/templates/tests/ApiTest/ApiTest.sln" ]

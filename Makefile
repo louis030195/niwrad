@@ -8,8 +8,14 @@ PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 JS_OUT=niwrad-js/lib/proto
 
+
+
+
 help: ## Display this help
-	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@echo 'usage: make [target] ...'
+	@echo
+	@echo 'targets:'
+	@egrep '^(.+)\:\ ##\ (.+)' ${MAKEFILE_LIST} | column -t -c 2 -s ':#'
 
 build: build-proto build-client-artifact build-server-artifact build-images ## Build unity client, docker images and protobufs
 
@@ -37,7 +43,7 @@ build-js-image: ## Build js client docker image
 
 build-integration-tests-image: ## Build integration tests docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t niwrad-integration-tests -f ./helm/templates/tests/ApiTest/Dockerfile helm/templates/tests/ApiTest
+	docker build -t niwrad-integration-tests -f ./helm/templates/tests/ApiTest/Dockerfile .
 
 build-nakama-image: ## Build nakama docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
@@ -108,5 +114,5 @@ test: ## Run unit tests and integration tests
 # 	$(EDITOR_PATH) -runTests -projectPath $(PROJECT_PATH) -testResults /tmp/results.xml -testPlatform editmode -headless
 
 # 	Only run helm tests if the cluster is deployed
-	@kubectl get deployment | grep -q '$(NS)' && echo "Running integration tests ..." && helm test $(NS)
+	@kubectl get deployment | grep -q '$(NS)' && echo "Running integration tests ..." && helm test $(NS) && kubectl logs $(NS)-test
 	@echo "Everything passed"

@@ -21,6 +21,7 @@
         "**/ProjectSettings": true,
         "**/UserSettings": true,
         "**/Temp": true,
-        "**/Builds": true
+        "**/Builds": true,
+        "**/bin": true
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Api.Rpc;
@@ -23,13 +24,23 @@ namespace ApiTest
             var env = Environment.GetEnvironmentVariables();
             const string scheme = "http";
             var host = env["NAKAMA_HOST"] as string;
-            var port = env["NAKAMA_PORT"] as int? ?? 0;
+            var port = env["NAKAMA_PORT"] as string;
             var defaultUsername = env["USERNAME"] as string;
             var defaultPassword = env["PASSWORD"] as string;
-            
+            Console.WriteLine($"host: {host}:{port}");
+            using var ping = new Ping();
+            try
+            {
+                ping.Send(host ?? "");
+            }
+            catch (PingException)
+            {
+                Assert.Fail("Nakama is unreachable");
+            }
+
             const string serverKey = "defaultkey";
             const string tokenPath = @"/tmp/test_token.txt";
-            _client = new Client(scheme, host, port, serverKey);
+            _client = new Client(scheme, host, Convert.ToInt32(port), serverKey);
             if (System.IO.File.Exists(tokenPath))
             {
                 var token = await System.IO.File.ReadAllTextAsync(tokenPath);
@@ -38,9 +49,9 @@ namespace ApiTest
 
             if (_session == null || _session.IsExpired)
             {
-                System.Console.WriteLine("Session has expired. Must re-authenticate!");
+                Console.WriteLine("Session has expired. Must re-authenticate!");
                 _session = await _client.AuthenticateEmailAsync(defaultUsername, defaultPassword, create: true);
-                System.Console.WriteLine("Re-authenticated!");
+                Console.WriteLine("Re-authenticated!");
             }
             Assert.NotNull(_session);
             Assert.False(_session.IsExpired);
@@ -68,7 +79,7 @@ namespace ApiTest
             Assert.NotNull(res.Payload);
             var parsedRes = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
             Assert.NotNull(parsedRes);
-            Assert.AreEqual(parsedRes.Result, StopMatchCompletionResult.StopServerCompletionResultSucceeded);
+            Assert.AreEqual(StopMatchCompletionResult.StopServerCompletionResultSucceeded, parsedRes.Result);
         }
 
         [Test]
@@ -79,7 +90,7 @@ namespace ApiTest
             Assert.NotNull(res.Payload);
             var parsedRes = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(res.Payload));
             Assert.NotNull(parsedRes);
-            Assert.AreEqual(parsedRes.Result, CreateMatchCompletionResult.Succeeded);
+            Assert.AreEqual( CreateMatchCompletionResult.Succeeded, parsedRes.Result);
             Assert.NotNull(parsedRes.MatchId);
             _matchId = parsedRes.MatchId;
         }

@@ -56,23 +56,21 @@ git clone https://github.com/louis030195/niwrad
 3. [protoc, protoc-gen-go, protoc-gen-csharp](https://github.com/protocolbuffers/protobuf) (optional)
 
 ```make
-Usage: make <target>
+usage: make [target] ...
 
-Targets:
-  help        Display this help
-  build       Build unity client, docker images and protobufs
-  build-client-artifact  Build unity client
-  build-server-artifact  Build unity server
-  build-unity-image  Build unity server docker image
-  build-js-image  Build js client docker image
-  build-integration-tests-image  Build integration tests docker image
-  build-nakama-image  Build nakama docker image
-  build-images  Build docker images
-  build-proto  Build protobuf stubs
-  deploy      Deploy cluster
-  un-deploy   Un-deploy cluster
-  client      Run client
-  test        Run unit tests and integration tests
+targets:
+help                               Display this help
+build-client-artifact              Build unity client
+build-server-artifact              Build unity server
+build-unity-image                  Build unity server docker image
+build-js-image                     Build js client docker image
+build-integration-tests-image      Build integration tests docker image
+build-nakama-image                 Build nakama docker image
+build-proto                        Build protobuf stubs
+deploy                             Deploy cluster
+un-deploy                          Un-deploy cluster
+client                             Run client
+test                               Run unit tests and integration tests
 ```
 
 So you can try by deploying cluster & runnning client:

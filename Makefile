@@ -8,30 +8,37 @@ PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 JS_OUT=niwrad-js/lib/proto
 
+# TODO: make k8s namespace for niwrad
 
-
+# $(pgrep -x minikube && echo "Detected minikube" && eval ${minikube -p minikube docker-env})
 
 help: ## Display this help
 	@echo 'usage: make [target] ...'
 	@echo
-	@echo 'targets:'
+	@echo -e '\033[35mTargets:\033[0m'
 	@egrep '^(.+)\:\ ##\ (.+)' ${MAKEFILE_LIST} | column -t -c 2 -s ':#'
 
-build: build-proto build-client-artifact build-server-artifact build-images ## Build unity client, docker images and protobufs
+build: ## Build unity client, docker images and protobufs
+build: build-proto build-client-artifact build-server-artifact build-images
 
 build-client-artifact: ## Build unity client
-	@rm -rf Builds/Linux
-	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+	rm -rf Builds/Linux
+	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
 		-silent-crashes -headless
-	@echo "Unity client built"
+	@echo "\033[35mUnity client built\033[0m"
+
 
 build-server-artifact: ## Build unity server
-	@rm -rf Builds/Linux
-	@$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+	rm -rf Builds/Linux
+	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
 		-silent-crashes -headless
-	@echo "Unity server built"
+	@echo "\033[35mUnity server built\033[0m"
+
+
+build-images: ## Build docker images
+build-images: build-unity-image build-js-image build-integration-tests-image build-nakama-image
 
 build-unity-image: ## Build unity server docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
@@ -49,23 +56,21 @@ build-nakama-image: ## Build nakama docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
 	docker build -t nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
 
-build-images: build-unity-image build-js-image build-integration-tests-image build-nakama-image ## Build docker images
-
 build-proto: ## Build protobuf stubs
-	@mkdir -p Assets/Scripts/Api/Protometry Assets/Scripts/Api/Realtime Assets/Scripts/Api/Rpc
+	mkdir -p Assets/Scripts/Api/Protometry Assets/Scripts/Api/Realtime Assets/Scripts/Api/Rpc
 
 #	Protometry protoc
-	@protoc -I $(GOPATH) \
+	protoc -I $(GOPATH) \
 		-I $(PROTOMETRY)/api/vector3 \
 		--csharp_out=$(CSHARP_OUT)/Protometry \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
 		$(PROTOMETRY)/api/vector3/vector3.proto
-	@protoc -I $(GOPATH) \
+	protoc -I $(GOPATH) \
 		-I $(PROTOMETRY)/api/quaternion \
 		--csharp_out=$(CSHARP_OUT)/Protometry \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
 		$(PROTOMETRY)/api/quaternion/quaternion.proto
-	@protoc -I $(GOPATH) \
+	protoc -I $(GOPATH) \
 		-I $(PROTOMETRY)/api/volume \
 		--csharp_out=$(CSHARP_OUT)/Protometry \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
@@ -77,36 +82,42 @@ build-proto: ## Build protobuf stubs
 #	rm -rf $(JS_OUT)/github.com
 
 #	Niwrad protoc
-	@protoc -I $(GOPATH) \
+	protoc -I $(GOPATH) \
 		-I $(PROTOS)/realtime \
 		--csharp_out=$(CSHARP_OUT)/Realtime \
 		--go_out=. \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
 		$(PROTOS)/realtime/*.proto
-	@protoc -I $(GOPATH) \
+	protoc -I $(GOPATH) \
 		-I $(PROTOS)/rpc \
 		--csharp_out=$(CSHARP_OUT)/Rpc \
 		--go_out=. \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
 		$(PROTOS)/rpc/*.proto
 
-	@echo "Protocol buffer compiled"
+	@echo "\033[35mProtocol buffer compiled\033[0m"
 
 deploy: ## Deploy cluster
-	@helm install $(NS) helm
-	@echo "Cluster deployed"
+	helm install $(NS) helm
 #	Trick to print Nakama endpoint after deployment, a smarter approach would use something like k8s Ingress
-	@pgrep -x minikube >/dev/null && \
-	(echo "Nakama endpoint:" && minikube service list | grep -oE '.*7350.*(http:\/\/[0-9]*.[0-9]*.[0-9]*.[0-9]*:[0-9]*)') || true
+#	TODO: fix this shit
+# 	@INGRESS_HOST=$(minikube ip)
+# 	@json='{.spec.ports[?(@.name=="api")].nodePort}'
+# 	@INGRESS_PORT=$(kubectl get service ${NS} -o jsonpath=${json})
+# 	@echo "Connect to Nakama at $(INGRESS_HOST):$(INGRESS_PORT)"
 
 un-deploy: ## Un-deploy cluster
-	@helm uninstall $(NS)
-	@kubectl delete -n default deployment $(NS)-unity > /dev/null || (true && echo "Ignoring ...")
-	@echo "Cluster un-deployed"
+	helm uninstall $(NS)
+#	TODO: make that if works (only delete unity executors if they exists)
+#	ifeq ($(kubectl get deployment -l tier=executor)
+	kubectl delete deployment -l tier=executor
+	kubectl delete pod -l tier=executor
+#	endif
+	@echo "\033[35mCluster un-deployed\033[0m"
 
 client: ## Run client
-	@./Builds/Linux/Client/$(NS).x86_64
-	@echo "Running Linux client"
+	./Builds/Linux/Client/$(NS).x86_64
+	@echo "\033[35mRunning Linux client\033[0m"
 
 test: ## Run unit tests and integration tests
 #	Who need test anyway ?
@@ -114,5 +125,6 @@ test: ## Run unit tests and integration tests
 # 	$(EDITOR_PATH) -runTests -projectPath $(PROJECT_PATH) -testResults /tmp/results.xml -testPlatform editmode -headless
 
 # 	Only run helm tests if the cluster is deployed
-	@kubectl get deployment | grep -q '$(NS)' && echo "Running integration tests ..." && helm test $(NS) && kubectl logs $(NS)-test
-	@echo "Everything passed"
+	kubectl get deployment | grep -q '$(NS)' && echo "Running integration tests ..." && helm test $(NS) && kubectl logs $(NS)-test
+	@echo "\033[35mEverything passed\033[0m"
+

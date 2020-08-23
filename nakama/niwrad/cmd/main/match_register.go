@@ -19,13 +19,19 @@ func Register(initializer runtime.Initializer) error {
 	if err := initializer.RegisterMatch(serviceName, createPartyMatch); err != nil {
 		return err
 	}
-	if err := initializer.RegisterRpc("create_match", niwrad.RpcCreateMatch); err != nil {
+    if err := initializer.RegisterRpc("list_matches", niwrad.RpcListMatches); err != nil {
+        return err
+    }
+    if err := initializer.RegisterRpc("create_match", niwrad.RpcCreateMatch); err != nil {
 		return err
 	}
 	if err := initializer.RegisterRpc("stop_match", niwrad.RpcStopMatch); err != nil {
 		return err
 	}
 	if err := initializer.RegisterAfterAuthenticateEmail(niwrad.AfterAuthenticateEmail); err != nil {
+		return err
+	}
+	if err := initializer.RegisterRpc("delete_all_accounts", niwrad.RpcDeleteAllAccounts); err != nil {
 		return err
 	}
 	return nil

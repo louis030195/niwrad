@@ -39,3 +39,19 @@ enum StopMatchCompletionResult {
 message StopMatchResponse {
 	StopMatchCompletionResult result = 1;
 }
+
+message DeleteUsersRequest {
+}
+
+enum DeleteUsersCompletionResult {
+	deleteUsersCompletionResultUnknownInternalFailure        = 0;
+	deleteUsersCompletionResultSucceeded                     = 1;
+}
+
+message DeleteUsersResponse {
+	DeleteUsersCompletionResult result = 1;
+}
+
+message ListMatchesResponse {
+	repeated string matches_id = 1;
+}

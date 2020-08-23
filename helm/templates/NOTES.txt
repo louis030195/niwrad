@@ -6,4 +6,15 @@ To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
   $ helm get all {{ .Release.Name }}
-  $ minikube service list
+
+If you're developing and building container images locally, don't forget to use:
+
+  $ eval $(minikube -p minikube docker-env)
+
+Otherwise your images won't be built inside minikube Docker, e.g. k8s won't be able to reach it
+
+To connect to the cluster, try:
+
+  $ minikube ip
+  $ kubectl get service {{ .Release.Name }} -o jsonpath='{.spec.ports[?(@.name=="api")].nodePort}'
+  $ make client

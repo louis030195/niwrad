@@ -81,16 +81,12 @@ namespace UI
 				go.GetComponentInChildren<TextMeshProUGUI>().text = $"ID: {m}";
 
 				// On button click, update the currently selected match id
-				go.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
+				go.GetComponentInChildren<Button>().onClick.AddListener(() =>
 				{
 					Debug.Log($"Match {m} selected");
 					m_MatchId = m;
 				});
-                go.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() =>
-				{
-					StopMatch(m);
-				});
-			}
+            }
 		}
 
 		/// <summary>
@@ -118,7 +114,7 @@ namespace UI
 			createServerPanel.SetActive(!joinOrCreatePanel.activeInHierarchy);
 		}
 
-		public async void CreateServer()
+		public async void CreateMatch()
 		{
 			var tsOk = int.TryParse(m_TerrainSize.text, out var ts);
 			var iaOk = int.TryParse(m_InitialAnimals.text, out var ia);
@@ -130,14 +126,14 @@ namespace UI
 			var p = new CreateMatchRequest().ToByteString().ToStringUtf8();
 			var protoResponse = await SessionManager.instance.socket.RpcAsync("create_match", p);
 			var response = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
-			Debug.Log($"CreateServer Response: {response}");
+			Debug.Log($"CreateMatchResponse: {response}");
 		}
 
-		private async void StopMatch(string m)
+		public async void StopMatch()
 		{
-			var p = new StopMatchRequest()
+			var p = new StopMatchRequest
 			{
-				MatchId = m
+				MatchId = m_MatchId
 			}.ToByteString().ToStringUtf8();
 			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_match", p);
 			var response = StopMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));

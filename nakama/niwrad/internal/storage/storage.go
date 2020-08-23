@@ -1,11 +1,11 @@
 package storage
 
 import (
-    "context"
-    "encoding/json"
-    "github.com/golang/protobuf/jsonpb"
-    "github.com/heroiclabs/nakama-common/api"
-    "github.com/heroiclabs/nakama-common/runtime"
+	"context"
+	"encoding/json"
+	"github.com/golang/protobuf/jsonpb"
+	"github.com/heroiclabs/nakama-common/api"
+	"github.com/heroiclabs/nakama-common/runtime"
 )
 
 var (
@@ -13,8 +13,8 @@ var (
 )
 
 type User struct {
-    api.User
-    MatchesOwned []string
+	api.User
+	MatchesOwned []string
 }
 
 // GetUsers retrieves users from database and return them
@@ -30,7 +30,7 @@ func GetUsers(ctx context.Context, nk runtime.NakamaModule, usersID ...string) (
 		objectIds = append(objectIds, &runtime.StorageRead{
 			Collection: "user",
 			Key:        user.Id,
-			UserID: user.Id,
+			UserID:     user.Id,
 		})
 	}
 
@@ -40,7 +40,7 @@ func GetUsers(ctx context.Context, nk runtime.NakamaModule, usersID ...string) (
 		return nil, errGetAccount
 	}
 
-    var usersStorage []User
+	var usersStorage []User
 	for i, o := range objects {
 		var user User
 		if err = jsonpb.UnmarshalString(o.Value, &user); err != nil {
@@ -50,7 +50,7 @@ func GetUsers(ctx context.Context, nk runtime.NakamaModule, usersID ...string) (
 		usersStorage = append(usersStorage, user)
 	}
 
-    return usersStorage, nil
+	return usersStorage, nil
 }
 
 // Retrieves servers in database and return them
@@ -73,7 +73,7 @@ func GetMatches(ctx context.Context, nk runtime.NakamaModule, matchesID ...strin
 		if err = jsonpb.UnmarshalString(o.Value, &match); err != nil {
 			return nil, err
 		}
-        matches = append(matches, match)
+		matches = append(matches, match)
 	}
 	return matches, nil
 }
@@ -101,6 +101,15 @@ func UpdateUser(ctx context.Context, nk runtime.NakamaModule, userID string, mat
 	return nil
 }
 
+func DeleteUsers(ctx context.Context, nk runtime.NakamaModule, userID []string) error {
+	for _, user := range userID {
+		if err := nk.AccountDeleteId(ctx, user, true); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func UpdateMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, userID string) error {
 	match := api.Match{MatchId: matchID}
 	jsonMatch, err := json.Marshal(match)
@@ -124,12 +133,11 @@ func UpdateMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, u
 	return nil
 }
 
-func DeleteMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, userID string) error {
+func DeleteMatch(ctx context.Context, nk runtime.NakamaModule, matchID string) error {
 	objects := []*runtime.StorageDelete{
 		{
 			Collection: "match",
 			Key:        matchID,
-			UserID:     userID,
 		},
 	}
 	// Delete match from storage

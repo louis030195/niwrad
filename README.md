@@ -10,6 +10,7 @@
 See related writings:
 
 * [Blog post part one](https://medium.com/swlh/a-simulation-of-evolution-part-one-62a1acfb009a)
+* [Blog post part two](https://medium.com/@louis.beaumont/a-simulation-of-evolution-two-b26664d159a5)
 
 ## How it works
 
@@ -73,9 +74,19 @@ client                             Run client
 test                               Run unit tests and integration tests
 ```
 
-So you can try by deploying cluster & runnning client:
+So you can try:
 
 ```bash
+# Start local kubernetes using Minikube, Memory is cheap :D
+# If you intend to start multiple parallel matches with 4 executors each you might need some RAM :)
+minikube start --memory 8192
+
+# Install Kubernetes Ingress Nginx controller
+helm repo add nginx-stable https://helm.nginx.com/stable
+helm repo update
+helm install nginx nginx-stable/nginx-ingress
+
+# Deploy
 make deploy
 make client
 ```
@@ -85,11 +96,12 @@ make client
 * [x] [Medium] Unit testing Unity.
 * [x] [Medium] Helm integration tests.
 * [ ] [stale, Nakama-js doesn't support protobuf] [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots and testing.
-* [ ] [Easy] Implement "robot": a creature that will tweak evolution according to our will, e.g. "I want fast animals" it will kill all slow animals\
-    Basically anything that can allow players to apply artificial selection
+* [ ] [Easy] Implement artificial selection
 * [ ] [Easy] finish github workflow (github page deployment)
 * [ ] [Easy] Android controller
 * [ ] [Easy] Deploy persistent, resilient, fenced server on the cloud
-* [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen hypothesis
+* [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen
 * [ ] [Easy] Consider splitting in multiple repositories each component (Nakama, Unity, APIs: js) especially if things grows too much
-* [ ] [Easy] Consider using lua and/or go but if both, both should always use protobuf messages, no json !!!
+* [x] [Easy] Consider using lua and/or go but if both, both should always use protobuf messages, no json !!!
+* [ ] [Easy] Push images & helm charts on the cloud & automate the process of doing it & update instructions (no need to clone repo anymore then)
+* [ ] [Easy] K8s Ingress controller (one that support TCP)

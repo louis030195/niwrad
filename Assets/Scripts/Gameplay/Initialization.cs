@@ -106,7 +106,7 @@ namespace Gameplay
             if (SessionManager.instance.isServer)
             {
                 HostManager.instance.InitializeGameplay();
-                return;
+                // return;
             }
             // Client notify everyone that it's ready to handle game-play
             // TODO: wondering if we should send to everyone to have player in state globally for global messages ?

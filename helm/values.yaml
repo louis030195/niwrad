@@ -13,7 +13,7 @@ nakama:
     pullPolicy: Never
 
   service:
-    type: NodePort
+    type: ClusterIP
     port: 80 # TODO: ports for nakama
     portApi: 7350
 

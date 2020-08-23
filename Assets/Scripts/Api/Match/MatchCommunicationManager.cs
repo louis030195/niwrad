@@ -8,6 +8,7 @@ using Google.Protobuf;
 using Nakama;
 using Nakama.TinyJson;
 using Api.Realtime;
+using Api.Rpc;
 using Api.Session;
 using Protometry.Volume;
 using UnityEngine;
@@ -97,8 +98,8 @@ namespace Api.Match
 	        // The message containing last match id we send to server in order to receive required match info
 	        var response = await SessionManager.instance.client
 		        .RpcAsync(SessionManager.instance.session, "list_matches");
-	        var result = response.Payload.FromJson<Dictionary<string, string[]>>();
-	        return result.ContainsKey("matches") ? result["matches"] : new string[]{};
+            var matches = ListMatchesResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(response.Payload));
+            return matches.MatchesId.ToArray();
         }
 
 

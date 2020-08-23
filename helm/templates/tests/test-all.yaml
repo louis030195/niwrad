@@ -14,8 +14,8 @@ spec:
           value: "niwrad"
         - name: NAKAMA_PORT
           value: {{ .Values.nakama.service.portApi | quote }}
-        - name: USERNAME
+        - name: NAKAMA_USERNAME
           value: {{ .Values.nakama.default.username | quote }}
-        - name: PASSWORD
+        - name: NAKAMA_PASSWORD
           value: {{ .Values.nakama.default.password | quote }}
   restartPolicy: Never

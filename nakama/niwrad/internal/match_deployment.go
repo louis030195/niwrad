@@ -1,19 +1,21 @@
 package niwrad
 
 import (
-    "context"
-    "errors"
-    "fmt"
-    "github.com/heroiclabs/nakama-common/runtime"
-    "github.com/louis030195/niwrad/internal/storage"
-    "github.com/louis030195/niwrad/internal/utils"
-    appsv1 "k8s.io/api/apps/v1"
-    apiv1 "k8s.io/api/core/v1"
-    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-    "k8s.io/client-go/kubernetes"
-    "k8s.io/client-go/rest"
-    "sync/atomic"
+	"context"
+	"errors"
+	"fmt"
+	"github.com/heroiclabs/nakama-common/runtime"
+	"github.com/louis030195/niwrad/internal/storage"
+	"github.com/louis030195/niwrad/internal/utils"
+	appsv1 "k8s.io/api/apps/v1"
+	apiv1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"sync/atomic"
 )
+
+// See https://github.com/kubernetes/client-go/commit/abf396d787a7442759dd7d9315005bedc639e134
 
 type Account struct {
 	email    string
@@ -22,8 +24,10 @@ type Account struct {
 }
 
 var (
-    adminCounter uint64
+	adminCounter uint64
 )
+
+const EXECUTOR_PREFIX = "niwrad-unity"
 
 // Create an authoritative nakama match and spawn a deployment with x distributed containers
 // distribution correspond to the number of containers handling this match
@@ -38,12 +42,12 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 		// Register, if fail try to login
 		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), true)
 		if err != nil {
-            userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), false)
-            if err != nil {
-                return "", errors.New("couldn't log the unity node to an account")
-            }
+			userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), false)
+			if err != nil {
+				return "", errors.New("couldn't attribute the unity executor node to an account")
+			}
 		}
-        atomic.AddUint64(&adminCounter, 1)
+		atomic.AddUint64(&adminCounter, 1)
 		adminAccounts = append(adminAccounts, Account{email, password, userID})
 		params[fmt.Sprintf("admin%d", i)] = userID
 	}
@@ -64,37 +68,45 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 		return "", err
 	}
 
+	// TODO: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
 	// TODO: could also deploy directly pods btw
 	deploymentsClient := c.AppsV1().Deployments(apiv1.NamespaceDefault)
 	// TODO: check whats the purpose of those names except label selector
+
 	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "niwrad-unity",
+			Name: fmt.Sprintf("%s-%s", EXECUTOR_PREFIX, matchId),
+            Labels: map[string]string{
+                "app": EXECUTOR_PREFIX,
+                "tier": "executor",
+            },
 		},
 		Spec: appsv1.DeploymentSpec{
 			Selector: &metav1.LabelSelector{
 				MatchLabels: map[string]string{
-					"app": fmt.Sprintf("niwrad-unity-%s", matchId),
+					"app": EXECUTOR_PREFIX,
+					"tier": "executor",
 				},
 			},
 			Template: apiv1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: map[string]string{
-						"app": fmt.Sprintf("niwrad-unity-%s", matchId),
-					},
+						"app": EXECUTOR_PREFIX,
+                        "tier": "executor",
+                    },
 				},
 				Spec: apiv1.PodSpec{
-				    // https://github.com/kubernetes/kubernetes/issues/24725
-                    //RestartPolicy: apiv1.RestartPolicyNever, // Non-redundant pods currently
-                },
+					// https://github.com/kubernetes/kubernetes/issues/24725
+					//RestartPolicy: apiv1.RestartPolicyNever, // Non-redundant pods currently
+				},
 			},
 		},
 	}
 	for i := 0; i < distribution; i++ {
 		deployment.Spec.Template.Spec.Containers = append(deployment.Spec.Template.Spec.Containers,
 			apiv1.Container{
-				Name:  fmt.Sprintf("niwrad-unity-%d", i),
-				Image: "niwrad-unity",
+				Name:  fmt.Sprintf("%s-%d", EXECUTOR_PREFIX, i),
+				Image: "niwrad-unity", // TODO: store image tag
 				//Command: []string{
 				//	"/app/niwrad.x86_64",
 				//},
@@ -136,7 +148,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	return matchId, nil
 }
 
-func stopMatch(matchId string) error {
+func stopMatch(ctx context.Context, nk runtime.NakamaModule, matchId string) error {
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		return err
@@ -145,11 +157,16 @@ func stopMatch(matchId string) error {
 	if err != nil {
 		return err
 	}
-	deploymentsClient := c.AppsV1().Deployments(apiv1.NamespaceDefault)
-	err = deploymentsClient.DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{
-		LabelSelector: fmt.Sprintf("niwrad-unity-%s", matchId),
-	})
-	if err != nil {
+	client := c.AppsV1().Deployments(apiv1.NamespaceDefault)
+	deletePolicy := metav1.DeletePropagationForeground
+	deleteOptions := &metav1.DeleteOptions{
+		PropagationPolicy: &deletePolicy,
+	}
+	if err = client.Delete(fmt.Sprintf("niwrad-unity-%s", matchId), deleteOptions); err != nil {
+		return err
+	}
+	// TODO: Do we want to erase it ? or keep for later restart ?
+	if err := storage.DeleteMatch(ctx, nk, matchId); err != nil {
 		return err
 	}
 	return nil

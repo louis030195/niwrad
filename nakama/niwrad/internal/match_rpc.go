@@ -3,11 +3,12 @@ package niwrad
 import (
 	"context"
 	"database/sql"
-    "fmt"
-    "github.com/golang/protobuf/proto"
+	"fmt"
+	"github.com/golang/protobuf/proto"
 	"github.com/heroiclabs/nakama-common/runtime"
 	"github.com/louis030195/niwrad/api/rpc"
 	"github.com/louis030195/niwrad/internal/storage"
+	"math"
 )
 
 var (
@@ -19,32 +20,57 @@ var (
 	errStopServer    = runtime.NewError("cannot stop server", 16) // TODO: better errors
 )
 
+const (
+	READY_LABEL = "ready"
+)
+
 type sessionContext struct {
-    Username string
+	Username  string
 	UserID    string
 	SessionID string
 }
 
 func unpackContext(ctx context.Context) (*sessionContext, error) {
-    username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
-    if !ok {
-        err := errBadContext
-        err.Message = "RUNTIME_CTX_USERNAME " + err.Message
-        return nil, err
-    }
+	username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
+	if !ok {
+		err := errBadContext
+		err.Message = "RUNTIME_CTX_USERNAME " + err.Message
+		return nil, err
+	}
 	userID, ok := ctx.Value(runtime.RUNTIME_CTX_USER_ID).(string)
 	if !ok {
-        err := errBadContext
-        err.Message = "RUNTIME_CTX_USER_ID " + err.Message
-        return nil, err
+		err := errBadContext
+		err.Message = "RUNTIME_CTX_USER_ID " + err.Message
+		return nil, err
 	}
 	sessionID, ok := ctx.Value(runtime.RUNTIME_CTX_SESSION_ID).(string)
 	if !ok {
-        err := errBadContext
-        err.Message = "RUNTIME_CTX_SESSION_ID " + err.Message
-        return nil, err
+		err := errBadContext
+		err.Message = "RUNTIME_CTX_SESSION_ID " + err.Message
+		return nil, err
 	}
 	return &sessionContext{Username: username, UserID: userID, SessionID: sessionID}, nil
+}
+
+// RpcListMatches
+func RpcListMatches(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
+	min := 0
+	max := math.MaxInt64
+	// Only return ready-state matches (all executors joined & are ready)
+	matches, err := nk.MatchList(ctx, math.MaxInt64, true, READY_LABEL, &min, &max, "")
+	var matchesId []string
+	for _, m := range matches {
+		matchesId = append(matchesId, m.MatchId)
+	}
+	// Return result to user.
+	response := &rpc.ListMatchesResponse{
+		MatchesId: matchesId,
+	}
+	responseBytes, err := proto.Marshal(response)
+	if err != nil {
+		return "", errMarshal
+	}
+	return string(responseBytes), nil
 }
 
 // RpcCreateMatch Client request for match creation, checking if allowed and if yes creating a match with x containers
@@ -99,8 +125,8 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 
 	// Return result to user.
 	response := &rpc.CreateMatchResponse{
-	    MatchId: matchId,
-		Result: rpc.CreateMatchCompletionResult_createMatchCompletionResultSucceeded,
+		MatchId: matchId,
+		Result:  rpc.CreateMatchCompletionResult_createMatchCompletionResultSucceeded,
 	}
 	responseBytes, err := proto.Marshal(response)
 	if err != nil {
@@ -132,7 +158,8 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		logger.Error(err.Error())
 		return "", err
 	}
-	servers, err := storage.GetMatches(ctx, nk, usersStorage[0].MatchesOwned...)
+	user := usersStorage[0]
+	servers, err := storage.GetMatches(ctx, nk, user.MatchesOwned...)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err
@@ -144,34 +171,30 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		return "", errUnmarshal
 	}
 	logger.Info("A server deletion has been asked by {\"user\":%v, \"servers\":%v} with config: %v",
-		usersStorage[0],
+		user,
 		servers,
 		request)
 
 	// Stop the k8s deployment
-	err = stopMatch(request.MatchId)
+	err = stopMatch(ctx, nk, request.MatchId)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err
 	}
-	// TODO: Do we want to erase it ? or keep for later restart ?
-	//if err := storage.DeleteMatch(ctx, nk, request.MatchId, session.UserID); err != nil {
-	//    logger.Error(err.Error())
-	//    return "", err
-	//}
 
 	// Once server removed from server table,
 	// should we remove it or maybe user want to restart the server with saved state ?
-	//matchesOwned := usersStorage[0].MatchesOwned
-	//for i := range matchesOwned {
-	//    if matchesOwned[i] == request.MatchId {
-	//        matchesOwned[len(matchesOwned)-1], matchesOwned[i] = matchesOwned[i], matchesOwned[len(matchesOwned)-1]
-	//    }
-	//}
-	//if err := storage.UpdateUser(ctx, nk, session.UserID, matchesOwned); err != nil {
-	//    logger.Error(err.Error())
-	//    return "", err
-	//}
+	matchesOwned := user.MatchesOwned
+	for i := range matchesOwned {
+		if matchesOwned[i] == request.MatchId {
+			matchesOwned[len(matchesOwned)-1], matchesOwned[i] = matchesOwned[i], matchesOwned[len(matchesOwned)-1]
+		}
+	}
+	// Removing the deleted match from user storage
+	if err := storage.UpdateUser(ctx, nk, user.Id, matchesOwned); err != nil {
+		return "", err
+	}
+
 	// Return result to user.
 	response := &rpc.StopMatchResponse{
 		Result: rpc.StopMatchCompletionResult_stopServerCompletionResultSucceeded,

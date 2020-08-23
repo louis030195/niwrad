@@ -1,19 +1,19 @@
 package niwrad
 
 import (
-    "context"
-    "database/sql"
-    "fmt"
-    "github.com/louis030195/niwrad/api/realtime"
-    "github.com/louis030195/niwrad/internal/gen"
-    octree "github.com/louis030195/octree/pkg"
-    "github.com/louis030195/protometry/api/volume"
-    "math"
-    "math/rand"
-    "strconv"
+	"context"
+	"database/sql"
+	"fmt"
+	"github.com/louis030195/niwrad/api/realtime"
+	"github.com/louis030195/niwrad/internal/gen"
+	octree "github.com/louis030195/octree/pkg"
+	"github.com/louis030195/protometry/api/volume"
+	"math"
+	"math/rand"
+	"strconv"
 
-    "github.com/golang/protobuf/proto"
-    c "github.com/heroiclabs/nakama-common/runtime"
+	"github.com/golang/protobuf/proto"
+	c "github.com/heroiclabs/nakama-common/runtime"
 )
 
 var (
@@ -31,7 +31,8 @@ type MatchState struct {
 	presences    map[string]PresenceState
 	octree       *octree.Octree
 	servers      []*volume.Box
-	distribution int
+	distribution int // TODO: reduce the state as much as possible
+	ready        int
 	m            *realtime.Matrix
 	spawned      int
 	seed         int64
@@ -51,7 +52,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	distribution, ok := params["distribution"].(int)
 	if !ok {
 		logger.Error("Failed to init match, no distribution given")
-		if err := stopMatch(matchID); err != nil {
+		if err := stopMatch(ctx, nk, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -61,7 +62,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		userID, ok := params[fmt.Sprintf("admin%d", i)].(string)
 		if !ok {
 			logger.Error("Failed to init match, couldn't retrieve admin user ID")
-			if err := stopMatch(matchID); err != nil {
+			if err := stopMatch(ctx, nk, matchID); err != nil {
 				logger.Error(err.Error())
 				return nil, 0, ""
 			}
@@ -71,7 +72,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	}
 	if !ok {
 		logger.Error("Failed to init match, no admins")
-		if err := stopMatch(matchID); err != nil {
+		if err := stopMatch(ctx, nk, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -102,41 +103,44 @@ func (m *Match) MatchJoinAttempt(ctx context.Context, logger c.Logger, db *sql.D
 
 func (m *Match) MatchJoin(ctx context.Context, logger c.Logger, db *sql.DB, nk c.NakamaModule, dispatcher c.MatchDispatcher, tick int64, state interface{}, presences []c.Presence) interface{} {
 	logger.Info("MatchJoin, %v", presences)
-    mState, _ := state.(*MatchState)
-    for _, p := range presences {
-        // Initial client spawn, TODO: config something
-        b := volume.NewBoxOfSize(5, 0, 5, 50)
-        for i := range adminUserIDs {
-            if p.GetUserId() == adminUserIDs[i] {
-                bs := volume.NewBoxOfSize(0, 0, 0, float64(mState.octree.GetSize())).SplitFour(true)
-                // hard coded 4 distribution atm
-                // meaning that each container handle 2 octant
-                b = bs[len(mState.servers)]
-                mState.servers = append(mState.servers, b)
-                logger.Info("New match server, region: %v ", b)
-                break
-            }
-        }
-        mState.presences[p.GetUserId()] = PresenceState{presence: p, region: b}
-        logger.Info("Sending information now")
-        if err := realtime.Send(dispatcher, []c.Presence{p}, &realtime.Packet_MatchJoin{
-            MatchJoin: &realtime.MatchJoin{
-                    Region: b,
-                    Seed:   mState.seed,
-            },
-        }); err != nil {
-            logger.Error(err.Error())
-            return nil
-        }
-    }
+	mState, _ := state.(*MatchState)
+	for _, p := range presences {
+		// Initial client spawn, TODO: config something
+		b := volume.NewBoxOfSize(5, 0, 5, 50)
+		for i := range adminUserIDs {
+			if p.GetUserId() == adminUserIDs[i] {
+				bs := volume.NewBoxOfSize(0, 0, 0, float64(mState.octree.GetSize())).SplitFour(true)
+				// hard coded 4 distribution atm
+				// meaning that each container handle 2 octant
+				b = bs[len(mState.servers)]
+				mState.servers = append(mState.servers, b)
+				logger.Info("New match server, region: %v ", b)
+				if len(mState.servers) == mState.distribution {
+					logger.Info("All executors joined (%d)", mState.distribution)
+				}
+				break
+			}
+		}
+		mState.presences[p.GetUserId()] = PresenceState{presence: p, region: b}
+		logger.Info("Sending presence seed and region: %v, %v", mState.seed, b)
+		if err := realtime.Send(dispatcher, []c.Presence{p}, &realtime.Packet_MatchJoin{
+			MatchJoin: &realtime.MatchJoin{
+				Region: b,
+				Seed:   mState.seed,
+			},
+		}); err != nil {
+			logger.Error(err.Error())
+			return nil
+		}
+	}
 
-    // Just a last check, shouldn't be too expensive
-    //for i := 0; i < len(mState.servers)-1; i++ {
-    //    if mState.servers[i].Intersects(*mState.servers[i+1]) {
-    //        logger.Error("Servers region shouldn't overlap !")
-    //        return nil
-    //    }
-    //}
+	// Just a last check, shouldn't be too expensive
+	//for i := 0; i < len(mState.servers)-1; i++ {
+	//    if mState.servers[i].Intersects(*mState.servers[i+1]) {
+	//        logger.Error("Servers region shouldn't overlap !")
+	//        return nil
+	//    }
+	//}
 	return state
 }
 
@@ -144,8 +148,13 @@ func (m *Match) MatchLeave(ctx context.Context, logger c.Logger, db *sql.DB, nk 
 	logger.Info("MatchLeave")
 	mState, _ := state.(*MatchState)
 	for _, p := range presences {
-	    logger.Info("UserID: %v", p.GetUserId())
+		logger.Info("UserID: %v", p.GetUserId())
 		delete(mState.presences, p.GetUserId())
+	}
+
+	if len(mState.presences) == 0 {
+		logger.Info("Match %v is empty, terminating it", mState.matchID)
+		m.MatchTerminate(ctx, logger, db, nk, dispatcher, tick, state, 2)
 	}
 
 	return mState
@@ -157,6 +166,25 @@ func (m *Match) MatchLoop(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		var s realtime.Packet
 		if err := proto.Unmarshal(message.GetData(), &s); err != nil {
 			logger.Error("Failed to parse match packet:", err)
+		}
+        //logger.Info("Received %T", s.Type)
+
+		// TODO: let's reduce as much as possible computing on nakama side which isn't distributed
+		// TODO: and thus is likely to be not that much scalable
+		switch s.Type.(type) {
+        case *realtime.Packet_Initialized:
+			if s.IsServer {
+			    mState.ready++
+			    logger.Info("Server %s, is ready, match readiness %d/%d", message.GetUserId(), mState.ready, mState.distribution)
+			    if mState.ready == mState.distribution {
+                    if err := dispatcher.MatchLabelUpdate(READY_LABEL); err != nil {
+                        logger.Error(err.Error())
+                        return nil
+                    }
+                    logger.Info("%d/%d executors joined (%d) and are ready, clients can join the match now",
+                        mState.ready, mState.distribution)
+                }
+            }
 		}
 
 		// By default clients / server will send to all recipients (except for some special packets)

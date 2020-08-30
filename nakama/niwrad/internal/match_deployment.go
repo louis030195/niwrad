@@ -1,18 +1,18 @@
 package niwrad
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"github.com/heroiclabs/nakama-common/runtime"
-	"github.com/louis030195/niwrad/internal/storage"
-	"github.com/louis030195/niwrad/internal/utils"
-	appsv1 "k8s.io/api/apps/v1"
-	apiv1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
-	"sync/atomic"
+    "context"
+    "database/sql"
+    "errors"
+    "fmt"
+    "github.com/heroiclabs/nakama-common/runtime"
+    "github.com/louis030195/niwrad/internal/storage"
+    appsv1 "k8s.io/api/apps/v1"
+    apiv1 "k8s.io/api/core/v1"
+    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/client-go/kubernetes"
+    "k8s.io/client-go/rest"
+    "sync/atomic"
 )
 
 // See https://github.com/kubernetes/client-go/commit/abf396d787a7442759dd7d9315005bedc639e134
@@ -36,21 +36,23 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	var adminAccounts []Account
 	params := make(map[string]interface{})
 	for i := 0; i < distribution; i++ {
-		email := fmt.Sprintf("admin%d@niwrad.com", i)
-		password := utils.RandString(16)
+	    nb := /*adminCounter+*/uint64(i)
+	    // TODO:
+		email := fmt.Sprintf("admin%d@niwrad.com", nb)
+		password := "aaaaaaaa"//utils.RandString(16)
 		// TODO: do we care about these acc ? to be updated after feature "stop/restart" match happen
 		// Register, if fail try to login
-		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), true)
+		userID, _, _, err := nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", nb), true)
 		if err != nil {
-			userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", adminCounter), false)
+			userID, _, _, err = nk.AuthenticateEmail(ctx, email, password, fmt.Sprintf("admin%d", nb), false)
 			if err != nil {
 				return "", errors.New("couldn't attribute the unity executor node to an account")
 			}
 		}
-		atomic.AddUint64(&adminCounter, 1)
 		adminAccounts = append(adminAccounts, Account{email, password, userID})
-		params[fmt.Sprintf("admin%d", i)] = userID
-	}
+		params[fmt.Sprintf("admin%d", nb)] = userID
+        atomic.AddUint64(&adminCounter, 1)
+    }
 	params["distribution"] = distribution
 	matchId, err := nk.MatchCreate(ctx, "Niwrad", params)
 
@@ -131,6 +133,10 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 						Name:  "PASSWORD",
 						Value: adminAccounts[i].password,
 					},
+                    {
+                        Name: "ONLINE",
+                        Value: "true",
+                    },
 				},
 				ImagePullPolicy: apiv1.PullNever,
 			})
@@ -148,7 +154,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	return matchId, nil
 }
 
-func stopMatch(ctx context.Context, nk runtime.NakamaModule, matchId string) error {
+func stopMatch(db *sql.DB, matchID string) error {
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		return err
@@ -162,11 +168,11 @@ func stopMatch(ctx context.Context, nk runtime.NakamaModule, matchId string) err
 	deleteOptions := &metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
-	if err = client.Delete(fmt.Sprintf("niwrad-unity-%s", matchId), deleteOptions); err != nil {
+	if err = client.Delete(fmt.Sprintf("niwrad-unity-%s", matchID), deleteOptions); err != nil {
 		return err
 	}
 	// TODO: Do we want to erase it ? or keep for later restart ?
-	if err := storage.DeleteMatch(ctx, nk, matchId); err != nil {
+	if err := storage.Delete(db, "storage", fmt.Sprintf("collection = 'match' AND key = '%s'", matchID)); err != nil {
 		return err
 	}
 	return nil

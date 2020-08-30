@@ -1,14 +1,13 @@
 package niwrad
 
 import (
-	"context"
-	"database/sql"
-	"fmt"
-	"github.com/golang/protobuf/proto"
-	"github.com/heroiclabs/nakama-common/runtime"
-	"github.com/louis030195/niwrad/api/rpc"
-	"github.com/louis030195/niwrad/internal/storage"
-	"math"
+    "context"
+    "database/sql"
+    "fmt"
+    "github.com/golang/protobuf/proto"
+    "github.com/heroiclabs/nakama-common/runtime"
+    "github.com/louis030195/niwrad/api/rpc"
+    "github.com/louis030195/niwrad/internal/storage"
 )
 
 var (
@@ -21,7 +20,7 @@ var (
 )
 
 const (
-	READY_LABEL = "ready"
+	ReadyLabel = "ready"
 )
 
 type sessionContext struct {
@@ -55,9 +54,9 @@ func unpackContext(ctx context.Context) (*sessionContext, error) {
 // RpcListMatches
 func RpcListMatches(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, payload string) (string, error) {
 	min := 0
-	max := math.MaxInt64
+	max := 10 // TODO: high value seems to crash wtf ?
 	// Only return ready-state matches (all executors joined & are ready)
-	matches, err := nk.MatchList(ctx, math.MaxInt64, true, READY_LABEL, &min, &max, "")
+	matches, err := nk.MatchList(ctx, 10, true, ReadyLabel, &min, &max, "")
 	var matchesId []string
 	for _, m := range matches {
 		matchesId = append(matchesId, m.MatchId)
@@ -70,6 +69,7 @@ func RpcListMatches(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	if err != nil {
 		return "", errMarshal
 	}
+	logger.Info("Listing matches: %v", response.MatchesId)
 	return string(responseBytes), nil
 }
 
@@ -101,16 +101,16 @@ func RpcCreateMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk r
 	}
 
 	if len(usersStorage) == 1 { // TODO: right to create server
-		logger.Info("A server creation has been asked by user:%v with config: %v",
+		logger.Info("A match creation has been asked by user:%v with config: %v",
 			usersStorage[0],
 			request)
 	}
-	matchId, err := startMatch(ctx, nk, session.UserID, 4)
+	matchId, err := startMatch(ctx, nk, session.UserID, 1)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", nil
 	}
-
+    logger.Info("Match created %s", matchId)
 	var matchesOwned []string
 	if len(usersStorage) == 1 { // This user is already in storage
 		matchesOwned = append(usersStorage[0].MatchesOwned, matchId)
@@ -176,7 +176,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		request)
 
 	// Stop the k8s deployment
-	err = stopMatch(ctx, nk, request.MatchId)
+	err = stopMatch(db, request.MatchId)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err
@@ -187,7 +187,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 	matchesOwned := user.MatchesOwned
 	for i := range matchesOwned {
 		if matchesOwned[i] == request.MatchId {
-			matchesOwned[len(matchesOwned)-1], matchesOwned[i] = matchesOwned[i], matchesOwned[len(matchesOwned)-1]
+			matchesOwned = append(matchesOwned[:i], matchesOwned[i+1:]...)
 		}
 	}
 	// Removing the deleted match from user storage

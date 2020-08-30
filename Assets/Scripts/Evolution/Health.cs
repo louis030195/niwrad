@@ -92,18 +92,10 @@ namespace Evolution
 	        if (m_CurrentHealth <= 0 && !dead)
 	        {
 		        dead = true;
-		        if (destroyOnDeath)
-		        {
-			        Died?.Invoke();
-			        if (deathEffects.Length > 0) // Unused, prob not ready for working
-			        {
-				        var p = transform.position;
-				        Pool.Despawn(
-					        Pool.Spawn(deathEffects.AnyItem(),
-						        new Vector3(p.x, p.y, p.z),
-						        new Quaternion(0, 0, 0, 0)), 3);
-			        }
-		        }
+		        // if (destroyOnDeath)
+		        // {
+                Died?.Invoke();
+                // }
 
 		        if (dyingAnimations.Length > 0)
 		        {

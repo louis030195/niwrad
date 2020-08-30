@@ -29,54 +29,52 @@ namespace Api.Realtime {
             "My92ZWN0b3IzLnByb3RvGkFnaXRodWIuY29tL2xvdWlzMDMwMTk1L3Byb3Rv",
             "bWV0cnkvYXBpL3F1YXRlcm5pb24vcXVhdGVybmlvbi5wcm90bxo5Z2l0aHVi",
             "LmNvbS9sb3VpczAzMDE5NS9wcm90b21ldHJ5L2FwaS92b2x1bWUvdm9sdW1l",
-            "LnByb3RvIs0FCgZQYWNrZXQSEQoJc2VuZGVyX2lkGAEgASgJEhEKCWlzX3Nl",
-            "cnZlchgCIAEoCBISCgpyZWNpcGllbnRzGAMgAygJEisKBmltcGFjdBgEIAEo",
-            "CzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzEjsKCm1hdGNoX2pvaW4Y",
-            "ByABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5NYXRjaEpvaW5I",
-            "ABIuCgNtYXAYCCABKAsyHy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5N",
-            "YXBIABJHChB1cGRhdGVfdHJhbnNmb3JtGAogASgLMisubmFrYW1hLm5pd3Jh",
-            "ZC5hcGkucmVhbHRpbWUuVXBkYXRlVHJhbnNmb3JtSAASRAoPbmF2X21lc2hf",
-            "dXBkYXRlGAsgASgLMikubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuTmF2",
-            "TWVzaFVwZGF0ZUgAEjIKBXNwYXduGA8gASgLMiEubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuU3Bhd25IABI6Cg1yZXF1ZXN0X3NwYXduGBAgASgLMiEu",
-            "bmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuU3Bhd25IABI2CgdkZXN0cm95",
-            "GBEgASgLMiMubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRGVzdHJveUgA",
-            "Ej4KD3JlcXVlc3RfZGVzdHJveRgSIAEoCzIjLm5ha2FtYS5uaXdyYWQuYXBp",
-            "LnJlYWx0aW1lLkRlc3Ryb3lIABIwCgRtZW1lGBMgASgLMiAubmFrYW1hLm5p",
-            "d3JhZC5hcGkucmVhbHRpbWUuTWVtZUgAEj4KC2luaXRpYWxpemVkGBkgASgL",
-            "MicubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuSW5pdGlhbGl6ZWRIAEIG",
-            "CgR0eXBlIkEKCU1hdGNoSm9pbhImCgZyZWdpb24YASABKAsyFi5wcm90b21l",
-            "dHJ5LnZvbHVtZS5Cb3gSDAoEc2VlZBgCIAEoAyJWCgNNYXASDgoGeF9iYXNl",
-            "GAEgASgDEg4KBnlfYmFzZRgCIAEoAxIvCgNtYXAYAyABKAsyIi5uYWthbWEu",
-            "bml3cmFkLmFwaS5yZWFsdGltZS5NYXRyaXgiOQoGTWF0cml4Ei8KBHJvd3MY",
-            "ASADKAsyIS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5BcnJheSIZCgVB",
-            "cnJheRIQCgRjb2xzGAEgAygBQgIQASJLCg9VcGRhdGVUcmFuc2Zvcm0SOAoJ",
-            "dHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
-            "VHJhbnNmb3JtIk0KDU5hdk1lc2hVcGRhdGUSCgoCaWQYASABKAQSMAoLZGVz",
-            "dGluYXRpb24YAiABKAsyGy5wcm90b21ldHJ5LnZlY3RvcjMuVmVjdG9yMyKt",
-            "AQoFU3Bhd24SNAoDYW55GAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVh",
-            "bHRpbWUuVHJhbnNmb3JtSAASMAoEdHJlZRgCIAEoCzIgLm5ha2FtYS5uaXdy",
-            "YWQuYXBpLnJlYWx0aW1lLlRyZWVIABI0CgZhbmltYWwYAyABKAsyIi5uYWth",
-            "bWEubml3cmFkLmFwaS5yZWFsdGltZS5BbmltYWxIAEIGCgR0eXBlIq8BCgdE",
-            "ZXN0cm95EjQKA2FueRgBIAEoCzIlLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
-            "aW1lLlRyYW5zZm9ybUgAEjAKBHRyZWUYAiABKAsyIC5uYWthbWEubml3cmFk",
-            "LmFwaS5yZWFsdGltZS5UcmVlSAASNAoGYW5pbWFsGAMgASgLMiIubmFrYW1h",
-            "Lm5pd3JhZC5hcGkucmVhbHRpbWUuQW5pbWFsSABCBgoEdHlwZSIlCgRNZW1l",
-            "EgoKAmlkGAEgASgEEhEKCW1lbWVfbmFtZRgCIAEoCSINCgtJbml0aWFsaXpl",
-            "ZCJ7CglUcmFuc2Zvcm0SCgoCaWQYASABKAQSLQoIcG9zaXRpb24YAiABKAsy",
-            "Gy5wcm90b21ldHJ5LnZlY3RvcjMuVmVjdG9yMxIzCghyb3RhdGlvbhgDIAEo",
-            "CzIhLnByb3RvbWV0cnkucXVhdGVybmlvbi5RdWF0ZXJuaW9uIkAKBFRyZWUS",
-            "OAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
-            "bWUuVHJhbnNmb3JtIkIKBkFuaW1hbBI4Cgl0cmFuc2Zvcm0YASABKAsyJS5u",
-            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0iVAoYUmVxdWVz",
-            "dFRyYW5zZmVyT3duZXJzaGlwEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2Ft",
-            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLlRyYW5zZm9ybUI0WiNuYWthbWEvbml3",
-            "cmFkL2FwaS9yZWFsdGltZTtyZWFsdGltZaoCDEFwaS5SZWFsdGltZWIGcHJv",
-            "dG8z"));
+            "LnByb3RvIpMFCgZQYWNrZXQSKwoGaW1wYWN0GAQgASgLMhsucHJvdG9tZXRy",
+            "eS52ZWN0b3IzLlZlY3RvcjMSOwoKbWF0Y2hfam9pbhgHIAEoCzIlLm5ha2Ft",
+            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLk1hdGNoSm9pbkgAEi4KA21hcBgIIAEo",
+            "CzIfLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLk1hcEgAEkcKEHVwZGF0",
+            "ZV90cmFuc2Zvcm0YCiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGlt",
+            "ZS5VcGRhdGVUcmFuc2Zvcm1IABJECg9uYXZfbWVzaF91cGRhdGUYCyABKAsy",
+            "KS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5OYXZNZXNoVXBkYXRlSAAS",
+            "MgoFc3Bhd24YDyABKAsyIS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5T",
+            "cGF3bkgAEjoKDXJlcXVlc3Rfc3Bhd24YECABKAsyIS5uYWthbWEubml3cmFk",
+            "LmFwaS5yZWFsdGltZS5TcGF3bkgAEjYKB2Rlc3Ryb3kYESABKAsyIy5uYWth",
+            "bWEubml3cmFkLmFwaS5yZWFsdGltZS5EZXN0cm95SAASPgoPcmVxdWVzdF9k",
+            "ZXN0cm95GBIgASgLMiMubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRGVz",
+            "dHJveUgAEjAKBG1lbWUYEyABKAsyIC5uYWthbWEubml3cmFkLmFwaS5yZWFs",
+            "dGltZS5NZW1lSAASPgoLaW5pdGlhbGl6ZWQYGSABKAsyJy5uYWthbWEubml3",
+            "cmFkLmFwaS5yZWFsdGltZS5Jbml0aWFsaXplZEgAQgYKBHR5cGUiQQoJTWF0",
+            "Y2hKb2luEiYKBnJlZ2lvbhgBIAEoCzIWLnByb3RvbWV0cnkudm9sdW1lLkJv",
+            "eBIMCgRzZWVkGAIgASgDIlYKA01hcBIOCgZ4X2Jhc2UYASABKAMSDgoGeV9i",
+            "YXNlGAIgASgDEi8KA21hcBgDIAEoCzIiLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
+            "YWx0aW1lLk1hdHJpeCI5CgZNYXRyaXgSLwoEcm93cxgBIAMoCzIhLm5ha2Ft",
+            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLkFycmF5IhkKBUFycmF5EhAKBGNvbHMY",
+            "ASADKAFCAhABIksKD1VwZGF0ZVRyYW5zZm9ybRI4Cgl0cmFuc2Zvcm0YASAB",
+            "KAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0iTQoN",
+            "TmF2TWVzaFVwZGF0ZRIKCgJpZBgBIAEoBBIwCgtkZXN0aW5hdGlvbhgCIAEo",
+            "CzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzIq0BCgVTcGF3bhI0CgNh",
+            "bnkYASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zv",
+            "cm1IABIwCgR0cmVlGAIgASgLMiAubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
+            "bWUuVHJlZUgAEjQKBmFuaW1hbBgDIAEoCzIiLm5ha2FtYS5uaXdyYWQuYXBp",
+            "LnJlYWx0aW1lLkFuaW1hbEgAQgYKBHR5cGUirwEKB0Rlc3Ryb3kSNAoDYW55",
+            "GAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuVHJhbnNmb3Jt",
+            "SAASMAoEdHJlZRgCIAEoCzIgLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1l",
+            "LlRyZWVIABI0CgZhbmltYWwYAyABKAsyIi5uYWthbWEubml3cmFkLmFwaS5y",
+            "ZWFsdGltZS5BbmltYWxIAEIGCgR0eXBlIiUKBE1lbWUSCgoCaWQYASABKAQS",
+            "EQoJbWVtZV9uYW1lGAIgASgJIg0KC0luaXRpYWxpemVkInsKCVRyYW5zZm9y",
+            "bRIKCgJpZBgBIAEoBBItCghwb3NpdGlvbhgCIAEoCzIbLnByb3RvbWV0cnku",
+            "dmVjdG9yMy5WZWN0b3IzEjMKCHJvdGF0aW9uGAMgASgLMiEucHJvdG9tZXRy",
+            "eS5xdWF0ZXJuaW9uLlF1YXRlcm5pb24iQAoEVHJlZRI4Cgl0cmFuc2Zvcm0Y",
+            "ASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0i",
+            "QgoGQW5pbWFsEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2FtYS5uaXdyYWQu",
+            "YXBpLnJlYWx0aW1lLlRyYW5zZm9ybSJUChhSZXF1ZXN0VHJhbnNmZXJPd25l",
+            "cnNoaXASOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGku",
+            "cmVhbHRpbWUuVHJhbnNmb3JtQjRaI25ha2FtYS9uaXdyYWQvYXBpL3JlYWx0",
+            "aW1lO3JlYWx0aW1lqgIMQXBpLlJlYWx0aW1lYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Packet), global::Api.Realtime.Packet.Parser, new[]{ "SenderId", "IsServer", "Recipients", "Impact", "MatchJoin", "Map", "UpdateTransform", "NavMeshUpdate", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "Initialized" }, new[]{ "Type" }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Packet), global::Api.Realtime.Packet.Parser, new[]{ "Impact", "MatchJoin", "Map", "UpdateTransform", "NavMeshUpdate", "Spawn", "RequestSpawn", "Destroy", "RequestDestroy", "Meme", "Initialized" }, new[]{ "Type" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.MatchJoin), global::Api.Realtime.MatchJoin.Parser, new[]{ "Region", "Seed" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Map), global::Api.Realtime.Map.Parser, new[]{ "XBase", "YBase", "Map_" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Matrix), global::Api.Realtime.Matrix.Parser, new[]{ "Rows" }, null, null, null),
@@ -125,9 +123,6 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Packet(Packet other) : this() {
-      senderId_ = other.senderId_;
-      isServer_ = other.isServer_;
-      recipients_ = other.recipients_.Clone();
       impact_ = other.impact_ != null ? other.impact_.Clone() : null;
       switch (other.TypeCase) {
         case TypeOneofCase.MatchJoin:
@@ -170,49 +165,10 @@ namespace Api.Realtime {
       return new Packet(this);
     }
 
-    /// <summary>Field number for the "sender_id" field.</summary>
-    public const int SenderIdFieldNumber = 1;
-    private string senderId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string SenderId {
-      get { return senderId_; }
-      set {
-        senderId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "is_server" field.</summary>
-    public const int IsServerFieldNumber = 2;
-    private bool isServer_;
-    /// <summary>
-    /// TODO: reduce headers
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool IsServer {
-      get { return isServer_; }
-      set {
-        isServer_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "recipients" field.</summary>
-    public const int RecipientsFieldNumber = 3;
-    private static readonly pb::FieldCodec<string> _repeated_recipients_codec
-        = pb::FieldCodec.ForString(26);
-    private readonly pbc::RepeatedField<string> recipients_ = new pbc::RepeatedField<string>();
-    /// <summary>
-    /// TODO: actually rare use case, should maybe just be a type of message
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<string> Recipients {
-      get { return recipients_; }
-    }
-
     /// <summary>Field number for the "impact" field.</summary>
     public const int ImpactFieldNumber = 4;
     private global::Protometry.Vector3.Vector3 impact_;
     /// <summary>
-    /// like "request to send to specific recipients ..." too many headers !!!
     /// TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -385,9 +341,6 @@ namespace Api.Realtime {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SenderId != other.SenderId) return false;
-      if (IsServer != other.IsServer) return false;
-      if(!recipients_.Equals(other.recipients_)) return false;
       if (!object.Equals(Impact, other.Impact)) return false;
       if (!object.Equals(MatchJoin, other.MatchJoin)) return false;
       if (!object.Equals(Map, other.Map)) return false;
@@ -406,9 +359,6 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (SenderId.Length != 0) hash ^= SenderId.GetHashCode();
-      if (IsServer != false) hash ^= IsServer.GetHashCode();
-      hash ^= recipients_.GetHashCode();
       if (impact_ != null) hash ^= Impact.GetHashCode();
       if (typeCase_ == TypeOneofCase.MatchJoin) hash ^= MatchJoin.GetHashCode();
       if (typeCase_ == TypeOneofCase.Map) hash ^= Map.GetHashCode();
@@ -434,15 +384,6 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (SenderId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(SenderId);
-      }
-      if (IsServer != false) {
-        output.WriteRawTag(16);
-        output.WriteBool(IsServer);
-      }
-      recipients_.WriteTo(output, _repeated_recipients_codec);
       if (impact_ != null) {
         output.WriteRawTag(34);
         output.WriteMessage(Impact);
@@ -495,13 +436,6 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (SenderId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(SenderId);
-      }
-      if (IsServer != false) {
-        size += 1 + 1;
-      }
-      size += recipients_.CalculateSize(_repeated_recipients_codec);
       if (impact_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Impact);
       }
@@ -546,13 +480,6 @@ namespace Api.Realtime {
       if (other == null) {
         return;
       }
-      if (other.SenderId.Length != 0) {
-        SenderId = other.SenderId;
-      }
-      if (other.IsServer != false) {
-        IsServer = other.IsServer;
-      }
-      recipients_.Add(other.recipients_);
       if (other.impact_ != null) {
         if (impact_ == null) {
           Impact = new global::Protometry.Vector3.Vector3();
@@ -633,18 +560,6 @@ namespace Api.Realtime {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            SenderId = input.ReadString();
-            break;
-          }
-          case 16: {
-            IsServer = input.ReadBool();
-            break;
-          }
-          case 26: {
-            recipients_.AddEntriesFrom(input, _repeated_recipients_codec);
-            break;
-          }
           case 34: {
             if (impact_ == null) {
               Impact = new global::Protometry.Vector3.Vector3();

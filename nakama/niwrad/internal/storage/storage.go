@@ -2,8 +2,10 @@ package storage
 
 import (
 	"context"
-	"encoding/json"
-	"github.com/golang/protobuf/jsonpb"
+    "database/sql"
+    "encoding/json"
+    "fmt"
+    "github.com/golang/protobuf/jsonpb"
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/runtime"
 )
@@ -14,7 +16,7 @@ var (
 
 type User struct {
 	api.User
-	MatchesOwned []string
+	MatchesOwned []string // TODO: protobuf -> db is snake case
 }
 
 // GetUsers retrieves users from database and return them
@@ -91,7 +93,7 @@ func UpdateUser(ctx context.Context, nk runtime.NakamaModule, userID string, mat
 			UserID:          userID,
 			Value:           string(jsonUser),
 			PermissionRead:  2,
-			PermissionWrite: 1,
+			PermissionWrite: 2,
 		},
 	}
 
@@ -123,7 +125,7 @@ func UpdateMatch(ctx context.Context, nk runtime.NakamaModule, matchID string, u
 			UserID:          userID,
 			Value:           string(jsonMatch),
 			PermissionRead:  2,
-			PermissionWrite: 1,
+			PermissionWrite: 2,
 		},
 	}
 
@@ -145,4 +147,24 @@ func DeleteMatch(ctx context.Context, nk runtime.NakamaModule, matchID string) e
 		return err
 	}
 	return nil
+}
+
+// Delete remove row(s) from a given table, where condition is optional, leave "" if all rows
+func Delete(db *sql.DB, table, where string) error {
+    query := fmt.Sprintf("DELETE FROM %s", table)
+    if where != "" {
+        query = fmt.Sprintf("%s WHERE %s", query, where)
+    }
+    if _, err := db.Exec(query); err != nil {
+        return err
+    }
+    return nil
+}
+
+// DeleteAll remove all rows from a given table
+func DeleteAll(db *sql.DB, table string) error {
+    if _, err := db.Exec(fmt.Sprintf("DELETE FROM %s", table)); err != nil {
+        return err
+    }
+    return nil
 }

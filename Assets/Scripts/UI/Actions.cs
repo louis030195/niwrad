@@ -2,6 +2,7 @@ using System;
 using Gameplay;
 using Api.Match;
 using Api.Session;
+using Evolution;
 using UnityEngine;
 using Utils;
 
@@ -80,7 +81,7 @@ namespace UI
         public void StopDraggingAnimal()
         {
 	        if (!StopDragging(out var hitPos)) return;
-	        if (SessionManager.instance.isServer)
+	        if (!Gm.instance.online || Sm.instance.isServer)
 	        {
 		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
 		        if (p.Equals(Vector3.positiveInfinity))
@@ -88,7 +89,7 @@ namespace UI
 			        Debug.LogWarning($"You tried to spawn outside map");
 			        return;
 		        }
-		        HostManager.instance.SpawnAnimal(p, Quaternion.identity);
+		        Hm.instance.SpawnAnimalSync(p, Quaternion.identity);
 	        }
 	        else
 	        {
@@ -98,14 +99,14 @@ namespace UI
 			        Debug.LogWarning($"Client tried to spawn outside map");
 			        return;
 		        }
-		        HostManager.instance.RequestSpawnAnimal(p, Quaternion.identity);
+		        Hm.instance.RequestSpawnAnimal(p, Quaternion.identity);
 	        }
         }
 
         public void StopDraggingTree()
         {
 	        if (!StopDragging(out var hitPos)) return;
-	        if (SessionManager.instance.isServer)
+	        if (!Gm.instance.online || Sm.instance.isServer)
 	        {
 		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
 		        if (p.Equals(Vector3.positiveInfinity))
@@ -113,7 +114,7 @@ namespace UI
 			        Debug.LogWarning($"You tried to spawn outside map");
 			        return;
 		        }
-		        HostManager.instance.SpawnTree(p, Quaternion.identity);
+		        Hm.instance.SpawnTreeSync(p, Quaternion.identity);
 	        }
 	        else
 	        {
@@ -123,7 +124,7 @@ namespace UI
 			        Debug.LogWarning($"Client tried to spawn outside map");
 			        return;
 		        }
-		        HostManager.instance.RequestSpawnTree(p, Quaternion.identity);
+		        Hm.instance.RequestSpawnTree(p, Quaternion.identity);
 	        }
         }
 

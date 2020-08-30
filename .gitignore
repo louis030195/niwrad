@@ -76,7 +76,7 @@ crashlytics-build.properties
 # Nakama/modules
 # *.so
 Nakama/.cookie
-vendor
+# vendor
 
 # Plugins and Packages
 # Assets/Plugins/*
@@ -135,7 +135,3 @@ fabric.properties
 
 # *.iml
 # modules.xml
-
-
-# TMP TODO
-Nakama/modules/Server

@@ -2,18 +2,18 @@ unity:
   replicaCount: 0
 
   image:
-    repository: niwrad-unity
-    pullPolicy: Never
+    repository: louis030195/executor
+    pullPolicy: Always
 
 nakama:
   replicaCount: 1
 
   image:
-    repository: nakama
-    pullPolicy: Never
+    repository: louis030195/nakama
+    pullPolicy: Always
 
   service:
-    type: ClusterIP
+    type: NodePort # not reachable outside cluster -> ClusterIP
     port: 80 # TODO: ports for nakama
     portApi: 7350
 
@@ -33,10 +33,10 @@ js:
   replicaCount: 0
 
   image:
-    repository: niwrad-js
+    repository: louis030195/niwrad-js
     pullPolicy: Never
 
 test:
   image:
-    repository: niwrad-integration-tests
-    pullPolicy: Never
+    repository: louis030195/integration
+    pullPolicy: Always

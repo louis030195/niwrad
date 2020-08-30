@@ -39,7 +39,7 @@ namespace Evolution
 
 		private void OnDied()
 		{
-			HostManager.instance.DestroyAnimal(id);
+			Hm.instance.DestroyAnimalSync(id);
 		}
 
 		protected new void OnEnable()
@@ -47,7 +47,7 @@ namespace Evolution
 			base.OnEnable();
 			movement = GetComponent<Movement>();
 			movement.speed = initialSpeed;
-			if (SessionManager.instance.isServer)
+			if (Sm.instance && Sm.instance.isServer)
 			{
 				health.Died += OnDied;
 				movement.destinationChanged += OnDestinationChanged;
@@ -57,7 +57,7 @@ namespace Evolution
 		protected new void OnDisable()
 		{
 			base.OnDisable();
-			if (SessionManager.instance && SessionManager.instance.isServer)
+			if (Sm.instance && Sm.instance.isServer)
 			{
 				health.Died -= OnDied;
 			}
@@ -74,7 +74,7 @@ namespace Evolution
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
-			var childHost = HostManager.instance.SpawnAnimal(transform.position, Quaternion.identity);
+			var childHost = Hm.instance.SpawnAnimalSync(transform.position, Quaternion.identity);
 			if (childHost == null)
 			{
 				Debug.LogError($"Reproduce couldn't spawn animal");
@@ -121,7 +121,7 @@ namespace Evolution
 
 		private void OnDestinationChanged(Vector3 obj)
 		{
-			MatchCommunicationManager.instance.RpcAsync(new Packet
+			Mcm.instance.RpcAsync(new Packet
 			{
 				NavMeshUpdate = new NavMeshUpdate
 				{

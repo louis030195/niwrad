@@ -2,7 +2,6 @@ package realtime
 
 import (
 	"github.com/louis030195/protometry/api/volume"
-	"math/rand"
 	"testing"
 )
 
@@ -63,7 +62,7 @@ func Test_chunkOfMapFromRegion(t *testing.T) {
 	}
 	for i := int(region.Min.X); i < int(region.Max.X); i += batchSize {
 		for j := int(region.Min.Z); j < int(region.Max.Z); j += batchSize {
-			m.Take(&chunk, i, j, batchSize)
+            data.Take(&chunk, i, j, batchSize)
 		}
 	}
 }

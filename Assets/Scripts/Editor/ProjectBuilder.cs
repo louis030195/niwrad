@@ -10,7 +10,7 @@ namespace Editor
         private static readonly string[] GameLevels = {
 	        "Assets/Scenes/LoginMenu.unity",
 	        "Assets/Scenes/SecondMenu.unity",
-	        "Assets/Scenes/Game.unity"
+            "Assets/Scenes/Online.unity"
         };
 
         [MenuItem("Builds/Windows %#W")]
@@ -29,8 +29,8 @@ namespace Editor
                 Debug.LogError($"Error building Windows { message }");
         }
 
-        [MenuItem("Builds/Linux %#L")]
-         public static void BuildLinux()
+        [MenuItem("Builds/Linux/Client %#L")]
+         public static void BuildLinuxClient()
         {
             PlayerSettings.runInBackground = true;
             PlayerSettings.resizableWindow = true;
@@ -45,7 +45,7 @@ namespace Editor
             else Debug.LogError($"Error building Linux client { message }");
         }
 
-        [MenuItem("Builds/LinuxServer %#H")]
+        [MenuItem("Builds/Linux/Server %#H")]
         public static void BuildLinuxServer()
         {
             PlayerSettings.runInBackground = true;
@@ -59,12 +59,26 @@ namespace Editor
             else Debug.LogError($"Error building Linux server { message }");
         }
 
-        [MenuItem("Builds/Web")]
-        public static void BuildWeb()
+        [MenuItem("Builds/Web/Online")]
+        public static void BuildWebOnline()
         {
             PlayerSettings.runInBackground = true;
             var message = BuildPipeline.BuildPlayer(
-	            new[] {GameLevels[2]},
+                GameLevels,
+                $"{BasePath}Web/",
+                BuildTarget.WebGL,
+                BuildOptions.None);
+
+            if (message) Debug.Log($"WebGL build complete");
+            else Debug.LogError($"Error building WebGL { message }");
+        }
+        
+        [MenuItem("Builds/Web/Offline")]
+        public static void BuildWebOffline()
+        {
+            PlayerSettings.runInBackground = true;
+            var message = BuildPipeline.BuildPlayer(
+                new[] {"Assets/Scenes/Offline.unity"},
                 $"{BasePath}Web/",
                 BuildTarget.WebGL,
                 BuildOptions.None);
@@ -90,11 +104,12 @@ namespace Editor
                 Debug.LogError($"Error building Android { message }");
         }
 
-        // Seems to be runnable from bash
-        [MenuItem("Builds/PC All Platforms")]
+        [MenuItem("Builds/Clients")]
         public static void BuildAllPc() {
             BuildWindows();
-            BuildLinux();
+            BuildLinuxClient();
+            BuildAndroid();
+            BuildWebOnline();
         }
     }
 }

@@ -1,20 +1,21 @@
-Thank you for installing {{ .Chart.Name }}.
-
-Your release is named {{ .Release.Name }}.
-
 To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
   $ helm get all {{ .Release.Name }}
+  $ kubectl logs -f deployment/{{.Release.Name }}
 
-If you're developing and building container images locally, don't forget to use:
+If you're developing with Minikube (or other k8s-in-container) and building container images locally, don't forget to use:
 
   $ eval $(minikube -p minikube docker-env)
 
-Otherwise your images won't be built inside minikube Docker, e.g. k8s won't be able to reach it
+Otherwise your images won't be built inside Minikube Docker, e.g. k8s won't be able to pull it
 
 To connect to the cluster, try:
 
   $ minikube ip
   $ kubectl get service {{ .Release.Name }} -o jsonpath='{.spec.ports[?(@.name=="api")].nodePort}'
   $ make client
+
+To get logs from the executors, try:
+
+  $ kubectl logs -f -l tier=executor

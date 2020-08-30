@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protometry.quaternion;
+
+option java_multiple_files = true;
+option java_package = "com.quaternion.protometry";
+option java_outer_classname = "Quaternion";
+option csharp_namespace = "Protometry.Quaternion";
+option go_package = "quaternion";
+
+message Quaternion {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double w = 4;
+}

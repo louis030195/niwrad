@@ -43,7 +43,7 @@ goog.exportSymbol('proto.nakama.niwrad.api.realtime.UpdateTransform', null, glob
  * @constructor
  */
 proto.nakama.niwrad.api.realtime.Packet = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.nakama.niwrad.api.realtime.Packet.repeatedFields_, proto.nakama.niwrad.api.realtime.Packet.oneofGroups_);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.nakama.niwrad.api.realtime.Packet.oneofGroups_);
 };
 goog.inherits(proto.nakama.niwrad.api.realtime.Packet, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -349,13 +349,6 @@ if (goog.DEBUG && !COMPILED) {
 }
 
 /**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.nakama.niwrad.api.realtime.Packet.repeatedFields_ = [3];
-
-/**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
  * other fields in the group are cleared. During deserialization, if multiple
@@ -418,9 +411,6 @@ proto.nakama.niwrad.api.realtime.Packet.prototype.toObject = function(opt_includ
  */
 proto.nakama.niwrad.api.realtime.Packet.toObject = function(includeInstance, msg) {
   var f, obj = {
-    senderId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    isServer: jspb.Message.getFieldWithDefault(msg, 2, false),
-    recipientsList: jspb.Message.getRepeatedField(msg, 3),
     impact: (f = msg.getImpact()) && github_com_louis030195_protometry_api_vector3_vector3_pb.Vector3.toObject(includeInstance, f),
     matchJoin: (f = msg.getMatchJoin()) && proto.nakama.niwrad.api.realtime.MatchJoin.toObject(includeInstance, f),
     map: (f = msg.getMap()) && proto.nakama.niwrad.api.realtime.Map.toObject(includeInstance, f),
@@ -468,18 +458,6 @@ proto.nakama.niwrad.api.realtime.Packet.deserializeBinaryFromReader = function(m
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setSenderId(value);
-      break;
-    case 2:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setIsServer(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addRecipients(value);
-      break;
     case 4:
       var value = new github_com_louis030195_protometry_api_vector3_vector3_pb.Vector3;
       reader.readMessage(value,github_com_louis030195_protometry_api_vector3_vector3_pb.Vector3.deserializeBinaryFromReader);
@@ -564,27 +542,6 @@ proto.nakama.niwrad.api.realtime.Packet.prototype.serializeBinary = function() {
  */
 proto.nakama.niwrad.api.realtime.Packet.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getSenderId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getIsServer();
-  if (f) {
-    writer.writeBool(
-      2,
-      f
-    );
-  }
-  f = message.getRecipientsList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      3,
-      f
-    );
-  }
   f = message.getImpact();
   if (f != null) {
     writer.writeMessage(
@@ -673,70 +630,6 @@ proto.nakama.niwrad.api.realtime.Packet.serializeBinaryToWriter = function(messa
       proto.nakama.niwrad.api.realtime.Initialized.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional string sender_id = 1;
- * @return {string}
- */
-proto.nakama.niwrad.api.realtime.Packet.prototype.getSenderId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/** @param {string} value */
-proto.nakama.niwrad.api.realtime.Packet.prototype.setSenderId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional bool is_server = 2;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.nakama.niwrad.api.realtime.Packet.prototype.getIsServer = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 2, false));
-};
-
-
-/** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Packet.prototype.setIsServer = function(value) {
-  jspb.Message.setProto3BooleanField(this, 2, value);
-};
-
-
-/**
- * repeated string recipients = 3;
- * @return {!Array<string>}
- */
-proto.nakama.niwrad.api.realtime.Packet.prototype.getRecipientsList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 3));
-};
-
-
-/** @param {!Array<string>} value */
-proto.nakama.niwrad.api.realtime.Packet.prototype.setRecipientsList = function(value) {
-  jspb.Message.setField(this, 3, value || []);
-};
-
-
-/**
- * @param {string} value
- * @param {number=} opt_index
- */
-proto.nakama.niwrad.api.realtime.Packet.prototype.addRecipients = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 3, value, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- */
-proto.nakama.niwrad.api.realtime.Packet.prototype.clearRecipientsList = function() {
-  this.setRecipientsList([]);
 };
 
 

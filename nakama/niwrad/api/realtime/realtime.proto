@@ -10,10 +10,6 @@ import "github.com/louis030195/protometry/api/volume/volume.proto";
 
 // TODO: kind of ugly to use same struct for client -> server and server -> client ?
 message Packet {
-    string sender_id = 1;
-    bool is_server = 2; // TODO: reduce headers
-    repeated string recipients = 3; // TODO: actually rare use case, should maybe just be a type of message
-    // like "request to send to specific recipients ..." too many headers !!!
     // TODO: prob will have to switch to a box instead of vector3 later (want to notify before arrival ...)
     protometry.vector3.Vector3 impact = 4; // Whom for ? Does xXxD4rkK1ll3rxXx care about the message 1 km away ?
     oneof type {

@@ -1,5 +1,13 @@
-name: Acquire activation file
-on: [push]
+name: Acquire activation file manually
+
+# Maybe could check if license exist then do or not
+on:
+  workflow_dispatch:
+    inputs:
+      unityVersion:
+        description: 'Unity version'
+        required: true
+        default: 2020.2.0b1
 jobs:
   activation:
     name: Request manual activation file 🔑
@@ -10,7 +18,7 @@ jobs:
         id: getManualLicenseFile
         uses: webbertakken/unity-request-manual-activation-file@v1.1
         with:
-          unityVersion: 2019.4.0f1
+          unityVersion: ${{ github.event.inputs.unityVersion }}
       # Upload artifact (Unity_v20XX.X.XXXX.alf)
       - name: Expose as artifact
         uses: actions/upload-artifact@v1

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package protometry.vector3;
+
+option java_multiple_files = true;
+option java_package = "com.protometry.vector3";
+option java_outer_classname = "Vector3";
+option csharp_namespace = "Protometry.Vector3";
+option go_package = "vector3";
+
+message Vector3 {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}

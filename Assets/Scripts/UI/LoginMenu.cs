@@ -30,7 +30,7 @@ namespace UI
 
 		private async void Connect(string u, string p, string ip, int port, bool create = false)
 		{
-			var (success, message) = await SessionManager.instance
+			var (success, message) = await Sm.instance
 				.ConnectAsync(u, p, create, ip, port);
 			response.text = message;
 			await ClearResponse();

@@ -38,9 +38,9 @@ build-server-artifact: ## Build unity server
 
 
 build-images: ## Build docker images
-build-images: build-unity-image build-js-image build-integration-tests-image build-nakama-image
+build-images: build-executor-image build-js-image build-integration-tests-image build-nakama-image
 
-build-unity-image: ## Build unity server docker image
+build-executor-image: ## Build unity executor docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
 	docker build -t niwrad-unity .
 
@@ -112,6 +112,7 @@ un-deploy: ## Un-deploy cluster
 #	ifeq ($(kubectl get deployment -l tier=executor)
 	kubectl delete deployment -l tier=executor
 	kubectl delete pod -l tier=executor
+	kubectl delete pod niwrad-test
 #	endif
 	@echo "\033[35mCluster un-deployed\033[0m"
 

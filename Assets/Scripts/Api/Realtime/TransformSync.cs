@@ -59,7 +59,7 @@ namespace Api.Realtime
 				m_Rotation.Z = r.z;
 				m_Rotation.W = r.w;
                 m_Packet.Basic(m_Position);
-				MatchCommunicationManager.instance.RpcAsync(m_Packet);
+				Mcm.instance.RpcAsync(m_Packet);
 				m_LastPosition = p;
 			}
 		}

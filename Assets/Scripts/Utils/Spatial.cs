@@ -38,10 +38,13 @@ namespace Utils
    //              return p;
 			// }
 			
-			
+			// Debug.Log($"Position above ground: {p}");
+            // Debug.DrawRay(p, Vector3.down*1000, Color.magenta);
 			// Current position is above ground
             if (Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) <= 0)
                 return Vector3.positiveInfinity;
+            // Debug.Log($"Position above ground: {p}");
+
             p.y -= Hit[0].distance - prefabHeight * 0.5f;
             return p;
 

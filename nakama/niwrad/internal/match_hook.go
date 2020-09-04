@@ -52,7 +52,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	distribution, ok := params["distribution"].(int)
 	if !ok {
 		logger.Error("Failed to init match, no distribution given")
-		if err := stopMatch(ctx, nk, matchID); err != nil {
+		if err := stopMatch(db, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -62,7 +62,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		userID, ok := params[fmt.Sprintf("admin%d", i)].(string)
 		if !ok {
 			logger.Error("Failed to init match, couldn't retrieve admin user ID")
-			if err := stopMatch(ctx, nk, matchID); err != nil {
+			if err := stopMatch(db, matchID); err != nil {
 				logger.Error(err.Error())
 				return nil, 0, ""
 			}
@@ -72,7 +72,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	}
 	if !ok {
 		logger.Error("Failed to init match, no admins")
-		if err := stopMatch(ctx, nk, matchID); err != nil {
+		if err := stopMatch(db, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -106,12 +106,26 @@ func (m *Match) MatchJoin(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	mState, _ := state.(*MatchState)
 	for _, p := range presences {
 		// Initial client spawn, TODO: config something
-		b := volume.NewBoxOfSize(5, 0, 5, 50)
+		b := volume.NewBoxOfSize(5, 0, 5, 500)
 		for i := range adminUserIDs {
 			if p.GetUserId() == adminUserIDs[i] {
-				bs := volume.NewBoxOfSize(0, 0, 0, float64(mState.octree.GetSize())).SplitFour(true)
-				// hard coded 4 distribution atm
-				// meaning that each container handle 2 octant
+			    var bs []*volume.Box
+			    oc := volume.NewBoxOfSize(0, 0, 0, float64(mState.octree.GetSize()))
+                switch mState.distribution {
+                case 1:
+                    bs = append(bs, oc)
+                case 2:
+                    panic("Not implemented")
+                case 4:
+                    // TODO Split(n)
+                    for _, sb := range oc.SplitFour(true) {
+                        bs = append(bs, sb)
+                    }
+                case 8:
+                    for _, sb := range oc.Split() {
+                        bs = append(bs, sb)
+                    }
+                }
 				b = bs[len(mState.servers)]
 				mState.servers = append(mState.servers, b)
 				logger.Info("New match server, region: %v ", b)
@@ -154,7 +168,8 @@ func (m *Match) MatchLeave(ctx context.Context, logger c.Logger, db *sql.DB, nk 
 
 	if len(mState.presences) == 0 {
 		logger.Info("Match %v is empty, terminating it", mState.matchID)
-		m.MatchTerminate(ctx, logger, db, nk, dispatcher, tick, state, 2)
+		//m.MatchTerminate(ctx, logger, db, nk, dispatcher, tick, state, 2)
+		return nil
 	}
 
 	return mState
@@ -167,46 +182,50 @@ func (m *Match) MatchLoop(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		if err := proto.Unmarshal(message.GetData(), &s); err != nil {
 			logger.Error("Failed to parse match packet:", err)
 		}
-        //logger.Info("Received %T", s.Type)
+        logger.Info("Received %T, impact %v, full: %v", s.Type, s.Impact, s)
+		logger.Info("ID:%v;SESSION:%v;USERNAME:%v", message.GetUserId(), message.GetSessionId(), message.GetUsername())
 
 		// TODO: let's reduce as much as possible computing on nakama side which isn't distributed
 		// TODO: and thus is likely to be not that much scalable
-		switch s.Type.(type) {
+		switch x := s.Type.(type) {
+        case *realtime.Packet_RequestSpawn:
+            tmp, _ := x.RequestSpawn.Type.(*realtime.Spawn_Animal)
+            logger.Info("req spawn at %v", tmp.Animal.Transform.Position)
         case *realtime.Packet_Initialized:
-			if s.IsServer {
+			if mState.ready < mState.distribution {
 			    mState.ready++
 			    logger.Info("Server %s, is ready, match readiness %d/%d", message.GetUserId(), mState.ready, mState.distribution)
 			    if mState.ready == mState.distribution {
-                    if err := dispatcher.MatchLabelUpdate(READY_LABEL); err != nil {
+                    if err := dispatcher.MatchLabelUpdate(ReadyLabel); err != nil {
                         logger.Error(err.Error())
                         return nil
                     }
-                    logger.Info("%d/%d executors joined (%d) and are ready, clients can join the match now",
+                    logger.Info("%d/%d executors joined and are ready, clients can join the match now",
                         mState.ready, mState.distribution)
                 }
             }
 		}
 
-		// By default clients / server will send to all recipients (except for some special packets)
-		// They are not aware that nakama server will only send to recipients concerned (in the region of impact)
-		for _, r := range s.Recipients {
-			presence, ok := mState.presences[r]
-			if !ok {
-				logger.Error("Tried to send message to in-existent player")
-				continue
-			}
+		// TODO: optimize as much as possible here, main loop
+		// nakama server will only send to recipients concerned (in the region of impact)
+		var presences []c.Presence
+        for _, v := range mState.presences {
+            // If the presence should be impacted
+            // nil impact = global
+            if v.presence.GetUserId() != message.GetUserId() &&
+                (s.Impact == nil || math.IsInf(s.Impact.X, 1) || v.region.Contains(*s.Impact)) {
+                presences = append(presences, v.presence)
+            }
+        }
 
-			// If the recipient should be impacted
-			// nil impact = global
-			if s.Impact == nil || presence.region.Contains(*s.Impact) {
-				logger.Info("Sending message from %s to %s - %T", s.SenderId, r, s.Type)
-				err := dispatcher.BroadcastMessage(1, message.GetData(), []c.Presence{presence.presence}, nil, true)
-				if err != nil {
-					logger.Error(err.Error())
-					return err
-				}
-			}
-		}
+        if len(presences) > 0 {
+            logger.Info("Sending message %T from %s to %v", s.Type, message.GetUserId(), presences)
+            err := dispatcher.BroadcastMessage(1, message.GetData(), presences, nil, true)
+            if err != nil {
+                logger.Error(err.Error())
+                return err
+            }
+        }
 	}
 
 	// Stop match if empty after a while
@@ -217,7 +236,7 @@ func (m *Match) MatchLoop(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	//	return nil
 	//}
 
-	//if len(mState.servers) == 4 { // When all servers joined
+	//if len(mState.servers) == mState.distribution { // When all servers joined
 	//	for i := 0; i < 5; i++ {
 	//		// I suppose server handling that request will do the work to adjust above ground by ray-casting
 	//		// avoid like the plague physics here :)

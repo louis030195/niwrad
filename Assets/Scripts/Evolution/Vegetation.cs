@@ -80,7 +80,7 @@ namespace Evolution
 				reproductionDistanceBetween);
 			// Couldn't find free position
 			if (p == Vector3.zero) return;
-			var childHost = HostManager.instance.SpawnTree(p, Quaternion.identity);
+			var childHost = Hm.instance.SpawnTreeSync(p, Quaternion.identity);
 			var mutate = new Func<float, float, float>((a, mutationDegree) =>
 			{
 				var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);

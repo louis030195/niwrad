@@ -9,9 +9,6 @@ import (
 // Send is a helper for nakama server -> client packet sending
 func Send(dispatcher runtime.MatchDispatcher, presences []runtime.Presence, p isPacket_Type) error {
 	msg := Packet{
-		SenderId:   "",
-		IsServer:   false,
-		Recipients: nil,
 		Impact:     nil,
 		Type:       p,
 	}

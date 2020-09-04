@@ -49,7 +49,6 @@ namespace Api.Utils
         /// <returns></returns>
         public static Packet Basic(this Packet p, Vector3 impact = null)
 		{
-			p.IsServer = SessionManager.instance.isServer;
             p.Impact = impact;
 			return p;
 		}

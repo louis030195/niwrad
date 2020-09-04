@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using Api.Match;
@@ -25,9 +26,9 @@ namespace UI
 		private TMP_InputField m_InitialAnimals;
 		private TMP_InputField m_InitialPlants;
 
-		private void Start()
+		private async void Start()
 		{
-			Connect();
+			await Connect();
 			var ifs = createServerPanel.GetComponentsInChildren<TMP_InputField>();
 			Debug.Assert(ifs.Length==3, "Create server panel should have 3 children input field");
 			m_TerrainSize = ifs[0];
@@ -43,9 +44,9 @@ namespace UI
 			join.interactable = m_MatchId != string.Empty;
 		}
 
-		private async void Connect()
+		private async Task Connect()
 		{
-			if (!await SessionManager.instance.ConnectSocketAsync())
+			if (!await Sm.instance.ConnectSocketAsync())
 			{
 				Debug.LogError($"Failed to open socket");
 			}
@@ -63,7 +64,8 @@ namespace UI
 				Destroy(child.gameObject);
 			}
 
-			var matches = await MatchCommunicationManager.instance.GetMatchListAsync();
+			var matches = await Mcm.instance.GetMatchListAsync();
+            Debug.Log($"Found matches {matches}");
 			for (var i = 0; i < matches.Length; i++)
 			{
 				var m = matches[i];
@@ -95,13 +97,13 @@ namespace UI
 		private async void LoadGame()
 		{
 			Destroy(Camera.main);
-			SessionManager.instance.isServer = false;
+			Sm.instance.isServer = false;
 			await UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Game");
 		}
 
 		public async void JoinMatch()
 		{
-			await MatchCommunicationManager.instance.JoinMatchAsync(m_MatchId);
+			await Mcm.instance.JoinMatchAsync(m_MatchId);
 			LoadGame();
 		}
 
@@ -124,7 +126,8 @@ namespace UI
 			          $"Initial animals: {ia}, " +
 			          $"Initial plants: {ip}");
 			var p = new CreateMatchRequest().ToByteString().ToStringUtf8();
-			var protoResponse = await SessionManager.instance.socket.RpcAsync("create_match", p);
+			var protoResponse = await Sm.instance.socket.RpcAsync("create_match", 
+                p);
 			var response = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"CreateMatchResponse: {response}");
 		}
@@ -135,7 +138,7 @@ namespace UI
 			{
 				MatchId = m_MatchId
 			}.ToByteString().ToStringUtf8();
-			var protoResponse = await SessionManager.instance.socket.RpcAsync("stop_match", p);
+			var protoResponse = await Sm.instance.socket.RpcAsync("stop_match", p);
 			var response = StopMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"StopServer response: {response}");
 		}

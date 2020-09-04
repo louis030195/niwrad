@@ -31,8 +31,8 @@ namespace UI
 
 		private async void Start()
 		{
-			await UniTask.WaitUntil(() => MatchCommunicationManager.instance != null);
-			MatchCommunicationManager.instance.Initialized += OnInitialized;
+			await UniTask.WaitUntil(() => Mcm.instance != null);
+			Mcm.instance.Initialized += OnInitialized;
 		}
 
 		private void OnInitialized(string _)

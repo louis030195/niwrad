@@ -18,16 +18,24 @@ See related writings:
 
 ### Architecture
 
-Simulate physics is hard. Unity does it decently.  
-It's easier to just use Unity for that instead of the Nakama server.
+[Nakama](https://github.com/heroiclabs/nakama) is used as a coordinator and handles communications between services.  
 
-![high-level architecture](docs/images/niwrad.png)
+### Dependencies
 
-Nakama is used as a coordinator which spawn kubernetes nodes that handle each a specific box of the map.  
-In other words a sharding strategy is used for the distributed system.  
-An [Octree](https://github.com/louis030195/octree) data structure is used for that.  
+* <https://github.com/louis030195/octree> for "network culling" i.e. if an animal moves in (1000,0,1000) and I'm in (0,0,0) I don't want to be notified of that.
 
-### Features & direction
+### High level features
+
+* [x] Create account
+* [x] Login
+* [x] List matches
+* [x] Create match (internally spawn a k8s deployment that join the rpc's created match)
+* [x] Join a match
+* [x] Stop a match
+* [x] Request an animal spawn, logic is handled by executor(s)
+* [x] Offline mode
+
+### Objectives
 
 * Hosts (any life form) have characteristics.
 * Hosts can reproduce (sexual only atm), when they do, their characteristics are "mixed" plus a slight randomness (mutation).
@@ -52,8 +60,8 @@ git clone https://github.com/louis030195/niwrad
 
 #### Client
 
-1. [Unity](https://unity.com)
-2. make: `sudo apt install make`
+1. [Unity](https://unity.com) to build artifacts or find a client [here](https://github.com/louis030195/niwrad/actions?query=workflow%3A%22Build+project%22)
+2. make is recommended: `sudo apt install make`
 3. [protoc, protoc-gen-go, protoc-gen-csharp](https://github.com/protocolbuffers/protobuf) (optional)
 
 ```make
@@ -77,31 +85,24 @@ test                               Run unit tests and integration tests
 So you can try:
 
 ```bash
-# Start local kubernetes using Minikube, Memory is cheap :D
-# If you intend to start multiple parallel matches with 4 executors each you might need some RAM :)
-minikube start --memory 8192
-
-# Install Kubernetes Ingress Nginx controller
-helm repo add nginx-stable https://helm.nginx.com/stable
-helm repo update
-helm install nginx nginx-stable/nginx-ingress
+# Start local kubernetes using Minikube
+minikube start
 
 # Deploy
 make deploy
 make client
 ```
 
-### TODO
+## Testing
 
-* [x] [Medium] Unit testing Unity.
-* [x] [Medium] Helm integration tests.
-* [ ] [stale, Nakama-js doesn't support protobuf] [Medium] [JS client](https://www.npmjs.com/package/@heroiclabs/nakama-js) for bots and testing.
-* [ ] [Easy] Implement artificial selection
-* [ ] [Easy] finish github workflow (github page deployment)
-* [ ] [Easy] Android controller
-* [ ] [Easy] Deploy persistent, resilient, fenced server on the cloud
-* [ ] [Medium] Consider adding predators / parasites in order to trigger competition e.g. Red Queen
-* [ ] [Easy] Consider splitting in multiple repositories each component (Nakama, Unity, APIs: js) especially if things grows too much
-* [x] [Easy] Consider using lua and/or go but if both, both should always use protobuf messages, no json !!!
-* [ ] [Easy] Push images & helm charts on the cloud & automate the process of doing it & update instructions (no need to clone repo anymore then)
-* [ ] [Easy] K8s Ingress controller (one that support TCP)
+```bash
+# Should run Unity unit tests (but unfortunately Unity CLI rarely works on Ubuntu 20.04 at least so it Seg Fault)
+# Run integration tests with Helm (imply that you have a configured k8s/k3s cluster, Helm)
+make test
+```
+
+## TODO
+
+* [ ] Implement artificial selection
+* [ ] Allow reproducable experiences, with metrics, different context (asexual, sexual species, predators, parasites), maybe with unit test ?
+* [ ] Finish github workflow (build,test,docker,helm,github-page)

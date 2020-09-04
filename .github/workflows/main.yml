@@ -37,9 +37,9 @@ jobs:
           path: nakama/niwrad
           registry: docker.io
           dockerfile: nakama/niwrad/build/Dockerfile
-  # Build Unity executor, run unit tests, build and push image
+  # Build Unity executor, run unit tests, build and push Docker image
   unityExecutor:
-    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+    name: Build Unity executor and container for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -68,12 +68,12 @@ jobs:
       # Test
       - name: Run tests
         id: testRunner
-        uses: webbertakken/unity-test-runner@v1.3
+        uses: webbertakken/unity-test-runner@v1.6
         with:
-          projectPath: ${{ matrix.projectPath }}
+          customParameters: '-nographics'
           unityVersion: ${{ matrix.unityVersion }}
-          # Ignore playmode because it requires user input
-          testMode: editmode
+          projectPath: ${{ matrix.projectPath }}
+          testMode: editmode # Ignore playmode because it requires user input
   
       # Upload tests results
       - uses: actions/upload-artifact@v1
@@ -84,6 +84,7 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.2
         with:
+          customParameters: '-nographics'
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
@@ -137,6 +138,7 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.2
         with:
+          customParameters: '-nographics'
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}

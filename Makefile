@@ -2,7 +2,7 @@ PROJECT_PATH ?= $(HOME)/Documents/unity/niwrad
 PROTOS = $(PROJECT_PATH)/nakama/niwrad/api
 NS ?= niwrad
 VERSION ?= 1.0.0
-EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2019.4.0f1/Editor/Unity
+EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2020.1.4f1/Editor/Unity
 GOPATH=$(HOME)/go/src
 PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
@@ -33,7 +33,7 @@ build-server-artifact: ## Build unity server
 	rm -rf Builds/Linux
 	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
-		-silent-crashes -headless
+		-silent-crashes -headless -nographics
 	@echo "\033[35mUnity server built\033[0m"
 
 

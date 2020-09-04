@@ -146,8 +146,8 @@ jobs:
         with:
           name: Builds
           path: Builds
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v2
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v2
 
   page:
     runs-on: ubuntu-latest

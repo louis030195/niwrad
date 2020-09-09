@@ -31,7 +31,7 @@ build-client-artifact: ## Build unity client
 	# rm -rf Builds/Linux
 	# $(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
 	# 	-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
-	# 	-silent-crashes -headless
+	# 	-silent-crashes -headless -nographics
 	# @echo "\033[35mUnity client built\033[0m"
 	echo "Doesn't work !!! THANKS UNITY FOR NOT SUPPORTING LINUX "
 	# docker run -it --rm -e "UNITY_LICENSE_CONTENT=$(UNITY_LICENSE_CONTENT)" \

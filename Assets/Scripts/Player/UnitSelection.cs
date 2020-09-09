@@ -1,6 +1,6 @@
 using UI;
 using UnityEngine;
-using UnityEngine.Rendering;
+// using UnityEngine.Rendering;
 using Utils;
 
 namespace Player {
@@ -162,30 +162,30 @@ namespace Player {
 		private readonly Color m_Color = Color.red;//new Color(0.6f, 0.75f, 1f);
 		private static readonly int ZTest = Shader.PropertyToID("_ZTest");
 
-		private void OnRenderObject () {
-			if(!m_Hit) return;
-
-			CheckInit();
-
-			m_LineMaterial.SetPass(0);
-			m_LineMaterial.SetInt(ZTest, (int)CompareFunction.Always);
-
-			GL.PushMatrix();
-			GL.Begin(GL.LINES);
-			GL.Color(m_Color);
-
-			for(int i = 0; i < Resolution; i++) {
-				var cur = (float)i / Resolution * Pi2;
-				var next = (float)(i + 1) / Resolution * Pi2;
-				var p1 = m_Rotation * new Vector3(Mathf.Cos(cur), Mathf.Sin(cur), 0f);
-				var p2 = m_Rotation * new Vector3(Mathf.Cos(next), Mathf.Sin(next), 0f);
-				GL.Vertex(m_Point + p1 * Radius);
-				GL.Vertex(m_Point + p2 * Radius);
-			}
-
-			GL.End();
-			GL.PopMatrix();
-		}
+		// private void OnRenderObject () {
+		// 	if(!m_Hit) return;
+		//
+		// 	CheckInit();
+		//
+		// 	m_LineMaterial.SetPass(0);
+		// 	// m_LineMaterial.SetInt(ZTest, (int)CompareFunction.Always);
+		//
+		// 	GL.PushMatrix();
+		// 	GL.Begin(GL.LINES);
+		// 	GL.Color(m_Color);
+		//
+		// 	for(int i = 0; i < Resolution; i++) {
+		// 		var cur = (float)i / Resolution * Pi2;
+		// 		var next = (float)(i + 1) / Resolution * Pi2;
+		// 		var p1 = m_Rotation * new Vector3(Mathf.Cos(cur), Mathf.Sin(cur), 0f);
+		// 		var p2 = m_Rotation * new Vector3(Mathf.Cos(next), Mathf.Sin(next), 0f);
+		// 		GL.Vertex(m_Point + p1 * Radius);
+		// 		GL.Vertex(m_Point + p2 * Radius);
+		// 	}
+		//
+		// 	GL.End();
+		// 	GL.PopMatrix();
+		// }
 
 		// private void OnEnable () {
 		// 	m_Col = GetComponent<MeshCollider>();
@@ -194,13 +194,13 @@ namespace Player {
 		// 	m_Triangles = mesh.triangles;
 		// }
 
-		private void CheckInit () {
-			if (m_LineMaterial == null) {
-				var shader = Shader.Find(ShaderPath);
-				if (shader == null) return;
-				m_LineMaterial = new Material(shader) {hideFlags = HideFlags.HideAndDontSave};
-			}
-		}
+		// private void CheckInit () {
+		// 	if (m_LineMaterial == null) {
+		// 		var shader = Shader.Find(ShaderPath);
+		// 		if (shader == null) return;
+		// 		m_LineMaterial = new Material(shader) {hideFlags = HideFlags.HideAndDontSave};
+		// 	}
+		// }
     }
 
 }

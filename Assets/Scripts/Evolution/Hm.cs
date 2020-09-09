@@ -200,12 +200,14 @@ namespace Evolution
 
         public void Pause()
         {
+            Time.timeScale = 0;
             m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
             m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = false);
         }
         
         public void Play()
         {
+            Time.timeScale = 1;
             m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
             m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = true);
         }

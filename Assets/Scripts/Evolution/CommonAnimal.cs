@@ -3,6 +3,7 @@ using Api.Match;
 using Api.Realtime;
 using Api.Session;
 using Api.Utils;
+using Gameplay;
 using UnityEngine;
 using Utils;
 using Meme = AI.Meme;
@@ -79,6 +80,11 @@ namespace Evolution
                 movement.navMeshAgent.enabled = true;
                 // TODO: how costly is it to cast everytime ?
                 movement.speed = characteristics.initialSpeed;
+                if (!Gm.instance.online)
+                {
+                    health.Died += OnDied;
+                    return;
+                } 
                 if (Sm.instance && Sm.instance.isServer)
                 {
                     health.Died += OnDied;

@@ -68,6 +68,12 @@ namespace UI
 			Connect(username.text, password.text, m_ServerIp.text, int.Parse(m_ServerPort.text), true);
 		}
 
+        public void Offline()
+        {
+            Destroy(FindObjectOfType<Sm>().gameObject);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Offline");
+        }
+
 		public void Debug(bool value)
 		{
 			serverIpGameObject.SetActive(value);

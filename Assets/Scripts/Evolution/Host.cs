@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AI;
 using UnityEngine;
 
@@ -10,21 +11,9 @@ namespace Evolution
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(MemeController))]
-	public abstract class Host : MonoBehaviour
-	{ // TODO: prob gotta move evolution params into scriptable objects ? for saving good params ... ?
-		[Header("Evolution parameters"), Range(0.1f, 50f)]
-		public float decisionFrequency = 1f;
-		[Header("Initial characteristics"), Range(20, 80)]
-		public float initialLife = 40f;
-		[Tooltip("How much life losing over time"), Range(0.1f, 2.0f)] // TODO: fix names
-		public float robustness = 1f;
-
-		[Header("Reproduction"), Range(20, 80)]
-		public float reproductionThreshold = 80f;
-		[Range(1, 100)]
-		public float reproductionDelay = 20f;
-
-
+	public abstract class Host<T> : MonoBehaviour where T : HostCharacteristics
+    {
+        [HideInInspector] public T characteristics;
 		[HideInInspector] public Attack attack;
 		[HideInInspector] public Health health;
 		[HideInInspector] public ulong id;
@@ -32,8 +21,7 @@ namespace Evolution
 		/// <summary>
 		/// Map of (name; meme)
 		/// </summary>
-		[HideInInspector] public Dictionary<string, Meme> memes = new Dictionary<string, Meme>();
-
+        public readonly Dictionary<string, Meme> Memes = new Dictionary<string, Meme>();
 		protected float LastBreed;
 
 		/// <summary>
@@ -44,43 +32,34 @@ namespace Evolution
 		// protected Sense<GameObject> feel;
 		// protected Memory<GameObject> feelMemory;
 
-		protected void OnEnable()
-		{
-			health = GetComponent<Health>();
-			health.initialLife = initialLife;
-			attack = GetComponent<Attack>();
-			controller = GetComponent<MemeController>();
-			Age = 0;
+        protected void Awake()
+        {
+            Age = 0;
+            health = GetComponent<Health>();
+            attack = GetComponent<Attack>();
+            controller = GetComponent<MemeController>();
+            // Not sure required, maybe could be useful to prevent hosts forgetting to implement breeding meme
+            var n = "Breed";
+            Memes[n] = new Meme(n, null, null);
+        }
 
-			// Not sure required, maybe could be useful to prevent hosts forgetting to implement breeding meme
-			var n = "Breed";
-			memes[n] = new Meme(n, null, null);
-		}
-
-		protected void Update()
+        protected void Update()
 		{
 			if (Time.frameCount % 5 != 0) return;
 			
 			Age++;
 			// The older, the weaker
-			health.ChangeHealth(-robustness*Time.deltaTime*(1+Age/10));
+			health.ChangeHealth(-characteristics.robustness*Time.deltaTime*(1+Age/10));
 		}
 
-		protected void OnDisable()
-		{
-			controller.aiActive = false;
-		}
-
-		protected float Mutate(float a, float b, float mutationDegree)
-		{
-			var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
-			return (a + b) / 2 * (1 + Random.Range(-md, md));
-		}
-
-		/// <summary>
-		/// Public function to bring the host to life
-		/// </summary>
-		public abstract void BringToLife();
+        /// <summary>
+        /// Public function to bring the host to life, or deactivate
+        /// </summary>
+        public void EnableBehaviour(bool value)
+        {
+            if (value) health.initialLife = characteristics.initialLife;
+            else controller.aiActive = false;
+        }
 		// If this function is not overrode, will setup host with random initial meme
 		// if (memes.Values.Count > 0) controller.SetupAi(memes.Values.AnyItem(), true);
 

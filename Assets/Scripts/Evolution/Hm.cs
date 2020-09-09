@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Api.Match;
 using Api.Realtime;
 using Api.Session;
@@ -33,11 +34,13 @@ namespace Evolution
         [SerializeField] private GraphicTier graphicTier = GraphicTier.Low;
         [SerializeField] private GameObject lowPolyAnimalPrefab; // E.g. red cube
         [SerializeField] private GameObject lowPolyVegetationPrefab; // E.g. green cube
+        [SerializeField] private HostCharacteristics animalCharacteristics;
+        [SerializeField] private HostCharacteristics vegetationCharacteristics;
 
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
-        private readonly Dictionary<ulong, CommonAnimal> m_Animals = new Dictionary<ulong, CommonAnimal>();
+        private readonly Dictionary<ulong, SimpleAnimal> m_Animals = new Dictionary<ulong, SimpleAnimal>();
 
 		/// <summary>
 		/// Dictionary containing trees
@@ -154,9 +157,9 @@ namespace Evolution
         /// <param name="id"></param>
         public void DestroyAnimalSync(ulong id)
         {
-            DestroyAnimal(id);
-            if (Gm.instance.online) return;
-            var p = m_Animals[id].transform.position;
+            var animal = DestroyAnimal(id);
+            if (!Gm.instance.online) return;
+            var p = animal.transform.position;
 	        var packet = new Packet().Basic(p.Net()).DestroyAnimal(id);
 	        Mcm.instance.RpcAsync(packet);
         }
@@ -179,13 +182,33 @@ namespace Evolution
 
         public void DestroyTreeSync(ulong id)
         {
-            DestroyTree(id);
+            var tree = DestroyTree(id);
             if (!Gm.instance.online) return;
-            var p = m_Trees[id].transform.position;
+            var p = tree.transform.position;
             var packet = new Packet().Basic(p.Net()).DestroyTree(id);
 	        Mcm.instance.RpcAsync(packet);
         }
 
+        /// <summary>
+        /// De-spawn every hosts
+        /// </summary>
+        public void Reset()
+        {
+            m_Animals.Keys.ToList().ForEach(DestroyAnimalSync);
+            m_Trees.Keys.ToList().ForEach(DestroyTreeSync);
+        }
+
+        public void Pause()
+        {
+            m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
+            m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = false);
+        }
+        
+        public void Play()
+        {
+            m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
+            m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = true);
+        }
         #endregion
 
         #region PRIVATE METHODS
@@ -255,28 +278,32 @@ namespace Evolution
         {
             // Debug.Log($"Spawning animal {obj}");
             var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
-            m_Animals[m_NextId] = a.GetComponent<CommonAnimal>();
+            m_Animals[m_NextId] = a.GetComponent<SimpleAnimal>();
+            m_Animals[m_NextId].characteristics = Instantiate(animalCharacteristics) as AnimalCharacteristics;
             m_Animals[m_NextId].id = m_NextId;
             // Only server handle animal behaviours
             if (!Gm.instance.online || Sm.instance.isServer)
             {
-                m_Animals[m_NextId].BringToLife();
+                m_Animals[m_NextId].EnableBehaviour(true);
                 // var tSync = m_Animals[obj.Id].gameObject.AddComponent<TransformSync>();
                 // tSync.id = obj.Id;
             }
             return m_Animals[m_NextId];
         }
 
-        private void DestroyAnimal(ulong id)
+        private CommonAnimal DestroyAnimal(ulong id)
         {
 	        if (!m_Animals.ContainsKey(id))
 	        {
 		        // TODO: fix
 		        // Debug.LogError($"Tried to destroy in-existent animal {obj.Id}");
-		        return;
+		        return null;
 	        }
-	        Pool.Despawn(m_Animals[id].gameObject);
+
+            var animal = m_Animals[id];
+	        Pool.Despawn(animal.gameObject);
 	        if (!m_Animals.Remove(id)) Debug.LogError($"Failed to remove animal {id}");
+            return animal;
         }
 
         private void OnTreeSpawned(Transform obj) => SpawnTree(obj.Position.ToVector3(), obj.Rotation.ToQuaternion());
@@ -308,24 +335,27 @@ namespace Evolution
                 Pool.Spawn(lowPolyVegetationPrefab, p, r).GetComponent<Vegetation>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Vegetation>();
 	        m_Trees[m_NextId] = veg;
-	        m_Trees[m_NextId].id = m_NextId;
+            m_Trees[m_NextId].characteristics = Instantiate(vegetationCharacteristics) as VegetationCharacteristics;
+            m_Trees[m_NextId].id = m_NextId;
 
-	        if (!Gm.instance.online || Sm.instance.isServer) m_Trees[m_NextId].BringToLife();
+	        if (!Gm.instance.online || Sm.instance.isServer) m_Trees[m_NextId].EnableBehaviour(true);
 	        return m_Trees[m_NextId];
         }
 
 
-        private void DestroyTree(ulong id)
+        private Vegetation DestroyTree(ulong id)
         {
 	        if (!m_Trees.ContainsKey(id))
 	        {
 		        // Debug.LogError($"Tried to destroy in-existent tree {obj.Id}");
-		        return;
+		        return null;
 	        }
 
-            if (graphicTier == GraphicTier.Low) Pool.Despawn(m_Trees[id].gameObject);
-            else TreePool.instance.Despawn(m_Trees[id].gameObject);
+            var tree = m_Trees[id];
+            if (graphicTier == GraphicTier.Low) Pool.Despawn(tree.gameObject);
+            else TreePool.instance.Despawn(tree.gameObject);
 	        m_Trees.Remove(id);
+            return tree;
         }
 
 
@@ -335,27 +365,27 @@ namespace Evolution
 	        // If this id doesn't belong to animals, maybe it's a tree
 	        if (m_Animals.ContainsKey(obj.Id))
 	        {
-		        Host h = m_Animals[obj.Id];
-		        if (!h.memes.ContainsKey(obj.MemeName))
+		        var h = m_Animals[obj.Id];
+		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
 			        return;
 		        }
 
 		        // Transition to the new received meme
-		        h.controller.Transition(h.memes[obj.MemeName]);
+		        h.controller.Transition(h.Memes[obj.MemeName]);
 	        }
 	        else if (m_Trees.ContainsKey(obj.Id))
 	        {
-		        Host h = m_Trees[obj.Id];
-		        if (!h.memes.ContainsKey(obj.MemeName))
+		        var h = m_Trees[obj.Id];
+		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
 			        return;
 		        }
 
 		        // Transition to the new received meme
-		        h.controller.Transition(h.memes[obj.MemeName]);
+		        h.controller.Transition(h.Memes[obj.MemeName]);
 	        }
 	        else
 	        {

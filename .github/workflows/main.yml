@@ -70,7 +70,7 @@ jobs:
         id: testRunner
         uses: webbertakken/unity-test-runner@v1.6
         with:
-          customParameters: '-nographics'
+          customParameters: '-nographics' # Only hack to run headless tests on Linux
           unityVersion: ${{ matrix.unityVersion }}
           projectPath: ${{ matrix.projectPath }}
           testMode: editmode # Ignore playmode because it requires user input
@@ -81,156 +81,159 @@ jobs:
           name: Test results (all modes)
           path: ${{ steps.testRunner.outputs.artifactsPath }}
 
-      # Build
-      - uses: webbertakken/unity-builder@v1.2
-        with:
-          customParameters: '-nographics'
-          projectPath: ${{ matrix.projectPath }}
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: Editor.Builds.BuildLinuxServer
-          buildsPath: Builds
-          allowDirtyBuild: true
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Builds
-          path: Builds
 
-      # Build and push Docker image
-      - uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: louis030195/executor
-          tag_with_ref: true
-          tag_with_sha: true
-          path: .
-          dockerfile: Dockerfile
+      # Deactivated since you can't build Unity-anything on Linux    
+
+      # Build
+      # - uses: webbertakken/unity-builder@v1.2
+      #   with:
+      #     customParameters: '-nographics'
+      #     projectPath: ${{ matrix.projectPath }}
+      #     unityVersion: ${{ matrix.unityVersion }}
+      #     targetPlatform: ${{ matrix.targetPlatform }}
+      #     buildMethod: Editor.Builds.BuildLinuxServer
+      #     buildsPath: Builds
+      #     allowDirtyBuild: true
+      # - uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Builds
+      #     path: Builds
+
+      # # Build and push Docker image
+      # - uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      #     repository: louis030195/executor
+      #     tag_with_ref: true
+      #     tag_with_sha: true
+      #     path: .
+      #     dockerfile: Dockerfile
 
   # Build Unity offline web client
-  unityOfflineWeb:
-    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        projectPath:
-          - .
-        unityVersion:
-          - 2020.1.4f1
-        targetPlatform:
-          - WebGL
-    steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
+  # unityOfflineWeb:
+  #   name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       projectPath:
+  #         - .
+  #       unityVersion:
+  #         - 2020.1.4f1
+  #       targetPlatform:
+  #         - WebGL
+  #   steps:
+  #     # Checkout
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
 
-      # Cache
-      - uses: actions/cache@v1.1.0
-        with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-          restore-keys: |
-            Library-${{ matrix.projectPath }}-
-            Library-
+  #     # Cache
+  #     - uses: actions/cache@v1.1.0
+  #       with:
+  #         path: ${{ matrix.projectPath }}/Library
+  #         key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+  #         restore-keys: |
+  #           Library-${{ matrix.projectPath }}-
+  #           Library-
 
-      # Build
-      - uses: webbertakken/unity-builder@v1.2
-        with:
-          customParameters: '-nographics'
-          projectPath: ${{ matrix.projectPath }}
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: Editor.Builds.BuildWebOffline
-          buildsPath: Builds
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Builds
-          path: Builds
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v2
+  #     # Build
+  #     - uses: webbertakken/unity-builder@v1.2
+  #       with:
+  #         customParameters: '-nographics'
+  #         projectPath: ${{ matrix.projectPath }}
+  #         unityVersion: ${{ matrix.unityVersion }}
+  #         targetPlatform: ${{ matrix.targetPlatform }}
+  #         buildMethod: Editor.Builds.BuildWebOffline
+  #         buildsPath: Builds
+  #     - uses: actions/upload-artifact@v1
+  #       with:
+  #         name: Builds
+  #         path: Builds
+  #     # - name: Setup tmate session
+  #     #   uses: mxschmitt/action-tmate@v2
 
-  page:
-    runs-on: ubuntu-latest
-    needs: unityOfflineWeb
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Download build
-        uses: actions/download-artifact@v2
-        with:
-          name: Builds
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: Builds/WebGL/WebGL # The folder the action should deploy.
+  # page:
+  #   runs-on: ubuntu-latest
+  #   needs: unityOfflineWeb
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
+  #     - name: Download build
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: Builds
+  #     - name: Deploy 🚀
+  #       uses: JamesIves/github-pages-deploy-action@releases/v3
+  #       with:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         BRANCH: gh-pages # The branch the action should deploy to.
+  #         FOLDER: Builds/WebGL/WebGL # The folder the action should deploy.
 
   # Build integration tests
-  build-integration:
-    needs: unityExecutor
-    name: Build integration tests
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        projectPath:
-          - helm/templates/tests/ApiTest
-    steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
+  # build-integration:
+  #   needs: unityExecutor
+  #   name: Build integration tests
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       projectPath:
+  #         - helm/templates/tests/ApiTest
+  #   steps:
+  #     # Checkout
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
 
-      # Restores Library Unity folder (int tests use some of unity project code)
-      - uses: actions/cache@v1.1.0
-        with:
-          path: Library
-          key: Library-.-StandaloneLinux64
-          restore-keys: |
-            Library-.-
-            Library-
+  #     # Restores Library Unity folder (int tests use some of unity project code)
+  #     - uses: actions/cache@v1.1.0
+  #       with:
+  #         path: Library
+  #         key: Library-.-StandaloneLinux64
+  #         restore-keys: |
+  #           Library-.-
+  #           Library-
 
-      # Build and push Docker image
-      - name: Build and push Niwrad's integration test Docker image
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: louis030195/integration
-          tag_with_ref: true
-          tag_with_sha: true
-          path: .
-          dockerfile: ${{ matrix.projectPath }}/Dockerfile
+  #     # Build and push Docker image
+  #     - name: Build and push Niwrad's integration test Docker image
+  #       uses: docker/build-push-action@v1
+  #       with:
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
+  #         repository: louis030195/integration
+  #         tag_with_ref: true
+  #         tag_with_sha: true
+  #         path: .
+  #         dockerfile: ${{ matrix.projectPath }}/Dockerfile
 
-  # Run integration tests
-  run-integration:
-    needs: [nakama, unityExecutor, build-integration]
-    name: Run integration tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # # Run integration tests
+  # run-integration:
+  #   needs: [nakama, unityExecutor, build-integration]
+  #   name: Run integration tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Fetch history
-        run: git fetch --prune --unshallow
+  #     - name: Fetch history
+  #       run: git fetch --prune --unshallow
 
-      - name: Run chart-testing (lint)
-        id: lint
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          command: lint --all
+  #     - name: Run chart-testing (lint)
+  #       id: lint
+  #       uses: helm/chart-testing-action@v1.0.0
+  #       with:
+  #         command: lint --all
 
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.0.0
-        # Only build a kind cluster if there are chart changes to test.
-        # if: steps.lint.outputs.changed == 'true'
+  #     - name: Create kind cluster
+  #       uses: helm/kind-action@v1.0.0
+  #       # Only build a kind cluster if there are chart changes to test.
+  #       # if: steps.lint.outputs.changed == 'true'
 
-      - name: Run chart-testing
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          config: helm/
-          command: install --all
+  #     - name: Run chart-testing
+  #       uses: helm/chart-testing-action@v1.0.0
+  #       with:
+  #         config: helm/
+  #         command: install --all

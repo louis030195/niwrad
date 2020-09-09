@@ -7,7 +7,7 @@ namespace Player {
 
 	public class UnitSelection : MonoBehaviour {
 
-		public GameObject selectionCirclePrefab;
+		// public GameObject selectionCirclePrefab;
 
 		private Camera m_Cam;
 		private const string ShaderPath = "Hidden/Internal-Colored";
@@ -23,7 +23,9 @@ namespace Player {
 		private Quaternion m_Rotation;
 		private bool m_IsSelecting;
 		private Vector3 m_LastMousePosition;
-		private bool m_Disable; // Can disable, useful for example when interacting with UI
+        
+        
+		public bool disable; // Can disable, useful for example when interacting with UI
 
 		private void Awake()
 		{
@@ -52,7 +54,7 @@ namespace Player {
 				Cursor.lockState = CursorLockMode.None;
 			}
 #endif
-			if (m_Disable)
+			if (disable)
 			{
 				m_IsSelecting = false;
 				return;
@@ -199,13 +201,7 @@ namespace Player {
 				m_LineMaterial = new Material(shader) {hideFlags = HideFlags.HideAndDontSave};
 			}
 		}
-
-
-		public void Disable(bool value)
-		{
-			m_Disable = value;
-		}
-	}
+    }
 
 }
 

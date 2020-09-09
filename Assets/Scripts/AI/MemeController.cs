@@ -20,7 +20,7 @@ namespace AI
 			if (!aiActive || Time.time < m_LastDecision + m_DecisionFrequency) return;
 			m_LastDecision = Time.time;
 			BeforeUpdated?.Invoke();
-			m_CurrentMeme.UpdateState(this);
+			m_CurrentMeme.UpdateState(this); // TODO: nullref here sometime
 		}
 
 		private void OnDrawGizmos()
@@ -32,10 +32,10 @@ namespace AI
 			}
 		}
 
-		public void SetupAi(Meme currentMeme, bool activate, float decisionFrequency = 2f)
-		{
+		public void SetupAi(Meme currentMeme, float decisionFrequency = 2f)
+        {
+            aiActive = true;
 			m_CurrentMeme = currentMeme;
-			aiActive = activate;
 			m_DecisionFrequency = decisionFrequency;
 			MemeChanged?.Invoke(m_CurrentMeme);
 		}

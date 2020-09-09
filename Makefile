@@ -2,11 +2,17 @@ PROJECT_PATH ?= $(HOME)/Documents/unity/niwrad
 PROTOS = $(PROJECT_PATH)/nakama/niwrad/api
 NS ?= niwrad
 VERSION ?= 1.0.0
-EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/2020.1.4f1/Editor/Unity
+UNITY_VERSION=2020.1.4f1
+EDITOR_PATH ?= $(HOME)/Unity/Hub/Editor/$(UNITY_VERSION)/Editor/Unity
+LICENSE_PATH ?= $(HOME)/.local/share/unity3d/Unity/
 GOPATH=$(HOME)/go/src
 PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 JS_OUT=niwrad-js/lib/proto
+
+UNITY_USERNAME?=foo
+UNITY_PASSWORD?=bar
+UNITY_LICENSE_CONTENT?=$(shell cat "${LICENSE_PATH}/Unity_lic.ulf")
 
 # TODO: make k8s namespace for niwrad
 
@@ -22,19 +28,30 @@ build: ## Build unity client, docker images and protobufs
 build: build-proto build-client-artifact build-server-artifact build-images
 
 build-client-artifact: ## Build unity client
-	rm -rf Builds/Linux
-	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
-		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
-		-silent-crashes -headless
-	@echo "\033[35mUnity client built\033[0m"
+	# rm -rf Builds/Linux
+	# $(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+	# 	-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinux \
+	# 	-silent-crashes -headless
+	# @echo "\033[35mUnity client built\033[0m"
+	echo "Doesn't work !!! THANKS UNITY FOR NOT SUPPORTING LINUX "
+	# docker run -it --rm -e "UNITY_LICENSE_CONTENT=$(UNITY_LICENSE_CONTENT)" \
+	# 	-e "TEST_PLATFORM=linux" -e "WORKDIR=/root/project" -v "$(pwd):/root/project" \
+	# 	gableroux/unity3d:$(UNITY_VERSION) \
+	# 	bash
+
+	# 	/opt/Unity/Editor/Unity \
+	# 	-logFile /dev/stdout \
+	# 	-batchmode -buildLinux64Player
 
 
 build-server-artifact: ## Build unity server
-	rm -rf Builds/Linux
-	$(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
-		-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
-		-silent-crashes -headless -nographics
-	@echo "\033[35mUnity server built\033[0m"
+	echo "Doesn't work !!! THANKS UNITY FOR NOT SUPPORTING LINUX "
+
+	# rm -rf Builds/Linux
+	# $(EDITOR_PATH) -batchmode -quit -logFile /tmp/$(NS)_unity_build.log -projectPath $(PROJECT_PATH) \
+	# 	-buildLinux64Player $(PROJECT_PATH)/Builds/Linux -executeMethod Editor.Builds.BuildLinuxHeadless \
+	# 	-silent-crashes -headless -nographics
+	# @echo "\033[35mUnity server built\033[0m"
 
 
 build-images: ## Build docker images

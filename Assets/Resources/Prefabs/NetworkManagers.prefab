@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6922590327730408091}
-  - component: {fileID: 5560550134881460257}
   - component: {fileID: 5467749604217865181}
   - component: {fileID: 3749421254171666429}
   - component: {fileID: 6922590327730408092}
@@ -34,18 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5560550134881460257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6922590327730408093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01208a0e1a4a4d9aadf12fe6fe444004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5467749604217865181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a42ae414bd4c37be521d4e89c5f903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalPrefab: {fileID: 4443387354701748607, guid: f9982c60569558577aaf00e50619bcea,
-    type: 3}
+  graphicTier: 0
+  lowPolyAnimalPrefab: {fileID: 0}
+  lowPolyVegetationPrefab: {fileID: 0}
 --- !u!114 &3749421254171666429
 MonoBehaviour:
   m_ObjectHideFlags: 0

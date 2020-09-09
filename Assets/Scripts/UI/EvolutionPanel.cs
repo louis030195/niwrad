@@ -10,7 +10,7 @@ using Utils;
 namespace UI
 {
 	public class EvolutionPanel : MonoBehaviour
-	{
+	{ // TODO: find better name (ambiguous with menu)
 		[Tooltip("It's used to track the birth and death of animals"), SerializeField]
 		private GameObject animalPrefab;
 		[SerializeField]

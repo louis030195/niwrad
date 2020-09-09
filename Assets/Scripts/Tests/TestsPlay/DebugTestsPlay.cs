@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using UI;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Utils;
 
 namespace Tests.TestsPlay
 {

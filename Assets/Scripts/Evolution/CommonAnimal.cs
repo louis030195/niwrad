@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AI;
-using Gameplay;
 using Api.Match;
 using Api.Realtime;
 using Api.Session;
 using Api.Utils;
 using UnityEngine;
 using Utils;
-using Action = AI.Action;
 using Meme = AI.Meme;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -17,60 +12,23 @@ using Vector3 = UnityEngine.Vector3;
 namespace Evolution
 {
 	[RequireComponent(typeof(Movement))]
-	public class CommonAnimal : Host
+	public class CommonAnimal : Host<AnimalCharacteristics>
 	{
-		[Header("Initial characteristics")]
-		[Range(2, 20)]
-		public float initialSpeed = 5f;
-		[Range(1, 1000)]
-		public float randomMovementRange = 20f;
-		[Range(1, 1000)]
-		public float sightRange = 20f;
-		[Range(2f, 10.0f)]
-		public float eatRange = 5f;
-		[Range(1, 100.0f), Tooltip("How much life eating bring")]
-		public float metabolism = 10f;
-
-		[Header("Reproduction")]
-		[Range(20, 80)]
-		public float reproductionLifeLoss = 50f;
-
 		[HideInInspector] public Movement movement;
 
-		private void OnDied()
+        private void OnDied()
 		{
 			Hm.instance.DestroyAnimalSync(id);
 		}
 
-		protected new void OnEnable()
-		{
-			base.OnEnable();
-			movement = GetComponent<Movement>();
-			movement.speed = initialSpeed;
-			if (Sm.instance && Sm.instance.isServer)
-			{
-				health.Died += OnDied;
-				movement.destinationChanged += OnDestinationChanged;
-			}
-		}
-
-		protected new void OnDisable()
-		{
-			base.OnDisable();
-			if (Sm.instance && Sm.instance.isServer)
-			{
-				health.Died -= OnDied;
-			}
-		}
-
-		protected void BreedAndMutate(GameObject other)
+        protected void BreedAndMutate(GameObject other)
 		{
 			var th = other.GetComponent<CommonAnimal>();
 
 			// Stop moving
 			movement.isStopped = true;
 			// It's costly to reproduce, proportional to animal age
-			health.ChangeHealth(-reproductionLifeLoss*(1+Age/100));
+			health.ChangeHealth(-characteristics.reproductionLifeLoss*(1+Age/100));
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
@@ -84,42 +42,23 @@ namespace Evolution
 			// Decrease target life now
 			if (other != null)
 			{
-				other.GetComponent<Health>().ChangeHealth(-reproductionLifeLoss);
+				other.GetComponent<Health>().ChangeHealth(-characteristics.reproductionLifeLoss);
 			}
 			else
 			{
 				Debug.LogWarning($"Partner died while breeding");
 			}
 
-
-			var r = ReflectionExtension.GetRange(GetType(), nameof(initialLife));
-			childHost.initialLife = Mathf.Clamp(Mutate(initialLife, th.initialLife, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(initialSpeed));
-			childHost.initialSpeed = Mathf.Clamp(Mutate(initialSpeed, th.initialSpeed, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(randomMovementRange));
-			childHost.randomMovementRange = Mathf.Clamp(Mutate(randomMovementRange, th.randomMovementRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(sightRange));
-			childHost.sightRange = Mathf.Clamp(Mutate(sightRange, th.sightRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(eatRange));
-			childHost.eatRange = Mathf.Clamp(Mutate(eatRange, th.eatRange, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(metabolism));
-			childHost.metabolism = Mathf.Clamp(Mutate(metabolism, th.metabolism, 1f), r.min, r.max);
-
-			r = ReflectionExtension.GetRange(GetType(), nameof(robustness));
-			childHost.robustness = Mathf.Clamp(Mutate(robustness, th.robustness, 1f), r.min, r.max);
-
+            // Make a copy of the scriptable object to avoid serializing runtime changes
+            childHost.characteristics = Instantiate(th.characteristics);
+            childHost.characteristics.Mutate(th.characteristics, characteristics);
 			// go.GetComponent<MeshFilter>().mesh.Mutation();
 
 			// TODO: the new host should have its memes tweaked by meme controller (mutation ...)
 			LastBreed = Time.time;
 		}
 
-		private void OnDestinationChanged(Vector3 obj)
+        private void OnDestinationChanged(Vector3 obj)
 		{
 			Mcm.instance.RpcAsync(new Packet
 			{
@@ -131,11 +70,30 @@ namespace Evolution
 			});
 		}
 
-
-		public override void BringToLife()
+        public new void EnableBehaviour(bool value)
 		{
-			controller.SetupAi(memes["Wander"], true, decisionFrequency);
-		}
+            base.EnableBehaviour(value);
+            if (value)
+            {
+                movement = GetComponent<Movement>();
+                movement.navMeshAgent.enabled = true;
+                // TODO: how costly is it to cast everytime ?
+                movement.speed = characteristics.initialSpeed;
+                if (Sm.instance && Sm.instance.isServer)
+                {
+                    health.Died += OnDied;
+                    movement.destinationChanged += OnDestinationChanged;
+                }
+            }
+            else
+            {
+                movement.navMeshAgent.enabled = false;
+                if (Sm.instance && Sm.instance.isServer)
+                {
+                    health.Died -= OnDied;
+                }
+            }
+        }
 
 		#region Actions
 		protected void RandomMovement(MemeController _)
@@ -143,7 +101,8 @@ namespace Evolution
 			if (movement.remainingDistance <= movement.stoppingDistance + 1)
 			{
 				// Try to find a random position on map, otherwise will just go to zero
-				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(randomMovementRange,
+				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(
+                    characteristics.randomMovementRange,
 					default,
 					0);
 				movement.MoveTo(p);
@@ -157,7 +116,7 @@ namespace Evolution
 		private Meme Timeout(MemeController c)
 		{
 			// Could be improved
-			return c.lastTransition + 10f > Time.time ? memes["Wander"] : null;
+			return c.lastTransition + 10f > Time.time ? Memes["Wander"] : null;
 		}
 
 		#endregion

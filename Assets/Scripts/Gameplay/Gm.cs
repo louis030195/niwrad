@@ -43,9 +43,7 @@ namespace Gameplay
 
         [SerializeField, Tooltip("Prefab containing all network managers, not required offline")]
         private GameObject networkManagersPrefab;
-        [SerializeField] private Slider timescaleSlider;
-        [SerializeField] private TextMeshProUGUI timescaleText;
-        
+
         [Header("Map")] 
         [SerializeField, Range(1, 12)]
         private int mapSize = 3;
@@ -59,11 +57,7 @@ namespace Gameplay
         protected override async void Awake()
         {
             base.Awake();
-            timescaleSlider.onValueChanged.AddListener(value =>
-            {
-                Time.timeScale = value;
-                timescaleText.text = $"{value}";
-            });
+
             
             foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
             {
@@ -78,11 +72,6 @@ namespace Gameplay
             {
                 Instantiate(networkManagersPrefab);
                 await InitializeNet();
-            } else if (!isExecutor)
-            {
-                // Clients can't tweak timescale
-                timescaleSlider.gameObject.SetActive(false);
-                timescaleText.gameObject.SetActive(false);
             }
 
             // Online shouldn't have set seed, server will send it

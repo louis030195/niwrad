@@ -1,3 +1,4 @@
+using System;
 using Gameplay;
 using Api.Session;
 using Evolution;
@@ -5,23 +6,27 @@ using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
+using Utils.Physics;
 
 namespace UI
 {
     [RequireComponent(typeof(UnitSelection))]
     public class Actions : MonoBehaviour
     {
-        // [SerializeField] private GameObject fireballPrefab;
         [SerializeField] private EscapeMenu escapeMenu;
         [SerializeField] private Menu evolutionMenu;
         private UnitSelection _unitSelection;
 
-        private float _lastFireball;
         private bool _isDragging;
         private GameObject _draggedObject;
         private Camera _camera;
 
 
+        private delegate void Spawn(Vector3 p, Quaternion r);
+        private readonly Spawn _hackAnimal = (p, r) => Hm.instance.SpawnAnimalSync(p, r);
+        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnTreeSync(p, r);
+
+        
         private void Awake()
         {
 	        _camera = Camera.main;
@@ -33,24 +38,8 @@ namespace UI
             {
                 DragObject();
             }
-            // if (Time.time > m_LastFireball && Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.Mouse0))
-            // {
-            //     m_LastFireball = Time.time + 0.2f; // 2 sec cooldown
-            //     ThrowFireBall();
-            // }
         }
-
-        // private void ThrowFireBall()
-        // {
-        //     Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        //     var camPos = _camera.transform.position;
-        //     var go = Pool.Spawn(fireballPrefab, Vector3.Lerp(camPos, ray.direction, 0.1f),
-        //         Quaternion.LookRotation(ray.direction));
-        //     go.GetComponent<Rigidbody>().AddForce(go.transform.forward*1000f);
-        //     // go.transform.localScale *= 10;
-        // }
-
-
+        
         private void DragObject()
         {
             _unitSelection.disable = true;
@@ -68,79 +57,56 @@ namespace UI
 	        _draggedObject.GetComponent<Renderer>().material.color = color;
         }
 
-        private bool StopDragging(out Vector3 hitPos)
+        private void StopDragging(Color color, Spawn action)
         {
             _unitSelection.disable = false;
-            hitPos = Vector3.zero;
+            var p = _draggedObject.transform.position;
 	        Destroy(_draggedObject);
 	        _isDragging = false;
-	        var ray = _camera.ScreenPointToRay(Input.mousePosition);
-	        if (!Physics.Raycast(ray, out var hit, 1000.0f)) return false;
-	        hitPos = hit.transform.position;
-	        return true;
+	        // var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            var seed = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            seed.transform.position = p;
+            void Action()
+            {
+                Destroy(seed);
+                action.Invoke(seed.transform.position, Quaternion.identity);
+            }
+
+            seed.AddComponent<TriggerActionOnCollision>()
+                .CollisionEnter(Action, "ground");
+            seed.AddComponent<Rigidbody>().useGravity = true;
+            seed.GetComponent<Renderer>().material.color = color;
+            
+            // Any case the seed is deleted automatically after a time (outside map ...)
+            Destroy(seed, 10f);
         }
 
         public void StartDraggingAnimal() => StartDragging(Color.red);
 
         public void StartDraggingTree() => StartDragging(Color.green);
 
-        public void StartDraggingRobot() => StartDragging(Color.magenta);
+        public void StopDraggingAnimal() => StopDragging(Color.red,
+            !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
-        public void StopDraggingAnimal()
+        public void StopDraggingTree() => StopDragging(Color.green,
+            !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
+        
+        public void StopDraggingBunchAnimal(int nbSpawn)
         {
-	        if (!StopDragging(out var hitPos)) return;
-	        if (!Gm.instance.online || Sm.instance.isServer)
-	        {
-		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
-		        if (p.Equals(Vector3.positiveInfinity))
-		        {
-			        Debug.LogWarning($"You tried to spawn outside map");
-			        return;
-		        }
-		        Hm.instance.SpawnAnimalSync(p, Quaternion.identity);
-	        }
-	        else
-	        {
-		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
-		        if (p.Equals(Vector3.positiveInfinity))
-		        {
-			        Debug.LogWarning($"Client tried to spawn outside map");
-			        return;
-		        }
-		        Hm.instance.RequestSpawnAnimal(p, Quaternion.identity);
-	        }
+            for (var i = 0; i < nbSpawn; i++)
+            {
+                StopDragging(Color.red,
+                    !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
+            }
         }
 
-        public void StopDraggingTree()
+        public void StopDraggingBunchTree(int nbSpawn)
         {
-	        if (!StopDragging(out var hitPos)) return;
-	        if (!Gm.instance.online || Sm.instance.isServer)
-	        {
-		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
-		        if (p.Equals(Vector3.positiveInfinity))
-		        {
-			        Debug.LogWarning($"You tried to spawn outside map");
-			        return;
-		        }
-		        Hm.instance.SpawnTreeSync(p, Quaternion.identity);
-	        }
-	        else
-	        {
-		        var p = new Vector3(hitPos.x, 100, hitPos.z).PositionAboveGround();
-		        if (p.Equals(Vector3.positiveInfinity))
-		        {
-			        Debug.LogWarning($"Client tried to spawn outside map");
-			        return;
-		        }
-		        Hm.instance.RequestSpawnTree(p, Quaternion.identity);
-	        }
-        }
-
-        public void StopDraggingRobot()
-        {
-	        if (!StopDragging(out var hitPos)) return;
-	        // TODO: popup window with stats: which characteristic to look for ...
-	        // e.g: I want fast animals = robot kill all slow animals
+            for (var i = 0; i < nbSpawn; i++)
+            {
+                StopDragging(Color.green,
+                    !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
+            }
         }
 
         public void OnPointerClickAnimal(BaseEventData data)

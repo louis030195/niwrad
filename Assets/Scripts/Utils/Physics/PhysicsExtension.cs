@@ -22,7 +22,7 @@ namespace Utils
 		public static GameObject Closest(this GameObject go, float radius, LayerMask mask, bool skipInactive = true)
 		{
 			var center = go.transform.position;
-			if (Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
+			if (UnityEngine.Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
 			var min = default(GameObject);
 			Results.ToList().ForEach(c =>
 			{

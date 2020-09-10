@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Utils
 {
@@ -41,7 +39,7 @@ namespace Utils
 			// Debug.Log($"Position above ground: {p}");
             // Debug.DrawRay(p, Vector3.down*1000, Color.magenta);
 			// Current position is above ground
-            if (Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) <= 0)
+            if (UnityEngine.Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) <= 0)
                 return Vector3.positiveInfinity;
             // Debug.Log($"Position above ground: {p}");
 
@@ -82,7 +80,7 @@ namespace Utils
 					continue;
 				}
 				// Then we check if this spot is free (from the given layer)
-				var size = Physics.OverlapSphereNonAlloc(newPos, distance, _results, layerMask);
+				var size = UnityEngine.Physics.OverlapSphereNonAlloc(newPos, distance, _results, layerMask);
 
 				// If no objects of the same layer is detected, this spot is free, return
 				if (size == 0) return newPos;

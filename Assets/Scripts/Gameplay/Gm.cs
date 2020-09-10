@@ -105,7 +105,9 @@ namespace Gameplay
             // Online mode should receive seed from Nakama for determinism, otherwise 666 :)
             Random.InitState((int)seed);
             Debug.Log($"Seed loaded: {Random.state}");
-            ProceduralTerrain.Generate(mapSize, mapHeight, (int)seed, mapSpread, mapSpreadReductionRate);
+            var t = 
+                ProceduralTerrain.Generate(mapSize, mapHeight, (int)seed, mapSpread, mapSpreadReductionRate);
+            t.tag = "ground";
             var m = GetComponent<NavMeshSurface>();
             Debug.Log($"Generating map and baking it for path finding");
             m.BuildNavMesh();

@@ -1,15 +1,12 @@
 {
-    "name": "TestAssembly",
+    "name": "TestsHelpersAssembly",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
         "GameAssembly",
         "UniTask",
-        "TestsHelpersAssembly"
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

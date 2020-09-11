@@ -5,8 +5,10 @@ using Evolution;
 using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utils;
 using Utils.Physics;
+using Random = UnityEngine.Random;
 
 namespace UI
 {
@@ -15,6 +17,9 @@ namespace UI
     {
         [SerializeField] private EscapeMenu escapeMenu;
         [SerializeField] private Menu evolutionMenu;
+        [SerializeField] private Slider sliderAnimal;
+        [SerializeField] private Slider sliderVegetation;
+        
         private UnitSelection _unitSelection;
 
         private bool _isDragging;
@@ -57,57 +62,43 @@ namespace UI
 	        _draggedObject.GetComponent<Renderer>().material.color = color;
         }
 
-        private void StopDragging(Color color, Spawn action)
+        private void StopDragging(int n, Color color, Spawn action)
         {
             _unitSelection.disable = false;
             var p = _draggedObject.transform.position;
 	        Destroy(_draggedObject);
 	        _isDragging = false;
-	        // var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            var seed = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            seed.transform.position = p;
-            void Action()
-            {
-                Destroy(seed);
-                action.Invoke(seed.transform.position, Quaternion.identity);
-            }
 
-            seed.AddComponent<TriggerActionOnCollision>()
-                .CollisionEnter(Action, "ground");
-            seed.AddComponent<Rigidbody>().useGravity = true;
-            seed.GetComponent<Renderer>().material.color = color;
+            for (var i = 0; i < n; i++)
+            {
+                var seed = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                seed.transform.position = p + Random.insideUnitSphere * (n * 0.1f);
+                void Action()
+                {
+                    Destroy(seed);
+                    action.Invoke(seed.transform.position, Quaternion.identity);
+                }
+
+                seed.AddComponent<TriggerActionOnCollision>()
+                    .CollisionEnter(Action, "ground");
+                seed.AddComponent<Rigidbody>().useGravity = true;
+                seed.GetComponent<Renderer>().material.color = color;
             
-            // Any case the seed is deleted automatically after a time (outside map ...)
-            Destroy(seed, 10f);
+                // Any case the seed is deleted automatically after a time (outside map ...)
+                Destroy(seed, 10f);
+            }
         }
 
         public void StartDraggingAnimal() => StartDragging(Color.red);
 
         public void StartDraggingTree() => StartDragging(Color.green);
 
-        public void StopDraggingAnimal() => StopDragging(Color.red,
+        public void StopDraggingAnimal() => StopDragging((int) sliderAnimal.value, Color.red,
             !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
-        public void StopDraggingTree() => StopDragging(Color.green,
+        public void StopDraggingTree() => StopDragging((int) sliderVegetation.value, Color.green,
             !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
         
-        public void StopDraggingBunchAnimal(int nbSpawn)
-        {
-            for (var i = 0; i < nbSpawn; i++)
-            {
-                StopDragging(Color.red,
-                    !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
-            }
-        }
-
-        public void StopDraggingBunchTree(int nbSpawn)
-        {
-            for (var i = 0; i < nbSpawn; i++)
-            {
-                StopDragging(Color.green,
-                    !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
-            }
-        }
 
         public void OnPointerClickAnimal(BaseEventData data)
         {

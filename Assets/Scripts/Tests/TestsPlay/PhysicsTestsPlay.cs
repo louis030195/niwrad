@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using NUnit.Framework;
-using Player;
-using UI;
+using Tests.TestsHelpers;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 using Utils;
-using LightType = UnityEngine.LightType;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests.TestsPlay
 {
@@ -22,24 +17,16 @@ namespace Tests.TestsPlay
     /// </summary>
     public class PhysicsTestsPlay
     {
-        private GameObject SpawnControllerCamera()
-        {
-            var cam = new GameObject("Camera");
-            cam.AddComponent<Camera>();
-            cam.AddComponent<CameraController>();
-            return cam;
-        }
+
         
         // A Test behaves as an ordinary method
         [UnityTest]
         public IEnumerator PositionAboveGround() => UniTask.ToCoroutine(async () =>
         {
             Debug.Log($"Press escape to stop test");
-            
-            var light = new GameObject("Light").AddComponent<Light>();
-            light.type = LightType.Directional;
-            light.transform.position = Vector3.up * 1000;
-            var cam = SpawnControllerCamera();
+
+            var _ = Helper.SpawnLight();
+            var cam = Helper.SpawnControllerCamera();
             var height = 30;
             var terrain = ProceduralTerrain.Generate(10, 
                 height, 

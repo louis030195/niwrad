@@ -15,6 +15,7 @@ namespace Evolution
         Semelparous,
         Iteroparous
     }
+    [CreateAssetMenu(fileName = "Experience", menuName = "ScriptableObjects/Experience", order = 2)]
     public class Experience : ScriptableObject
     {
         // TODO: can we factorize some common parameters between vegetation & animals (struct ..)

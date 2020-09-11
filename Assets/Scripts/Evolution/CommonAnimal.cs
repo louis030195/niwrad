@@ -34,25 +34,26 @@ namespace Evolution
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var childHost = Hm.instance.SpawnAnimalSync(transform.position, Quaternion.identity);
-			if (childHost == null)
-			{
-				Debug.LogError($"Reproduce couldn't spawn animal");
-				return;
-			}
+            // Make a copy of the scriptable object to avoid serializing runtime changes
+            childHost.characteristics = Instantiate(th.characteristics);
+            childHost.characteristics.Mutate(th.characteristics, characteristics);
 
 			// Decrease target life now
-			if (other != null)
+			if (other != null && th != null)
 			{
 				other.GetComponent<Health>().ChangeHealth(-characteristics.reproductionLifeLoss);
 			}
 			else
 			{
-				Debug.LogWarning($"Partner died while breeding");
+				Debug.LogWarning($"A partner died while breeding");
 			}
 
-            // Make a copy of the scriptable object to avoid serializing runtime changes
-            childHost.characteristics = Instantiate(th.characteristics);
-            childHost.characteristics.Mutate(th.characteristics, characteristics);
+            if (childHost == null) // TODO: these warning never show up, could remove prob
+            {
+                Debug.LogWarning($"A child is dead-born");
+                return;
+            }
+
 			// go.GetComponent<MeshFilter>().mesh.Mutation();
 
 			// TODO: the new host should have its memes tweaked by meme controller (mutation ...)

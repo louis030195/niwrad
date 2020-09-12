@@ -50,7 +50,7 @@ namespace Tests.TestsHelpers
             
             var s = Resources.Load(SliderTemplatePath) as GameObject;
             var c = Resources.Load(CheckboxTemplatePath) as GameObject;
-            so.Render(s, c, canvas.transform);
+            so.Render(canvas.transform);
             return canvas;
         }
     }

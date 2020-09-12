@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils;
 using Random = UnityEngine.Random;
@@ -36,17 +37,16 @@ namespace Evolution
 
         private void OnEnable()
         {
-            var properties = GetType().GetFields();
+            var fields = GetType().GetFields();
             // Each characteristics is "fenced" in a range for balance. It's stored once to be reused
-            foreach (var property in properties)
+            foreach (var field in fields)
             {
-                try
+                // Ignore non serialized fields
+                // if (field.GetCustomAttributes(true).ToList().Find(a => a is NonSerializedAttribute) != null) continue;
+                var r = ReflectionExtension.GetRange(GetType(), field.Name);
+                if (r != null)
                 {
-                    RangeAttributes[property.Name] = ReflectionExtension.GetRange(GetType(), property.Name);
-                }
-                catch (Exception e)
-                {
-                    Debug.Log($"Ignoring {property.Name}: {e.Message}");
+                    RangeAttributes[field.Name] = r;
                 }
             }
         }

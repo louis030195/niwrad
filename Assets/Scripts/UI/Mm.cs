@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Player;
+using UnityEngine;
 using Utils;
 
 namespace UI
@@ -31,6 +33,9 @@ namespace UI
     /// </summary>
     public class Mm : Singleton<Mm>
     {
+        [SerializeField] private UnitSelection unitSelection;
+        [SerializeField] private CameraController cameraController;
+        
         private readonly StackL<Menu> _stack = new StackL<Menu>();
 
         private void Start()
@@ -38,6 +43,18 @@ namespace UI
             DontDestroyOnLoad(gameObject);
             _stack.OnPush += menu => menu.Show();
             _stack.OnPop += menu => menu.Hide();
+        }
+
+        private void Update()
+        {
+            if (Input.GetButtonDown("Cancel") && !(_stack.Count > 1 && _stack.Last() is EscapeMenu))
+            {
+                Pop();
+                _stack.Peek().Show();
+            }
+            // Can't select anything while scrolling a menu
+            unitSelection.disable = !IsEmpty();
+            cameraController.disable = !IsEmpty();
         }
 
         public void Push(Menu menu)
@@ -67,6 +84,11 @@ namespace UI
                 if (ret.Last().Equals(menu)) break;
             }
             return ret;
+        }
+
+        public bool IsEmpty()
+        {
+            return _stack.Count == 0;
         }
     }
 }

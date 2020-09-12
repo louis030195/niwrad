@@ -43,27 +43,28 @@ namespace UI
             {
                 Destroy(o.gameObject);
             }
-            // TODO: how to handle non-continuous characteristics (boolean, discrete ...) ?
-            // for each characteristics
-            var fields = c.GetType().GetFields();
-            foreach (var field in fields)
-            {
-                var characteristicGo = Instantiate(characteristicTemplate, characteristicList.transform);
-                if (!c.RangeAttributes.ContainsKey(field.Name)) continue;
-                var r = c.RangeAttributes[field.Name];
-                var s = characteristicGo.GetComponentInChildren<Slider>();
-                s.minValue = r.min;
-                s.maxValue = r.max;
-                var val = field.GetValue(c);
-                if (val is float f) s.value = f;
-                else Debug.LogError("Non-float characteristics being assigned to slider");
-                var labelValue = characteristicGo.transform.GetChild(0);
-                labelValue.GetComponent<TextMeshProUGUI>().text = $"{field.Name}";
-                var sliderValue = characteristicGo.transform.GetChild(2);
-                var sliderValueText = sliderValue.GetComponent<TextMeshProUGUI>();
-                sliderValueText.text = $"{s.value}";
-                s.onValueChanged.AddListener(value => sliderValueText.text = $"{value}");
-            }
+            c.Render(characteristicList.transform);
+            // // TODO: how to handle non-continuous characteristics (boolean, discrete ...) ?
+            // // for each characteristics
+            // var fields = c.GetType().GetFields();
+            // foreach (var field in fields)
+            // {
+            //     var characteristicGo = Instantiate(characteristicTemplate, characteristicList.transform);
+            //     if (!c.RangeAttributes.ContainsKey(field.Name)) continue;
+            //     var r = c.RangeAttributes[field.Name];
+            //     var s = characteristicGo.GetComponentInChildren<Slider>();
+            //     s.minValue = r.min;
+            //     s.maxValue = r.max;
+            //     var val = field.GetValue(c);
+            //     if (val is float f) s.value = f;
+            //     else Debug.LogError("Non-float characteristics being assigned to slider");
+            //     var labelValue = characteristicGo.transform.GetChild(0);
+            //     labelValue.GetComponent<TextMeshProUGUI>().text = $"{field.Name}";
+            //     var sliderValue = characteristicGo.transform.GetChild(2);
+            //     var sliderValueText = sliderValue.GetComponent<TextMeshProUGUI>();
+            //     sliderValueText.text = $"{s.value}";
+            //     s.onValueChanged.AddListener(value => sliderValueText.text = $"{value}");
+            // }
         }
     }
 }

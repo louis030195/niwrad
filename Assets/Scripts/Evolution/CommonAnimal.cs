@@ -25,11 +25,9 @@ namespace Evolution
         protected void BreedAndMutate(GameObject other)
 		{
 			var th = other.GetComponent<CommonAnimal>();
-
+            if (th == null) return; // TODO: need to investigate this ? Died while breeding ?
 			// Stop moving
 			movement.isStopped = true;
-			// It's costly to reproduce, proportional to animal age
-			health.ChangeHealth(-characteristics.reproductionLifeLoss*(1+Age/100));
 
 			// Spawning a child around
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
@@ -38,23 +36,18 @@ namespace Evolution
             childHost.characteristics = Instantiate(th.characteristics);
             childHost.characteristics.Mutate(th.characteristics, characteristics);
 
-			// Decrease target life now
-			if (other != null && th != null)
-			{
-				other.GetComponent<Health>().ChangeHealth(-characteristics.reproductionLifeLoss);
-			}
-			else
-			{
-				Debug.LogWarning($"A partner died while breeding");
-			}
-
-            if (childHost == null) // TODO: these warning never show up, could remove prob
+            // It's costly to reproduce, proportional to animal age
+            health.ChangeHealth(-characteristics.reproductionLifeLoss*(1+Age/100));
+            if (other != null || th != null)
             {
-                Debug.LogWarning($"A child is dead-born");
-                return;
+                other.GetComponent<Health>().ChangeHealth(-th.characteristics.reproductionLifeLoss*(1+th.Age/100));
+            }
+            else
+            {
+                Debug.LogWarning($"A partner died while breeding");
             }
 
-			// go.GetComponent<MeshFilter>().mesh.Mutation();
+            // go.GetComponent<MeshFilter>().mesh.Mutation();
 
 			// TODO: the new host should have its memes tweaked by meme controller (mutation ...)
 			LastBreed = Time.time;

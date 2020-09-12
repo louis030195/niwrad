@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Runtime.Versioning;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -7,6 +8,11 @@ namespace UI
 {
     public static class ScriptableObjectRenderer
     {
+        private const string SliderTemplatePath = "Prefabs/SliderTemplate";
+        private const string CheckboxTemplatePath = "Prefabs/CheckboxTemplate";
+        private static GameObject defaultSlider = Resources.Load(SliderTemplatePath) as GameObject;
+        private static GameObject defaultCheckBox = Resources.Load(CheckboxTemplatePath) as GameObject;
+
         public static bool IsNumber(this object value) // TODO: move somewhere else
         {
             return value is sbyte
@@ -30,8 +36,10 @@ namespace UI
         /// <param name="sliderTemplate"></param>
         /// <param name="checkboxTemplate"></param>
         /// <param name="parent"></param>
-        public static void Render(this ScriptableObject so, GameObject sliderTemplate, GameObject checkboxTemplate, Transform parent)
+        public static void Render(this ScriptableObject so, Transform parent, GameObject sliderTemplate = null, GameObject checkboxTemplate = null)
         {
+            sliderTemplate = sliderTemplate ? sliderTemplate : defaultSlider;
+            checkboxTemplate = checkboxTemplate ? checkboxTemplate : defaultCheckBox;
             var fields = so.GetType().GetFields();
             foreach (var field in fields)
             {

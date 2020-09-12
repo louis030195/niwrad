@@ -100,12 +100,12 @@ namespace UI
             !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
         
 
-        public void OnPointerClickAnimal(BaseEventData data)
-        {
-            if (((PointerEventData) data).button == PointerEventData.InputButton.Right)
-            {
-                escapeMenu.EscapePlusOther(evolutionMenu);
-            }
-        }
+        // public void OnPointerClickAnimal(BaseEventData data)
+        // {
+        //     if (((PointerEventData) data).button == PointerEventData.InputButton.Right)
+        //     {
+        //         escapeMenu.EscapePlusOther(evolutionMenu);
+        //     }
+        // }
     }
 }

@@ -7,6 +7,8 @@
 ![demo](docs/images/demo.gif)
 ![demo](docs/images/demo2.gif)
 
+Try the offline WebGL version [here](http://louis030195.com/niwrad).
+
 See related writings:
 
 * [Blog post part one](https://medium.com/swlh/a-simulation-of-evolution-part-one-62a1acfb009a)

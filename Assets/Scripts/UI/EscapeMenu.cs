@@ -1,6 +1,4 @@
-﻿using System;
-using Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UI
 {
@@ -9,38 +7,18 @@ namespace UI
         [SerializeField]
         private Menu escapeScrollView;
 
-        private UnitSelection _unitSelection;
-        private CameraController _cameraController;
-        
-        private void Start()
-        {
-            _unitSelection = GetComponentInParent<UnitSelection>();
-            _cameraController = GetComponentInParent<CameraController>();
-        }
-
         private void Update()
         {
-            if (Input.GetButtonDown("Cancel"))
+            // When no menu is shown, escape show escape menu
+            if (Input.GetButtonDown("Cancel") && Mm.instance.IsEmpty())
             {
-                EscapePlusOther();
-            }
-        }
-
-        public void EscapePlusOther(Menu menu = null) // TODO: better name, less monolithic dependencies
-        {
-            if (!IsShown)
-            {
-                // Can't select anything while scrolling the menu
-                _unitSelection.disable = true;
-                _cameraController.disable = true;
                 Push();
-                Mm.instance.Push(menu ? menu : escapeScrollView);
+                Mm.instance.Push(escapeScrollView);
             }
-            else {
-                Mm.instance.PopTo(this); // When the menu is shown, un-stack up to the "root" menu
-                // Mm.instance.Pop(); // Is it interesting to pop current menu only ?
-                _unitSelection.disable = false;
-                _cameraController.disable = false;
+            // When escape menu is shown and user press escape, dismiss everything
+            else if (IsShown && Input.GetButtonDown("Cancel"))
+            {
+                Mm.instance.PopTo(this);
             }
         }
     }

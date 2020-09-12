@@ -39,11 +39,9 @@ See related writings:
 
 ### Objectives
 
-* Hosts (any life form) have characteristics.
-* Hosts can reproduce (sexual only atm), when they do, their characteristics are "mixed" plus a slight randomness (mutation).
-* Hosts behaviour code MUST be generic, so we can either implement simple heuristics like state-machines, behaviour trees or more complex like reinforcement learning.
-* Hosts will evolve by natural selection, some characteristics that help survival (speed ... ?) will increase, some that harm survival will decrease.
-* Players can trigger artificial selection, e.g. like we human selected the cows that produce the most milk, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some targeted hosts (high speed hosts ? big hosts ...)
+* Hosts (any life form) have characteristics. When hosts reproduce sexually or asexually, the offspring characteristics are its parent's plus mutations.
+* Hosts behaviour code MUST be generic, so we can either implement simple heuristics like state-machines, behaviour trees or go more complex like reinforcement learning.
+* Observers can trigger artificial selection, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some species
 
 ## Usage
 

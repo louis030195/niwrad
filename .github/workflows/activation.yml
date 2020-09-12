@@ -7,7 +7,7 @@ on:
       unityVersion:
         description: 'Unity version'
         required: true
-        default: 2020.1.4f1
+        default: 2020.2.0b2
 jobs:
   activation:
     name: Request manual activation file 🔑

@@ -17,8 +17,8 @@ MonoBehaviour:
   robustness: 1
   hunger: 50
   energy: 50
-  reproductionThreshold: 80
-  reproductionDelay: 20
+  reproductionThreshold: 50
+  reproductionDelay: 2
   initialSpeed: 5
   randomMovementRange: 20
   sightRange: 20

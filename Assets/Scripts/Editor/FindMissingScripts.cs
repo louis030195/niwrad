@@ -8,7 +8,7 @@ namespace Editor
         [MenuItem("Window/FindMissingScripts")]
         public static void ShowWindow()
         {
-            EditorWindow.GetWindow(typeof(FindMissingScripts));
+            GetWindow(typeof(FindMissingScripts));
         }
 
         public void OnGUI()
@@ -21,33 +21,30 @@ namespace Editor
 
         private static void FindInSelected()
         {
-            GameObject[] go = Selection.gameObjects;
-            int go_count = 0, components_count = 0, missing_count = 0;
-            foreach (GameObject g in go)
+            var go = Selection.gameObjects;
+            int goCount = 0, componentsCount = 0, missingCount = 0;
+            foreach (var g in go)
             {
-                go_count++;
-                Component[] components = g.GetComponents<Component>();
-                for (int i = 0; i < components.Length; i++)
+                goCount++;
+                var components = g.GetComponents<Component>();
+                for (var i = 0; i < components.Length; i++)
                 {
-                    components_count++;
-                    if (components[i] == null)
+                    componentsCount++;
+                    if (components[i] != null) continue;
+                    missingCount++;
+                    var s = g.name;
+                    var t = g.transform;
+                    while (t.parent != null)
                     {
-                        missing_count++;
-                        string s = g.name;
-                        Transform t = g.transform;
-                        while (t.parent != null)
-                        {
-                            s = t.parent.name + "/" + s;
-                            t = t.parent;
-                        }
-
-                        Debug.Log(s + " has an empty script attached in position: " + i, g);
+                        s = t.parent.name + "/" + s;
+                        t = t.parent;
                     }
+
+                    Debug.Log(s + " has an empty script attached in position: " + i, g);
                 }
             }
 
-            Debug.Log(string.Format("Searched {0} GameObjects, {1} components, found {2} missing", go_count,
-                components_count, missing_count));
+            Debug.Log($"Searched {goCount} GameObjects, {componentsCount} components, found {missingCount} missing");
         }
     }
 }

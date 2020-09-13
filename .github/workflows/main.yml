@@ -1,12 +1,14 @@
-name: Nakama, Executors, Clients & Offline Page
+name: Build and release Niwrad
 
 on:
-  pull_request: {}
-  push: { branches: [master] }
+  push: { branches: [dev, master] }
+  pull_request: { branches: [master] }
+  release: { types: [published] }
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
+# TODO all online clients, all offline clients (only web here)
 jobs:
   nakama:
     name: Test code, build image and push it
@@ -47,7 +49,7 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2020.2.0b2
+          - 2019.4.10f1
         targetPlatform:
           - StandaloneLinux64
     steps:
@@ -66,38 +68,38 @@ jobs:
             Library-
 
       # Test
-      - name: Run tests
-        id: testRunner
-        uses: webbertakken/unity-test-runner@v1.6
-        with:
-          customParameters: '-nographics' # Only hack to run headless tests on Linux
-          unityVersion: ${{ matrix.unityVersion }}
-          projectPath: ${{ matrix.projectPath }}
-          testMode: editmode # Ignore playmode because it requires user input
+      # TODO: unlimited loading
+      # - name: Run tests
+      #   id: testRunner
+      #   uses: webbertakken/unity-test-runner@v1.6
+      #   with:
+      #     # customParameters: # '-nographics' # Only hack to run headless tests on Linux
+      #     unityVersion: ${{ matrix.unityVersion }}
+      #     projectPath: ${{ matrix.projectPath }}
+      #     testMode: editmode # Ignore playmode because it requires user input
   
       # Upload tests results
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Test results (all modes)
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Test results (all modes)
+      #     path: ${{ steps.testRunner.outputs.artifactsPath }}
 
-
-      # Deactivated since you can't build Unity-anything on Linux    
 
       # Build
       - uses: webbertakken/unity-builder@v1.2
         with:
-          customParameters: '-nographics'
+          customParameters: '-niwradMode executor' # '-nographics'
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: Editor.Builds.BuildLinuxServer
-          buildsPath: Builds
+          buildMethod: Editor.Builds.BuildOptions
+          buildsPath: executor
           allowDirtyBuild: true
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
-          name: Builds
-          path: Builds
+          name: executor
+          path: executor
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
 
       # Build and push Docker image
       - uses: docker/build-push-action@v1
@@ -110,8 +112,8 @@ jobs:
           path: .
           dockerfile: Dockerfile
 
-  # Build Unity offline web client
-  unityOfflineWeb:
+  # Build Unity offline client
+  unityOffline:
     name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
@@ -120,9 +122,12 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2020.2.0b2
+          - 2019.4.10f1
         targetPlatform:
           - WebGL
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
+          - Android # Build an Android .apk standalone app.
     steps:
       # Checkout
       - uses: actions/checkout@v2
@@ -141,22 +146,23 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.2
         with:
-          customParameters: '-nographics'
+          customParameters: '-niwradMode offline' # '-nographics'
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: Editor.Builds.BuildWebOffline
-          buildsPath: Builds
-      - uses: actions/upload-artifact@v1
+          buildMethod: Editor.Builds.BuildOptions
+          buildsPath: builds
+      - uses: actions/upload-artifact@v2
         with:
-          name: Builds
-          path: Builds
+          name: offline-clients
+          path: builds
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v2
 
   page:
     runs-on: ubuntu-latest
-    needs: unityOfflineWeb
+    needs: unityOffline
     steps:
       - uses: actions/checkout@v2
         with:
@@ -164,13 +170,15 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v2
         with:
-          name: Builds
+          name: offline-clients
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v2
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: Builds/WebGL/WebGL # The folder the action should deploy.
+          FOLDER: WebGL/WebGL # The folder the action should deploy.
 
   # Build integration tests
   build-integration:
@@ -199,7 +207,7 @@ jobs:
 
       # Build and push Docker image
       - name: Build and push Niwrad's integration test Docker image
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v1 # TODO: update to 2 https://github.com/docker/build-push-action
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}

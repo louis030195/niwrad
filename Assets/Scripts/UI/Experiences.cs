@@ -45,7 +45,7 @@ namespace UI
             }
         }
 
-        public async void OnPointerEnter(BaseEventData _)
+        public void OnPointerEnter(BaseEventData _)
         {
             // TODO: could extend Menu with a "fade-in" "fade-out" function
             // _experienceButtons.ForEach(b => b.Push());

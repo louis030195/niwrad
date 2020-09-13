@@ -19,6 +19,7 @@ namespace UI
         [SerializeField] private Menu evolutionMenu;
         [SerializeField] private Slider sliderAnimal;
         [SerializeField] private Slider sliderVegetation;
+        [SerializeField] private GameObject seedTemplate;
         
         private UnitSelection _unitSelection;
 
@@ -71,7 +72,7 @@ namespace UI
 
             for (var i = 0; i < n; i++)
             {
-                var seed = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                var seed = Pool.Spawn(seedTemplate);
                 seed.transform.position = p + Random.insideUnitSphere * (n * 0.1f);
                 void Action()
                 {

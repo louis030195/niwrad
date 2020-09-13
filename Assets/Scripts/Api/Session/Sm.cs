@@ -246,7 +246,7 @@ namespace Api.Session
             }
             catch (Exception e)
             {
-	            Debug.Log("An error has occured while connecting socket: {e}");
+	            Debug.Log($"An error has occured while connecting socket: {e}");
                 return false;
             }
         }

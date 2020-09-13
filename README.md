@@ -7,7 +7,7 @@
 ![demo](docs/images/demo.gif)
 ![demo](docs/images/demo2.gif)
 
-Try the offline WebGL version [here](http://louis030195.com/niwrad).
+Try the offline WebGL version directly [here](http://louis030195.com/niwrad), if you want to try on other OS (Windows, Linux, Android, Web available) [check out latest Github Actions artifacts](https://github.com/louis030195/niwrad/actions).
 
 See related writings:
 

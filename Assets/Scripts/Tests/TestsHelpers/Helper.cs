@@ -7,11 +7,6 @@ namespace Tests.TestsHelpers
 {
     public static class Helper
     {
-        public const string TestScriptableObjectBasicAnimalCharacteristicsPath = "ScriptableObjects/BasicAnimalCharacteristics";
-        public const string TestScriptableObjectBasicExperiencePath = "ScriptableObjects/BasicExperience";
-        public const string SliderTemplatePath = "Prefabs/SliderTemplate";
-        public const string CheckboxTemplatePath = "Prefabs/CheckboxTemplate";
-
         public static GameObject SpawnControllerCamera()
         {
             var cam = new GameObject("Camera");
@@ -37,7 +32,7 @@ namespace Tests.TestsHelpers
             return go;
         }
 
-        public static GameObject RenderScriptableObject(ScriptableObject so)
+        public static GameObject RenderSavable(Savable s)
         {
             var canvas = SpawnCanvas();
             var grid = canvas.AddComponent<GridLayoutGroup>();
@@ -47,10 +42,7 @@ namespace Tests.TestsHelpers
             canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             SpawnLight();
             SpawnControllerCamera();
-            
-            var s = Resources.Load(SliderTemplatePath) as GameObject;
-            var c = Resources.Load(CheckboxTemplatePath) as GameObject;
-            so.Render(canvas.transform);
+            s.Render(canvas.transform);
             return canvas;
         }
     }

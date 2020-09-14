@@ -1,49 +1,51 @@
-﻿using System.Runtime.Versioning;
+﻿using System;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using Object = UnityEngine.Object;
 
-namespace UI
+namespace Player
 {
-    public static class ScriptableObjectRenderer
+    /// <summary>
+    /// This class is meant to be inherited by plain class saved / loaded at runtime
+    /// </summary>
+    [Serializable]
+    public abstract class Savable
     {
         private const string SliderTemplatePath = "Prefabs/SliderTemplate";
         private const string CheckboxTemplatePath = "Prefabs/CheckboxTemplate";
-        private static GameObject defaultSlider = Resources.Load(SliderTemplatePath) as GameObject;
-        private static GameObject defaultCheckBox = Resources.Load(CheckboxTemplatePath) as GameObject;
+        private static GameObject _defaultSlider = Resources.Load(SliderTemplatePath) as GameObject;
+        private static GameObject _defaultCheckBox = Resources.Load(CheckboxTemplatePath) as GameObject;
 
-        public static bool IsNumber(this object value) // TODO: move somewhere else
+
+        public void Save()
         {
-            return value is sbyte
-                   || value is byte
-                   || value is short
-                   || value is ushort
-                   || value is int
-                   || value is uint
-                   || value is long
-                   || value is ulong
-                   || value is float
-                   || value is double
-                   || value is decimal;
+            // JsonUtility.ToJson(this);
+            
+        }
+
+        public void Load()
+        {
+            
         }
         
         /// <summary>
-        /// Render ScriptableObject UI in-game based on given templates for numbers and booleans as child to given parent
+        /// Render UI in-game based on given templates for numbers and booleans as child to given parent
         /// (typically a ScrollView content with grid layout)
         /// </summary>
-        /// <param name="so"></param>
         /// <param name="sliderTemplate"></param>
         /// <param name="checkboxTemplate"></param>
         /// <param name="parent"></param>
-        public static void Render(this ScriptableObject so, Transform parent, GameObject sliderTemplate = null, GameObject checkboxTemplate = null)
+        public void Render(Transform parent, GameObject sliderTemplate = null, GameObject checkboxTemplate = null)
         {
-            sliderTemplate = sliderTemplate ? sliderTemplate : defaultSlider;
-            checkboxTemplate = checkboxTemplate ? checkboxTemplate : defaultCheckBox;
-            var fields = so.GetType().GetFields();
+            sliderTemplate = sliderTemplate ? sliderTemplate : _defaultSlider;
+            checkboxTemplate = checkboxTemplate ? checkboxTemplate : _defaultCheckBox;
+            var fields = GetType().GetFields();
             foreach (var field in fields)
             {
-                var val = field.GetValue(so);
+                var val = field.GetValue(this);
                 if (val.IsNumber())
                 {
                     foreach (var attribute in field.GetCustomAttributes(true))
@@ -71,6 +73,10 @@ namespace UI
                     t.isOn = b;
                     var labelValue = go.transform.GetChild(0);
                     labelValue.GetComponent<TextMeshProUGUI>().text = $"{field.Name}";
+                }
+                else
+                {
+                    throw new Exception($"Tried to render {val}, {val.GetType()} type not handled !");
                 }
             }
         }

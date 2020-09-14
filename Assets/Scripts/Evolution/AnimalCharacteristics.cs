@@ -6,7 +6,6 @@ namespace Evolution
     /// <summary>
     /// Stores animal-specific related parameters, e.g. vegetation don't usually move unlike animals
     /// </summary>
-    [CreateAssetMenu(fileName = "AnimalCharacteristics", menuName = "ScriptableObjects/AnimalCharacteristics", order = 1)]
     public class AnimalCharacteristics : HostCharacteristics
     {
         [Header("Initial characteristics")]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Evolution;
 using Tests.TestsHelpers;
 using UI;
 using UnityEngine;
@@ -15,28 +16,22 @@ namespace Tests.TestsPlay
         public IEnumerator RenderScriptableObjectFromAnimalCharacteristics() => UniTask.ToCoroutine(async () =>
         {
             Debug.Log($"Press escape to continue");
-            var canvas =
-                Helper.RenderScriptableObject(
-                    Resources.Load(Helper.TestScriptableObjectBasicAnimalCharacteristicsPath) as ScriptableObject);
+            var go = new GameObject("AnimalCharacteristics");
+            new AnimalCharacteristics().Render(go.transform);
+            // TODO: assert stuff ...
             await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Escape));
-            foreach (Transform t in canvas.transform)
-            {
-                Object.DestroyImmediate(t.gameObject);
-            }
+            Object.DestroyImmediate(go);
         });
 
         [UnityTest]
         public IEnumerator RenderScriptableObjectFromExperience() => UniTask.ToCoroutine(async () =>
         {
             Debug.Log($"Press escape to continue");
-            var canvas =
-                Helper.RenderScriptableObject(
-                    Resources.Load(Helper.TestScriptableObjectBasicExperiencePath) as ScriptableObject);
+            var go = new GameObject("Experience");
+            new Experience().Render(go.transform);
+            // TODO: assert stuff ...
             await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Escape));
-            foreach (Transform t in canvas.transform)
-            {
-                Object.DestroyImmediate(t.gameObject);
-            }
+            Object.DestroyImmediate(go);
         });
     }
 }

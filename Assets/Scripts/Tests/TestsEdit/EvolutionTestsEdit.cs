@@ -6,7 +6,6 @@ namespace Tests.TestsEdit
 {
     public class EvolutionTestsEdit
     {
-        private const string AnimalPrefabPath = "AnimalLow";
         private const string TestCharacteristicsPath = "ScriptableObjects/BasicAnimalCharacteristics";
 
         /// <summary>
@@ -37,9 +36,9 @@ namespace Tests.TestsEdit
         public void TestMutate()
         {
             Random.InitState(666);
-            var a = Resources.Load(TestCharacteristicsPath) as AnimalCharacteristics;
-            var b = Resources.Load(TestCharacteristicsPath) as AnimalCharacteristics;
-            var c = Object.Instantiate(a); // Make a copy
+            var a = new AnimalCharacteristics();
+            var b = new AnimalCharacteristics();
+            var c = new AnimalCharacteristics();
             Assert.NotNull(a, $"Make sure test characteristics scriptable object is found under Assets/Resources/{TestCharacteristicsPath}");
             Assert.NotNull(b, $"Make sure test characteristics scriptable object is found under Assets/Resources/{TestCharacteristicsPath}");
             Assert.NotNull(c, $"Make sure test characteristics scriptable object is found under Assets/Resources/{TestCharacteristicsPath}");
@@ -52,42 +51,5 @@ namespace Tests.TestsEdit
             // TODO: could go further: assert that it stays within a distribution while differing from the initial value
             // TODO: why ? could have hard coded stuff but mutation rate and range might change
         }
-        
-        // [UnityTest]
-        // public IEnumerator Mutation() => UniTask.ToCoroutine(async () =>
-        // {
-        //     var terrain = ProceduralTerrain.Generate(5, 0, 030195, 1.5f, 0.5f);
-        //     var nms = terrain.AddComponent<NavMeshSurface>();
-        //     nms.BuildNavMesh();
-        //     var middleOfTerrain = terrain.GetComponent<Terrain>().GetCenter();
-        //     // Until a way to give prefab as reference is found, ugly resource load is used
-        //     var a1 = Object.Instantiate(Resources.Load(AnimalPrefabName, typeof(GameObject)), 
-        //         middleOfTerrain, 
-        //         Quaternion.identity) as GameObject;
-        //     var a2 = Object.Instantiate(Resources.Load(AnimalPrefabName, typeof(GameObject)), 
-        //         middleOfTerrain, 
-        //         Quaternion.identity) as GameObject;
-        //     Assert.NotNull(a1, $"Make sure low-end animal prefab is found under Assets/Resources/{AnimalPrefabName}");
-        //     Assert.NotNull(a2, $"Make sure low-end animal prefab is found under Assets/Resources/{AnimalPrefabName}");
-        //     var firstAnimal = a1.GetComponent<CommonAnimal>();
-        //     Assert.True(firstAnimal.movement.navMeshAgent.isOnNavMesh);
-        //     var secondAnimal = a2.GetComponent<CommonAnimal>();
-        //     Assert.True(secondAnimal.movement.navMeshAgent.isOnNavMesh);
-        //     firstAnimal.BringToLife();
-        //     secondAnimal.BringToLife();
-        //     
-        //     var now = Time.time;
-        //
-        //     try
-        //     {
-        //         await UniTask.Delay(TimeSpan.FromSeconds(3));
-        //         var elapsed = Time.realtimeSinceStartup - now;
-        //         Assert.AreEqual(3, (int)Math.Round(TimeSpan.FromSeconds(elapsed).TotalSeconds, MidpointRounding.ToEven));
-        //     }
-        //     finally
-        //     {
-        //         Time.timeScale = 1.0f;
-        //     }
-        // });
     }
 }

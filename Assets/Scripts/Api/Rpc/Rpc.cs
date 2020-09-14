@@ -343,7 +343,7 @@ namespace Api.Rpc {
             break;
           }
           case 16: {
-            Result = (global::Api.Rpc.CreateMatchCompletionResult) input.ReadEnum();
+            result_ = (global::Api.Rpc.CreateMatchCompletionResult) input.ReadEnum();
             break;
           }
         }
@@ -601,7 +601,7 @@ namespace Api.Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Result = (global::Api.Rpc.StopMatchCompletionResult) input.ReadEnum();
+            result_ = (global::Api.Rpc.StopMatchCompletionResult) input.ReadEnum();
             break;
           }
         }
@@ -831,7 +831,7 @@ namespace Api.Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Result = (global::Api.Rpc.DeleteUsersCompletionResult) input.ReadEnum();
+            result_ = (global::Api.Rpc.DeleteUsersCompletionResult) input.ReadEnum();
             break;
           }
         }

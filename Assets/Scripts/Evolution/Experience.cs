@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 
 namespace Evolution
 {
@@ -15,8 +16,7 @@ namespace Evolution
         Semelparous,
         Iteroparous
     }
-    [CreateAssetMenu(fileName = "Experience", menuName = "ScriptableObjects/Experience", order = 2)]
-    public class Experience : ScriptableObject
+    public class Experience : Savable
     {
         // TODO: can we factorize some common parameters between vegetation & animals (struct ..)
         [Header("Evolution Characteristics")] 

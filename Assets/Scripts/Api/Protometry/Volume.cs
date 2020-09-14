@@ -180,7 +180,7 @@ namespace Protometry.Volume {
       }
       if (other.center_ != null) {
         if (center_ == null) {
-          Center = new global::Protometry.Vector3.Vector3();
+          center_ = new global::Protometry.Vector3.Vector3();
         }
         Center.MergeFrom(other.Center);
       }
@@ -200,9 +200,9 @@ namespace Protometry.Volume {
             break;
           case 10: {
             if (center_ == null) {
-              Center = new global::Protometry.Vector3.Vector3();
+              center_ = new global::Protometry.Vector3.Vector3();
             }
-            input.ReadMessage(Center);
+            input.ReadMessage(center_);
             break;
           }
           case 17: {
@@ -343,7 +343,7 @@ namespace Protometry.Volume {
       }
       if (other.center_ != null) {
         if (center_ == null) {
-          Center = new global::Protometry.Vector3.Vector3();
+          center_ = new global::Protometry.Vector3.Vector3();
         }
         Center.MergeFrom(other.Center);
       }
@@ -363,9 +363,9 @@ namespace Protometry.Volume {
             break;
           case 10: {
             if (center_ == null) {
-              Center = new global::Protometry.Vector3.Vector3();
+              center_ = new global::Protometry.Vector3.Vector3();
             }
-            input.ReadMessage(Center);
+            input.ReadMessage(center_);
             break;
           }
           case 17: {
@@ -509,13 +509,13 @@ namespace Protometry.Volume {
       }
       if (other.min_ != null) {
         if (min_ == null) {
-          Min = new global::Protometry.Vector3.Vector3();
+          min_ = new global::Protometry.Vector3.Vector3();
         }
         Min.MergeFrom(other.Min);
       }
       if (other.max_ != null) {
         if (max_ == null) {
-          Max = new global::Protometry.Vector3.Vector3();
+          max_ = new global::Protometry.Vector3.Vector3();
         }
         Max.MergeFrom(other.Max);
       }
@@ -532,16 +532,16 @@ namespace Protometry.Volume {
             break;
           case 10: {
             if (min_ == null) {
-              Min = new global::Protometry.Vector3.Vector3();
+              min_ = new global::Protometry.Vector3.Vector3();
             }
-            input.ReadMessage(Min);
+            input.ReadMessage(min_);
             break;
           }
           case 18: {
             if (max_ == null) {
-              Max = new global::Protometry.Vector3.Vector3();
+              max_ = new global::Protometry.Vector3.Vector3();
             }
-            input.ReadMessage(Max);
+            input.ReadMessage(max_);
             break;
           }
         }
@@ -720,7 +720,7 @@ namespace Protometry.Volume {
       }
       if (other.center_ != null) {
         if (center_ == null) {
-          Center = new global::Protometry.Vector3.Vector3();
+          center_ = new global::Protometry.Vector3.Vector3();
         }
         Center.MergeFrom(other.Center);
       }
@@ -741,9 +741,9 @@ namespace Protometry.Volume {
             break;
           case 10: {
             if (center_ == null) {
-              Center = new global::Protometry.Vector3.Vector3();
+              center_ = new global::Protometry.Vector3.Vector3();
             }
-            input.ReadMessage(Center);
+            input.ReadMessage(center_);
             break;
           }
           case 18: {

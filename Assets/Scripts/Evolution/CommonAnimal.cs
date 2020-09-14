@@ -33,7 +33,7 @@ namespace Evolution
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var childHost = Hm.instance.SpawnAnimalSync(transform.position, Quaternion.identity);
             // Make a copy of the scriptable object to avoid serializing runtime changes
-            childHost.characteristics = Instantiate(th.characteristics);
+            childHost.characteristics = th.characteristics;
             childHost.characteristics.Mutate(th.characteristics, characteristics);
 
             // It's costly to reproduce, proportional to animal age

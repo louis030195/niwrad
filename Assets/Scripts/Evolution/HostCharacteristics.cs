@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Player;
 using UnityEngine;
 using Utils;
 using Random = UnityEngine.Random;
@@ -9,13 +10,12 @@ namespace Evolution
 {
     /// <summary>
     /// Stores common host (animal, vegetation, parasite ...) parameters.
-    /// This is used to set initial population characteristics or maybe custom "fun" individual-level characteristics
+    /// This is used to set initial population characteristics or custom individual-level characteristics
     /// created at runtime.
     /// When reproduction occurs, the mutated parameters should NOT be saved.
     /// See https://www.reddit.com/r/Unity3D/comments/5zbkz8/how_do_you_not_save_changes_to_a_scriptable/
     /// </summary>
-    [CreateAssetMenu(fileName = "HostCharacteristics", menuName = "ScriptableObjects/HostCharacteristics", order = 1)]
-    public class HostCharacteristics : ScriptableObject
+    public class HostCharacteristics : Savable
     {
         [Header("Evolution parameters"), Range(0.1f, 50f)]
         public float decisionFrequency = 1f;
@@ -35,7 +35,7 @@ namespace Evolution
 
         [NonSerialized] public readonly Dictionary<string, RangeAttribute> RangeAttributes = new Dictionary<string, RangeAttribute>();
 
-        private void OnEnable()
+        public HostCharacteristics()
         {
             var fields = GetType().GetFields();
             // Each characteristics is "fenced" in a range for balance. It's stored once to be reused

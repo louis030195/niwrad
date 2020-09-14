@@ -15,7 +15,7 @@ message Packet {
     oneof type {
         // Events
         MatchJoin match_join = 7; 
-        Map map = 8;
+        // Map map = 8;
 
         // General physical objects
         UpdateTransform update_transform = 10;
@@ -38,18 +38,18 @@ message MatchJoin{
     int64 seed = 2;
 }
 
-message Map {
-    // Offsets of the chunk of map data
-    int64 x_base = 1;
-    int64 y_base = 2;
-    Matrix map = 3;
-}
-message Matrix {
-    repeated Array rows = 1;
-}
-message Array {
-    repeated double cols = 1 [packed=true];
-}
+// message Map {
+//     // Offsets of the chunk of map data
+//     int64 x_base = 1;
+//     int64 y_base = 2;
+//     Matrix map = 3;
+// }
+// message Matrix {
+//     repeated Array rows = 1;
+// }
+// message Array {
+//     repeated double cols = 1 [packed=true];
+// }
 
 // General purpose transform update typically shared by several different types of objects
 message UpdateTransform {
@@ -107,4 +107,58 @@ message Animal {
 // Ask a logic server to transfer ownership of an object
 message RequestTransferOwnership {
     Transform transform = 1;
+}
+
+// Real time characteristics of a living being
+message Characteristics {
+    float computation = 1; // E.g. more = more decisions, less delay, more reactive ...
+    float life = 2; // 0 = dead, highly related to energy
+    float robustness = 3; // ? Resistance, anti fragility ?
+    float energy = 4; // Current energy
+    float reproduction_cost = 5; // Cost in energy
+
+    oneof type {
+        AnimalCharacteristics animal_characteristics = 6;
+        VegetationCharacteristics vegetation_characteristics = 7;
+    }
+    message AnimalCharacteristics {
+        float speed = 1;
+        float random_movement_range = 2; // these are very hard coded chars ?
+        float sight_range = 3;
+        float eat_range = 4;
+        float metabolism = 5;
+    }
+    message VegetationCharacteristics {
+    
+    }
+}
+
+
+message Experiences {
+    Characteristics animal_characteristics = 1;
+    PopulationDistribution animal_distribution = 2;
+    bool include_carnivorous = 3;
+
+    Characteristics vegetation_characteristics = 4;
+    PopulationDistribution vegetation_distribution = 5;
+
+    // How should we spawn hosts, tons grouped on a specific point or sprayed far away ... ?
+    message PopulationDistribution {
+        int64 initial_amount = 1;
+        float spray = 2;
+        // ...
+    }
+
+    // Initial proc gen traits
+    message Map {
+        bool water = 1;
+        uint64 diversity = 2; // linear scale: desert, mountains ...
+    }
+
+    message GeneralParameters {
+        uint32 initial_timescale = 1;
+        uint32 time_limit = 2; // Stop experience after x time
+        bool repeat = 3; // Repeat experience ?
+        bool save_statistics = 4; // [Regularly] save characteristics statistics ?
+    }
 }

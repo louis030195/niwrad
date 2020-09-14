@@ -25,25 +25,25 @@ namespace UI
         private readonly List<Menu> _experienceMenus = new List<Menu>();
 
         private bool _isFading;
-        private void Start()
-        {
-            var experiences = Resources.LoadAll("ScriptableObjects", typeof(Experience)).Cast<Experience>();
-            foreach (var experience in experiences)
-            {
-                var menu = Instantiate(experienceMenuTemplate, experienceMenus.transform).GetComponent<Menu>();
-                _experienceMenus.Add(menu);
-                experience.Render(menu.GetComponentInChildren<GridLayoutGroup>()
-                    .transform); // TODO: fix put somewhere that work
-                var button = Instantiate(experienceButtonTemplate, experienceButtonsGrid.transform)
-                    .GetComponent<Button>();
-                button.onClick.AddListener(() => menu.Push()); // TODO: check parent
-                var buttonMenu = button.GetComponent<Menu>();
-                buttonMenu.GetComponentInChildren<TextMeshProUGUI>().text = experience.name;
-                buttonMenu.GetComponent<Image>().color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-                buttonMenu.Show();
-                _experienceButtons.Add(buttonMenu);
-            }
-        }
+        // private void Start()
+        // {
+        //     var experiences = Resources.LoadAll("ScriptableObjects", typeof(Experience)).Cast<Experience>();
+        //     foreach (var experience in experiences)
+        //     {
+        //         var menu = Instantiate(experienceMenuTemplate, experienceMenus.transform).GetComponent<Menu>();
+        //         _experienceMenus.Add(menu);
+        //         experience.Render(menu.GetComponentInChildren<GridLayoutGroup>()
+        //             .transform); // TODO: fix put somewhere that work
+        //         var button = Instantiate(experienceButtonTemplate, experienceButtonsGrid.transform)
+        //             .GetComponent<Button>();
+        //         button.onClick.AddListener(() => menu.Push()); // TODO: check parent
+        //         var buttonMenu = button.GetComponent<Menu>();
+        //         buttonMenu.GetComponentInChildren<TextMeshProUGUI>().text = experience.name;
+        //         buttonMenu.GetComponent<Image>().color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        //         buttonMenu.Show();
+        //         _experienceButtons.Add(buttonMenu);
+        //     }
+        // }
 
         public void OnPointerEnter(BaseEventData _)
         {

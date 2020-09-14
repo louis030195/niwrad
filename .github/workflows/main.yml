@@ -173,6 +173,11 @@ jobs:
           name: offline-clients
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v2
+      # Quick & dirty hack for custom index.html :p 
+      - run: |
+          sed -i '/<body>/a<h1><a href="https://forms.gle/VPhis4qEGPzkMhGGA">Give feedback here<\/a><\/h1>' WebGL/WebGL/index.html
+          sed -i 's/<title>.*<\/title>/<title>Niwrad<\/title>/g' WebGL/WebGL/index.html
+          echo "Hacked index.html :)"
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:

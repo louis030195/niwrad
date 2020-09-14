@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Evolution;
+using NUnit.Framework;
 using Tests.TestsHelpers;
 using UnityEngine;
 
@@ -7,25 +8,20 @@ namespace Tests.TestsEdit
     public class UITestsEdit
     {
         [Test]
-        public void RenderScriptableObjectFromAnimalCharacteristics() {
-            var canvas = 
-                Helper.RenderScriptableObject(Resources.Load(Helper.TestScriptableObjectBasicAnimalCharacteristicsPath) as ScriptableObject);
+        public void RenderScriptableObjectFromAnimalCharacteristics()
+        {
+            var go = new GameObject("AnimalCharacteristics");
+            new AnimalCharacteristics().Render(go.transform);
             // TODO: assert stuff ...
-            foreach (Transform t in canvas.transform)
-            {
-                Object.DestroyImmediate(t.gameObject);
-            }
+            Object.DestroyImmediate(go);
         }
         
         [Test]
         public void RenderScriptableObjectFromExperience() {
-            var canvas = 
-                Helper.RenderScriptableObject(Resources.Load(Helper.TestScriptableObjectBasicExperiencePath) as ScriptableObject);
+            var go = new GameObject("Experiences");
+            new Experience().Render(go.transform);
             // TODO: assert stuff ...
-            foreach (Transform t in canvas.transform)
-            {
-                Object.DestroyImmediate(t.gameObject);
-            }
+            Object.DestroyImmediate(go);
         }
     }
 }

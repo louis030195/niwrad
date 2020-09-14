@@ -146,18 +146,18 @@ namespace Api.Utils
 			return p;
 		}
 
-        public static float[,] To2dArray(this Matrix m)
-        {
-            var twoDArray = new float[m.Rows.Count, m.Rows[0].Cols.Count];
-            for (var i = 0; i < m.Rows.Count; i++)
-            {
-                for (var j = 0; j < m.Rows[0].Cols.Count; j++)
-                {
-                    twoDArray[i, j] = (float)m.Rows[i].Cols[j];
-                }
-            }
-            return twoDArray;
-        }
+        // public static float[,] To2dArray(this Matrix m)
+        // {
+        //     var twoDArray = new float[m.Rows.Count, m.Rows[0].Cols.Count];
+        //     for (var i = 0; i < m.Rows.Count; i++)
+        //     {
+        //         for (var j = 0; j < m.Rows[0].Cols.Count; j++)
+        //         {
+        //             twoDArray[i, j] = (float)m.Rows[i].Cols[j];
+        //         }
+        //     }
+        //     return twoDArray;
+        // }
 
         public static UnityEngine.Vector3 GetCenter(this Box b)
         {

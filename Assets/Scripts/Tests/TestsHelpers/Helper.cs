@@ -1,4 +1,6 @@
-﻿using Player;
+﻿using Api.Realtime;
+using Evolution;
+using Player;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +34,7 @@ namespace Tests.TestsHelpers
             return go;
         }
 
-        public static GameObject RenderSavable(Savable s)
+        public static GameObject RenderExperience(Experience e)
         {
             var canvas = SpawnCanvas();
             var grid = canvas.AddComponent<GridLayoutGroup>();
@@ -42,7 +44,8 @@ namespace Tests.TestsHelpers
             canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             SpawnLight();
             SpawnControllerCamera();
-            s.Render(canvas.transform);
+            CodeToUi.FloatsToUi(e.AnimalCharacteristicsMinimumBound, e.AnimalCharacteristicsMaximumBound,
+                e.AnimalCharacteristics, canvas.transform);
             return canvas;
         }
     }

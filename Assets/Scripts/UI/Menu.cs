@@ -15,7 +15,7 @@ namespace UI
         /// <summary>
         /// Reference to <see cref="CanvasGroup"/> used to show or hide the gameobject.
         /// </summary>
-        [SerializeField] private CanvasGroup canvasGroup;
+        private CanvasGroup _canvasGroup;
 
         /// <summary>
         /// Button returning from this panel to main menu.
@@ -33,7 +33,14 @@ namespace UI
         /// </summary>
         public bool IsShown { get; protected set; }
 
+        public bool isHud;
+
         #endregion
+        
+        private void Start()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
 
         #region Methods
 
@@ -44,9 +51,9 @@ namespace UI
         public virtual void Show()
         {
             Debug.Log($"Showing {gameObject.name}");
-            canvasGroup.alpha = 1;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
+            _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
             IsShown = true;
         }
 
@@ -57,9 +64,9 @@ namespace UI
         public virtual void Hide()
         {
             Debug.Log($"Hiding {gameObject.name}");
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
             IsShown = false;
         }
 

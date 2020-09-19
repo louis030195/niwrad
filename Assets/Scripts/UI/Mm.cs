@@ -41,8 +41,21 @@ namespace UI
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-            _stack.OnPush += menu => menu.Show();
-            _stack.OnPop += menu => menu.Hide();
+            _stack.OnPush += menu =>
+            {
+                menu.Show();
+                // Hide hud when showing any menu
+                EnableHud(IsEmpty());
+            };
+            _stack.OnPop += menu =>
+            {
+                menu.Hide();
+                // Can't select anything while scrolling a menu
+                unitSelection.disable = !IsEmpty();
+                cameraController.disable = !IsEmpty();
+                // Hide hud when showing any menu
+                EnableHud(IsEmpty());
+            };
         }
 
         private void Update()
@@ -52,9 +65,6 @@ namespace UI
                 Pop();
                 _stack.Peek().Show();
             }
-            // Can't select anything while scrolling a menu
-            unitSelection.disable = !IsEmpty();
-            cameraController.disable = !IsEmpty();
         }
 
         public void Push(Menu menu)
@@ -89,6 +99,20 @@ namespace UI
         public bool IsEmpty()
         {
             return _stack.Count == 0;
+        }
+
+        /// <summary>
+        /// Show or hide all hud menus
+        /// </summary>
+        /// <param name="enable"></param>
+        public void EnableHud(bool enable)
+        {
+            foreach (var menu in FindObjectsOfType<Menu>())
+            {
+                if (!menu.isHud) continue;
+                if (enable) menu.Show();
+                else menu.Hide();
+            }
         }
     }
 }

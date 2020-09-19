@@ -6,6 +6,7 @@ TagManager:
   tags:
   - vegetation
   - ground
+  - hud
   layers:
   - Default
   - TransparentFX

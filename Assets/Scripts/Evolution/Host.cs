@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using AI;
+using Api.Realtime;
 using UnityEngine;
+using Meme = AI.Meme;
 
 namespace Evolution
 {
@@ -11,9 +13,9 @@ namespace Evolution
 	[RequireComponent(typeof(Health))]
 	[RequireComponent(typeof(Attack))]
 	[RequireComponent(typeof(MemeController))]
-	public abstract class Host<T> : MonoBehaviour where T : HostCharacteristics
+	public abstract class Host : MonoBehaviour
     {
-        [HideInInspector] public T characteristics;
+        [HideInInspector] public Characteristics characteristics;
 		[HideInInspector] public Attack attack;
 		[HideInInspector] public Health health;
 		[HideInInspector] public ulong id;
@@ -49,7 +51,7 @@ namespace Evolution
 			
 			Age++;
 			// The older, the weaker
-			health.ChangeHealth(-characteristics.robustness*Time.deltaTime*(1+Age/10));
+			health.ChangeHealth(-characteristics.Robustness*Time.deltaTime*(1+Age/10));
 		}
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace Evolution
         /// </summary>
         public void EnableBehaviour(bool value)
         {
-            if (value) health.initialLife = characteristics.initialLife;
+            if (value) health.initialLife = characteristics.Life;
             else controller.aiActive = false;
         }
 		// If this function is not overrode, will setup host with random initial meme

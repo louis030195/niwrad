@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Api.Realtime;
 using Evolution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Transform = UnityEngine.Transform;
 
 namespace UI
 {
@@ -22,7 +24,7 @@ namespace UI
         /// <summary>
         /// characteristics should be given as a copy ! We don't necessarily want to save the tweaked characteristics
         /// </summary>
-        private List<HostCharacteristics> _savedCharacteristics;
+        private List<Characteristics> _savedCharacteristics;
         // private HostCharacteristics _selectedCharacteristics;
 
         private void Start()
@@ -35,14 +37,14 @@ namespace UI
         }
 
         // TODO: quite inefficient to clean/alloc everytime but who care ?
-        private void InstanciateScrollView(HostCharacteristics c)
+        private void InstanciateScrollView(Characteristics c)
         {
             // Clear all child
             foreach (Transform o in characteristicList.transform)
             {
                 Destroy(o.gameObject);
             }
-            c.Render(characteristicList.transform);
+            // c.Render(characteristicList.transform);
         }
 
         // public void Save()

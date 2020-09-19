@@ -93,7 +93,7 @@ namespace Evolution
                     },
                     Color.magenta
                 );
-                controller.SetupAi(Memes["Wander"], characteristics.decisionFrequency);
+                controller.SetupAi(Memes["Wander"]);
             }
             else
             {
@@ -124,10 +124,11 @@ namespace Evolution
             // Stop moving
             movement.isStopped = true;
             attack.EatTarget(m_Target);
-            m_Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * characteristics.hunger); // TODO: store params
+            var someValue = 40f;
+            m_Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * someValue);
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
-            health.ChangeHealth(+characteristics.metabolism * Time.deltaTime * 50f);
+            health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
         }
 
         private void Reproduce(MemeController c)
@@ -147,7 +148,7 @@ namespace Evolution
             var layerMask = 1 << LayerMask.NameToLayer("Vegetation");
 
             // Any matching object around ? Try to get the closest if any
-            var closest = gameObject.Closest(characteristics.sightRange, layerMask);
+            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask);
 
             // No food around OR target is dead / too weak
             if (closest == default || closest.GetComponent<Health>().dead) return null;
@@ -162,15 +163,14 @@ namespace Evolution
         private Meme PartnerAround(MemeController c)
         {
             // Look for partner
-            if (Time.time > LastBreed + characteristics.reproductionDelay && health.currentHealth >
-                characteristics.reproductionThreshold)
+            if (health.currentHealth > characteristics.ReproductionCost)
             {
                 // TODO: closest with enough life to breed
                 // No animal to breed with around
                 var layerMask = 1 << LayerMask.NameToLayer("Animal");
 
                 // Any matching object around ? Try to get the closest if any
-                var closest = gameObject.Closest(characteristics.sightRange, layerMask);
+                var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask);
                 // No animal to breed with around
                 if (closest == default) return null;
                 m_Target = closest;
@@ -187,7 +187,7 @@ namespace Evolution
         private Meme IsCloseEnoughForEating(MemeController c)
         {
             return Vector3.Distance(transform.position, m_Target.transform.position) <
-                   characteristics.eatRange
+                   characteristics.AnimalCharacteristics.EatRange
                 ? Memes["Eat"]
                 : null;
         }

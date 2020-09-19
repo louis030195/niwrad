@@ -27,7 +27,7 @@ namespace Evolution
                 Func<List<GameObject>> collector = () =>
                 {
                     Physics.OverlapSphereNonAlloc(transform.position,
-                        characteristics.sightRange,
+                        characteristics.AnimalCharacteristics.SightRange,
                         res,
                         LayerMask.GetMask("Animal", "Vegetation"));
                     return res.Where(c => c != null).Select(c => c.gameObject).ToList();
@@ -161,7 +161,7 @@ namespace Evolution
             closest.GetComponent<Health>().ChangeHealth(-Time.deltaTime * 30); // TODO: store params
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
-            health.ChangeHealth(+characteristics.metabolism * Time.deltaTime * 50f);
+            health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
         }
 
         private void Reproduce(MemeController c)
@@ -196,8 +196,7 @@ namespace Evolution
         private Meme PartnerAround(MemeController c)
         {
             // Look for partner
-            if (Time.time > LastBreed + characteristics.reproductionDelay && health.currentHealth >
-                characteristics.reproductionThreshold)
+            if (health.currentHealth > characteristics.ReproductionCost)
             {
                 var closest = m_VisionMemory.Query().Closest(transform.position,
                     LayerMask.NameToLayer("Animal"));
@@ -219,7 +218,7 @@ namespace Evolution
             var closest = m_VisionMemory.Query().Closest(transform.position,
                 LayerMask.NameToLayer("Vegetation"));
             if (closest != default && Vector3.Distance(transform.position, closest.transform.position) <
-                characteristics.eatRange)
+                characteristics.AnimalCharacteristics.EatRange)
                 return Memes["Eat"];
             return null;
         }

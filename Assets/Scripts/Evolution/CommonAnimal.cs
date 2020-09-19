@@ -13,7 +13,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace Evolution
 {
 	[RequireComponent(typeof(Movement))]
-	public class CommonAnimal : Host<AnimalCharacteristics>
+	public class CommonAnimal : Host
 	{
 		[HideInInspector] public Movement movement;
 
@@ -34,13 +34,14 @@ namespace Evolution
 			var childHost = Hm.instance.SpawnAnimalSync(transform.position, Quaternion.identity);
             // Make a copy of the scriptable object to avoid serializing runtime changes
             childHost.characteristics = th.characteristics;
-            childHost.characteristics.Mutate(th.characteristics, characteristics);
+            childHost.characteristics.Mutate(th.characteristics, characteristics, Hm.instance.CurrentExperience);
 
             // It's costly to reproduce, proportional to animal age
-            health.ChangeHealth(-characteristics.reproductionLifeLoss*(1+Age/100));
+            // TODO: change energy instead
+            health.ChangeHealth(-characteristics.ReproductionCost*(1+Age/100));
             if (other != null || th != null)
             {
-                other.GetComponent<Health>().ChangeHealth(-th.characteristics.reproductionLifeLoss*(1+th.Age/100));
+                other.GetComponent<Health>().ChangeHealth(-th.characteristics.ReproductionCost*(1+th.Age/100));
             }
             else
             {
@@ -73,7 +74,7 @@ namespace Evolution
                 movement = GetComponent<Movement>();
                 movement.navMeshAgent.enabled = true;
                 // TODO: how costly is it to cast everytime ?
-                movement.speed = characteristics.initialSpeed;
+                movement.speed = characteristics.AnimalCharacteristics.Speed;
                 if (!Gm.instance.online)
                 {
                     health.Died += OnDied;
@@ -102,7 +103,7 @@ namespace Evolution
 			{
 				// Try to find a random position on map, otherwise will just go to zero
 				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(
-                    characteristics.randomMovementRange,
+                    characteristics.AnimalCharacteristics.RandomMovementRange,
 					default,
 					0);
 				movement.MoveTo(p);

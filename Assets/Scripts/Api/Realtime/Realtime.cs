@@ -75,22 +75,31 @@ namespace Api.Realtime {
             "Q2hhcmFjdGVyaXN0aWNzEg0KBXNwZWVkGAEgASgCEh0KFXJhbmRvbV9tb3Zl",
             "bWVudF9yYW5nZRgCIAEoAhITCgtzaWdodF9yYW5nZRgDIAEoAhIRCgllYXRf",
             "cmFuZ2UYBCABKAISEgoKbWV0YWJvbGlzbRgFIAEoAhobChlWZWdldGF0aW9u",
-            "Q2hhcmFjdGVyaXN0aWNzQgYKBHR5cGUi3QQKC0V4cGVyaWVuY2VzEksKFmFu",
-            "aW1hbF9jaGFyYWN0ZXJpc3RpY3MYASABKAsyKy5uYWthbWEubml3cmFkLmFw",
-            "aS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWwoTYW5pbWFsX2Rpc3RyaWJ1",
-            "dGlvbhgCIAEoCzI+Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVy",
-            "aWVuY2VzLlBvcHVsYXRpb25EaXN0cmlidXRpb24SGwoTaW5jbHVkZV9jYXJu",
-            "aXZvcm91cxgDIAEoCBJPChp2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljcxgE",
-            "IAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3Rlcmlz",
-            "dGljcxJfChd2ZWdldGF0aW9uX2Rpc3RyaWJ1dGlvbhgFIAEoCzI+Lm5ha2Ft",
-            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2VzLlBvcHVsYXRpb25E",
-            "aXN0cmlidXRpb24aPwoWUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhIWCg5pbml0",
-            "aWFsX2Ftb3VudBgBIAEoAxINCgVzcHJheRgCIAEoAhonCgNNYXASDQoFd2F0",
-            "ZXIYASABKAgSEQoJZGl2ZXJzaXR5GAIgASgEGmsKEUdlbmVyYWxQYXJhbWV0",
-            "ZXJzEhkKEWluaXRpYWxfdGltZXNjYWxlGAEgASgNEhIKCnRpbWVfbGltaXQY",
-            "AiABKA0SDgoGcmVwZWF0GAMgASgIEhcKD3NhdmVfc3RhdGlzdGljcxgEIAEo",
-            "CEI0WiNuYWthbWEvbml3cmFkL2FwaS9yZWFsdGltZTtyZWFsdGltZaoCDEFw",
-            "aS5SZWFsdGltZWIGcHJvdG8z"));
+            "Q2hhcmFjdGVyaXN0aWNzQgYKBHR5cGUi4QcKCkV4cGVyaWVuY2USDAoEbmFt",
+            "ZRgBIAEoCRJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAogASgLMisubmFr",
+            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKJGFu",
+            "aW1hbF9jaGFyYWN0ZXJpc3RpY3NfbWluaW11bV9ib3VuZBgLIAEoCzIrLm5h",
+            "a2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRh",
+            "bmltYWxfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQYDCABKAsyKy5u",
+            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWgoT",
+            "YW5pbWFsX2Rpc3RyaWJ1dGlvbhgNIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBp",
+            "LnJlYWx0aW1lLkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhIb",
+            "ChNpbmNsdWRlX2Nhcm5pdm9yb3VzGA4gASgIEk8KGnZlZ2V0YXRpb25fY2hh",
+            "cmFjdGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
+            "bWUuQ2hhcmFjdGVyaXN0aWNzEl0KKHZlZ2V0YXRpb25fY2hhcmFjdGVyaXN0",
+            "aWNzX21pbmltdW1fYm91bmQYKSABKAsyKy5uYWthbWEubml3cmFkLmFwaS5y",
+            "ZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSXQoodmVnZXRhdGlvbl9jaGFyYWN0",
+            "ZXJpc3RpY3NfbWF4aW11bV9ib3VuZBgqIAEoCzIrLm5ha2FtYS5uaXdyYWQu",
+            "YXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJeChd2ZWdldGF0aW9uX2Rp",
+            "c3RyaWJ1dGlvbhgrIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1l",
+            "LkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhpEChZQb3B1bGF0",
+            "aW9uRGlzdHJpYnV0aW9uEhYKDmluaXRpYWxfYW1vdW50GAEgASgEEhIKCnNj",
+            "YXR0ZXJpbmcYAiABKAIaJwoDTWFwEg0KBXdhdGVyGAEgASgIEhEKCWRpdmVy",
+            "c2l0eRgCIAEoBBprChFHZW5lcmFsUGFyYW1ldGVycxIZChFpbml0aWFsX3Rp",
+            "bWVzY2FsZRgBIAEoDRISCgp0aW1lX2xpbWl0GAIgASgNEg4KBnJlcGVhdBgD",
+            "IAEoCBIXCg9zYXZlX3N0YXRpc3RpY3MYBCABKAhCNFojbmFrYW1hL25pd3Jh",
+            "ZC9hcGkvcmVhbHRpbWU7cmVhbHRpbWWqAgxBcGkuUmVhbHRpbWViBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -108,9 +117,9 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.RequestTransferOwnership), global::Api.Realtime.RequestTransferOwnership.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "AnimalCharacteristics", "VegetationCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.VegetationCharacteristics), global::Api.Realtime.Characteristics.Types.VegetationCharacteristics.Parser, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experiences), global::Api.Realtime.Experiences.Parser, new[]{ "AnimalCharacteristics", "AnimalDistribution", "IncludeCarnivorous", "VegetationCharacteristics", "VegetationDistribution" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experiences.Types.PopulationDistribution), global::Api.Realtime.Experiences.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Spray" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experiences.Types.Map), global::Api.Realtime.Experiences.Types.Map.Parser, new[]{ "Water", "Diversity" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experiences.Types.GeneralParameters), global::Api.Realtime.Experiences.Types.GeneralParameters.Parser, new[]{ "InitialTimescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "IncludeCarnivorous", "VegetationCharacteristics", "VegetationCharacteristicsMinimumBound", "VegetationCharacteristicsMaximumBound", "VegetationDistribution" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Water", "Diversity" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "InitialTimescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
           }));
     }
     #endregion
@@ -3200,11 +3209,11 @@ namespace Api.Realtime {
 
   }
 
-  public sealed partial class Experiences : pb::IMessage<Experiences> {
-    private static readonly pb::MessageParser<Experiences> _parser = new pb::MessageParser<Experiences>(() => new Experiences());
+  public sealed partial class Experience : pb::IMessage<Experience> {
+    private static readonly pb::MessageParser<Experience> _parser = new pb::MessageParser<Experience>(() => new Experience());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Experiences> Parser { get { return _parser; } }
+    public static pb::MessageParser<Experience> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -3217,29 +3226,45 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Experiences() {
+    public Experience() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Experiences(Experiences other) : this() {
+    public Experience(Experience other) : this() {
+      name_ = other.name_;
       animalCharacteristics_ = other.animalCharacteristics_ != null ? other.animalCharacteristics_.Clone() : null;
+      animalCharacteristicsMinimumBound_ = other.animalCharacteristicsMinimumBound_ != null ? other.animalCharacteristicsMinimumBound_.Clone() : null;
+      animalCharacteristicsMaximumBound_ = other.animalCharacteristicsMaximumBound_ != null ? other.animalCharacteristicsMaximumBound_.Clone() : null;
       animalDistribution_ = other.animalDistribution_ != null ? other.animalDistribution_.Clone() : null;
       includeCarnivorous_ = other.includeCarnivorous_;
       vegetationCharacteristics_ = other.vegetationCharacteristics_ != null ? other.vegetationCharacteristics_.Clone() : null;
+      vegetationCharacteristicsMinimumBound_ = other.vegetationCharacteristicsMinimumBound_ != null ? other.vegetationCharacteristicsMinimumBound_.Clone() : null;
+      vegetationCharacteristicsMaximumBound_ = other.vegetationCharacteristicsMaximumBound_ != null ? other.vegetationCharacteristicsMaximumBound_.Clone() : null;
       vegetationDistribution_ = other.vegetationDistribution_ != null ? other.vegetationDistribution_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Experiences Clone() {
-      return new Experiences(this);
+    public Experience Clone() {
+      return new Experience(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     /// <summary>Field number for the "animal_characteristics" field.</summary>
-    public const int AnimalCharacteristicsFieldNumber = 1;
+    public const int AnimalCharacteristicsFieldNumber = 10;
     private global::Api.Realtime.Characteristics animalCharacteristics_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Api.Realtime.Characteristics AnimalCharacteristics {
@@ -3249,11 +3274,39 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "animal_distribution" field.</summary>
-    public const int AnimalDistributionFieldNumber = 2;
-    private global::Api.Realtime.Experiences.Types.PopulationDistribution animalDistribution_;
+    /// <summary>Field number for the "animal_characteristics_minimum_bound" field.</summary>
+    public const int AnimalCharacteristicsMinimumBoundFieldNumber = 11;
+    private global::Api.Realtime.Characteristics animalCharacteristicsMinimumBound_;
+    /// <summary>
+    /// E.g. for example speed is bounded between 0 and 100 to keep balance
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Experiences.Types.PopulationDistribution AnimalDistribution {
+    public global::Api.Realtime.Characteristics AnimalCharacteristicsMinimumBound {
+      get { return animalCharacteristicsMinimumBound_; }
+      set {
+        animalCharacteristicsMinimumBound_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "animal_characteristics_maximum_bound" field.</summary>
+    public const int AnimalCharacteristicsMaximumBoundFieldNumber = 12;
+    private global::Api.Realtime.Characteristics animalCharacteristicsMaximumBound_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Characteristics AnimalCharacteristicsMaximumBound {
+      get { return animalCharacteristicsMaximumBound_; }
+      set {
+        animalCharacteristicsMaximumBound_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "animal_distribution" field.</summary>
+    public const int AnimalDistributionFieldNumber = 13;
+    private global::Api.Realtime.Experience.Types.PopulationDistribution animalDistribution_;
+    /// <summary>
+    /// map&lt;string, float> bounds = 1; ?
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Experience.Types.PopulationDistribution AnimalDistribution {
       get { return animalDistribution_; }
       set {
         animalDistribution_ = value;
@@ -3261,7 +3314,7 @@ namespace Api.Realtime {
     }
 
     /// <summary>Field number for the "include_carnivorous" field.</summary>
-    public const int IncludeCarnivorousFieldNumber = 3;
+    public const int IncludeCarnivorousFieldNumber = 14;
     private bool includeCarnivorous_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public bool IncludeCarnivorous {
@@ -3272,7 +3325,7 @@ namespace Api.Realtime {
     }
 
     /// <summary>Field number for the "vegetation_characteristics" field.</summary>
-    public const int VegetationCharacteristicsFieldNumber = 4;
+    public const int VegetationCharacteristicsFieldNumber = 40;
     private global::Api.Realtime.Characteristics vegetationCharacteristics_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Api.Realtime.Characteristics VegetationCharacteristics {
@@ -3282,11 +3335,33 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "vegetation_distribution" field.</summary>
-    public const int VegetationDistributionFieldNumber = 5;
-    private global::Api.Realtime.Experiences.Types.PopulationDistribution vegetationDistribution_;
+    /// <summary>Field number for the "vegetation_characteristics_minimum_bound" field.</summary>
+    public const int VegetationCharacteristicsMinimumBoundFieldNumber = 41;
+    private global::Api.Realtime.Characteristics vegetationCharacteristicsMinimumBound_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Experiences.Types.PopulationDistribution VegetationDistribution {
+    public global::Api.Realtime.Characteristics VegetationCharacteristicsMinimumBound {
+      get { return vegetationCharacteristicsMinimumBound_; }
+      set {
+        vegetationCharacteristicsMinimumBound_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "vegetation_characteristics_maximum_bound" field.</summary>
+    public const int VegetationCharacteristicsMaximumBoundFieldNumber = 42;
+    private global::Api.Realtime.Characteristics vegetationCharacteristicsMaximumBound_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Characteristics VegetationCharacteristicsMaximumBound {
+      get { return vegetationCharacteristicsMaximumBound_; }
+      set {
+        vegetationCharacteristicsMaximumBound_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "vegetation_distribution" field.</summary>
+    public const int VegetationDistributionFieldNumber = 43;
+    private global::Api.Realtime.Experience.Types.PopulationDistribution vegetationDistribution_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Experience.Types.PopulationDistribution VegetationDistribution {
       get { return vegetationDistribution_; }
       set {
         vegetationDistribution_ = value;
@@ -3295,21 +3370,26 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Experiences);
+      return Equals(other as Experience);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Experiences other) {
+    public bool Equals(Experience other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Name != other.Name) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
+      if (!object.Equals(AnimalCharacteristicsMinimumBound, other.AnimalCharacteristicsMinimumBound)) return false;
+      if (!object.Equals(AnimalCharacteristicsMaximumBound, other.AnimalCharacteristicsMaximumBound)) return false;
       if (!object.Equals(AnimalDistribution, other.AnimalDistribution)) return false;
       if (IncludeCarnivorous != other.IncludeCarnivorous) return false;
       if (!object.Equals(VegetationCharacteristics, other.VegetationCharacteristics)) return false;
+      if (!object.Equals(VegetationCharacteristicsMinimumBound, other.VegetationCharacteristicsMinimumBound)) return false;
+      if (!object.Equals(VegetationCharacteristicsMaximumBound, other.VegetationCharacteristicsMaximumBound)) return false;
       if (!object.Equals(VegetationDistribution, other.VegetationDistribution)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -3317,10 +3397,15 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (animalCharacteristics_ != null) hash ^= AnimalCharacteristics.GetHashCode();
+      if (animalCharacteristicsMinimumBound_ != null) hash ^= AnimalCharacteristicsMinimumBound.GetHashCode();
+      if (animalCharacteristicsMaximumBound_ != null) hash ^= AnimalCharacteristicsMaximumBound.GetHashCode();
       if (animalDistribution_ != null) hash ^= AnimalDistribution.GetHashCode();
       if (IncludeCarnivorous != false) hash ^= IncludeCarnivorous.GetHashCode();
       if (vegetationCharacteristics_ != null) hash ^= VegetationCharacteristics.GetHashCode();
+      if (vegetationCharacteristicsMinimumBound_ != null) hash ^= VegetationCharacteristicsMinimumBound.GetHashCode();
+      if (vegetationCharacteristicsMaximumBound_ != null) hash ^= VegetationCharacteristicsMaximumBound.GetHashCode();
       if (vegetationDistribution_ != null) hash ^= VegetationDistribution.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -3335,24 +3420,44 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (animalCharacteristics_ != null) {
+      if (Name.Length != 0) {
         output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (animalCharacteristics_ != null) {
+        output.WriteRawTag(82);
         output.WriteMessage(AnimalCharacteristics);
       }
+      if (animalCharacteristicsMinimumBound_ != null) {
+        output.WriteRawTag(90);
+        output.WriteMessage(AnimalCharacteristicsMinimumBound);
+      }
+      if (animalCharacteristicsMaximumBound_ != null) {
+        output.WriteRawTag(98);
+        output.WriteMessage(AnimalCharacteristicsMaximumBound);
+      }
       if (animalDistribution_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(106);
         output.WriteMessage(AnimalDistribution);
       }
       if (IncludeCarnivorous != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(112);
         output.WriteBool(IncludeCarnivorous);
       }
       if (vegetationCharacteristics_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(194, 2);
         output.WriteMessage(VegetationCharacteristics);
       }
+      if (vegetationCharacteristicsMinimumBound_ != null) {
+        output.WriteRawTag(202, 2);
+        output.WriteMessage(VegetationCharacteristicsMinimumBound);
+      }
+      if (vegetationCharacteristicsMaximumBound_ != null) {
+        output.WriteRawTag(210, 2);
+        output.WriteMessage(VegetationCharacteristicsMaximumBound);
+      }
       if (vegetationDistribution_ != null) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(218, 2);
         output.WriteMessage(VegetationDistribution);
       }
       if (_unknownFields != null) {
@@ -3363,8 +3468,17 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
       if (animalCharacteristics_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
+      }
+      if (animalCharacteristicsMinimumBound_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristicsMinimumBound);
+      }
+      if (animalCharacteristicsMaximumBound_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristicsMaximumBound);
       }
       if (animalDistribution_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalDistribution);
@@ -3373,10 +3487,16 @@ namespace Api.Realtime {
         size += 1 + 1;
       }
       if (vegetationCharacteristics_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
+      }
+      if (vegetationCharacteristicsMinimumBound_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristicsMinimumBound);
+      }
+      if (vegetationCharacteristicsMaximumBound_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristicsMaximumBound);
       }
       if (vegetationDistribution_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VegetationDistribution);
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationDistribution);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3385,9 +3505,12 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Experiences other) {
+    public void MergeFrom(Experience other) {
       if (other == null) {
         return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       if (other.animalCharacteristics_ != null) {
         if (animalCharacteristics_ == null) {
@@ -3395,9 +3518,21 @@ namespace Api.Realtime {
         }
         AnimalCharacteristics.MergeFrom(other.AnimalCharacteristics);
       }
+      if (other.animalCharacteristicsMinimumBound_ != null) {
+        if (animalCharacteristicsMinimumBound_ == null) {
+          animalCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+        }
+        AnimalCharacteristicsMinimumBound.MergeFrom(other.AnimalCharacteristicsMinimumBound);
+      }
+      if (other.animalCharacteristicsMaximumBound_ != null) {
+        if (animalCharacteristicsMaximumBound_ == null) {
+          animalCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+        }
+        AnimalCharacteristicsMaximumBound.MergeFrom(other.AnimalCharacteristicsMaximumBound);
+      }
       if (other.animalDistribution_ != null) {
         if (animalDistribution_ == null) {
-          animalDistribution_ = new global::Api.Realtime.Experiences.Types.PopulationDistribution();
+          animalDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
         }
         AnimalDistribution.MergeFrom(other.AnimalDistribution);
       }
@@ -3410,9 +3545,21 @@ namespace Api.Realtime {
         }
         VegetationCharacteristics.MergeFrom(other.VegetationCharacteristics);
       }
+      if (other.vegetationCharacteristicsMinimumBound_ != null) {
+        if (vegetationCharacteristicsMinimumBound_ == null) {
+          vegetationCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+        }
+        VegetationCharacteristicsMinimumBound.MergeFrom(other.VegetationCharacteristicsMinimumBound);
+      }
+      if (other.vegetationCharacteristicsMaximumBound_ != null) {
+        if (vegetationCharacteristicsMaximumBound_ == null) {
+          vegetationCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+        }
+        VegetationCharacteristicsMaximumBound.MergeFrom(other.VegetationCharacteristicsMaximumBound);
+      }
       if (other.vegetationDistribution_ != null) {
         if (vegetationDistribution_ == null) {
-          vegetationDistribution_ = new global::Api.Realtime.Experiences.Types.PopulationDistribution();
+          vegetationDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
         }
         VegetationDistribution.MergeFrom(other.VegetationDistribution);
       }
@@ -3428,33 +3575,65 @@ namespace Api.Realtime {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 82: {
             if (animalCharacteristics_ == null) {
               animalCharacteristics_ = new global::Api.Realtime.Characteristics();
             }
             input.ReadMessage(animalCharacteristics_);
             break;
           }
-          case 18: {
+          case 90: {
+            if (animalCharacteristicsMinimumBound_ == null) {
+              animalCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(animalCharacteristicsMinimumBound_);
+            break;
+          }
+          case 98: {
+            if (animalCharacteristicsMaximumBound_ == null) {
+              animalCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(animalCharacteristicsMaximumBound_);
+            break;
+          }
+          case 106: {
             if (animalDistribution_ == null) {
-              animalDistribution_ = new global::Api.Realtime.Experiences.Types.PopulationDistribution();
+              animalDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
             }
             input.ReadMessage(animalDistribution_);
             break;
           }
-          case 24: {
+          case 112: {
             IncludeCarnivorous = input.ReadBool();
             break;
           }
-          case 34: {
+          case 322: {
             if (vegetationCharacteristics_ == null) {
               vegetationCharacteristics_ = new global::Api.Realtime.Characteristics();
             }
             input.ReadMessage(vegetationCharacteristics_);
             break;
           }
-          case 42: {
+          case 330: {
+            if (vegetationCharacteristicsMinimumBound_ == null) {
+              vegetationCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(vegetationCharacteristicsMinimumBound_);
+            break;
+          }
+          case 338: {
+            if (vegetationCharacteristicsMaximumBound_ == null) {
+              vegetationCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(vegetationCharacteristicsMaximumBound_);
+            break;
+          }
+          case 346: {
             if (vegetationDistribution_ == null) {
-              vegetationDistribution_ = new global::Api.Realtime.Experiences.Types.PopulationDistribution();
+              vegetationDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
             }
             input.ReadMessage(vegetationDistribution_);
             break;
@@ -3464,11 +3643,11 @@ namespace Api.Realtime {
     }
 
     #region Nested types
-    /// <summary>Container for nested types declared in the Experiences message type.</summary>
+    /// <summary>Container for nested types declared in the Experience message type.</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
       /// <summary>
-      /// How should we spawn hosts, tons grouped on a specific point or sprayed far away ... ?
+      /// How should we spawn individuals, tons grouped on a specific point or very scattered ... ?
       /// </summary>
       public sealed partial class PopulationDistribution : pb::IMessage<PopulationDistribution> {
         private static readonly pb::MessageParser<PopulationDistribution> _parser = new pb::MessageParser<PopulationDistribution>(() => new PopulationDistribution());
@@ -3478,7 +3657,7 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Api.Realtime.Experiences.Descriptor.NestedTypes[0]; }
+          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3496,7 +3675,7 @@ namespace Api.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public PopulationDistribution(PopulationDistribution other) : this() {
           initialAmount_ = other.initialAmount_;
-          spray_ = other.spray_;
+          scattering_ = other.scattering_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -3507,26 +3686,26 @@ namespace Api.Realtime {
 
         /// <summary>Field number for the "initial_amount" field.</summary>
         public const int InitialAmountFieldNumber = 1;
-        private long initialAmount_;
+        private ulong initialAmount_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public long InitialAmount {
+        public ulong InitialAmount {
           get { return initialAmount_; }
           set {
             initialAmount_ = value;
           }
         }
 
-        /// <summary>Field number for the "spray" field.</summary>
-        public const int SprayFieldNumber = 2;
-        private float spray_;
+        /// <summary>Field number for the "scattering" field.</summary>
+        public const int ScatteringFieldNumber = 2;
+        private float scattering_;
         /// <summary>
-        /// ...
+        /// How close individuals are from each other at spawn
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public float Spray {
-          get { return spray_; }
+        public float Scattering {
+          get { return scattering_; }
           set {
-            spray_ = value;
+            scattering_ = value;
           }
         }
 
@@ -3544,15 +3723,15 @@ namespace Api.Realtime {
             return true;
           }
           if (InitialAmount != other.InitialAmount) return false;
-          if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Spray, other.Spray)) return false;
+          if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Scattering, other.Scattering)) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (InitialAmount != 0L) hash ^= InitialAmount.GetHashCode();
-          if (Spray != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Spray);
+          if (InitialAmount != 0UL) hash ^= InitialAmount.GetHashCode();
+          if (Scattering != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Scattering);
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -3566,13 +3745,13 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (InitialAmount != 0L) {
+          if (InitialAmount != 0UL) {
             output.WriteRawTag(8);
-            output.WriteInt64(InitialAmount);
+            output.WriteUInt64(InitialAmount);
           }
-          if (Spray != 0F) {
+          if (Scattering != 0F) {
             output.WriteRawTag(21);
-            output.WriteFloat(Spray);
+            output.WriteFloat(Scattering);
           }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
@@ -3582,10 +3761,10 @@ namespace Api.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (InitialAmount != 0L) {
-            size += 1 + pb::CodedOutputStream.ComputeInt64Size(InitialAmount);
+          if (InitialAmount != 0UL) {
+            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InitialAmount);
           }
-          if (Spray != 0F) {
+          if (Scattering != 0F) {
             size += 1 + 4;
           }
           if (_unknownFields != null) {
@@ -3599,11 +3778,11 @@ namespace Api.Realtime {
           if (other == null) {
             return;
           }
-          if (other.InitialAmount != 0L) {
+          if (other.InitialAmount != 0UL) {
             InitialAmount = other.InitialAmount;
           }
-          if (other.Spray != 0F) {
-            Spray = other.Spray;
+          if (other.Scattering != 0F) {
+            Scattering = other.Scattering;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -3617,11 +3796,11 @@ namespace Api.Realtime {
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
               case 8: {
-                InitialAmount = input.ReadInt64();
+                InitialAmount = input.ReadUInt64();
                 break;
               }
               case 21: {
-                Spray = input.ReadFloat();
+                Scattering = input.ReadFloat();
                 break;
               }
             }
@@ -3641,7 +3820,7 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Api.Realtime.Experiences.Descriptor.NestedTypes[1]; }
+          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3801,7 +3980,7 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Api.Realtime.Experiences.Descriptor.NestedTypes[2]; }
+          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[2]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

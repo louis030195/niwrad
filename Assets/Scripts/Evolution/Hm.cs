@@ -34,8 +34,8 @@ namespace Evolution
         [SerializeField] private GraphicTier graphicTier = GraphicTier.Low;
         [SerializeField] private GameObject lowPolyAnimalPrefab; // E.g. red cube
         [SerializeField] private GameObject lowPolyVegetationPrefab; // E.g. green cube
-        private HostCharacteristics animalCharacteristics;
-        private HostCharacteristics vegetationCharacteristics;
+        private Characteristics animalCharacteristics;
+        private Characteristics vegetationCharacteristics;
 
 		/// <summary>
         /// Dictionary containing animals
@@ -51,6 +51,8 @@ namespace Evolution
         /// Next id to give for new host
         /// </summary>
         private ulong m_NextId;
+
+        public Experience CurrentExperience;
 
         #region MONO
 
@@ -281,7 +283,7 @@ namespace Evolution
             // Debug.Log($"Spawning animal {obj}");
             var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
             m_Animals[m_NextId] = a.GetComponent<SimpleAnimal>();
-            m_Animals[m_NextId].characteristics = new AnimalCharacteristics();
+            m_Animals[m_NextId].characteristics = CurrentExperience.AnimalCharacteristics;
             m_Animals[m_NextId].id = m_NextId;
             // Only server handle animal behaviours
             if (!Gm.instance.online || Sm.instance.isServer)
@@ -337,7 +339,7 @@ namespace Evolution
                 Pool.Spawn(lowPolyVegetationPrefab, p, r).GetComponent<Vegetation>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Vegetation>();
 	        m_Trees[m_NextId] = veg;
-            m_Trees[m_NextId].characteristics = new VegetationCharacteristics();
+            m_Trees[m_NextId].characteristics = CurrentExperience.VegetationCharacteristics;
             m_Trees[m_NextId].id = m_NextId;
 
 	        if (!Gm.instance.online || Sm.instance.isServer) m_Trees[m_NextId].EnableBehaviour(true);

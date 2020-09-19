@@ -10,14 +10,14 @@ using Random = UnityEngine.Random;
 
 namespace Evolution
 {
-	public class Vegetation : Host<VegetationCharacteristics>
+	public class Vegetation : Host
 	{
         
         protected new void Update()
 		{
 			// Sun gives life (maybe could multiply by "sun intensity here")
-			health.ChangeHealth(characteristics.robustness*Time.deltaTime);
-			health.dead = !(health.currentHealth > characteristics.initialLife); // :)
+			health.ChangeHealth(characteristics.Robustness*Time.deltaTime);
+			health.dead = !(health.currentHealth > characteristics.Life);
 		}
 
 		protected new void EnableBehaviour(bool value)
@@ -51,7 +51,7 @@ namespace Evolution
                     },
                     Color.magenta
                 );
-                controller.SetupAi(Memes["Grow"], characteristics.decisionFrequency);
+                controller.SetupAi(Memes["Grow"]);
             }
             else
             {
@@ -99,8 +99,7 @@ namespace Evolution
 
 		private Meme CanBreed(MemeController c)
 		{
-			if (Time.time > LastBreed + characteristics.reproductionDelay &&
-			    health.currentHealth > characteristics.reproductionThreshold)
+			if (health.currentHealth > characteristics.ReproductionCost)
 			{
 				return Memes["Breed"];
 			}

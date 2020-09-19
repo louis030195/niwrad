@@ -109,6 +109,11 @@ message RequestTransferOwnership {
     Transform transform = 1;
 }
 
+// doubt its a good idea
+// message CharacteristicsBounds {
+//     map<string, float> bounds = 1;
+// }
+
 // Real time characteristics of a living being
 message Characteristics {
     float computation = 1; // E.g. more = more decisions, less delay, more reactive ...
@@ -134,18 +139,23 @@ message Characteristics {
 }
 
 
-message Experiences {
-    Characteristics animal_characteristics = 1;
-    PopulationDistribution animal_distribution = 2;
-    bool include_carnivorous = 3;
+message Experience {
+    string name = 1;
+    Characteristics animal_characteristics = 10;
+    Characteristics animal_characteristics_minimum_bound = 11; // E.g. for example speed is bounded between 0 and 100 to keep balance
+    Characteristics animal_characteristics_maximum_bound = 12;
+    PopulationDistribution animal_distribution = 13;
+    bool include_carnivorous = 14;
 
-    Characteristics vegetation_characteristics = 4;
-    PopulationDistribution vegetation_distribution = 5;
+    Characteristics vegetation_characteristics = 40;
+    Characteristics vegetation_characteristics_minimum_bound = 41;
+    Characteristics vegetation_characteristics_maximum_bound = 42;
+    PopulationDistribution vegetation_distribution = 43;
 
-    // How should we spawn hosts, tons grouped on a specific point or sprayed far away ... ?
+    // How should we spawn individuals, tons grouped on a specific point or very scattered ... ?
     message PopulationDistribution {
-        int64 initial_amount = 1;
-        float spray = 2;
+        uint64 initial_amount = 1;
+        float scattering = 2; // How close individuals are from each other at spawn
         // ...
     }
 

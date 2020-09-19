@@ -1,0 +1,69 @@
+{
+     "name": "BasicExperience",
+     "animalCharacteristics": {
+         "computation": 50,
+         "life": 50,
+         "robustness": 50,
+         "energy": 50,
+         "reproductionCost": 50,
+         "animalCharacteristics": {
+             "speed": 50,
+             "randomMovementRange": 50,
+             "sightRange": 50,
+             "eatRange": 50,
+             "metabolism": 50 
+        } 
+    },
+     "animalCharacteristicsMinimumBound": {
+         "animalCharacteristics": {
+             
+        } 
+    },
+     "animalCharacteristicsMaximumBound": {
+         "computation": 100,
+         "life": 100,
+         "robustness": 100,
+         "energy": 100,
+         "reproductionCost": 100,
+         "animalCharacteristics": {
+             "speed": 100,
+             "randomMovementRange": 100,
+             "sightRange": 100,
+             "eatRange": 100,
+             "metabolism": 100 
+        } 
+    },
+     "animalDistribution": {
+         "initialAmount": "20",
+         "scattering": 10 
+    },
+     "vegetationCharacteristics": {
+         "computation": 50,
+         "life": 50,
+         "robustness": 50,
+         "energy": 50,
+         "reproductionCost": 50,
+         "vegetationCharacteristics": {
+             
+        } 
+    },
+     "vegetationCharacteristicsMinimumBound": {
+         "vegetationCharacteristics": {
+             
+        } 
+    },
+     "vegetationCharacteristicsMaximumBound": {
+         "computation": 100,
+         "life": 100,
+         "robustness": 100,
+         "energy": 100,
+         "reproductionCost": 100,
+         "vegetationCharacteristics": {
+             
+        } 
+    },
+     "vegetationDistribution": {
+         "initialAmount": "20",
+         "scattering": 10 
+    } 
+}

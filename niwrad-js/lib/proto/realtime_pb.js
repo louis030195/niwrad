@@ -19,10 +19,10 @@ goog.exportSymbol('proto.nakama.niwrad.api.realtime.Characteristics', null, glob
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Destroy', null, global);
-goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experiences', null, global);
-goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters', null, global);
-goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experiences.Map', null, global);
-goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution', null, global);
+goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience', null, global);
+goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.GeneralParameters', null, global);
+goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.Map', null, global);
+goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Initialized', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.MatchJoin', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Meme', null, global);
@@ -3433,12 +3433,12 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.hasVegetationCharacte
  * @extends {jspb.Message}
  * @constructor
  */
-proto.nakama.niwrad.api.realtime.Experiences = function(opt_data) {
+proto.nakama.niwrad.api.realtime.Experience = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.nakama.niwrad.api.realtime.Experiences, jspb.Message);
+goog.inherits(proto.nakama.niwrad.api.realtime.Experience, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.nakama.niwrad.api.realtime.Experiences.displayName = 'proto.nakama.niwrad.api.realtime.Experiences';
+  proto.nakama.niwrad.api.realtime.Experience.displayName = 'proto.nakama.niwrad.api.realtime.Experience';
 }
 
 
@@ -3453,8 +3453,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.toObject = function(opt_includeInstance) {
-  return proto.nakama.niwrad.api.realtime.Experiences.toObject(opt_includeInstance, this);
+proto.nakama.niwrad.api.realtime.Experience.prototype.toObject = function(opt_includeInstance) {
+  return proto.nakama.niwrad.api.realtime.Experience.toObject(opt_includeInstance, this);
 };
 
 
@@ -3463,17 +3463,22 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.toObject = function(opt_i
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.nakama.niwrad.api.realtime.Experiences} msg The msg instance to transform.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.toObject = function(includeInstance, msg) {
+proto.nakama.niwrad.api.realtime.Experience.toObject = function(includeInstance, msg) {
   var f, obj = {
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
     animalCharacteristics: (f = msg.getAnimalCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
-    animalDistribution: (f = msg.getAnimalDistribution()) && proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.toObject(includeInstance, f),
-    includeCarnivorous: jspb.Message.getFieldWithDefault(msg, 3, false),
+    animalCharacteristicsMinimumBound: (f = msg.getAnimalCharacteristicsMinimumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
+    animalCharacteristicsMaximumBound: (f = msg.getAnimalCharacteristicsMaximumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
+    animalDistribution: (f = msg.getAnimalDistribution()) && proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject(includeInstance, f),
+    includeCarnivorous: jspb.Message.getFieldWithDefault(msg, 14, false),
     vegetationCharacteristics: (f = msg.getVegetationCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
-    vegetationDistribution: (f = msg.getVegetationDistribution()) && proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.toObject(includeInstance, f)
+    vegetationCharacteristicsMinimumBound: (f = msg.getVegetationCharacteristicsMinimumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
+    vegetationCharacteristicsMaximumBound: (f = msg.getVegetationCharacteristicsMaximumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
+    vegetationDistribution: (f = msg.getVegetationDistribution()) && proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3487,23 +3492,23 @@ proto.nakama.niwrad.api.realtime.Experiences.toObject = function(includeInstance
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience}
  */
-proto.nakama.niwrad.api.realtime.Experiences.deserializeBinary = function(bytes) {
+proto.nakama.niwrad.api.realtime.Experience.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.nakama.niwrad.api.realtime.Experiences;
-  return proto.nakama.niwrad.api.realtime.Experiences.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.nakama.niwrad.api.realtime.Experience;
+  return proto.nakama.niwrad.api.realtime.Experience.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences} msg The message object to deserialize into.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience}
  */
-proto.nakama.niwrad.api.realtime.Experiences.deserializeBinaryFromReader = function(msg, reader) {
+proto.nakama.niwrad.api.realtime.Experience.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3511,27 +3516,51 @@ proto.nakama.niwrad.api.realtime.Experiences.deserializeBinaryFromReader = funct
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setName(value);
+      break;
+    case 10:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
       msg.setAnimalCharacteristics(value);
       break;
-    case 2:
-      var value = new proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution;
-      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeBinaryFromReader);
+    case 11:
+      var value = new proto.nakama.niwrad.api.realtime.Characteristics;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
+      msg.setAnimalCharacteristicsMinimumBound(value);
+      break;
+    case 12:
+      var value = new proto.nakama.niwrad.api.realtime.Characteristics;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
+      msg.setAnimalCharacteristicsMaximumBound(value);
+      break;
+    case 13:
+      var value = new proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinaryFromReader);
       msg.setAnimalDistribution(value);
       break;
-    case 3:
+    case 14:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIncludeCarnivorous(value);
       break;
-    case 4:
+    case 40:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
       msg.setVegetationCharacteristics(value);
       break;
-    case 5:
-      var value = new proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution;
-      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeBinaryFromReader);
+    case 41:
+      var value = new proto.nakama.niwrad.api.realtime.Characteristics;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
+      msg.setVegetationCharacteristicsMinimumBound(value);
+      break;
+    case 42:
+      var value = new proto.nakama.niwrad.api.realtime.Characteristics;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
+      msg.setVegetationCharacteristicsMaximumBound(value);
+      break;
+    case 43:
+      var value = new proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution;
+      reader.readMessage(value,proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinaryFromReader);
       msg.setVegetationDistribution(value);
       break;
     default:
@@ -3547,9 +3576,9 @@ proto.nakama.niwrad.api.realtime.Experiences.deserializeBinaryFromReader = funct
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.serializeBinary = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.nakama.niwrad.api.realtime.Experiences.serializeBinaryToWriter(this, writer);
+  proto.nakama.niwrad.api.realtime.Experience.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3557,16 +3586,39 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.serializeBinary = functio
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences} message
+ * @param {!proto.nakama.niwrad.api.realtime.Experience} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.serializeBinaryToWriter = function(message, writer) {
+proto.nakama.niwrad.api.realtime.Experience.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getName();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
   f = message.getAnimalCharacteristics();
   if (f != null) {
     writer.writeMessage(
-      1,
+      10,
+      f,
+      proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
+    );
+  }
+  f = message.getAnimalCharacteristicsMinimumBound();
+  if (f != null) {
+    writer.writeMessage(
+      11,
+      f,
+      proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
+    );
+  }
+  f = message.getAnimalCharacteristicsMaximumBound();
+  if (f != null) {
+    writer.writeMessage(
+      12,
       f,
       proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
     );
@@ -3574,22 +3626,38 @@ proto.nakama.niwrad.api.realtime.Experiences.serializeBinaryToWriter = function(
   f = message.getAnimalDistribution();
   if (f != null) {
     writer.writeMessage(
-      2,
+      13,
       f,
-      proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.serializeBinaryToWriter
+      proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBinaryToWriter
     );
   }
   f = message.getIncludeCarnivorous();
   if (f) {
     writer.writeBool(
-      3,
+      14,
       f
     );
   }
   f = message.getVegetationCharacteristics();
   if (f != null) {
     writer.writeMessage(
-      4,
+      40,
+      f,
+      proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
+    );
+  }
+  f = message.getVegetationCharacteristicsMinimumBound();
+  if (f != null) {
+    writer.writeMessage(
+      41,
+      f,
+      proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
+    );
+  }
+  f = message.getVegetationCharacteristicsMaximumBound();
+  if (f != null) {
+    writer.writeMessage(
+      42,
       f,
       proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter
     );
@@ -3597,9 +3665,9 @@ proto.nakama.niwrad.api.realtime.Experiences.serializeBinaryToWriter = function(
   f = message.getVegetationDistribution();
   if (f != null) {
     writer.writeMessage(
-      5,
+      43,
       f,
-      proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.serializeBinaryToWriter
+      proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBinaryToWriter
     );
   }
 };
@@ -3616,12 +3684,12 @@ proto.nakama.niwrad.api.realtime.Experiences.serializeBinaryToWriter = function(
  * @extends {jspb.Message}
  * @constructor
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution = function(opt_data) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution, jspb.Message);
+goog.inherits(proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.displayName = 'proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution';
+  proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.displayName = 'proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution';
 }
 
 
@@ -3636,8 +3704,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.toObject = function(opt_includeInstance) {
-  return proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.toObject(opt_includeInstance, this);
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.toObject = function(opt_includeInstance) {
+  return proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject(opt_includeInstance, this);
 };
 
 
@@ -3646,14 +3714,14 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.to
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution} msg The msg instance to transform.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.toObject = function(includeInstance, msg) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject = function(includeInstance, msg) {
   var f, obj = {
     initialAmount: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    spray: +jspb.Message.getFieldWithDefault(msg, 2, 0.0)
+    scattering: +jspb.Message.getFieldWithDefault(msg, 2, 0.0)
   };
 
   if (includeInstance) {
@@ -3667,23 +3735,23 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.toObject = f
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeBinary = function(bytes) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution;
-  return proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution;
+  return proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution} msg The message object to deserialize into.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeBinaryFromReader = function(msg, reader) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3691,12 +3759,12 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeB
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setInitialAmount(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readFloat());
-      msg.setSpray(value);
+      msg.setScattering(value);
       break;
     default:
       reader.skipField();
@@ -3711,9 +3779,9 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.deserializeB
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.serializeBinary = function() {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.serializeBinaryToWriter(this, writer);
+  proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3721,20 +3789,20 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.se
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution} message
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.serializeBinaryToWriter = function(message, writer) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getInitialAmount();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
   }
-  f = message.getSpray();
+  f = message.getScattering();
   if (f !== 0.0) {
     writer.writeFloat(
       2,
@@ -3745,31 +3813,31 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.serializeBin
 
 
 /**
- * optional int64 initial_amount = 1;
+ * optional uint64 initial_amount = 1;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.getInitialAmount = function() {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.getInitialAmount = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.setInitialAmount = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.setInitialAmount = function(value) {
   jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
 /**
- * optional float spray = 2;
+ * optional float scattering = 2;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.getSpray = function() {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.getScattering = function() {
   return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.setSpray = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.setScattering = function(value) {
   jspb.Message.setProto3FloatField(this, 2, value);
 };
 
@@ -3785,12 +3853,12 @@ proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution.prototype.se
  * @extends {jspb.Message}
  * @constructor
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map = function(opt_data) {
+proto.nakama.niwrad.api.realtime.Experience.Map = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.nakama.niwrad.api.realtime.Experiences.Map, jspb.Message);
+goog.inherits(proto.nakama.niwrad.api.realtime.Experience.Map, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.nakama.niwrad.api.realtime.Experiences.Map.displayName = 'proto.nakama.niwrad.api.realtime.Experiences.Map';
+  proto.nakama.niwrad.api.realtime.Experience.Map.displayName = 'proto.nakama.niwrad.api.realtime.Experience.Map';
 }
 
 
@@ -3805,8 +3873,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.toObject = function(opt_includeInstance) {
-  return proto.nakama.niwrad.api.realtime.Experiences.Map.toObject(opt_includeInstance, this);
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.toObject = function(opt_includeInstance) {
+  return proto.nakama.niwrad.api.realtime.Experience.Map.toObject(opt_includeInstance, this);
 };
 
 
@@ -3815,11 +3883,11 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.toObject = function(o
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.Map} msg The msg instance to transform.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.Map} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.toObject = function(includeInstance, msg) {
+proto.nakama.niwrad.api.realtime.Experience.Map.toObject = function(includeInstance, msg) {
   var f, obj = {
     water: jspb.Message.getFieldWithDefault(msg, 1, false),
     diversity: jspb.Message.getFieldWithDefault(msg, 2, 0)
@@ -3836,23 +3904,23 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.toObject = function(includeInst
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.Map}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.Map}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.deserializeBinary = function(bytes) {
+proto.nakama.niwrad.api.realtime.Experience.Map.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.nakama.niwrad.api.realtime.Experiences.Map;
-  return proto.nakama.niwrad.api.realtime.Experiences.Map.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.nakama.niwrad.api.realtime.Experience.Map;
+  return proto.nakama.niwrad.api.realtime.Experience.Map.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.Map} msg The message object to deserialize into.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.Map} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.Map}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.Map}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.deserializeBinaryFromReader = function(msg, reader) {
+proto.nakama.niwrad.api.realtime.Experience.Map.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3880,9 +3948,9 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.deserializeBinaryFromReader = f
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.serializeBinary = function() {
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.nakama.niwrad.api.realtime.Experiences.Map.serializeBinaryToWriter(this, writer);
+  proto.nakama.niwrad.api.realtime.Experience.Map.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3890,11 +3958,11 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.serializeBinary = fun
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.Map} message
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.Map} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.serializeBinaryToWriter = function(message, writer) {
+proto.nakama.niwrad.api.realtime.Experience.Map.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getWater();
   if (f) {
@@ -3919,13 +3987,13 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.serializeBinaryToWriter = funct
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.getWater = function() {
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.getWater = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
 };
 
 
 /** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.setWater = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.setWater = function(value) {
   jspb.Message.setProto3BooleanField(this, 1, value);
 };
 
@@ -3934,13 +4002,13 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.setWater = function(v
  * optional uint64 diversity = 2;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.getDiversity = function() {
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.getDiversity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.setDiversity = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.Map.prototype.setDiversity = function(value) {
   jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -3956,12 +4024,12 @@ proto.nakama.niwrad.api.realtime.Experiences.Map.prototype.setDiversity = functi
  * @extends {jspb.Message}
  * @constructor
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters = function(opt_data) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters, jspb.Message);
+goog.inherits(proto.nakama.niwrad.api.realtime.Experience.GeneralParameters, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.displayName = 'proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters';
+  proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.displayName = 'proto.nakama.niwrad.api.realtime.Experience.GeneralParameters';
 }
 
 
@@ -3976,8 +4044,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.toObject = function(opt_includeInstance) {
-  return proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.toObject(opt_includeInstance, this);
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.toObject = function(opt_includeInstance) {
+  return proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.toObject(opt_includeInstance, this);
 };
 
 
@@ -3986,11 +4054,11 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.toObjec
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters} msg The msg instance to transform.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.GeneralParameters} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.toObject = function(includeInstance, msg) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.toObject = function(includeInstance, msg) {
   var f, obj = {
     initialTimescale: jspb.Message.getFieldWithDefault(msg, 1, 0),
     timeLimit: jspb.Message.getFieldWithDefault(msg, 2, 0),
@@ -4009,23 +4077,23 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.toObject = functi
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.GeneralParameters}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.deserializeBinary = function(bytes) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters;
-  return proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.nakama.niwrad.api.realtime.Experience.GeneralParameters;
+  return proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters} msg The message object to deserialize into.
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.GeneralParameters} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters}
+ * @return {!proto.nakama.niwrad.api.realtime.Experience.GeneralParameters}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.deserializeBinaryFromReader = function(msg, reader) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4061,9 +4129,9 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.deserializeBinary
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.serializeBinary = function() {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.serializeBinaryToWriter(this, writer);
+  proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4071,11 +4139,11 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.seriali
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters} message
+ * @param {!proto.nakama.niwrad.api.realtime.Experience.GeneralParameters} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.serializeBinaryToWriter = function(message, writer) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getInitialTimescale();
   if (f !== 0) {
@@ -4112,13 +4180,13 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.serializeBinaryTo
  * optional uint32 initial_timescale = 1;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.getInitialTimescale = function() {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.getInitialTimescale = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setInitialTimescale = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.setInitialTimescale = function(value) {
   jspb.Message.setProto3IntField(this, 1, value);
 };
 
@@ -4127,13 +4195,13 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setInit
  * optional uint32 time_limit = 2;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.getTimeLimit = function() {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.getTimeLimit = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setTimeLimit = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.setTimeLimit = function(value) {
   jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -4144,13 +4212,13 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setTime
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.getRepeat = function() {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.getRepeat = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 3, false));
 };
 
 
 /** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setRepeat = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.setRepeat = function(value) {
   jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
@@ -4161,34 +4229,49 @@ proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setRepe
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.getSaveStatistics = function() {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.getSaveStatistics = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
 };
 
 
 /** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Experiences.GeneralParameters.prototype.setSaveStatistics = function(value) {
+proto.nakama.niwrad.api.realtime.Experience.GeneralParameters.prototype.setSaveStatistics = function(value) {
   jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
 /**
- * optional Characteristics animal_characteristics = 1;
+ * optional string name = 1;
+ * @return {string}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setName = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional Characteristics animal_characteristics = 10;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.getAnimalCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.getAnimalCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 1));
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 10));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.setAnimalCharacteristics = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+proto.nakama.niwrad.api.realtime.Experience.prototype.setAnimalCharacteristics = function(value) {
+  jspb.Message.setWrapperField(this, 10, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.Experiences.prototype.clearAnimalCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearAnimalCharacteristics = function() {
   this.setAnimalCharacteristics(undefined);
 };
 
@@ -4197,28 +4280,88 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.clearAnimalCharacteristic
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.hasAnimalCharacteristics = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasAnimalCharacteristics = function() {
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
 /**
- * optional PopulationDistribution animal_distribution = 2;
- * @return {?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution}
+ * optional Characteristics animal_characteristics_minimum_bound = 11;
+ * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.getAnimalDistribution = function() {
-  return /** @type{?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution, 2));
+proto.nakama.niwrad.api.realtime.Experience.prototype.getAnimalCharacteristicsMinimumBound = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 11));
 };
 
 
-/** @param {?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution|undefined} value */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.setAnimalDistribution = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+/** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setAnimalCharacteristicsMinimumBound = function(value) {
+  jspb.Message.setWrapperField(this, 11, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.Experiences.prototype.clearAnimalDistribution = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearAnimalCharacteristicsMinimumBound = function() {
+  this.setAnimalCharacteristicsMinimumBound(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasAnimalCharacteristicsMinimumBound = function() {
+  return jspb.Message.getField(this, 11) != null;
+};
+
+
+/**
+ * optional Characteristics animal_characteristics_maximum_bound = 12;
+ * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getAnimalCharacteristicsMaximumBound = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 12));
+};
+
+
+/** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setAnimalCharacteristicsMaximumBound = function(value) {
+  jspb.Message.setWrapperField(this, 12, value);
+};
+
+
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearAnimalCharacteristicsMaximumBound = function() {
+  this.setAnimalCharacteristicsMaximumBound(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasAnimalCharacteristicsMaximumBound = function() {
+  return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional PopulationDistribution animal_distribution = 13;
+ * @return {?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getAnimalDistribution = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution, 13));
+};
+
+
+/** @param {?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setAnimalDistribution = function(value) {
+  jspb.Message.setWrapperField(this, 13, value);
+};
+
+
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearAnimalDistribution = function() {
   this.setAnimalDistribution(undefined);
 };
 
@@ -4227,45 +4370,45 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.clearAnimalDistribution =
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.hasAnimalDistribution = function() {
-  return jspb.Message.getField(this, 2) != null;
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasAnimalDistribution = function() {
+  return jspb.Message.getField(this, 13) != null;
 };
 
 
 /**
- * optional bool include_carnivorous = 3;
+ * optional bool include_carnivorous = 14;
  * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.getIncludeCarnivorous = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 3, false));
+proto.nakama.niwrad.api.realtime.Experience.prototype.getIncludeCarnivorous = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 14, false));
 };
 
 
 /** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.setIncludeCarnivorous = function(value) {
-  jspb.Message.setProto3BooleanField(this, 3, value);
+proto.nakama.niwrad.api.realtime.Experience.prototype.setIncludeCarnivorous = function(value) {
+  jspb.Message.setProto3BooleanField(this, 14, value);
 };
 
 
 /**
- * optional Characteristics vegetation_characteristics = 4;
+ * optional Characteristics vegetation_characteristics = 40;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.getVegetationCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.getVegetationCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 4));
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 40));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.setVegetationCharacteristics = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+proto.nakama.niwrad.api.realtime.Experience.prototype.setVegetationCharacteristics = function(value) {
+  jspb.Message.setWrapperField(this, 40, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.Experiences.prototype.clearVegetationCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearVegetationCharacteristics = function() {
   this.setVegetationCharacteristics(undefined);
 };
 
@@ -4274,28 +4417,88 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.clearVegetationCharacteri
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.hasVegetationCharacteristics = function() {
-  return jspb.Message.getField(this, 4) != null;
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasVegetationCharacteristics = function() {
+  return jspb.Message.getField(this, 40) != null;
 };
 
 
 /**
- * optional PopulationDistribution vegetation_distribution = 5;
- * @return {?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution}
+ * optional Characteristics vegetation_characteristics_minimum_bound = 41;
+ * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.getVegetationDistribution = function() {
-  return /** @type{?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution, 5));
+proto.nakama.niwrad.api.realtime.Experience.prototype.getVegetationCharacteristicsMinimumBound = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 41));
 };
 
 
-/** @param {?proto.nakama.niwrad.api.realtime.Experiences.PopulationDistribution|undefined} value */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.setVegetationDistribution = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
+/** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setVegetationCharacteristicsMinimumBound = function(value) {
+  jspb.Message.setWrapperField(this, 41, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.Experiences.prototype.clearVegetationDistribution = function() {
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearVegetationCharacteristicsMinimumBound = function() {
+  this.setVegetationCharacteristicsMinimumBound(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasVegetationCharacteristicsMinimumBound = function() {
+  return jspb.Message.getField(this, 41) != null;
+};
+
+
+/**
+ * optional Characteristics vegetation_characteristics_maximum_bound = 42;
+ * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getVegetationCharacteristicsMaximumBound = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 42));
+};
+
+
+/** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setVegetationCharacteristicsMaximumBound = function(value) {
+  jspb.Message.setWrapperField(this, 42, value);
+};
+
+
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearVegetationCharacteristicsMaximumBound = function() {
+  this.setVegetationCharacteristicsMaximumBound(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasVegetationCharacteristicsMaximumBound = function() {
+  return jspb.Message.getField(this, 42) != null;
+};
+
+
+/**
+ * optional PopulationDistribution vegetation_distribution = 43;
+ * @return {?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getVegetationDistribution = function() {
+  return /** @type{?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution} */ (
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution, 43));
+};
+
+
+/** @param {?proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution|undefined} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setVegetationDistribution = function(value) {
+  jspb.Message.setWrapperField(this, 43, value);
+};
+
+
+proto.nakama.niwrad.api.realtime.Experience.prototype.clearVegetationDistribution = function() {
   this.setVegetationDistribution(undefined);
 };
 
@@ -4304,8 +4507,8 @@ proto.nakama.niwrad.api.realtime.Experiences.prototype.clearVegetationDistributi
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.Experiences.prototype.hasVegetationDistribution = function() {
-  return jspb.Message.getField(this, 5) != null;
+proto.nakama.niwrad.api.realtime.Experience.prototype.hasVegetationDistribution = function() {
+  return jspb.Message.getField(this, 43) != null;
 };
 
 

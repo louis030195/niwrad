@@ -6,9 +6,9 @@ namespace AI
 {
 	public class MemeController : MonoBehaviour
 	{
-		private float m_DecisionFrequency;
-		private float m_LastDecision;
-		private Meme m_CurrentMeme;
+		private float _decisionFrequency;
+		private float _lastDecision;
+		private Meme _currentMeme;
 
 		public bool aiActive;
 		public float lastTransition;
@@ -17,33 +17,31 @@ namespace AI
 
 		private void Update()
 		{
-			if (!aiActive || Time.time < m_LastDecision + m_DecisionFrequency) return;
-			m_LastDecision = Time.time;
+			if (!aiActive || Time.time < _lastDecision + _decisionFrequency) return;
+			_lastDecision = Time.time;
 			BeforeUpdated?.Invoke();
-			m_CurrentMeme.UpdateState(this); // TODO: nullref here sometime
+			_currentMeme.UpdateState(this); // TODO: nullref here sometime
 		}
 
 		private void OnDrawGizmos()
-		{
-			if (m_CurrentMeme != null)
-			{
-				Gizmos.color = m_CurrentMeme.SceneGizmoColor;
-				Gizmos.DrawWireSphere(transform.position, 10);
-			}
-		}
+        {
+            if (_currentMeme == null) return;
+            Gizmos.color = _currentMeme.SceneGizmoColor;
+            Gizmos.DrawWireSphere(transform.position, 10);
+        }
 
 		public void SetupAi(Meme currentMeme, float decisionFrequency = 2f)
         {
             aiActive = true;
-			m_CurrentMeme = currentMeme;
-			m_DecisionFrequency = decisionFrequency;
-			MemeChanged?.Invoke(m_CurrentMeme);
+			_currentMeme = currentMeme;
+			_decisionFrequency = decisionFrequency;
+			MemeChanged?.Invoke(_currentMeme);
 		}
 
 		public void Transition(Meme nextMeme)
 		{
-			m_CurrentMeme = nextMeme;
-			MemeChanged?.Invoke(m_CurrentMeme);
+			_currentMeme = nextMeme;
+			MemeChanged?.Invoke(_currentMeme);
 			lastTransition = Time.time;
 		}
 	}

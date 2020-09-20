@@ -116,28 +116,16 @@ namespace Evolution
         /// <param name="child"></param>
         /// <param name="firstParent"></param>
         /// <param name="secondParent"></param>
-        /// <param name="experience"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
         public static void Mutate( // TODO: gotta benchmark this, will be called quite often
             this Characteristics child, 
             Characteristics firstParent, 
             Characteristics secondParent,
-            Experience experience)
+            Characteristics min,
+            Characteristics max)
         {
-            switch (child.TypeCase)
-            {
-                case Characteristics.TypeOneofCase.AnimalCharacteristics:
-                    child.MutateObjects(firstParent, secondParent,
-                        experience.AnimalCharacteristicsMinimumBound, experience.AnimalCharacteristicsMaximumBound);
-                    break;
-                case Characteristics.TypeOneofCase.VegetationCharacteristics:
-                    child.MutateObjects(firstParent, secondParent,
-                        experience.VegetationCharacteristicsMinimumBound, experience.VegetationCharacteristicsMaximumBound);
-                    break;
-                case Characteristics.TypeOneofCase.None:
-                    throw new Exception("Alien child not implemented !");
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            child.MutateObjects(firstParent, secondParent, min, max);
         }
         
     }

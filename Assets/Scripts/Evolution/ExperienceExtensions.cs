@@ -39,11 +39,149 @@ namespace Evolution
             return string.Concat(result);
         }
         
-        public static void Save(this Experience e)
+        public static bool Save(this Experience e)
         {
             if(!Directory.Exists(ExperiencesPath)) Directory.CreateDirectory(ExperiencesPath);
+            var isNew = !File.Exists($"{ExperiencesPath}/{e.Name}.json");
             var json = JsonFormatter.Default.Format(e);
             File.WriteAllText($"{ExperiencesPath}/{e.Name}.json", FormatJson(json));
+            return isNew;
+        }
+
+        public static bool NewIfNone()
+        {
+            if(!Directory.Exists(ExperiencesPath)) Directory.CreateDirectory(ExperiencesPath);
+            if (Directory.GetFiles(ExperiencesPath).Length != 0) return false;
+            New();
+            return true;
+        }
+
+        /// <summary>
+        /// Create a new experience without erasing previous ones (increment name), save to disk and return it
+        /// </summary>
+        /// <returns></returns>
+        public static Experience New()
+        {
+            if(!Directory.Exists(ExperiencesPath)) Directory.CreateDirectory(ExperiencesPath);
+            // var e = Load($"Assets/Scripts/Tests/Data/BasicExperience.json", true);
+            var e = new Experience
+            {
+                Name = "BasicExperience",
+                Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
+                {
+                    Size = 7,
+                    Height = 10,
+                    Spread = 10,
+                    SpreadReductionRate = 0.6,
+                    Water = false,
+                    Diversity = 0
+                },
+                General = new Experience.Types.GeneralParameters
+                {
+                    Timescale = 1,
+                    TimeLimit = 0,
+                    Repeat = false,
+                    SaveStatistics = false
+                },
+                AnimalCharacteristics = new Characteristics
+                {
+                    Computation = 10,
+                    Life = 50,
+                    Robustness = 0.5f,
+                    Energy = 50,
+                    ReproductionCost = 50,
+                    AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
+                    {
+                        Speed = 50,
+                        RandomMovementRange = 50,
+                        SightRange = 50,
+                        EatRange = 5,
+                        Metabolism = 50,
+                    }
+                },
+                AnimalCharacteristicsMinimumBound = new Characteristics
+                {
+                    Computation = 1,
+                    Life = 0,
+                    Robustness = 0.1f,
+                    Energy = 50,
+                    ReproductionCost = 0,
+                    AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
+                    {
+                        Speed = 1,
+                        RandomMovementRange = 1,
+                        SightRange = 1,
+                        EatRange = 1,
+                        Metabolism = 1,
+                    }
+                },
+                AnimalCharacteristicsMaximumBound = new Characteristics
+                {
+                    Computation = 100,
+                    Life = 100,
+                    Robustness = 2,
+                    Energy = 100,
+                    ReproductionCost = 100,
+                    AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
+                    {
+                        Speed = 100,
+                        RandomMovementRange = 100,
+                        SightRange = 100,
+                        EatRange = 10,
+                        Metabolism = 100,
+                    }
+                },
+                AnimalDistribution = new Experience.Types.PopulationDistribution
+                {
+                  InitialAmount = 20,
+                  Scattering = 20
+                },
+                VegetationCharacteristics = new Characteristics
+                {
+                    Computation = 50,
+                    Life = 50,
+                    Robustness = 50,
+                    Energy = 50,
+                    ReproductionCost = 50,
+                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                },
+                VegetationCharacteristicsMinimumBound = new Characteristics
+                {
+                    Computation = 0,
+                    Life = 0,
+                    Robustness = 0,
+                    Energy = 0,
+                    ReproductionCost = 0,
+                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                },
+                VegetationCharacteristicsMaximumBound = new Characteristics
+                {
+                    Computation = 100,
+                    Life = 100,
+                    Robustness = 100,
+                    Energy = 100,
+                    ReproductionCost = 100,
+                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                },
+                VegetationDistribution = new Experience.Types.PopulationDistribution
+                {
+                    InitialAmount = 20,
+                    Scattering = 20
+                },
+            }; // TODO: move somewhere else
+            var i = 0;
+            while (File.Exists($"{ExperiencesPath}/BasicExperience-{i}.json"))
+            {
+                i++;
+            } 
+            e.Name = $"BasicExperience-{i}";
+            e.Save();
+            return e;
+        }
+        
+        public static void Delete(this Experience e)
+        {
+            File.Delete($"{ExperiencesPath}/{e.Name}.json");
         }
 
         /// <summary>

@@ -59,7 +59,8 @@ namespace Tests.TestsEdit
                     Metabolism = 50,
                 }
             };
-            child.Mutate(e.AnimalCharacteristics, e.AnimalCharacteristics, e);
+            child.Mutate(e.AnimalCharacteristics, e.AnimalCharacteristics, 
+                e.AnimalCharacteristicsMinimumBound, e.AnimalCharacteristicsMaximumBound);
             // The offspring should have different characteristics
             Assert.False(AreObjectFloatsEqual(child, e.AnimalCharacteristics)); // TODO: fix this assert
             // TODO: could go further: assert that it stays within a distribution while differing from the initial value
@@ -73,11 +74,27 @@ namespace Tests.TestsEdit
             var exp = new Experience
             {
                 Name = "BasicExperience",
+                Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
+                {
+                    Size = 7,
+                    Height = 10,
+                    Spread = 10,
+                    SpreadReductionRate = 0.6,
+                    Water = false,
+                    Diversity = 0
+                },
+                General = new Experience.Types.GeneralParameters
+                {
+                    Timescale = 1,
+                    TimeLimit = 0,
+                    Repeat = false,
+                    SaveStatistics = false
+                },
                 AnimalCharacteristics = new Characteristics
                 {
-                    Computation = 50,
+                    Computation = 10,
                     Life = 50,
-                    Robustness = 50,
+                    Robustness = 0.5f,
                     Energy = 50,
                     ReproductionCost = 50,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -85,31 +102,31 @@ namespace Tests.TestsEdit
                         Speed = 50,
                         RandomMovementRange = 50,
                         SightRange = 50,
-                        EatRange = 50,
+                        EatRange = 5,
                         Metabolism = 50,
                     }
                 },
                 AnimalCharacteristicsMinimumBound = new Characteristics
                 {
-                    Computation = 0,
+                    Computation = 1,
                     Life = 0,
-                    Robustness = 0,
-                    Energy = 0,
+                    Robustness = 0.1f,
+                    Energy = 50,
                     ReproductionCost = 0,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
-                        Speed = 0,
-                        RandomMovementRange = 0,
-                        SightRange = 0,
-                        EatRange = 0,
-                        Metabolism = 0,
+                        Speed = 1,
+                        RandomMovementRange = 1,
+                        SightRange = 1,
+                        EatRange = 1,
+                        Metabolism = 1,
                     }
                 },
                 AnimalCharacteristicsMaximumBound = new Characteristics
                 {
                     Computation = 100,
                     Life = 100,
-                    Robustness = 100,
+                    Robustness = 2,
                     Energy = 100,
                     ReproductionCost = 100,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -117,14 +134,14 @@ namespace Tests.TestsEdit
                         Speed = 100,
                         RandomMovementRange = 100,
                         SightRange = 100,
-                        EatRange = 100,
+                        EatRange = 10,
                         Metabolism = 100,
                     }
                 },
                 AnimalDistribution = new Experience.Types.PopulationDistribution
                 {
                   InitialAmount = 20,
-                  Scattering = 10
+                  Scattering = 20
                 },
                 VegetationCharacteristics = new Characteristics
                 {
@@ -156,7 +173,7 @@ namespace Tests.TestsEdit
                 VegetationDistribution = new Experience.Types.PopulationDistribution
                 {
                     InitialAmount = 20,
-                    Scattering = 10
+                    Scattering = 20
                 },
             };
             exp.Save();

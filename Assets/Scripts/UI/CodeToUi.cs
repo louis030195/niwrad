@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,9 +26,10 @@ namespace UI
         /// <param name="value">Slider value</param>
         /// <param name="parent">Parent object</param>
         /// <param name="sliderTemplate">Object with 1: label text mp pro gui, 2 slider, 3 value text mp pro gui</param>
-        public static void FloatsToUi(object min, object max, object value, Transform parent, GameObject sliderTemplate = null)
+        public static List<(PropertyInfo p, Slider s)> FloatsToUi(object min, object max, object value, Transform parent, GameObject sliderTemplate = null)
         {
             sliderTemplate = sliderTemplate ? sliderTemplate : DefaultSlider;
+            var ret = new List<(PropertyInfo p, Slider s)>();
             var minProps = min.GetType().GetProperties();
             var maxProps = max.GetType().GetProperties();
             var valueProps = value.GetType().GetProperties();
@@ -38,14 +41,15 @@ namespace UI
                 var valVal = valueProps[i].GetValue(value);
                 if (minVal.IsNumber())
                 {
-                    NumberToUi(minVal, maxVal, valVal, parent, minProps[i].Name, sliderTemplate);
+                    ret.Add((p: minProps[i], s: NumberToUi(minVal, maxVal, valVal, parent, minProps[i].Name, sliderTemplate)));
                 } else if (minVal.GetType().GetFields().Length > 0) // Object
                 {
                     // TODO: could put as sub child in a new GO with object name ...
-                    FloatsToUi(minVal, maxVal, valVal, parent);
+                    ret.AddRange(FloatsToUi(minVal, maxVal, valVal, parent));
                 }
-
             }
+
+            return ret;
         }
 
         /// <summary>
@@ -60,7 +64,7 @@ namespace UI
         /// <param name="parent"></param>
         /// <param name="name"></param>
         /// <param name="sliderTemplate">Object with 1: label text mp pro gui, 2 slider, 3 value text mp pro gui</param>
-        public static void NumberToUi(object min, object max, object value, Transform parent, string name, GameObject sliderTemplate = null)
+        public static Slider NumberToUi(object min, object max, object value, Transform parent, string name, GameObject sliderTemplate = null)
         {
             if (!min.IsNumber()) throw new Exception("This method only accept numbers");
             sliderTemplate = sliderTemplate ? sliderTemplate : DefaultSlider;
@@ -75,9 +79,10 @@ namespace UI
             var sliderValueText = sliderValue.GetComponent<TextMeshProUGUI>();
             sliderValueText.text = $"{s.value:####}";
             s.onValueChanged.AddListener(v => sliderValueText.text = $"{v}");
+            return s;
         }
         
-        public static void BooleanToUI(this bool value, Transform parent, string name, GameObject checkBoxTemplate = null)
+        public static Toggle BooleanToUI(this bool value, Transform parent, string name, GameObject checkBoxTemplate = null)
         {
             checkBoxTemplate = checkBoxTemplate ? checkBoxTemplate : DefaultCheckBox;
             var go = Object.Instantiate(checkBoxTemplate, parent);
@@ -85,6 +90,7 @@ namespace UI
             t.isOn = value;
             var labelValue = go.transform.GetChild(0);
             labelValue.GetComponent<TextMeshProUGUI>().text = $"{name}";
+            return t;
         }
     }
 }

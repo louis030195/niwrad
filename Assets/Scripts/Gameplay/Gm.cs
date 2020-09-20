@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Evolution;
 using ProceduralTree;
 using TMPro;
+using UI;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,12 +54,13 @@ namespace Gameplay
         private int mapSpread = 1000;
         [SerializeField, Range(0, 1)]
         private float mapSpreadReductionRate = 0.8f;
+
+        public Experience Experience { get; private set; }
         
         protected override async void Awake()
         {
             base.Awake();
 
-            
             foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
             {
                 // Debug.Log($"{kv.Key}={kv.Value}");
@@ -77,6 +79,11 @@ namespace Gameplay
             // Online shouldn't have set seed, server will send it
             await UniTask.WaitUntil(() => seed != default);
             InitializeGameplay();
+        }
+
+        private void Start()
+        {
+            Mm.instance.EnableHud(false);
         }
 
         private async UniTask InitializeNet()
@@ -105,14 +112,7 @@ namespace Gameplay
             // Online mode should receive seed from Nakama for determinism, otherwise 666 :)
             Random.InitState((int)seed);
             Debug.Log($"Seed loaded: {Random.state}");
-            var t = 
-                ProceduralTerrain.Generate(mapSize, mapHeight, (int)seed, mapSpread, mapSpreadReductionRate);
-            t.tag = "ground";
-            var m = GetComponent<NavMeshSurface>();
-            Debug.Log($"Generating map and baking it for path finding");
-            m.BuildNavMesh();
             if (!online) return;
-            
             
             var pos = Mcm.instance.region.GetCenter();
             transform.position = pos;
@@ -126,5 +126,34 @@ namespace Gameplay
             Mcm.instance.RpcAsync(msg);
         }
 
+        public void Pause()
+        {
+            Time.timeScale = 0;
+            Hm.instance.Pause();
+        }
+        
+        public void Play()
+        {
+            Time.timeScale = 1;
+            Hm.instance.Play();
+        }
+        public void StartExperience(Experience e)
+        {
+            Time.timeScale = e.General.Timescale;
+            var t = ProceduralTerrain.Generate((int) e.Map.Size, 
+                    (int) e.Map.Height, 
+                    (int)seed, 
+                    (float) e.Map.Spread, 
+                    (float) e.Map.SpreadReductionRate);
+            t.tag = "ground";
+            var m = GetComponent<NavMeshSurface>();
+            Debug.Log($"Generating map and baking it for path finding");
+            m.BuildNavMesh();
+            Experience = e;
+            Mm.instance.EnableHud(true);
+            // TODO: other general stuff
+            Hm.instance.StartExperience(e);
+            // TODO: generate map based on e.Map.Stuff
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Evolution
 			health.dead = !(health.currentHealth > characteristics.Life);
 		}
 
-		protected new void EnableBehaviour(bool value)
+		public new void EnableBehaviour(bool value)
 		{
             base.EnableBehaviour(value);
             if (value)
@@ -99,10 +99,10 @@ namespace Evolution
 
 		private Meme CanBreed(MemeController c)
 		{
-			if (health.currentHealth > characteristics.ReproductionCost)
-			{
-				return Memes["Breed"];
-			}
+			// if (health.currentHealth > characteristics.ReproductionCost)
+			// {
+			// 	return Memes["Breed"];
+			// }
 			return Memes["Grow"];
 		}
 

@@ -1,41 +1,48 @@
 {
      "name": "BasicExperience",
      "animalCharacteristics": {
-         "computation": 50,
+         "computation": 10,
          "life": 50,
-         "robustness": 50,
+         "robustness": 0.5,
          "energy": 50,
          "reproductionCost": 50,
          "animalCharacteristics": {
              "speed": 50,
              "randomMovementRange": 50,
              "sightRange": 50,
-             "eatRange": 50,
+             "eatRange": 5,
              "metabolism": 50 
         } 
     },
      "animalCharacteristicsMinimumBound": {
+         "computation": 1,
+         "robustness": 0.1,
+         "energy": 50,
          "animalCharacteristics": {
-             
+             "speed": 1,
+             "randomMovementRange": 1,
+             "sightRange": 1,
+             "eatRange": 1,
+             "metabolism": 1 
         } 
     },
      "animalCharacteristicsMaximumBound": {
          "computation": 100,
          "life": 100,
-         "robustness": 100,
+         "robustness": 2,
          "energy": 100,
          "reproductionCost": 100,
          "animalCharacteristics": {
              "speed": 100,
              "randomMovementRange": 100,
              "sightRange": 100,
-             "eatRange": 100,
+             "eatRange": 10,
              "metabolism": 100 
         } 
     },
      "animalDistribution": {
          "initialAmount": "20",
-         "scattering": 10 
+         "scattering": 20 
     },
      "vegetationCharacteristics": {
          "computation": 50,
@@ -64,6 +71,15 @@
     },
      "vegetationDistribution": {
          "initialAmount": "20",
-         "scattering": 10 
+         "scattering": 20 
+    },
+     "map": {
+         "size": 7,
+         "height": 10,
+         "spread": 10,
+         "spreadReductionRate": 0.6 
+    },
+     "general": {
+         "timescale": 1 
     } 
 }

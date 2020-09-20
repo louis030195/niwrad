@@ -15,8 +15,6 @@ namespace UI
     [RequireComponent(typeof(UnitSelection))]
     public class Actions : MonoBehaviour
     {
-        [SerializeField] private EscapeMenu escapeMenu;
-        [SerializeField] private Menu evolutionMenu;
         [SerializeField] private Slider sliderAnimal;
         [SerializeField] private Slider sliderVegetation;
         [SerializeField] private GameObject seedTemplate;
@@ -29,8 +27,14 @@ namespace UI
 
 
         private delegate void Spawn(Vector3 p, Quaternion r);
-        private readonly Spawn _hackAnimal = (p, r) => Hm.instance.SpawnAnimalSync(p, r);
-        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnTreeSync(p, r);
+        private readonly Spawn _hackAnimal = (p, r) => Hm.instance.SpawnAnimalSync(p, r, 
+            Gm.instance.Experience.AnimalCharacteristics,
+            Gm.instance.Experience.AnimalCharacteristicsMinimumBound,
+            Gm.instance.Experience.AnimalCharacteristicsMaximumBound);
+        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnTreeSync(p, r, 
+            Gm.instance.Experience.VegetationCharacteristics,
+            Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
+            Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
 
         
         private void Awake()
@@ -99,14 +103,5 @@ namespace UI
 
         public void StopDraggingTree() => StopDragging((int) sliderVegetation.value, Color.green,
             !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
-        
-
-        // public void OnPointerClickAnimal(BaseEventData data)
-        // {
-        //     if (((PointerEventData) data).button == PointerEventData.InputButton.Right)
-        //     {
-        //         escapeMenu.EscapePlusOther(evolutionMenu);
-        //     }
-        // }
     }
 }

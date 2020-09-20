@@ -96,3 +96,5 @@ make test
 
 * [ ] Implement artificial selection
 * [ ] Allow reproducable experiences, with metrics, different context (asexual, sexual species, predators, parasites)
+* [ ] More UI as code
+* [ ] Use less singletons and potentially move away from this pattern

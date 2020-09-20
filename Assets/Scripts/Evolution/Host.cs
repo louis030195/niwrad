@@ -15,7 +15,9 @@ namespace Evolution
 	[RequireComponent(typeof(MemeController))]
 	public abstract class Host : MonoBehaviour
     {
-        [HideInInspector] public Characteristics characteristics;
+        public Characteristics characteristics;
+        public Characteristics characteristicsMin;
+        public Characteristics characteristicsMax;
 		[HideInInspector] public Attack attack;
 		[HideInInspector] public Health health;
 		[HideInInspector] public ulong id;
@@ -60,7 +62,6 @@ namespace Evolution
         public void EnableBehaviour(bool value)
         {
             if (value) health.initialLife = characteristics.Life;
-            else controller.aiActive = false;
         }
 		// If this function is not overrode, will setup host with random initial meme
 		// if (memes.Values.Count > 0) controller.SetupAi(memes.Values.AnyItem(), true);

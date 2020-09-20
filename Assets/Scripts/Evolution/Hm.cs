@@ -29,30 +29,26 @@ namespace Evolution
 	/// The role of this manager is to request updates and update everything related to hosts.
 	/// Single responsibility.
 	/// </summary>
-	public class Hm : Singleton<Hm>
+	public class Hm : Singleton<Hm> // TODO: fix ugly as hell min max stuff
     {
         [SerializeField] private GraphicTier graphicTier = GraphicTier.Low;
         [SerializeField] private GameObject lowPolyAnimalPrefab; // E.g. red cube
         [SerializeField] private GameObject lowPolyVegetationPrefab; // E.g. green cube
-        private Characteristics animalCharacteristics;
-        private Characteristics vegetationCharacteristics;
 
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
-        private readonly Dictionary<ulong, SimpleAnimal> m_Animals = new Dictionary<ulong, SimpleAnimal>();
+        private readonly Dictionary<ulong, SimpleAnimal> _animals = new Dictionary<ulong, SimpleAnimal>();
 
 		/// <summary>
-		/// Dictionary containing trees
+		/// Dictionary containing vegetations
 		/// </summary>
-		private readonly Dictionary<ulong, Vegetation> m_Trees = new Dictionary<ulong, Vegetation>();
+		private readonly Dictionary<ulong, Vegetation> _vegetations = new Dictionary<ulong, Vegetation>();
 
         /// <summary>
         /// Next id to give for new host
         /// </summary>
-        private ulong m_NextId;
-
-        public Experience CurrentExperience;
+        private ulong _nextId;
 
         #region MONO
 
@@ -142,13 +138,14 @@ namespace Evolution
         /// </summary>
         /// <param name="p">Position</param>
         /// <param name="r">Rotation</param>
+        /// <param name="c"></param>
         /// <returns></returns>
-        public CommonAnimal SpawnAnimalSync(Vector3 p, Quaternion r)
+        public CommonAnimal SpawnAnimalSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            m_NextId++;
-            var animal = SpawnAnimal(p, r);
+            _nextId++;
+            var animal = SpawnAnimal(p, r, c, cMin, cMax);
             if (!Gm.instance.online) return animal;
-            var packet = new Packet().Basic(p.Net()).SpawnAnimal(m_NextId, p, r);
+            var packet = new Packet().Basic(p.Net()).SpawnAnimal(_nextId, p, r);
             Mcm.instance.RpcAsync(packet);
             return animal;
         }
@@ -171,13 +168,16 @@ namespace Evolution
         /// </summary>
         /// <param name="p"></param>
         /// <param name="r"></param>
+        /// <param name="c"></param>
+        /// <param name="cMin"></param>
+        /// <param name="cMax"></param>
         /// <returns></returns>
-        public Vegetation SpawnTreeSync(Vector3 p, Quaternion r)
+        public Vegetation SpawnTreeSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            m_NextId++;
-            var veg = SpawnTree(p, r);
+            _nextId++;
+            var veg = SpawnTree(p, r, c, cMin, cMax);
             if (!Gm.instance.online) return veg;
-	        var packet = new Packet().Basic(p.Net()).SpawnTree(m_NextId, p, r);
+	        var packet = new Packet().Basic(p.Net()).SpawnTree(_nextId, p, r);
 	        Mcm.instance.RpcAsync(packet);
             return veg;
         }
@@ -196,22 +196,58 @@ namespace Evolution
         /// </summary>
         public void Reset()
         {
-            m_Animals.Keys.ToList().ForEach(DestroyAnimalSync);
-            m_Trees.Keys.ToList().ForEach(DestroyTreeSync);
+            _animals.Keys.ToList().ForEach(DestroyAnimalSync);
+            _vegetations.Keys.ToList().ForEach(DestroyTreeSync);
         }
 
         public void Pause()
         {
-            Time.timeScale = 0;
-            m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
-            m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = false);
+            _animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
+            _vegetations.Values.ToList().ForEach(v => v.controller.aiActive = false);
         }
         
         public void Play()
         {
-            Time.timeScale = 1;
-            m_Animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
-            m_Trees.Values.ToList().ForEach(v => v.controller.aiActive = true);
+            _animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
+            _vegetations.Values.ToList().ForEach(v => v.controller.aiActive = true);
+        }
+
+        public void StartExperience(Experience e)
+        {
+            Reset();
+            var areaRadius = Mathf.Pow(2, (float) e.Map.Size*0.9f);
+            var middleOfMap = new Vector3(areaRadius, 0, areaRadius);
+            for (ulong i = 0; i < e.AnimalDistribution.InitialAmount; i++)
+            {
+                // TODO: debug breakpoint here
+                // Random position within the map spaced according to a given scattering
+                var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
+                    LayerMask.GetMask("Animal"),
+                    e.AnimalDistribution.Scattering,
+                    (float) e.Map.Height);
+                if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
+                var a = SpawnAnimal(pos, Quaternion.identity, 
+                    e.AnimalCharacteristics,
+                    e.AnimalCharacteristicsMinimumBound,
+                    e.AnimalCharacteristicsMaximumBound);
+            }
+            
+            for (ulong i = 0; i < e.VegetationDistribution.InitialAmount; i++)
+            {
+                // Random position within the map spaced according to a given scattering
+                var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
+                    LayerMask.GetMask("Vegetation"),
+                    e.VegetationDistribution.Scattering,
+                    (float) e.Map.Height);
+                if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
+                var a = SpawnTree(pos, Quaternion.identity, 
+                    e.VegetationCharacteristics,
+                    e.VegetationCharacteristicsMinimumBound,
+                    e.VegetationCharacteristicsMaximumBound);
+            }
+
+
+            Play();
         }
         #endregion
 
@@ -249,7 +285,11 @@ namespace Evolution
          //    }
         }
         
-        private void OnAnimalSpawned(Transform obj) => SpawnAnimal(obj.Position.ToVector3(), obj.Rotation.ToQuaternion());
+        private void OnAnimalSpawned(Transform obj) =>
+            SpawnAnimal(obj.Position.ToVector3(), obj.Rotation.ToQuaternion(), 
+                Gm.instance.Experience.AnimalCharacteristics,
+                Gm.instance.Experience.AnimalCharacteristicsMinimumBound,
+                Gm.instance.Experience.AnimalCharacteristicsMaximumBound);
         private void OnAnimalDestroyed(Transform obj) => DestroyAnimal(obj.Id);
         private void OnAnimalDestroyRequested(Transform obj) => throw new NotImplementedException();
         private void OnAnimalSpawnRequested(Transform obj)
@@ -265,7 +305,7 @@ namespace Evolution
                 return;
             }
 	        var packet = new Packet().Basic(obj.Position);
-	        obj.Id = ++m_NextId;
+	        obj.Id = ++_nextId;
 	        packet.Spawn = new Spawn
 	        {
 		        Animal = new Animal
@@ -275,42 +315,51 @@ namespace Evolution
 	        };
             Debug.Log($"S1 requested animal spawn, approving at {obj.Position}");
             Mcm.instance.RpcAsync(packet);
-	        SpawnAnimal(aboveGround, obj.Rotation.ToQuaternion());
+	        SpawnAnimal(aboveGround, obj.Rotation.ToQuaternion(), 
+                Gm.instance.Experience.AnimalCharacteristics,
+                Gm.instance.Experience.AnimalCharacteristicsMinimumBound,
+                Gm.instance.Experience.AnimalCharacteristicsMaximumBound);
         }
 
-        private CommonAnimal SpawnAnimal(Vector3 p, Quaternion r)
+        private CommonAnimal SpawnAnimal(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
             // Debug.Log($"Spawning animal {obj}");
             var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
-            m_Animals[m_NextId] = a.GetComponent<SimpleAnimal>();
-            m_Animals[m_NextId].characteristics = CurrentExperience.AnimalCharacteristics;
-            m_Animals[m_NextId].id = m_NextId;
+            _animals[_nextId] = a.GetComponent<SimpleAnimal>();
+            _animals[_nextId].characteristics = c;
+            _animals[_nextId].characteristicsMin = cMin;
+            _animals[_nextId].characteristicsMax = cMax;
+            _animals[_nextId].id = _nextId;
             // Only server handle animal behaviours
             if (!Gm.instance.online || Sm.instance.isServer)
             {
-                m_Animals[m_NextId].EnableBehaviour(true);
+                _animals[_nextId].EnableBehaviour(true);
                 // var tSync = m_Animals[obj.Id].gameObject.AddComponent<TransformSync>();
                 // tSync.id = obj.Id;
             }
-            return m_Animals[m_NextId];
+            return _animals[_nextId];
         }
 
         private CommonAnimal DestroyAnimal(ulong id)
         {
-	        if (!m_Animals.ContainsKey(id))
+	        if (!_animals.ContainsKey(id))
 	        {
 		        // TODO: fix
 		        // Debug.LogError($"Tried to destroy in-existent animal {obj.Id}");
 		        return null;
 	        }
 
-            var animal = m_Animals[id];
+            var animal = _animals[id];
 	        Pool.Despawn(animal.gameObject);
-	        if (!m_Animals.Remove(id)) Debug.LogError($"Failed to remove animal {id}");
+	        if (!_animals.Remove(id)) Debug.LogError($"Failed to remove animal {id}");
             return animal;
         }
 
-        private void OnTreeSpawned(Transform obj) => SpawnTree(obj.Position.ToVector3(), obj.Rotation.ToQuaternion());
+        private void OnTreeSpawned(Transform obj) => 
+            SpawnTree(obj.Position.ToVector3(), obj.Rotation.ToQuaternion(), 
+                Gm.instance.Experience.VegetationCharacteristics,
+                Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
+                Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
         private void OnTreeDestroyed(Transform obj) => DestroyTree(obj.Id);
         private void OnTreeDestroyRequested(Transform obj) => throw new NotImplementedException();
         private void OnTreeSpawnRequested(Transform obj)
@@ -321,7 +370,7 @@ namespace Evolution
             var aboveGround = obj.Position.ToVector3().PositionAboveGround();
             obj.Position = aboveGround.Net();
 	        var packet = new Packet().Basic(obj.Position);
-	        obj.Id = ++m_NextId;
+	        obj.Id = ++_nextId;
 	        packet.Spawn = new Spawn
 	        {
 		        Tree = new Api.Realtime.Tree
@@ -330,35 +379,40 @@ namespace Evolution
 		        }
 	        };
 	        Mcm.instance.RpcAsync(packet);
-	        SpawnTree(aboveGround, obj.Rotation.ToQuaternion());
+	        SpawnTree(aboveGround, obj.Rotation.ToQuaternion(), 
+                Gm.instance.Experience.VegetationCharacteristics,
+                Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
+                Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
         }
 
-        private Vegetation SpawnTree(Vector3 p, Quaternion r)
+        private Vegetation SpawnTree(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
             var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
                 Pool.Spawn(lowPolyVegetationPrefab, p, r).GetComponent<Vegetation>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Vegetation>();
-	        m_Trees[m_NextId] = veg;
-            m_Trees[m_NextId].characteristics = CurrentExperience.VegetationCharacteristics;
-            m_Trees[m_NextId].id = m_NextId;
+	        _vegetations[_nextId] = veg;
+            _vegetations[_nextId].characteristics = c;
+            _vegetations[_nextId].characteristicsMin = cMin;
+            _vegetations[_nextId].characteristicsMax = cMax;
+            _vegetations[_nextId].id = _nextId;
 
-	        if (!Gm.instance.online || Sm.instance.isServer) m_Trees[m_NextId].EnableBehaviour(true);
-	        return m_Trees[m_NextId];
+	        if (!Gm.instance.online || Sm.instance.isServer) _vegetations[_nextId].EnableBehaviour(true);
+	        return _vegetations[_nextId];
         }
 
 
         private Vegetation DestroyTree(ulong id)
         {
-	        if (!m_Trees.ContainsKey(id))
+	        if (!_vegetations.ContainsKey(id))
 	        {
 		        // Debug.LogError($"Tried to destroy in-existent tree {obj.Id}");
 		        return null;
 	        }
 
-            var tree = m_Trees[id];
+            var tree = _vegetations[id];
             if (graphicTier == GraphicTier.Low) Pool.Despawn(tree.gameObject);
             else TreePool.instance.Despawn(tree.gameObject);
-	        m_Trees.Remove(id);
+	        _vegetations.Remove(id);
             return tree;
         }
 
@@ -367,9 +421,9 @@ namespace Evolution
         private void OnMemeUpdated(Meme obj)
         {
 	        // If this id doesn't belong to animals, maybe it's a tree
-	        if (m_Animals.ContainsKey(obj.Id))
+	        if (_animals.ContainsKey(obj.Id))
 	        {
-		        var h = m_Animals[obj.Id];
+		        var h = _animals[obj.Id];
 		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
@@ -379,9 +433,9 @@ namespace Evolution
 		        // Transition to the new received meme
 		        h.controller.Transition(h.Memes[obj.MemeName]);
 	        }
-	        else if (m_Trees.ContainsKey(obj.Id))
+	        else if (_vegetations.ContainsKey(obj.Id))
 	        {
-		        var h = m_Trees[obj.Id];
+		        var h = _vegetations[obj.Id];
 		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
@@ -399,25 +453,25 @@ namespace Evolution
 
         private void OnTransformUpdated(Transform obj) // TODO: merge spawn and update ?
         {
-	        if (!m_Animals.ContainsKey(obj.Id))
+	        if (!_animals.ContainsKey(obj.Id))
 	        {
 		        // Debug.LogError($"Tried to update in-existent animal {obj.Id}"); // TODO: maybe should pass client id
 		        return;
 	        }
 
-	        m_Animals[obj.Id].transform.position = obj.Position.ToVector3();
-	        m_Animals[obj.Id].transform.rotation = obj.Rotation.ToQuaternion();
+	        _animals[obj.Id].transform.position = obj.Position.ToVector3();
+	        _animals[obj.Id].transform.rotation = obj.Rotation.ToQuaternion();
         }
 
         private void OnNavMeshUpdated(NavMeshUpdate obj)
         {
-	        if (!m_Animals.ContainsKey(obj.Id))
+	        if (!_animals.ContainsKey(obj.Id))
 	        {
 		        // Debug.LogError($"Tried to update in-existent animal {obj.Id}"); // TODO: maybe should pass client id
 		        return;
 	        }
 
-	        m_Animals[obj.Id].movement.MoveTo(obj.Destination.ToVector3());
+	        _animals[obj.Id].movement.MoveTo(obj.Destination.ToVector3());
         }
 
         #endregion

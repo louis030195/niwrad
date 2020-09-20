@@ -55,13 +55,14 @@ namespace Utils
 		/// </summary>
 		/// <returns></returns> // TODO: Big O
 		public static Vector3 RandomPositionAroundAboveGroundWithDistance(this Vector3 center,
-			float radius,
+			float areaRadius,
 			LayerMask layerMask,
-			float distance,
+			float radiusBetweenObjects,
+            float areaHeight = 1000f,
 			float prefabHeight = 1f,
 			int numberOfTries = 10)
 		{
-			if (distance > radius)
+			if (radiusBetweenObjects > areaRadius)
 			{
 				Debug.LogError("Distance must be inferior to radius");
 				return Vector3.positiveInfinity;
@@ -71,8 +72,8 @@ namespace Utils
 			while (tries < numberOfTries)
 			{
 				// We pick a random position around above ground
-				var newPos = center + Random.insideUnitSphere * radius;
-				center.y += 1000;
+				var newPos = center + Random.insideUnitSphere * areaRadius;
+				center.y += areaHeight;
 				newPos = newPos.PositionAboveGround(prefabHeight);
 				if (newPos.Equals(Vector3.positiveInfinity)) // Outside map
 				{
@@ -80,7 +81,7 @@ namespace Utils
 					continue;
 				}
 				// Then we check if this spot is free (from the given layer)
-				var size = UnityEngine.Physics.OverlapSphereNonAlloc(newPos, distance, _results, layerMask);
+				var size = UnityEngine.Physics.OverlapSphereNonAlloc(newPos, radiusBetweenObjects, _results, layerMask);
 
 				// If no objects of the same layer is detected, this spot is free, return
 				if (size == 0) return newPos;

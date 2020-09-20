@@ -13,15 +13,11 @@ namespace UI
         #region Fields
 
         /// <summary>
-        /// Reference to <see cref="CanvasGroup"/> used to show or hide the gameobject.
+        /// Reference to <see cref="UnityEngine.CanvasGroup"/> used to show or hide the gameobject.
         /// </summary>
         private CanvasGroup _canvasGroup;
 
-        /// <summary>
-        /// Button returning from this panel to main menu.
-        /// </summary>
-        [SerializeField] protected Button backButton;
-
+        [SerializeField] private Button backButton;
 
         #endregion
 
@@ -37,9 +33,22 @@ namespace UI
 
         #endregion
         
-        private void Start()
+        protected virtual void Start()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            if (backButton != null) backButton.onClick.AddListener(Pop); // TODO: Should trigger before all UI-set actions
+        }
+
+        protected virtual void OnDestroy()
+        {
+            try
+            {
+                Pop();
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         #region Methods
@@ -70,14 +79,6 @@ namespace UI
             IsShown = false;
         }
 
-        /// <summary>
-        /// Sets the handler for <see cref="backButton"/>.
-        /// </summary>
-        public virtual void SetBackButtonHandler(Action onBack)
-        {
-            backButton.onClick.AddListener(() => onBack());
-        }
-
         public virtual void Push()
         {
             Mm.instance.Push(this);
@@ -85,7 +86,7 @@ namespace UI
         
         public virtual void Pop()
         {
-            Mm.instance.PopTo(this);
+            Mm.instance.Pop();
         }
 
         #endregion

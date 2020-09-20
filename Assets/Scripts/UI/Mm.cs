@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gameplay;
 using Player;
 using UnityEngine;
 using Utils;
@@ -41,40 +42,33 @@ namespace UI
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-            _stack.OnPush += menu =>
-            {
-                menu.Show();
-                // Hide hud when showing any menu
-                EnableHud(IsEmpty());
-            };
-            _stack.OnPop += menu =>
-            {
-                menu.Hide();
-                // Can't select anything while scrolling a menu
-                unitSelection.disable = !IsEmpty();
-                cameraController.disable = !IsEmpty();
-                // Hide hud when showing any menu
-                EnableHud(IsEmpty());
-            };
         }
 
-        private void Update()
+        private void OnEscapeMenu()
         {
-            if (Input.GetButtonDown("Cancel") && !(_stack.Count > 1 && _stack.Last() is EscapeMenu))
-            {
-                Pop();
-                _stack.Peek().Show();
-            }
+            var isEmpty = IsEmpty();
+            // Can't select anything while scrolling a menu
+            unitSelection.disable = !isEmpty;
+            cameraController.disable = !isEmpty;
+            // Hide hud when showing any menu (ignore if no experience is set)
+            if (Gm.instance.Experience != null) EnableHud(isEmpty);
         }
 
         public void Push(Menu menu)
         {
+            if (_stack.Count > 0) _stack.Peek().Hide(); // TODO: By default hide current but maybe in some cases could want to literally stack UIs ?
             _stack.Push(menu);
+            menu.Show();
+            OnEscapeMenu();
         }
 
         public Menu Pop()
         {
-            return _stack.Pop();
+            var ret = _stack.Pop();
+            ret.Hide();
+            if (_stack.Count > 0) _stack.Peek().Show();
+            OnEscapeMenu();
+            return ret;
         }
 
         /// <summary>
@@ -96,6 +90,11 @@ namespace UI
             return ret;
         }
 
+        public void PopAll()
+        {
+            while(_stack.Count > 0) Pop();
+        }
+
         public bool IsEmpty()
         {
             return _stack.Count == 0;
@@ -107,6 +106,7 @@ namespace UI
         /// <param name="enable"></param>
         public void EnableHud(bool enable)
         {
+            PopAll();
             foreach (var menu in FindObjectsOfType<Menu>())
             {
                 if (!menu.isHud) continue;

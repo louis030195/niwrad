@@ -10,7 +10,7 @@ namespace Evolution
     [RequireComponent(typeof(Movement))]
     public class SimpleAnimal : CommonAnimal
     {
-        private GameObject m_Target;
+        private GameObject _target;
 
 
         public new void EnableBehaviour(bool value)
@@ -107,7 +107,7 @@ namespace Evolution
         {
             // if (movement.remainingDistance <= movement.stoppingDistance)
             // {
-            movement.MoveTo(m_Target.transform.position);
+            movement.MoveTo(_target.transform.position);
             // }
         }
 
@@ -115,7 +115,7 @@ namespace Evolution
         {
             // if (movement.remainingDistance <= movement.stoppingDistance)
             // {
-            movement.MoveTo(m_Target.transform.position);
+            movement.MoveTo(_target.transform.position);
             // }
         }
 
@@ -123,9 +123,9 @@ namespace Evolution
         {
             // Stop moving
             movement.isStopped = true;
-            attack.EatTarget(m_Target);
+            attack.EatTarget(_target);
             var someValue = 40f;
-            m_Target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * someValue);
+            _target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * someValue);
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
             health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
@@ -133,7 +133,7 @@ namespace Evolution
 
         private void Reproduce(MemeController c)
         {
-            BreedAndMutate(m_Target);
+            BreedAndMutate(_target);
         }
 
         #endregion
@@ -152,7 +152,7 @@ namespace Evolution
 
             // No food around OR target is dead / too weak
             if (closest == default || closest.GetComponent<Health>().dead) return null;
-            m_Target = closest;
+            _target = closest;
 
             // Stop current movement
             // movement.navMeshAgent.destination = transform.position;
@@ -173,7 +173,7 @@ namespace Evolution
                 var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask);
                 // No animal to breed with around
                 if (closest == default) return null;
-                m_Target = closest;
+                _target = closest;
 
                 // Stop current movement
                 // movement.navMeshAgent.destination = transform.position;
@@ -186,7 +186,7 @@ namespace Evolution
 
         private Meme IsCloseEnoughForEating(MemeController c)
         {
-            return Vector3.Distance(transform.position, m_Target.transform.position) <
+            return Vector3.Distance(transform.position, _target.transform.position) <
                    characteristics.AnimalCharacteristics.EatRange
                 ? Memes["Eat"]
                 : null;
@@ -194,7 +194,7 @@ namespace Evolution
 
         private Meme IsCloseEnoughForBreeding(MemeController c)
         {
-            return Vector3.Distance(transform.position, m_Target.transform.position) <
+            return Vector3.Distance(transform.position, _target.transform.position) <
                    1
                 ? Memes["Breed"]
                 : null;
@@ -203,7 +203,7 @@ namespace Evolution
 
         private Meme IsTargetAlive(MemeController c)
         {
-            return m_Target.GetComponent<Health>().dead ? Memes["Wander"] : null;
+            return _target.GetComponent<Health>().dead ? Memes["Wander"] : null;
         }
 
         private Meme Timeout(MemeController c)

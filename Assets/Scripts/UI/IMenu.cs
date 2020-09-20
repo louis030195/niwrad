@@ -22,10 +22,5 @@ namespace UI
         /// Hides this menu from the user.
         /// </summary>
         void Hide();
-
-        /// <summary>
-        /// Sets the listener of this menu's back button.
-        /// </summary>
-        void SetBackButtonHandler(Action onBack);
     }
 }

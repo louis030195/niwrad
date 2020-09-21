@@ -16,26 +16,11 @@ See related writings:
 
 ## How it works
 
-[Nakama](https://github.com/heroiclabs/nakama) is used for network communication, kubernetes coordination & other stuffs.
-
-### Architecture
-
-[Nakama](https://github.com/heroiclabs/nakama) is used as a coordinator and handles communications between services.  
-
 ### Dependencies
 
-* <https://github.com/louis030195/octree> for "network culling" i.e. if an animal moves in (1000,0,1000) and I'm in (0,0,0) I don't want to be notified of that.
+* Online mode: [Nakama](https://github.com/heroiclabs/nakama)
+* Online mode: <https://github.com/louis030195/octree> for "network culling" i.e. if an animal moves in (1000,0,1000) and I'm in (0,0,0) I don't want to be notified of that.
 
-### High level features
-
-* [x] Create account
-* [x] Login
-* [x] List matches
-* [x] Create match (internally spawn a k8s deployment that join the rpc's created match)
-* [x] Join a match
-* [x] Stop a match
-* [x] Request an animal spawn, logic is handled by executor(s)
-* [x] Offline mode
 
 ### Objectives
 
@@ -94,7 +79,11 @@ make test
 
 ## TODO
 
-* [ ] Implement artificial selection
-* [ ] Allow reproducable experiences, with metrics, different context (asexual, sexual species, predators, parasites)
+* [x] Implement artificial selection
+* [x] Allow reproducable experiences,
+* [ ] experience metrics, 
+* [ ] experience different context (asexual, sexual species, predators, parasites)
 * [ ] More UI as code
 * [ ] Use less singletons and potentially move away from this pattern
+* [ ] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag + could auto stuff like reddit, discord ...
+

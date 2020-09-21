@@ -56,7 +56,9 @@ namespace Gameplay
         private float mapSpreadReductionRate = 0.8f;
 
         public Experience Experience { get; private set; }
-        
+
+
+        private GameObject _map;
         protected override async void Awake()
         {
             base.Awake();
@@ -137,15 +139,22 @@ namespace Gameplay
             Time.timeScale = 1;
             Hm.instance.Play();
         }
+
+        public void Reset()
+        {
+            Hm.instance.Reset();
+        }
         public void StartExperience(Experience e)
         {
+            Hm.instance.Reset();
             Time.timeScale = e.General.Timescale;
-            var t = ProceduralTerrain.Generate((int) e.Map.Size, 
+            Destroy(_map);
+            _map = ProceduralTerrain.Generate((int) e.Map.Size, 
                     (int) e.Map.Height, 
                     (int)seed, 
                     (float) e.Map.Spread, 
                     (float) e.Map.SpreadReductionRate);
-            t.tag = "ground";
+            _map.tag = "ground";
             var m = GetComponent<NavMeshSurface>();
             Debug.Log($"Generating map and baking it for path finding");
             m.BuildNavMesh();

@@ -44,22 +44,22 @@ namespace UI
             DontDestroyOnLoad(gameObject);
         }
 
-        private void OnEscapeMenu()
+        private void OnEscapeMenu(bool push = false)
         {
             var isEmpty = IsEmpty();
             // Can't select anything while scrolling a menu
             unitSelection.disable = !isEmpty;
             cameraController.disable = !isEmpty;
             // Hide hud when showing any menu (ignore if no experience is set)
-            if (Gm.instance.Experience != null) EnableHud(isEmpty);
+            if (Gm.instance.Experience != null) EnableHud(isEmpty && !push);
         }
 
         public void Push(Menu menu)
         {
+            OnEscapeMenu(true);
             if (_stack.Count > 0) _stack.Peek().Hide(); // TODO: By default hide current but maybe in some cases could want to literally stack UIs ?
             _stack.Push(menu);
             menu.Show();
-            OnEscapeMenu();
         }
 
         public Menu Pop()
@@ -106,7 +106,7 @@ namespace UI
         /// <param name="enable"></param>
         public void EnableHud(bool enable)
         {
-            PopAll();
+            if (enable) PopAll();
             foreach (var menu in FindObjectsOfType<Menu>())
             {
                 if (!menu.isHud) continue;

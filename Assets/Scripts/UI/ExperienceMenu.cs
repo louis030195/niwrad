@@ -11,6 +11,8 @@ namespace UI
 {
     public class ExperienceMenu : Menu
     {
+        [SerializeField] private Transform generalMenu;
+        [SerializeField] private Transform mapMenu;
         [SerializeField] private Transform animalCharacteristicMenu;
         [SerializeField] private Transform vegetationCharacteristicMenu;
         [SerializeField] private Button saveButton;
@@ -44,6 +46,41 @@ namespace UI
         {
             _experience = e;
             experienceNameInputField.text = e.Name;
+            // Map
+            CodeToUi.NumberToUi(1, 
+                    9, 
+                    e.Map?.Size ?? 5, 
+                    mapMenu,
+                    "Size")// TODO: animation while generating map !
+                .onValueChanged.AddListener(value =>  _experience.Map.Size = value);
+            CodeToUi.NumberToUi(10, 
+                    100, 
+                    e.Map?.Height ?? 10, 
+                    mapMenu,
+                    "Height")
+                .onValueChanged.AddListener(value =>  _experience.Map.Height = value);
+            CodeToUi.NumberToUi(0, 
+                    10, 
+                    e.Map?.Spread ?? 0, 
+                    mapMenu,
+                    "Spread")
+                .onValueChanged.AddListener(value =>  _experience.Map.Spread = value);
+            CodeToUi.NumberToUi(1, 
+                    10, 
+                    e.Map?.SpreadReductionRate ?? 1, 
+                    mapMenu,
+                    "Reduction rate")
+                .onValueChanged.AddListener(value =>  _experience.Map.SpreadReductionRate = value);
+            
+            // General
+            CodeToUi.NumberToUi(1, 
+                    50, 
+                    e.General?.Timescale ?? 1, 
+                    generalMenu,
+                    "Timescale")
+                .onValueChanged.AddListener(value =>  _experience.General.Timescale = (uint) value);
+
+            // Hosts
             CodeToUi.NumberToUi(0, 
                 200, 
                 e.AnimalDistribution?.InitialAmount ?? 0, 

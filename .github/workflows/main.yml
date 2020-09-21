@@ -173,9 +173,10 @@ jobs:
           name: offline-clients
       # Quick & dirty hack for custom index.html :p 
       - run: |
+          sed -i '/<body>/a<h1><a href="https://github.com/louis030195/niwrad">Github repository<\/a><\/h1>' WebGL/WebGL/index.html
           sed -i '/<body>/a<h1><a href="https://forms.gle/VPhis4qEGPzkMhGGA">Give feedback here<\/a><\/h1>' WebGL/WebGL/index.html
           sed -i '/<body>/a<h1>PROTIP: PRESS ESCAPE IN GAME AND RUN AN EXPERIENCE<\/h1>' WebGL/WebGL/index.html
-          sed -i 's/<title>.*<\/title>/<title>Niwrad<\/title>/g' WebGL/WebGL/index.html
+          sed -i 's/<title>.*<\/title>/<title>Niwrad 0.0.1-ALPHA<\/title>/g' WebGL/WebGL/index.html
           echo "Hacked index.html :)"
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3

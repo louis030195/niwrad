@@ -142,10 +142,9 @@ namespace Evolution
         /// <returns></returns>
         public CommonAnimal SpawnAnimalSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            _nextId++;
             var animal = SpawnAnimal(p, r, c, cMin, cMax);
             if (!Gm.instance.online) return animal;
-            var packet = new Packet().Basic(p.Net()).SpawnAnimal(_nextId, p, r);
+            var packet = new Packet().Basic(p.Net()).SpawnAnimal(_nextId+1, p, r);
             Mcm.instance.RpcAsync(packet);
             return animal;
         }
@@ -174,10 +173,9 @@ namespace Evolution
         /// <returns></returns>
         public Vegetation SpawnTreeSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            _nextId++;
             var veg = SpawnTree(p, r, c, cMin, cMax);
             if (!Gm.instance.online) return veg;
-	        var packet = new Packet().Basic(p.Net()).SpawnTree(_nextId, p, r);
+	        var packet = new Packet().Basic(p.Net()).SpawnTree(_nextId+1, p, r);
 	        Mcm.instance.RpcAsync(packet);
             return veg;
         }
@@ -196,8 +194,8 @@ namespace Evolution
         /// </summary>
         public void Reset()
         {
-            _animals.Keys.ToList().ForEach(DestroyAnimalSync);
-            _vegetations.Keys.ToList().ForEach(DestroyTreeSync);
+            _animals.Keys.ToList().ForEach(id => DestroyAnimal(id));
+            _vegetations.Keys.ToList().ForEach(id => DestroyTree(id));
         }
 
         public void Pause()
@@ -219,7 +217,6 @@ namespace Evolution
             var middleOfMap = new Vector3(areaRadius, 0, areaRadius);
             for (ulong i = 0; i < e.AnimalDistribution.InitialAmount; i++)
             {
-                // TODO: debug breakpoint here
                 // Random position within the map spaced according to a given scattering
                 var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
                     LayerMask.GetMask("Animal"),
@@ -305,7 +302,7 @@ namespace Evolution
                 return;
             }
 	        var packet = new Packet().Basic(obj.Position);
-	        obj.Id = ++_nextId;
+	        obj.Id = _nextId+1;
 	        packet.Spawn = new Spawn
 	        {
 		        Animal = new Animal
@@ -323,7 +320,18 @@ namespace Evolution
 
         private CommonAnimal SpawnAnimal(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
+            // Just a little hack to avoid crashing the PC ! :)
+            if (_animals.Count > 500)
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else    
+                // Yeah let's crash other ppl PCs
+                // Application.Quit();
+#endif
+            }
             // Debug.Log($"Spawning animal {obj}");
+            _nextId++;
             var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
             _animals[_nextId] = a.GetComponent<SimpleAnimal>();
             _animals[_nextId].characteristics = c;
@@ -370,7 +378,7 @@ namespace Evolution
             var aboveGround = obj.Position.ToVector3().PositionAboveGround();
             obj.Position = aboveGround.Net();
 	        var packet = new Packet().Basic(obj.Position);
-	        obj.Id = ++_nextId;
+	        obj.Id = _nextId+1;
 	        packet.Spawn = new Spawn
 	        {
 		        Tree = new Api.Realtime.Tree
@@ -390,7 +398,8 @@ namespace Evolution
             var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
                 Pool.Spawn(lowPolyVegetationPrefab, p, r).GetComponent<Vegetation>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Vegetation>();
-	        _vegetations[_nextId] = veg;
+            _nextId++;
+            _vegetations[_nextId] = veg;
             _vegetations[_nextId].characteristics = c;
             _vegetations[_nextId].characteristicsMin = cMin;
             _vegetations[_nextId].characteristicsMax = cMax;

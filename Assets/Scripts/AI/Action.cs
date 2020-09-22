@@ -4,20 +4,20 @@ namespace AI
 {
 	public class Action
 	{
-		private string m_Name;
-		private readonly Action<MemeController> m_Func;
-		public event Action<Action> acted;
+		private string _name;
+		private readonly Action<MemeController> _func;
+		public event Action<Action> Acted;
 
 		public Action(string name, Action<MemeController> func)
 		{
-			m_Name = name;
-			m_Func = func;
+			_name = name;
+			_func = func;
 		}
 
 		public void Invoke(MemeController memeController)
 		{
-			m_Func.Invoke(memeController);
-			acted?.Invoke(this);
+			_func?.Invoke(memeController);
+			Acted?.Invoke(this);
 		}
 	}
 }

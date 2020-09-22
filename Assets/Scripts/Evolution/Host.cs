@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using AI;
 using Api.Realtime;
+using Api.Session;
+using Gameplay;
 using UnityEngine;
 using Meme = AI.Meme;
 
@@ -53,7 +55,17 @@ namespace Evolution
 			
 			Age++;
 			// The older, the weaker
-			health.ChangeHealth(-characteristics.Robustness*Time.deltaTime*(1+Age/10));
+            var energyThreshold = 0.1f;
+            // If high energy, gain health
+            if (characteristics.Energy > characteristicsMax.Energy * (1 - energyThreshold))
+            {
+                health.ChangeHealth(Time.deltaTime*(1-Age/10));
+            } 
+            // If low energy, lose health
+            else if (characteristics.Energy < characteristicsMin.Energy * (1 + energyThreshold))
+            {
+                health.ChangeHealth(-Time.deltaTime*(1+Age/10));
+            }
 		}
 
         /// <summary>
@@ -61,10 +73,30 @@ namespace Evolution
         /// </summary>
         public void EnableBehaviour(bool value)
         {
-            if (value) health.initialLife = characteristics.Life;
+            if (value)
+            {
+                if (!Gm.instance.online)
+                {
+                    health.Died += OnDeath;
+                    return;
+                } 
+                if (Sm.instance && Sm.instance.isServer)
+                {
+                    health.Died += OnDeath;
+                }
+                health.initialLife = characteristics.Life;
+            }
+            else
+            {
+                if (Sm.instance && Sm.instance.isServer)
+                {
+                    health.Died -= OnDeath;
+                }
+            }
         }
 		// If this function is not overrode, will setup host with random initial meme
 		// if (memes.Values.Count > 0) controller.SetupAi(memes.Values.AnyItem(), true);
 
-	}
+        protected abstract void OnDeath();
+    }
 }

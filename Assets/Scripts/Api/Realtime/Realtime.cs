@@ -64,46 +64,48 @@ namespace Api.Realtime {
             "cm0iQgoGQW5pbWFsEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2FtYS5uaXdy",
             "YWQuYXBpLnJlYWx0aW1lLlRyYW5zZm9ybSJUChhSZXF1ZXN0VHJhbnNmZXJP",
             "d25lcnNoaXASOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuVHJhbnNmb3JtIu4DCg9DaGFyYWN0ZXJpc3RpY3MSEwoL",
+            "cGkucmVhbHRpbWUuVHJhbnNmb3JtIrcECg9DaGFyYWN0ZXJpc3RpY3MSEwoL",
             "Y29tcHV0YXRpb24YASABKAISDAoEbGlmZRgCIAEoAhISCgpyb2J1c3RuZXNz",
             "GAMgASgCEg4KBmVuZXJneRgEIAEoAhIZChFyZXByb2R1Y3Rpb25fY29zdBgF",
-            "IAEoAhJjChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAYgASgLMkEubmFrYW1h",
-            "Lm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzLkFuaW1hbENo",
-            "YXJhY3RlcmlzdGljc0gAEmsKGnZlZ2V0YXRpb25fY2hhcmFjdGVyaXN0aWNz",
-            "GAcgASgLMkUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVy",
-            "aXN0aWNzLlZlZ2V0YXRpb25DaGFyYWN0ZXJpc3RpY3NIABqBAQoVQW5pbWFs",
-            "Q2hhcmFjdGVyaXN0aWNzEg0KBXNwZWVkGAEgASgCEh0KFXJhbmRvbV9tb3Zl",
-            "bWVudF9yYW5nZRgCIAEoAhITCgtzaWdodF9yYW5nZRgDIAEoAhIRCgllYXRf",
-            "cmFuZ2UYBCABKAISEgoKbWV0YWJvbGlzbRgFIAEoAhobChlWZWdldGF0aW9u",
-            "Q2hhcmFjdGVyaXN0aWNzQgYKBHR5cGUiqgkKCkV4cGVyaWVuY2USDAoEbmFt",
-            "ZRgBIAEoCRJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAogASgLMisubmFr",
-            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKJGFu",
-            "aW1hbF9jaGFyYWN0ZXJpc3RpY3NfbWluaW11bV9ib3VuZBgLIAEoCzIrLm5h",
-            "a2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRh",
-            "bmltYWxfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQYDCABKAsyKy5u",
-            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWgoT",
-            "YW5pbWFsX2Rpc3RyaWJ1dGlvbhgNIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBp",
-            "LnJlYWx0aW1lLkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhIb",
-            "ChNpbmNsdWRlX2Nhcm5pdm9yb3VzGA4gASgIEk8KGnZlZ2V0YXRpb25fY2hh",
-            "cmFjdGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
-            "bWUuQ2hhcmFjdGVyaXN0aWNzEl0KKHZlZ2V0YXRpb25fY2hhcmFjdGVyaXN0",
-            "aWNzX21pbmltdW1fYm91bmQYKSABKAsyKy5uYWthbWEubml3cmFkLmFwaS5y",
-            "ZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSXQoodmVnZXRhdGlvbl9jaGFyYWN0",
-            "ZXJpc3RpY3NfbWF4aW11bV9ib3VuZBgqIAEoCzIrLm5ha2FtYS5uaXdyYWQu",
-            "YXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJeChd2ZWdldGF0aW9uX2Rp",
-            "c3RyaWJ1dGlvbhgrIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1l",
-            "LkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhI3CgNtYXAYMiAB",
-            "KAsyKi5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLk1h",
-            "cBJJCgdnZW5lcmFsGDwgASgLMjgubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRp",
-            "bWUuRXhwZXJpZW5jZS5HZW5lcmFsUGFyYW1ldGVycxpEChZQb3B1bGF0aW9u",
-            "RGlzdHJpYnV0aW9uEhYKDmluaXRpYWxfYW1vdW50GAEgASgEEhIKCnNjYXR0",
-            "ZXJpbmcYAiABKAIadAoDTWFwEgwKBHNpemUYASABKAESDgoGaGVpZ2h0GAIg",
-            "ASgBEg4KBnNwcmVhZBgFIAEoARIdChVzcHJlYWRfcmVkdWN0aW9uX3JhdGUY",
-            "ByABKAESDQoFd2F0ZXIYCCABKAgSEQoJZGl2ZXJzaXR5GAogASgEGmMKEUdl",
-            "bmVyYWxQYXJhbWV0ZXJzEhEKCXRpbWVzY2FsZRgBIAEoDRISCgp0aW1lX2xp",
-            "bWl0GAIgASgNEg4KBnJlcGVhdBgDIAEoCBIXCg9zYXZlX3N0YXRpc3RpY3MY",
-            "BCABKAhCNFojbmFrYW1hL25pd3JhZC9hcGkvcmVhbHRpbWU7cmVhbHRpbWWq",
-            "AgxBcGkuUmVhbHRpbWViBnByb3RvMw=="));
+            "IAEoAhITCgtlbmVyZ3lfbG9zcxgGIAEoAhIXCg9lYXRfZW5lcmd5X2dhaW4Y",
+            "ByABKAISGQoRZHJpbmtfZW5lcmd5X2dhaW4YCCABKAISYwoWYW5pbWFsX2No",
+            "YXJhY3RlcmlzdGljcxgPIAEoCzJBLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
+            "aW1lLkNoYXJhY3RlcmlzdGljcy5BbmltYWxDaGFyYWN0ZXJpc3RpY3NIABJr",
+            "Chp2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljcxgQIAEoCzJFLm5ha2FtYS5u",
+            "aXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcy5WZWdldGF0aW9u",
+            "Q2hhcmFjdGVyaXN0aWNzSAAagQEKFUFuaW1hbENoYXJhY3RlcmlzdGljcxIN",
+            "CgVzcGVlZBgBIAEoAhIdChVyYW5kb21fbW92ZW1lbnRfcmFuZ2UYAiABKAIS",
+            "EwoLc2lnaHRfcmFuZ2UYAyABKAISEQoJZWF0X3JhbmdlGAQgASgCEhIKCm1l",
+            "dGFib2xpc20YBSABKAIaGwoZVmVnZXRhdGlvbkNoYXJhY3RlcmlzdGljc0IG",
+            "CgR0eXBlIqoJCgpFeHBlcmllbmNlEgwKBG5hbWUYASABKAkSSwoWYW5pbWFs",
+            "X2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
+            "YWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmltYWxfY2hhcmFjdGVyaXN0",
+            "aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWthbWEubml3cmFkLmFwaS5y",
+            "ZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5pbWFsX2NoYXJhY3Rlcmlz",
+            "dGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFrYW1hLm5pd3JhZC5hcGku",
+            "cmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2FuaW1hbF9kaXN0cmlidXRp",
+            "b24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmll",
+            "bmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SGwoTaW5jbHVkZV9jYXJuaXZv",
+            "cm91cxgOIAEoCBJPChp2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljcxgoIAEo",
+            "CzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGlj",
+            "cxJdCih2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljc19taW5pbXVtX2JvdW5k",
+            "GCkgASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVy",
+            "aXN0aWNzEl0KKHZlZ2V0YXRpb25fY2hhcmFjdGVyaXN0aWNzX21heGltdW1f",
+            "Ym91bmQYKiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFy",
+            "YWN0ZXJpc3RpY3MSXgoXdmVnZXRhdGlvbl9kaXN0cmlidXRpb24YKyABKAsy",
+            "PS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLlBvcHVs",
+            "YXRpb25EaXN0cmlidXRpb24SNwoDbWFwGDIgASgLMioubmFrYW1hLm5pd3Jh",
+            "ZC5hcGkucmVhbHRpbWUuRXhwZXJpZW5jZS5NYXASSQoHZ2VuZXJhbBg8IAEo",
+            "CzI4Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuR2Vu",
+            "ZXJhbFBhcmFtZXRlcnMaRAoWUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhIWCg5p",
+            "bml0aWFsX2Ftb3VudBgBIAEoBBISCgpzY2F0dGVyaW5nGAIgASgCGnQKA01h",
+            "cBIMCgRzaXplGAEgASgBEg4KBmhlaWdodBgCIAEoARIOCgZzcHJlYWQYBSAB",
+            "KAESHQoVc3ByZWFkX3JlZHVjdGlvbl9yYXRlGAcgASgBEg0KBXdhdGVyGAgg",
+            "ASgIEhEKCWRpdmVyc2l0eRgKIAEoBBpjChFHZW5lcmFsUGFyYW1ldGVycxIR",
+            "Cgl0aW1lc2NhbGUYASABKA0SEgoKdGltZV9saW1pdBgCIAEoDRIOCgZyZXBl",
+            "YXQYAyABKAgSFwoPc2F2ZV9zdGF0aXN0aWNzGAQgASgIQjRaI25ha2FtYS9u",
+            "aXdyYWQvYXBpL3JlYWx0aW1lO3JlYWx0aW1lqgIMQXBpLlJlYWx0aW1lYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -119,7 +121,7 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Tree), global::Api.Realtime.Tree.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Animal), global::Api.Realtime.Animal.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.RequestTransferOwnership), global::Api.Realtime.RequestTransferOwnership.Parser, new[]{ "Transform" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "AnimalCharacteristics", "VegetationCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "AnimalCharacteristics", "VegetationCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.VegetationCharacteristics), global::Api.Realtime.Characteristics.Types.VegetationCharacteristics.Parser, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "IncludeCarnivorous", "VegetationCharacteristics", "VegetationCharacteristicsMinimumBound", "VegetationCharacteristicsMaximumBound", "VegetationDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
@@ -2532,6 +2534,9 @@ namespace Api.Realtime {
       robustness_ = other.robustness_;
       energy_ = other.energy_;
       reproductionCost_ = other.reproductionCost_;
+      energyLoss_ = other.energyLoss_;
+      eatEnergyGain_ = other.eatEnergyGain_;
+      drinkEnergyGain_ = other.drinkEnergyGain_;
       switch (other.TypeCase) {
         case TypeOneofCase.AnimalCharacteristics:
           AnimalCharacteristics = other.AnimalCharacteristics.Clone();
@@ -2619,8 +2624,50 @@ namespace Api.Realtime {
       }
     }
 
+    /// <summary>Field number for the "energy_loss" field.</summary>
+    public const int EnergyLossFieldNumber = 6;
+    private float energyLoss_;
+    /// <summary>
+    /// Cost in energy
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float EnergyLoss {
+      get { return energyLoss_; }
+      set {
+        energyLoss_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "eat_energy_gain" field.</summary>
+    public const int EatEnergyGainFieldNumber = 7;
+    private float eatEnergyGain_;
+    /// <summary>
+    /// TODO: do plants eat ?
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float EatEnergyGain {
+      get { return eatEnergyGain_; }
+      set {
+        eatEnergyGain_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "drink_energy_gain" field.</summary>
+    public const int DrinkEnergyGainFieldNumber = 8;
+    private float drinkEnergyGain_;
+    /// <summary>
+    /// TODO: lot of hard coded stuff can we do better ?
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float DrinkEnergyGain {
+      get { return drinkEnergyGain_; }
+      set {
+        drinkEnergyGain_ = value;
+      }
+    }
+
     /// <summary>Field number for the "animal_characteristics" field.</summary>
-    public const int AnimalCharacteristicsFieldNumber = 6;
+    public const int AnimalCharacteristicsFieldNumber = 15;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Api.Realtime.Characteristics.Types.AnimalCharacteristics AnimalCharacteristics {
       get { return typeCase_ == TypeOneofCase.AnimalCharacteristics ? (global::Api.Realtime.Characteristics.Types.AnimalCharacteristics) type_ : null; }
@@ -2631,7 +2678,7 @@ namespace Api.Realtime {
     }
 
     /// <summary>Field number for the "vegetation_characteristics" field.</summary>
-    public const int VegetationCharacteristicsFieldNumber = 7;
+    public const int VegetationCharacteristicsFieldNumber = 16;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Api.Realtime.Characteristics.Types.VegetationCharacteristics VegetationCharacteristics {
       get { return typeCase_ == TypeOneofCase.VegetationCharacteristics ? (global::Api.Realtime.Characteristics.Types.VegetationCharacteristics) type_ : null; }
@@ -2645,8 +2692,8 @@ namespace Api.Realtime {
     /// <summary>Enum of possible cases for the "type" oneof.</summary>
     public enum TypeOneofCase {
       None = 0,
-      AnimalCharacteristics = 6,
-      VegetationCharacteristics = 7,
+      AnimalCharacteristics = 15,
+      VegetationCharacteristics = 16,
     }
     private TypeOneofCase typeCase_ = TypeOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2678,6 +2725,9 @@ namespace Api.Realtime {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Robustness, other.Robustness)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Energy, other.Energy)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(ReproductionCost, other.ReproductionCost)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(EnergyLoss, other.EnergyLoss)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(EatEnergyGain, other.EatEnergyGain)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DrinkEnergyGain, other.DrinkEnergyGain)) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
       if (!object.Equals(VegetationCharacteristics, other.VegetationCharacteristics)) return false;
       if (TypeCase != other.TypeCase) return false;
@@ -2692,6 +2742,9 @@ namespace Api.Realtime {
       if (Robustness != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Robustness);
       if (Energy != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Energy);
       if (ReproductionCost != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(ReproductionCost);
+      if (EnergyLoss != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(EnergyLoss);
+      if (EatEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(EatEnergyGain);
+      if (DrinkEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DrinkEnergyGain);
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) hash ^= AnimalCharacteristics.GetHashCode();
       if (typeCase_ == TypeOneofCase.VegetationCharacteristics) hash ^= VegetationCharacteristics.GetHashCode();
       hash ^= (int) typeCase_;
@@ -2728,12 +2781,24 @@ namespace Api.Realtime {
         output.WriteRawTag(45);
         output.WriteFloat(ReproductionCost);
       }
+      if (EnergyLoss != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(EnergyLoss);
+      }
+      if (EatEnergyGain != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(EatEnergyGain);
+      }
+      if (DrinkEnergyGain != 0F) {
+        output.WriteRawTag(69);
+        output.WriteFloat(DrinkEnergyGain);
+      }
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(122);
         output.WriteMessage(AnimalCharacteristics);
       }
       if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(130, 1);
         output.WriteMessage(VegetationCharacteristics);
       }
       if (_unknownFields != null) {
@@ -2759,11 +2824,20 @@ namespace Api.Realtime {
       if (ReproductionCost != 0F) {
         size += 1 + 4;
       }
+      if (EnergyLoss != 0F) {
+        size += 1 + 4;
+      }
+      if (EatEnergyGain != 0F) {
+        size += 1 + 4;
+      }
+      if (DrinkEnergyGain != 0F) {
+        size += 1 + 4;
+      }
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
       }
       if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2790,6 +2864,15 @@ namespace Api.Realtime {
       }
       if (other.ReproductionCost != 0F) {
         ReproductionCost = other.ReproductionCost;
+      }
+      if (other.EnergyLoss != 0F) {
+        EnergyLoss = other.EnergyLoss;
+      }
+      if (other.EatEnergyGain != 0F) {
+        EatEnergyGain = other.EatEnergyGain;
+      }
+      if (other.DrinkEnergyGain != 0F) {
+        DrinkEnergyGain = other.DrinkEnergyGain;
       }
       switch (other.TypeCase) {
         case TypeOneofCase.AnimalCharacteristics:
@@ -2837,7 +2920,19 @@ namespace Api.Realtime {
             ReproductionCost = input.ReadFloat();
             break;
           }
-          case 50: {
+          case 53: {
+            EnergyLoss = input.ReadFloat();
+            break;
+          }
+          case 61: {
+            EatEnergyGain = input.ReadFloat();
+            break;
+          }
+          case 69: {
+            DrinkEnergyGain = input.ReadFloat();
+            break;
+          }
+          case 122: {
             global::Api.Realtime.Characteristics.Types.AnimalCharacteristics subBuilder = new global::Api.Realtime.Characteristics.Types.AnimalCharacteristics();
             if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
               subBuilder.MergeFrom(AnimalCharacteristics);
@@ -2846,7 +2941,7 @@ namespace Api.Realtime {
             AnimalCharacteristics = subBuilder;
             break;
           }
-          case 58: {
+          case 130: {
             global::Api.Realtime.Characteristics.Types.VegetationCharacteristics subBuilder = new global::Api.Realtime.Characteristics.Types.VegetationCharacteristics();
             if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
               subBuilder.MergeFrom(VegetationCharacteristics);

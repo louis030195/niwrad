@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AI;
 using UnityEngine;
@@ -18,15 +19,24 @@ namespace Evolution
             base.EnableBehaviour(value);
             if (value)
             {
+                // Transitions
                 var foodAround = new Transition("FoodAround", 0, FoodAround);
                 var partnerAround = new Transition("PartnerAround", -2, PartnerAround);
                 var timeout = new Transition("Timeout", -1, Timeout);
+                
+                // Actions
+                var randomMovement = new Action("RandomMovement", RandomMovement);
+                var reachFood = new Action("ReachFood", ReachFood);
+                var reachPartner = new Action("ReachPartner", ReachPartner);
+                var eat = new Action("Eat", Eat);
+                var reproduce = new Action("Reproduce", Reproduce);
+
                 var n = "Wander";
                 Memes[n] = new Meme(
                     n,
                     new List<Action>
                     {
-                        new Action("RandomMovement", RandomMovement)
+                        randomMovement
                     },
                     new List<Transition>
                     {
@@ -40,7 +50,7 @@ namespace Evolution
                     n,
                     new List<Action>
                     {
-                        new Action("ReachFood", ReachFood)
+                        reachFood
                     },
                     new List<Transition>
                     {
@@ -54,7 +64,7 @@ namespace Evolution
                     n,
                     new List<Action>
                     {
-                        new Action("ReachPartner", ReachPartner)
+                        reachPartner
                     },
                     new List<Transition>
                     {
@@ -68,8 +78,7 @@ namespace Evolution
                     n,
                     new List<Action>
                     {
-                        // Reach,
-                        new Action("Eat", Eat)
+                        eat
                     },
                     new List<Transition>
                     {
@@ -83,8 +92,7 @@ namespace Evolution
                     n,
                     new List<Action>
                     {
-                        new Action("Reproduce", Reproduce)
-                        // Reach,
+                        reproduce
                     },
                     new List<Transition>
                     {
@@ -124,11 +132,12 @@ namespace Evolution
             // Stop moving
             movement.isStopped = true;
             attack.EatTarget(_target);
-            var someValue = 40f;
+            var someValue = 40f; // TODO:
             _target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * someValue);
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
-            health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
+            characteristics.Energy += characteristics.EatEnergyGain;
+            // health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
         }
 
         private void Reproduce(MemeController c)
@@ -163,7 +172,7 @@ namespace Evolution
         private Meme PartnerAround(MemeController c)
         {
             // Look for partner
-            if (health.currentHealth > characteristics.ReproductionCost)
+            if (characteristics.Energy > characteristics.ReproductionCost)
             {
                 // TODO: closest with enough life to breed
                 // No animal to breed with around

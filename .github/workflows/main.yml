@@ -178,7 +178,7 @@ jobs:
           sed -i '/<body>/a<h1>PROTIP: PRESS ESCAPE IN GAME AND RUN AN EXPERIENCE<\/h1>' WebGL/WebGL/index.html
           sed -i 's/<title>.*<\/title>/<title>Niwrad 0.0.1-ALPHA<\/title>/g' WebGL/WebGL/index.html
           echo "Hacked index.html :)"
-      - name: Deploy 🚀
+      - name: Deploy 🚀 
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

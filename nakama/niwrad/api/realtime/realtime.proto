@@ -121,10 +121,14 @@ message Characteristics {
     float robustness = 3; // ? Resistance, anti fragility ?
     float energy = 4; // Current energy
     float reproduction_cost = 5; // Cost in energy
+    float energy_loss = 6; // Cost in energy
+    float eat_energy_gain = 7; // TODO: do plants eat ? fed from sun ?
+    float drink_energy_gain = 8; // TODO: lot of hard coded stuff can we do better ?
+
 
     oneof type {
-        AnimalCharacteristics animal_characteristics = 6;
-        VegetationCharacteristics vegetation_characteristics = 7;
+        AnimalCharacteristics animal_characteristics = 15;
+        VegetationCharacteristics vegetation_characteristics = 16;
     }
     message AnimalCharacteristics {
         float speed = 1;

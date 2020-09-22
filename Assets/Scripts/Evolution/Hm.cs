@@ -126,12 +126,12 @@ namespace Evolution
 			=> Mcm.instance.RpcAsync(new Packet().Basic(p.Net()).ReqSpawnAnimal(p, r));
 
         /// <summary>
-        /// Ask executors to spawn a tree
+        /// Ask executors to spawn a vegetation
         /// </summary>
         /// <param name="p"></param>
         /// <param name="r"></param>
-        public void RequestSpawnTree(Vector3 p, Quaternion r)
-	        => Mcm.instance.RpcAsync(new Packet().Basic(p.Net()).ReqSpawnTree(p, r));
+        public void RequestSpawnVegetation(Vector3 p, Quaternion r)
+	        => Mcm.instance.RpcAsync(new Packet().Basic(p.Net()).ReqSpawnVegetation(p, r));
 
         /// <summary>
         /// Spawn animal and sync if online
@@ -171,18 +171,18 @@ namespace Evolution
         /// <param name="cMin"></param>
         /// <param name="cMax"></param>
         /// <returns></returns>
-        public Vegetation SpawnTreeSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
+        public Vegetation SpawnVegetationSync(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            var veg = SpawnTree(p, r, c, cMin, cMax);
+            var veg = SpawnVegetation(p, r, c, cMin, cMax);
             if (!Gm.instance.online) return veg;
 	        var packet = new Packet().Basic(p.Net()).SpawnTree(_nextId+1, p, r);
 	        Mcm.instance.RpcAsync(packet);
             return veg;
         }
 
-        public void DestroyTreeSync(ulong id)
+        public void DestroyVegetationSync(ulong id)
         {
-            var tree = DestroyTree(id);
+            var tree = DestroyVegetation(id);
             if (!Gm.instance.online) return;
             var p = tree.transform.position;
             var packet = new Packet().Basic(p.Net()).DestroyTree(id);
@@ -195,7 +195,7 @@ namespace Evolution
         public void Reset()
         {
             _animals.Keys.ToList().ForEach(id => DestroyAnimal(id));
-            _vegetations.Keys.ToList().ForEach(id => DestroyTree(id));
+            _vegetations.Keys.ToList().ForEach(id => DestroyVegetation(id));
         }
 
         public void Pause()
@@ -237,7 +237,7 @@ namespace Evolution
                     e.VegetationDistribution.Scattering,
                     (float) e.Map.Height);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
-                var a = SpawnTree(pos, Quaternion.identity, 
+                var a = SpawnVegetation(pos, Quaternion.identity, 
                     e.VegetationCharacteristics,
                     e.VegetationCharacteristicsMinimumBound,
                     e.VegetationCharacteristicsMaximumBound);
@@ -334,7 +334,7 @@ namespace Evolution
             _nextId++;
             var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
             _animals[_nextId] = a.GetComponent<SimpleAnimal>();
-            _animals[_nextId].characteristics = c;
+            _animals[_nextId].characteristics = c.Clone(); // TODO: prob quite expensive gotta pool later or something maybe
             _animals[_nextId].characteristicsMin = cMin;
             _animals[_nextId].characteristicsMax = cMax;
             _animals[_nextId].id = _nextId;
@@ -364,11 +364,11 @@ namespace Evolution
         }
 
         private void OnTreeSpawned(Transform obj) => 
-            SpawnTree(obj.Position.ToVector3(), obj.Rotation.ToQuaternion(), 
+            SpawnVegetation(obj.Position.ToVector3(), obj.Rotation.ToQuaternion(), 
                 Gm.instance.Experience.VegetationCharacteristics,
                 Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
                 Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
-        private void OnTreeDestroyed(Transform obj) => DestroyTree(obj.Id);
+        private void OnTreeDestroyed(Transform obj) => DestroyVegetation(obj.Id);
         private void OnTreeDestroyRequested(Transform obj) => throw new NotImplementedException();
         private void OnTreeSpawnRequested(Transform obj)
         {
@@ -387,20 +387,20 @@ namespace Evolution
 		        }
 	        };
 	        Mcm.instance.RpcAsync(packet);
-	        SpawnTree(aboveGround, obj.Rotation.ToQuaternion(), 
+	        SpawnVegetation(aboveGround, obj.Rotation.ToQuaternion(), 
                 Gm.instance.Experience.VegetationCharacteristics,
                 Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
                 Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
         }
 
-        private Vegetation SpawnTree(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
+        private Vegetation SpawnVegetation(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
             var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
                 Pool.Spawn(lowPolyVegetationPrefab, p, r).GetComponent<Vegetation>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Vegetation>();
             _nextId++;
             _vegetations[_nextId] = veg;
-            _vegetations[_nextId].characteristics = c;
+            _vegetations[_nextId].characteristics = c.Clone();
             _vegetations[_nextId].characteristicsMin = cMin;
             _vegetations[_nextId].characteristicsMax = cMax;
             _vegetations[_nextId].id = _nextId;
@@ -410,7 +410,7 @@ namespace Evolution
         }
 
 
-        private Vegetation DestroyTree(ulong id)
+        private Vegetation DestroyVegetation(ulong id)
         {
 	        if (!_vegetations.ContainsKey(id))
 	        {
@@ -418,11 +418,11 @@ namespace Evolution
 		        return null;
 	        }
 
-            var tree = _vegetations[id];
-            if (graphicTier == GraphicTier.Low) Pool.Despawn(tree.gameObject);
-            else TreePool.instance.Despawn(tree.gameObject);
+            var vegetation = _vegetations[id];
+            if (graphicTier == GraphicTier.Low) Pool.Despawn(vegetation.gameObject);
+            else TreePool.instance.Despawn(vegetation.gameObject);
 	        _vegetations.Remove(id);
-            return tree;
+            return vegetation;
         }
 
 

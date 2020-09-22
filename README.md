@@ -86,4 +86,5 @@ make test
 * [ ] More UI as code
 * [ ] Use less singletons and potentially move away from this pattern
 * [ ] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag + could auto stuff like reddit, discord ...
-
+* [ ] Rename all ref to tree / vegetation to flora or plant
+* [ ] experience menu -> import json experience !!!!!!!!!!!!!!!!

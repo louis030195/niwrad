@@ -84,7 +84,7 @@ namespace Api.Utils
 			};
 			return p;
 		}
-		public static Packet ReqSpawnTree(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		public static Packet ReqSpawnVegetation(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
 		{
 			p.RequestSpawn = new Spawn
 			{

@@ -2718,15 +2718,15 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<!Array<number>>}
  * @const
  */
-proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_ = [[6,7]];
+proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_ = [[15,16]];
 
 /**
  * @enum {number}
  */
 proto.nakama.niwrad.api.realtime.Characteristics.TypeCase = {
   TYPE_NOT_SET: 0,
-  ANIMAL_CHARACTERISTICS: 6,
-  VEGETATION_CHARACTERISTICS: 7
+  ANIMAL_CHARACTERISTICS: 15,
+  VEGETATION_CHARACTERISTICS: 16
 };
 
 /**
@@ -2770,6 +2770,9 @@ proto.nakama.niwrad.api.realtime.Characteristics.toObject = function(includeInst
     robustness: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
     energy: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
     reproductionCost: +jspb.Message.getFieldWithDefault(msg, 5, 0.0),
+    energyLoss: +jspb.Message.getFieldWithDefault(msg, 6, 0.0),
+    eatEnergyGain: +jspb.Message.getFieldWithDefault(msg, 7, 0.0),
+    drinkEnergyGain: +jspb.Message.getFieldWithDefault(msg, 8, 0.0),
     animalCharacteristics: (f = msg.getAnimalCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics.toObject(includeInstance, f),
     vegetationCharacteristics: (f = msg.getVegetationCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics.toObject(includeInstance, f)
   };
@@ -2829,11 +2832,23 @@ proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader = f
       msg.setReproductionCost(value);
       break;
     case 6:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setEnergyLoss(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setEatEnergyGain(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setDrinkEnergyGain(value);
+      break;
+    case 15:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics.deserializeBinaryFromReader);
       msg.setAnimalCharacteristics(value);
       break;
-    case 7:
+    case 16:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics.deserializeBinaryFromReader);
       msg.setVegetationCharacteristics(value);
@@ -2902,10 +2917,31 @@ proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter = funct
       f
     );
   }
+  f = message.getEnergyLoss();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      6,
+      f
+    );
+  }
+  f = message.getEatEnergyGain();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      7,
+      f
+    );
+  }
+  f = message.getDrinkEnergyGain();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      8,
+      f
+    );
+  }
   f = message.getAnimalCharacteristics();
   if (f != null) {
     writer.writeMessage(
-      6,
+      15,
       f,
       proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics.serializeBinaryToWriter
     );
@@ -2913,7 +2949,7 @@ proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter = funct
   f = message.getVegetationCharacteristics();
   if (f != null) {
     writer.writeMessage(
-      7,
+      16,
       f,
       proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics.serializeBinaryToWriter
     );
@@ -3363,18 +3399,63 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.setReproductionCost =
 
 
 /**
- * optional AnimalCharacteristics animal_characteristics = 6;
+ * optional float energy_loss = 6;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getEnergyLoss = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 6, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setEnergyLoss = function(value) {
+  jspb.Message.setProto3FloatField(this, 6, value);
+};
+
+
+/**
+ * optional float eat_energy_gain = 7;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getEatEnergyGain = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 7, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setEatEnergyGain = function(value) {
+  jspb.Message.setProto3FloatField(this, 7, value);
+};
+
+
+/**
+ * optional float drink_energy_gain = 8;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getDrinkEnergyGain = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 8, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setDrinkEnergyGain = function(value) {
+  jspb.Message.setProto3FloatField(this, 8, value);
+};
+
+
+/**
+ * optional AnimalCharacteristics animal_characteristics = 15;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics}
  */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.getAnimalCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics, 6));
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics, 15));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics|undefined} value */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.setAnimalCharacteristics = function(value) {
-  jspb.Message.setOneofWrapperField(this, 6, proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_[0], value);
+  jspb.Message.setOneofWrapperField(this, 15, proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_[0], value);
 };
 
 
@@ -3388,23 +3469,23 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.clearAnimalCharacteri
  * @return {!boolean}
  */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.hasAnimalCharacteristics = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 15) != null;
 };
 
 
 /**
- * optional VegetationCharacteristics vegetation_characteristics = 7;
+ * optional VegetationCharacteristics vegetation_characteristics = 16;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics}
  */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.getVegetationCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics} */ (
-    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics, 7));
+    jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics, 16));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics.VegetationCharacteristics|undefined} value */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.setVegetationCharacteristics = function(value) {
-  jspb.Message.setOneofWrapperField(this, 7, proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_[0], value);
+  jspb.Message.setOneofWrapperField(this, 16, proto.nakama.niwrad.api.realtime.Characteristics.oneofGroups_[0], value);
 };
 
 
@@ -3418,7 +3499,7 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.clearVegetationCharac
  * @return {!boolean}
  */
 proto.nakama.niwrad.api.realtime.Characteristics.prototype.hasVegetationCharacteristics = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 16) != null;
 };
 
 

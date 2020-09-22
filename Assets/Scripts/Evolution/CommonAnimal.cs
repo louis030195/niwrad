@@ -17,11 +17,11 @@ namespace Evolution
 	{
 		[HideInInspector] public Movement movement;
 
-        private void OnDied()
-		{
-			Hm.instance.DestroyAnimalSync(id);
-		}
-
+        protected override void OnDeath()
+        {
+            Hm.instance.DestroyAnimalSync(id);
+        }
+        
         protected void BreedAndMutate(GameObject other)
 		{
 			var th = other.GetComponent<CommonAnimal>();
@@ -37,10 +37,12 @@ namespace Evolution
 
             // It's costly to reproduce, proportional to animal age
             // TODO: change energy instead
-            health.ChangeHealth(-characteristics.ReproductionCost*(1+Age/100));
-            if (other != null || th != null)
+            characteristics.Energy -= characteristics.ReproductionCost;
+            // health.ChangeHealth(-characteristics.ReproductionCost*(1+Age/100));
+            if (other != null && th != null)
             {
-                other.GetComponent<Health>().ChangeHealth(-th.characteristics.ReproductionCost*(1+th.Age/100));
+                th.characteristics.Energy -= th.characteristics.ReproductionCost;
+                // other.GetComponent<Health>().ChangeHealth(-th.characteristics.ReproductionCost*(1+th.Age/100));
             }
             else
             {
@@ -74,24 +76,14 @@ namespace Evolution
                 movement.navMeshAgent.enabled = true;
                 // TODO: how costly is it to cast everytime ?
                 movement.speed = characteristics.AnimalCharacteristics.Speed;
-                if (!Gm.instance.online)
-                {
-                    health.Died += OnDied;
-                    return;
-                } 
                 if (Sm.instance && Sm.instance.isServer)
                 {
-                    health.Died += OnDied;
                     movement.destinationChanged += OnDestinationChanged;
                 }
             }
             else
             {
                 movement.navMeshAgent.enabled = false;
-                if (Sm.instance && Sm.instance.isServer)
-                {
-                    health.Died -= OnDied;
-                }
             }
         }
 

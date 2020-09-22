@@ -103,7 +103,10 @@ namespace UI
                     {
                         var (p, s) = elem;
                         s.onValueChanged.AddListener(value => 
-                            _experience.GetType().GetProperty(p.Name)?.SetValue(_experience, value));
+                            _experience.AnimalCharacteristics
+                                .GetType()
+                                .GetProperty(p.Name)
+                                ?.SetValue(_experience.AnimalCharacteristics, value));
                     });
             
             CodeToUi.NumberToUi(0, 
@@ -126,7 +129,10 @@ namespace UI
                     {
                         var (p, s) = elem;
                         s.onValueChanged.AddListener(value => 
-                            _experience.GetType().GetProperty(p.Name)?.SetValue(_experience, value));
+                            _experience.VegetationCharacteristics
+                                .GetType()
+                                .GetProperty(p.Name)
+                                ?.SetValue(_experience.VegetationCharacteristics, value));
                     });
         }
 

@@ -13,14 +13,19 @@ namespace Evolution
 	public class Vegetation : Host
 	{
         
-        protected new void Update()
-		{
-			// Sun gives life (maybe could multiply by "sun intensity here")
-			health.ChangeHealth(characteristics.Robustness*Time.deltaTime);
-			health.dead = !(health.currentHealth > characteristics.Life);
-		}
+  //       protected new void Update()
+		// {
+		// 	// Sun gives life (maybe could multiply by "sun intensity here")
+		// 	health.ChangeHealth(characteristics.Robustness*Time.deltaTime);
+		// 	health.dead = !(health.currentHealth > characteristics.Life);
+		// }
 
-		public new void EnableBehaviour(bool value)
+        protected override void OnDeath()
+        {
+            Hm.instance.DestroyVegetationSync(id);
+        }
+
+        public new void EnableBehaviour(bool value)
 		{
             base.EnableBehaviour(value);
             if (value)
@@ -61,9 +66,9 @@ namespace Evolution
 
 		#region Actions
 		private void Grow(MemeController c)
-		{
-
-		}
+        {
+            characteristics.Energy += characteristics.EatEnergyGain; // Feed from sun ?
+        }
 		private void Reproduce(MemeController c)
 		{
 			// return; // off now

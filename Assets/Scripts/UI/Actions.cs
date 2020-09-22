@@ -31,7 +31,7 @@ namespace UI
             Gm.instance.Experience.AnimalCharacteristics,
             Gm.instance.Experience.AnimalCharacteristicsMinimumBound,
             Gm.instance.Experience.AnimalCharacteristicsMaximumBound);
-        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnTreeSync(p, r, 
+        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnVegetationSync(p, r, 
             Gm.instance.Experience.VegetationCharacteristics,
             Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
             Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
@@ -102,6 +102,6 @@ namespace UI
             !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
         public void StopDraggingTree() => StopDragging((int) sliderVegetation.value, Color.green,
-            !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnTree);
+            !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnVegetation);
     }
 }

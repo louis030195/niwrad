@@ -11,28 +11,28 @@ namespace AI
 		/// <summary>
 		/// Actions to perform on this state, passing current observation
 		/// </summary>
-		private readonly List<Action> m_Actions;
+		private readonly List<Action> _actions;
 
 		/// <summary>
 		/// Conditions to transit to other states, passing current observation
 		/// </summary>
-		private readonly List<Transition> m_Transitions;
+		private readonly List<Transition> _transitions;
 
 		public Color SceneGizmoColor = Color.grey;
-		public string Name;
+		public readonly string Name;
 		public event System.Action Acted;
 
 		public Meme(string name, List<Action> actions, List<Transition> transitions)
 		{
-			m_Actions = actions;
-			m_Transitions = transitions;
+			_actions = actions;
+			_transitions = transitions;
 			Name = name;
 		}
 
 		public Meme(string name, List<Action> actions, List<Transition> transitions, Color sceneGizmoColor)
 		{
-			m_Actions = actions;
-			m_Transitions = transitions;
+			_actions = actions;
+			_transitions = transitions;
 			SceneGizmoColor = sceneGizmoColor;
 			Name = name;
 		}
@@ -46,8 +46,8 @@ namespace AI
 
 		private void DoActions(MemeController controller)
 		{
-			if (m_Actions == null) return;
-			foreach (var t in m_Actions)
+			if (_actions == null) return;
+			foreach (var t in _actions)
 			{
 				t.Invoke(controller);
 			}
@@ -55,17 +55,17 @@ namespace AI
 
 		private void CheckTransitions(MemeController controller)
 		{
-			if (m_Transitions.Count == 0)
+			if (_transitions.Count == 0)
 			{
 				Debug.LogError($"This meme: {Name} has not transitions !");
 				return;
 			}
-			var minPm = m_Transitions[0].Invoke(controller);
+			var minPm = _transitions[0].Invoke(controller);
 			// For each transitions, invoke the decision function
 			// Get the transition with the lowest priority it is the one which will be ran
-			for (var i = 1; i < m_Transitions.Count; i++)
+			for (var i = 1; i < _transitions.Count; i++)
 			{
-				var pm = m_Transitions[i].Invoke(controller);
+				var pm = _transitions[i].Invoke(controller);
 				// If this transition doesn't request a change, keep iterating
 				if (pm.meme == null) continue;
 

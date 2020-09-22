@@ -196,7 +196,7 @@ namespace Evolution
         private Meme PartnerAround(MemeController c)
         {
             // Look for partner
-            if (health.currentHealth > characteristics.ReproductionCost)
+            if (characteristics.Energy > characteristics.ReproductionCost)
             {
                 var closest = m_VisionMemory.Query().Closest(transform.position,
                     LayerMask.NameToLayer("Animal"));

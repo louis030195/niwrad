@@ -90,6 +90,9 @@ namespace Evolution
                     Robustness = 0.5f,
                     Energy = 50,
                     ReproductionCost = 50,
+                    EnergyLoss = 0.1f,
+                    EatEnergyGain = 50,
+                    DrinkEnergyGain = 50,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 50,
@@ -106,6 +109,9 @@ namespace Evolution
                     Robustness = 0.1f,
                     Energy = 50,
                     ReproductionCost = 0,
+                    EnergyLoss = 0.01f,
+                    EatEnergyGain = 10,
+                    DrinkEnergyGain = 10,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 1,
@@ -122,6 +128,9 @@ namespace Evolution
                     Robustness = 2,
                     Energy = 100,
                     ReproductionCost = 100,
+                    EnergyLoss = 1f,
+                    EatEnergyGain = 100,
+                    DrinkEnergyGain = 100,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 100,
@@ -143,6 +152,9 @@ namespace Evolution
                     Robustness = 50,
                     Energy = 50,
                     ReproductionCost = 50,
+                    EnergyLoss = 0.1f,
+                    EatEnergyGain = 50,
+                    DrinkEnergyGain = 50,
                     VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
                 },
                 VegetationCharacteristicsMinimumBound = new Characteristics
@@ -152,6 +164,9 @@ namespace Evolution
                     Robustness = 0,
                     Energy = 0,
                     ReproductionCost = 0,
+                    EnergyLoss = 0.01f,
+                    EatEnergyGain = 10,
+                    DrinkEnergyGain = 10,
                     VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
                 },
                 VegetationCharacteristicsMaximumBound = new Characteristics
@@ -161,6 +176,9 @@ namespace Evolution
                     Robustness = 100,
                     Energy = 100,
                     ReproductionCost = 100,
+                    EnergyLoss = 1f,
+                    EatEnergyGain = 100,
+                    DrinkEnergyGain = 100,
                     VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
                 },
                 VegetationDistribution = new Experience.Types.PopulationDistribution

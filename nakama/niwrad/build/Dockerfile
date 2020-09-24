@@ -7,7 +7,7 @@ WORKDIR /backend
 
 COPY . .
 
-RUN go build --trimpath --buildmode=plugin -o ./backend.so ./cmd/main
+RUN go build -mod=mod --trimpath --buildmode=plugin -o ./backend.so ./cmd/main
 
 FROM heroiclabs/nakama:2.12.0
 COPY --from=builder /backend/build/nakama-config.yml /nakama

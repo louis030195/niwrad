@@ -5,7 +5,8 @@
         "UnityEditor.TestRunner",
         "GameAssembly",
         "UniTask",
-        "TestsHelpersAssembly"
+        "TestsHelpersAssembly",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [

@@ -2,9 +2,11 @@ using System;
 using Gameplay;
 using Api.Session;
 using Evolution;
+using Input;
 using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
 using Utils.Physics;
@@ -18,9 +20,9 @@ namespace UI
         [SerializeField] private Slider sliderAnimal;
         [SerializeField] private Slider sliderVegetation;
         [SerializeField] private GameObject seedTemplate;
-        
-        private UnitSelection _unitSelection;
 
+        private Rts _rtsControls;
+        private UnitSelection _unitSelection;
         private bool _isDragging;
         private GameObject _draggedObject;
         private Camera _camera;
@@ -41,6 +43,17 @@ namespace UI
         {
 	        _camera = Camera.main;
             _unitSelection = GetComponent<UnitSelection>();
+            _rtsControls = new Rts();
+        }
+        
+        private void OnEnable()
+        {
+            _rtsControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _rtsControls.Disable();
         }
 
         private void Update() {
@@ -53,7 +66,7 @@ namespace UI
         private void DragObject()
         {
             _unitSelection.disable = true;
-            var v3 = Input.mousePosition;
+            var v3 = (Vector3) Mouse.current.position.ReadValue();    
             v3.z = 100.0f;
             v3 = _camera.ScreenToWorldPoint(v3);
             _draggedObject.transform.position = v3;

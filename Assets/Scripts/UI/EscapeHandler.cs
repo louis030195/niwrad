@@ -1,5 +1,7 @@
 ﻿using System;
+using Input;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
@@ -9,25 +11,33 @@ namespace UI
         [SerializeField] private Menu escapeScrollView;
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private Button ecapeButton;
+
+        private Rts _rtsControls;
+        private void Awake()
+        {
+            _rtsControls = new Rts();
+            _rtsControls.Player.Cancel.started += ShowEscapeMenu;
+            ecapeButton.onClick.AddListener(SubShow);
+// #if UNITY_IOS || UNITY_ANDROID
+// #endif
+
+        }
+        
+        private void OnEnable()
+        {
+            _rtsControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _rtsControls.Disable();
+        }
 
         private void Start()
         {
             resumeButton.onClick.AddListener(() => Mm.instance.PopAll());
             quitButton.onClick.AddListener(Quit);
-        }
-
-        private void Update()
-        {
-            // When no menu is shown, escape show escape menu
-            if (Input.GetButtonDown("Cancel") && Mm.instance.IsEmpty())
-            {
-                Mm.instance.Push(escapeScrollView);
-            }
-            // When escape menu is shown and user press escape, dismiss everything
-            else if (Input.GetButtonDown("Cancel"))
-            {
-                Mm.instance.PopAll();
-            }
         }
 
         private void Quit()
@@ -39,6 +49,17 @@ namespace UI
 #else
             Application.Quit();
 #endif
+        }
+
+        private void ShowEscapeMenu(InputAction.CallbackContext ctx)
+        {
+            SubShow();
+        }
+
+        private void SubShow()
+        {
+            if (Mm.instance.IsEmpty()) Mm.instance.Push(escapeScrollView);
+            else Mm.instance.PopAll();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Tests.TestsHelpers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using Utils;
 using Object = UnityEngine.Object;
@@ -60,7 +61,7 @@ namespace Tests.TestsPlay
                 gos[i] = go;
             }
 
-            await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Escape));
+            await UniTask.WaitUntil(() => Keyboard.current.escapeKey.wasPressedThisFrame);
             
             // Cleanup
             Object.DestroyImmediate(cam);

@@ -4,6 +4,7 @@ using Evolution;
 using NUnit.Framework;
 using Tests.TestsHelpers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 
 namespace Tests.TestsPlay
@@ -19,7 +20,7 @@ namespace Tests.TestsPlay
             Assert.NotNull(e);
             Helper.RenderExperience(e);
             // TODO: assert stuff ...
-            await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Escape));
+            await UniTask.WaitUntil(() => Keyboard.current.escapeKey.wasPressedThisFrame);
             Object.DestroyImmediate(go);
         });
     }

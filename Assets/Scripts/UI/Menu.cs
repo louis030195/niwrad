@@ -31,6 +31,8 @@ namespace UI
 
         public bool isHud;
 
+        public event Action<bool> VisibilityChanged;
+
         #endregion
         
         protected virtual void Start()
@@ -64,6 +66,7 @@ namespace UI
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
             IsShown = true;
+            VisibilityChanged?.Invoke(true);
         }
 
         /// <summary>
@@ -77,6 +80,7 @@ namespace UI
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
             IsShown = false;
+            VisibilityChanged?.Invoke(false);
         }
 
         public virtual void Push()

@@ -116,11 +116,11 @@ namespace UI
             }
         }
 
-        public void StartDraggingAnimal() => StartDragging(Color.red);
+        public void StartDraggingAnimal() => StartDragging(Color.blue);
 
         public void StartDraggingTree() => StartDragging(Color.green);
 
-        public void StopDraggingAnimal() => StopDragging((int) sliderAnimal.value, Color.red,
+        public void StopDraggingAnimal() => StopDragging((int) sliderAnimal.value, Color.blue,
             !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
         public void StopDraggingTree() => StopDragging((int) sliderVegetation.value, Color.green,

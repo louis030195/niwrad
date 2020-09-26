@@ -26,13 +26,16 @@ namespace Player
         private bool _mobile;
         private void Awake()
         {
-#if UNITY_IOS || UNITY_ANDROID
-            moveJoystick.SetActive(true);
-            rotateJoystick.SetActive(true);
-            flyJoystick.SetActive(true);
             _moveJoystick = moveJoystick.GetComponent<FixedJoystick>();
             _rotateJoystick = rotateJoystick.GetComponent<FixedJoystick>();
             _flyJoystick = flyJoystick.GetComponent<FixedJoystick>();
+            moveJoystick.SetActive(false);
+            rotateJoystick.SetActive(false);
+            flyJoystick.SetActive(false);
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            moveJoystick.SetActive(true);
+            rotateJoystick.SetActive(true);
+            flyJoystick.SetActive(true);
             rotationSpeed *= 10; // Somehow slower on mobile
             _mobile = true;
 #endif
@@ -42,8 +45,8 @@ namespace Player
             if (_mobile) return;
             _rtsControls.Player.MoveY.performed += ctx =>
             {
-                if (disable) return;
-                transform.position += Vector3.up * (ctx.ReadValue<Vector2>().y * zoomSpeed);
+                if (!disable)
+                    transform.position += Vector3.up * (ctx.ReadValue<Vector2>().y * zoomSpeed);
             };
             
         }

@@ -1,4 +1,4 @@
-name: Build and release Niwrad
+name: Build Niwrad
 
 on:
   push: { branches: [dev, master] }
@@ -8,7 +8,6 @@ on:
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
-# TODO all online clients, all offline clients (only web here)
 jobs:
   nakama:
     name: Test code, build image and push it
@@ -49,7 +48,7 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2019.4.10f1
+          - 2019.4.11f1
         targetPlatform:
           - StandaloneLinux64
     steps:
@@ -122,7 +121,7 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2019.4.10f1
+          - 2019.4.11f1
         targetPlatform:
           - WebGL
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
@@ -151,6 +150,12 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
+          # androidAppBundle: true
+          # androidKeystoreName: nw.keystore
+          # androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          # androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          # androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          # androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
           buildsPath: builds
       - uses: actions/upload-artifact@v2
         with:

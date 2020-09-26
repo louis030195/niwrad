@@ -1,3 +1,4 @@
+using System.Linq;
 using Input;
 using UI;
 using UnityEngine;
@@ -27,6 +28,9 @@ namespace Player {
             // Can unlock cursor from the window in standalone by pressing escape
             _rtsControls.UI.Cancel.performed += ctx => Cursor.lockState = CursorLockMode.None;
 #endif
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
+#endif
         }
         
         private void OnEnable()
@@ -42,12 +46,17 @@ namespace Player {
 		private void Update () {
 			if (disable)
 			{
-                print("disable !");
+                // print("disable !");
 				_isSelecting = false;
 				return;
 			}
 
-            var mouse = Mouse.current.position.ReadValue();
+            Vector3 mouse;
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            mouse = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.FirstOrDefault().screenPosition;
+#else
+            mouse = Mouse.current.position.ReadValue();
+#endif
 			var ray = _cam.ScreenPointToRay(mouse);
 			_hit = Physics.Raycast(ray, out var info, float.MaxValue);
 

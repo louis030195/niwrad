@@ -13,10 +13,11 @@ namespace UI
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button playButton;
         [SerializeField] private Button resetButton;
-        
-        
-        private void Awake()
+
+
+        protected override void Awake()
         {
+            base.Awake();
             timescaleSlider.onValueChanged.AddListener(value =>
             {
                 Time.timeScale = value;

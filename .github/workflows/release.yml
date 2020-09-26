@@ -14,8 +14,8 @@ on:
         description: 'Release tag'
         required: true
 jobs:
-  activation:
-    name: Request manual activation file 🔑
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,15 +28,12 @@ jobs:
           commit: ${{ github.event.inputs.commit }}
       
       - name: Display structure of downloaded files
-        run: ls *
-
-      # - name: Unzip whole clients folder
-      #   run: unzip offline-clients.zip # TODO: fix hard-coded somehow
+        run: ls offline-clients
 
       - name: Zip every artifacts
         run: |
-          for file in $(ls offline-clients -I "*.zip"); do zip "offline-clients/${file}.zip" "offline-clients/$file"; done
-          zip offline-clients/all-clients.zip offline-clients
+          cd offline-clients
+          for file in $(ls -I "*.zip"); do zip -r "${file}.zip" "$file"; done
 
       - name: Create Release
         id: create_release
@@ -53,7 +50,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: offline-clients/*
+          file: offline-clients/*.zip
           tag: ${{ github.event.inputs.tag }}
           overwrite: true
           file_glob: true

@@ -4,8 +4,9 @@
 ![Acquire activation file](https://github.com/louis030195/niwrad/workflows/Acquire%20activation%20file/badge.svg)
 ![Build project](https://github.com/louis030195/niwrad/workflows/Build%20project/badge.svg)
 
-<img src="docs/images/demo1.gif" width="320">
-<img src="docs/images/demo2.gif" width="320">
+<img src="docs/images/demo1.gif" width="300"><img src="docs/images/demo2.gif" width="300">
+
+[![Alt text](https://img.youtube.com/vi/B0MwLHRPuP8/0.jpg)](https://www.youtube.com/watch?v=B0MwLHRPuP8)
 
 Try the offline WebGL version directly [here](http://louis030195.com/niwrad), if you want to try on other OS (Windows, Linux, Android, Web available) [check out latest Github Actions artifacts](https://github.com/louis030195/niwrad/actions).
 
@@ -86,7 +87,7 @@ make test
 * [ ] implement optional carnivorous hosts
 * [ ] More UI as code
 * [ ] Use less singletons and potentially move away from this pattern
-* [ ] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag + could auto stuff like reddit, discord ...
+* [x] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag
 * [ ] Rename all ref to tree / vegetation to flora or plant
 * [ ] experience menu -> import json experience !!!!!!!!!!!!!!!!
 * [ ] Somehow improve the CI with some tag release stuff

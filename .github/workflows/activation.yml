@@ -7,7 +7,7 @@ on:
       unityVersion:
         description: 'Unity version'
         required: true
-        default: 2019.4.10f1
+        default: 2019.4.11f1
 jobs:
   activation:
     name: Request manual activation file 🔑
@@ -25,5 +25,6 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+      # Then download the artifact & go here https://license.unity3d.com/manual
 
         

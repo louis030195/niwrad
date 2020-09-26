@@ -497,6 +497,9 @@ MonoBehaviour:
   movementSpeed: 5
   zoomSpeed: 100
   rotationSpeed: 3
+  moveJoystick: {fileID: 0}
+  rotateJoystick: {fileID: 0}
+  flyJoystick: {fileID: 0}
 --- !u!124 &939224196
 Behaviour:
   m_ObjectHideFlags: 0

@@ -29,15 +29,17 @@ namespace UI
         /// </summary>
         public bool IsShown { get; protected set; }
 
-        public bool isHud;
-
         public event Action<bool> VisibilityChanged;
 
         #endregion
-        
-        protected virtual void Start()
+
+        protected virtual void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        protected virtual void Start()
+        {
             if (backButton != null) backButton.onClick.AddListener(Pop); // TODO: Should trigger before all UI-set actions
         }
 

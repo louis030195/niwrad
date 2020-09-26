@@ -33,6 +33,7 @@ namespace Player
             _moveJoystick = moveJoystick.GetComponent<FixedJoystick>();
             _rotateJoystick = rotateJoystick.GetComponent<FixedJoystick>();
             _flyJoystick = flyJoystick.GetComponent<FixedJoystick>();
+            rotationSpeed *= 10; // Somehow slower on mobile
             _mobile = true;
 #endif
             _unitSelection = GetComponent<UnitSelection>();
@@ -76,11 +77,11 @@ namespace Player
             var move = _mobile ? _moveJoystick.Direction : _rtsControls.Player.Move.ReadValue<Vector2>();
             t.position += (t.right * move.x + dir * move.y) * movementSpeed;
             
-
+            // Rotation on Y axis
             if (Mouse.current.rightButton.isPressed || _mobile && _rotateJoystick.isDragging) // TODO: check works cross platform
             {
-                var look = _mobile ? _rotateJoystick.Direction : _rtsControls.Player.Look.ReadValue<Vector2>();
-                t.Rotate(new Vector3(0, look.x * rotationSpeed, 0));
+                var look = _mobile ? _rotateJoystick.Horizontal : _rtsControls.Player.Look.ReadValue<Vector2>().x;
+                t.Rotate(new Vector3(0, look * rotationSpeed, 0));
                 _eulerX = t.rotation.eulerAngles.x;
                 _eulerY = t.rotation.eulerAngles.y;
                 t.rotation = Quaternion.Euler(_eulerX, _eulerY, 0);

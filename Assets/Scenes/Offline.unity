@@ -233,6 +233,18 @@ MonoBehaviour:
     type: 3}
   lowPolyVegetationPrefab: {fileID: 4443387354701748607, guid: 8de57423e509875b2a6abd03a0f8e079,
     type: 3}
+--- !u!114 &348591931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9126806358033361040, guid: 08c1157de22868a2c9968fd48be18ff6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1306811568}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39939e9279d748f4afe77e946147526a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &880311454 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4695735226271941946, guid: 08c1157de22868a2c9968fd48be18ff6,
@@ -334,6 +346,11 @@ PrefabInstance:
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 880311455}
+    - target: {fileID: 4011663579505893519, guid: 91328f89e5b04bcea88bbe8729825047,
+        type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 348591931}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91328f89e5b04bcea88bbe8729825047, type: 3}
 --- !u!1001 &1189094824
@@ -1465,11 +1482,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1748599999807666525, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: isHud
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1789685558437405649, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1538,7 +1550,12 @@ PrefabInstance:
     - target: {fileID: 2620164055336891341, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000348508
+      value: 1.8280919
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701596991237529058, guid: 08c1157de22868a2c9968fd48be18ff6,
+        type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3282626368583141582, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}
@@ -1634,26 +1651,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4202565690002425318, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: m_fontStyle
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4202565690002425318, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: m_fontSizeMin
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4202565690002425318, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: m_fontSizeMax
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4202565690002425318, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4261072920747550525, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}
@@ -1870,16 +1867,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6201047719075304015, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: escapeAction.m_Id
-      value: 062f7217-47cd-4e3f-b660-1c59b26175af
-      objectReference: {fileID: 0}
-    - target: {fileID: 6201047719075304015, guid: 08c1157de22868a2c9968fd48be18ff6,
-        type: 3}
-      propertyPath: escapeAction.m_Name
-      value: Escape
-      objectReference: {fileID: 0}
     - target: {fileID: 6626447198949299846, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1909,6 +1896,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481391678124215656, guid: 08c1157de22868a2c9968fd48be18ff6,
+        type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7785676373063572253, guid: 08c1157de22868a2c9968fd48be18ff6,
         type: 3}

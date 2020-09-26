@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Gameplay;
 using Api.Session;
 using Evolution;
@@ -44,6 +45,9 @@ namespace UI
 	        _camera = Camera.main;
             _unitSelection = GetComponent<UnitSelection>();
             _rtsControls = new Rts();
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
+#endif
         }
         
         private void OnEnable()
@@ -66,10 +70,15 @@ namespace UI
         private void DragObject()
         {
             _unitSelection.disable = true;
-            var v3 = (Vector3) Mouse.current.position.ReadValue();    
-            v3.z = 100.0f;
-            v3 = _camera.ScreenToWorldPoint(v3);
-            _draggedObject.transform.position = v3;
+            Vector3 seedPosition;
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            seedPosition = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.FirstOrDefault().screenPosition;
+#else
+            seedPosition = Mouse.current.position.ReadValue();
+#endif
+            seedPosition.z = 100.0f;
+            seedPosition = _camera.ScreenToWorldPoint(seedPosition);
+            _draggedObject.transform.position = seedPosition;
         }
 
         private void StartDragging(Color color)

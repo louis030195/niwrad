@@ -1,0 +1,59 @@
+name: Release manually
+
+# Maybe could check if license exist then do or not
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: 'Which commit to release'
+        required: true
+      release:
+        description: 'Release name'
+        required: true
+      tag:
+        description: 'Release tag'
+        required: true
+jobs:
+  activation:
+    name: Request manual activation file 🔑
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: main.yml
+          commit: ${{ github.event.inputs.commit }}
+      
+      - name: Display structure of downloaded files
+        run: ls *
+
+      # - name: Unzip whole clients folder
+      #   run: unzip offline-clients.zip # TODO: fix hard-coded somehow
+
+      - name: Zip every artifacts
+        run: |
+          for file in $(ls offline-clients -I "*.zip"); do zip "offline-clients/${file}.zip" "offline-clients/$file"; done
+          zip offline-clients/all-clients.zip offline-clients
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: ${{ github.event.inputs.release }}
+          draft: false
+          prerelease: false
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: offline-clients/*
+          tag: ${{ github.event.inputs.tag }}
+          overwrite: true
+          file_glob: true

@@ -42,7 +42,7 @@ namespace Player {
 		private void Update () {
 			if (disable)
 			{
-                // print("disable !");
+                print("disable !");
 				_isSelecting = false;
 				return;
 			}

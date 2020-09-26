@@ -36,7 +36,7 @@ namespace UI
     {
         [SerializeField] private UnitSelection unitSelection;
         [SerializeField] private CameraController cameraController;
-        
+        [SerializeField] private Menu hud;
         private readonly StackL<Menu> _stack = new StackL<Menu>();
 
         private void Start()
@@ -106,12 +106,14 @@ namespace UI
         /// <param name="enable"></param>
         public void EnableHud(bool enable)
         {
-            if (enable) PopAll();
-            foreach (var menu in FindObjectsOfType<Menu>())
+            if (enable)
             {
-                if (!menu.isHud) continue;
-                if (enable) menu.Show();
-                else menu.Hide();
+                PopAll();
+                hud.Show();
+            }
+            else
+            {
+                hud.Hide();
             }
         }
     }

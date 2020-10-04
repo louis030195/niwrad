@@ -38,13 +38,13 @@ namespace Api.Match
 
         // Evolution
         public event Action<Realtime.Transform> AnimalSpawned;
-        public event Action<Realtime.Transform> TreeSpawned;
+        public event Action<Realtime.Transform> PlantSpawned;
         public event Action<Realtime.Transform> AnimalDestroyed;
-        public event Action<Realtime.Transform> TreeDestroyed;
+        public event Action<Realtime.Transform> PlantDestroyed;
         public event Action<Realtime.Transform> AnimalSpawnRequested;
-        public event Action<Realtime.Transform> TreeSpawnRequested;
+        public event Action<Realtime.Transform> PlantSpawnRequested;
         public event Action<Realtime.Transform> AnimalDestroyRequested;
-        public event Action<Realtime.Transform> TreeDestroyRequested;
+        public event Action<Realtime.Transform> PlantDestroyRequested;
         public event Action<Meme> MemeUpdated;
 
 
@@ -182,8 +182,8 @@ namespace Api.Match
 	                {
 		                case Spawn.TypeOneofCase.Any:
 			                break;
-		                case Spawn.TypeOneofCase.Tree:
-			                TreeSpawnRequested?.Invoke(p.RequestSpawn.Tree.Transform);
+		                case Spawn.TypeOneofCase.Plant:
+			                PlantSpawnRequested?.Invoke(p.RequestSpawn.Plant.Transform);
 			                break;
 		                case Spawn.TypeOneofCase.Animal:
 			                AnimalSpawnRequested?.Invoke(p.RequestSpawn.Animal.Transform);
@@ -199,8 +199,8 @@ namespace Api.Match
 	                {
 		                case Realtime.Destroy.TypeOneofCase.Any:
 			                break;
-		                case Realtime.Destroy.TypeOneofCase.Tree:
-			                TreeDestroyRequested?.Invoke(p.RequestDestroy.Tree.Transform);
+		                case Realtime.Destroy.TypeOneofCase.Plant:
+			                PlantDestroyRequested?.Invoke(p.RequestDestroy.Plant.Transform);
 			                break;
 		                case Realtime.Destroy.TypeOneofCase.Animal:
 			                AnimalDestroyRequested?.Invoke(p.RequestDestroy.Animal.Transform);
@@ -216,8 +216,8 @@ namespace Api.Match
 	                {
 		                case Spawn.TypeOneofCase.Any:
 			                break;
-		                case Spawn.TypeOneofCase.Tree:
-			                TreeSpawned?.Invoke(p.Spawn.Tree.Transform);
+		                case Spawn.TypeOneofCase.Plant:
+			                PlantSpawned?.Invoke(p.Spawn.Plant.Transform);
 			                break;
 		                case Spawn.TypeOneofCase.Animal:
 			                AnimalSpawned?.Invoke(p.Spawn.Animal.Transform);
@@ -236,8 +236,8 @@ namespace Api.Match
 		                case Realtime.Destroy.TypeOneofCase.Animal:
 			                AnimalDestroyed?.Invoke(p.Destroy.Animal.Transform);
 			                break;
-		                case Realtime.Destroy.TypeOneofCase.Tree:
-			                TreeDestroyed?.Invoke(p.Destroy.Tree.Transform);
+		                case Realtime.Destroy.TypeOneofCase.Plant:
+			                PlantDestroyed?.Invoke(p.Destroy.Plant.Transform);
 			                break;
 		                case Realtime.Destroy.TypeOneofCase.None:
 			                break;

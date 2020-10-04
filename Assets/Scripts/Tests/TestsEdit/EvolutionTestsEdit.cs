@@ -143,34 +143,34 @@ namespace Tests.TestsEdit
                   InitialAmount = 20,
                   Scattering = 20
                 },
-                VegetationCharacteristics = new Characteristics
+                PlantCharacteristics = new Characteristics
                 {
                     Computation = 50,
                     Life = 50,
                     Robustness = 50,
                     Energy = 50,
                     ReproductionCost = 50,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationCharacteristicsMinimumBound = new Characteristics
+                PlantCharacteristicsMinimumBound = new Characteristics
                 {
                     Computation = 0,
                     Life = 0,
                     Robustness = 0,
                     Energy = 0,
                     ReproductionCost = 0,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationCharacteristicsMaximumBound = new Characteristics
+                PlantCharacteristicsMaximumBound = new Characteristics
                 {
                     Computation = 100,
                     Life = 100,
                     Robustness = 100,
                     Energy = 100,
                     ReproductionCost = 100,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationDistribution = new Experience.Types.PopulationDistribution
+                PlantDistribution = new Experience.Types.PopulationDistribution
                 {
                     InitialAmount = 20,
                     Scattering = 20

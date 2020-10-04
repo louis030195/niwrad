@@ -101,7 +101,7 @@ namespace Evolution
                     },
                     Color.magenta
                 );
-                controller.SetupAi(Memes["Wander"]);
+                controller.SetupAi(Memes["Wander"], 100/characteristics.Computation);
             }
             else
             {
@@ -132,8 +132,8 @@ namespace Evolution
             // Stop moving
             movement.isStopped = true;
             attack.EatTarget(_target);
-            var someValue = 40f; // TODO:
-            _target.GetComponent<Health>().ChangeHealth(-Time.deltaTime * someValue);
+            var someValue = 10f; // TODO:
+            _target.GetComponent<Health>().AddHealth(-someValue);
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
             characteristics.Energy += characteristics.EatEnergyGain;
@@ -154,7 +154,7 @@ namespace Evolution
             // TODO: params
             if (health.currentHealth > 90f) return Memes["Wander"];
 
-            var layerMask = 1 << LayerMask.NameToLayer("Vegetation");
+            var layerMask = 1 << LayerMask.NameToLayer("Plant");
 
             // Any matching object around ? Try to get the closest if any
             var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask);

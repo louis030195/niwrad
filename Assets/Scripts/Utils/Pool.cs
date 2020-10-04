@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -110,28 +109,14 @@ namespace Utils
         private static Dictionary< GameObject, PrefabPool > _pools;
 
         /// <summary>
-        /// Event invoked when this prefab is spawned
-        /// </summary>
-        public static Dictionary<GameObject, Action> Spawned;
-
-        /// <summary>
-        /// Event invoked when this prefab is despawned
-        /// </summary>
-        public static Dictionary<GameObject, Action> Despawned;
-
-        /// <summary>
         /// Initialize our dictionary.
         /// </summary>
         private static void Init (GameObject prefab=null, int qty = DefaultPoolSize) {
             if(_pools == null) {
 	            _pools = new Dictionary<GameObject, PrefabPool>();
-	            Spawned = new Dictionary<GameObject, Action>();
-	            Despawned = new Dictionary<GameObject, Action>();
             }
             if (prefab!=null && _pools.ContainsKey(prefab) == false) {
                 _pools[prefab] = new PrefabPool(prefab, qty);
-                Spawned[prefab] = delegate {  };
-                Despawned[prefab] = delegate {  };
             }
         }
 
@@ -167,13 +152,11 @@ namespace Utils
         /// </summary>
         public static GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) {
             Init(prefab);
-	        Spawned[prefab]?.Invoke();
             return _pools[prefab].Spawn(pos, rot);
         }
 
         public static GameObject Spawn(GameObject prefab) {
             Init(prefab);
-            Spawned[prefab]?.Invoke();
             return _pools[prefab].Spawn(Vector3.zero, Quaternion.identity);
         }
 
@@ -183,7 +166,6 @@ namespace Utils
         /// </summary>
         public static void Despawn(GameObject obj) {
             var pm = obj.GetComponent<PoolMember>();
-            Despawned[pm.myPool.prefab]?.Invoke();
 
             if(pm == null) {
                 Debug.Log ("Object '"+obj.name+"' wasn't spawned from a pool. Destroying it instead.");
@@ -205,7 +187,6 @@ namespace Utils
         /// </summary>
         public static void Despawn(GameObject obj, int after)
         {
-	        Despawned[obj]?.Invoke();
 	        Task.Delay(after).ContinueWith(t=> Despawn(obj));
         }
 

@@ -29,7 +29,7 @@ namespace Evolution
                     Physics.OverlapSphereNonAlloc(transform.position,
                         characteristics.AnimalCharacteristics.SightRange,
                         res,
-                        LayerMask.GetMask("Animal", "Vegetation"));
+                        LayerMask.GetMask("Animal", "Plant"));
                     return res.Where(c => c != null).Select(c => c.gameObject).ToList();
                 };
                 m_VisionSense.ListenTo(collector);
@@ -135,7 +135,7 @@ namespace Evolution
             if (movement.remainingDistance <= movement.stoppingDistance)
             {
                 var closest = m_VisionMemory.Query().Closest(transform.position,
-                    LayerMask.NameToLayer("Vegetation"));
+                    LayerMask.NameToLayer("Plant"));
                 if (closest != default) movement.MoveTo(closest.transform.position);
             }
         }
@@ -155,13 +155,13 @@ namespace Evolution
             // Stop moving
             movement.isStopped = true;
             var closest = m_VisionMemory.Query().Closest(transform.position,
-                LayerMask.NameToLayer("Vegetation"));
+                LayerMask.NameToLayer("Plant"));
             if (closest == default) return;
             attack.EatTarget(closest);
-            closest.GetComponent<Health>().ChangeHealth(-Time.deltaTime * 30); // TODO: store params
+            closest.GetComponent<Health>().AddHealth(-Time.deltaTime * 30); // TODO: store params
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
-            health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
+            health.AddHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
         }
 
         private void Reproduce(MemeController c)
@@ -182,7 +182,7 @@ namespace Evolution
             if (health.currentHealth > 90f) return Memes["Wander"];
 
             var closest = m_VisionMemory.Query().Closest(transform.position,
-                LayerMask.NameToLayer("Vegetation"));
+                LayerMask.NameToLayer("Plant"));
 
             // No food around OR target is dead / too weak
             if (closest == default || closest.GetComponent<Health>().dead) return null;
@@ -216,7 +216,7 @@ namespace Evolution
         private Meme IsCloseEnoughForEating(MemeController c)
         {
             var closest = m_VisionMemory.Query().Closest(transform.position,
-                LayerMask.NameToLayer("Vegetation"));
+                LayerMask.NameToLayer("Plant"));
             if (closest != default && Vector3.Distance(transform.position, closest.transform.position) <
                 characteristics.AnimalCharacteristics.EatRange)
                 return Memes["Eat"];

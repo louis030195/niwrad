@@ -14,7 +14,7 @@ namespace UI
         [SerializeField] private Transform generalMenu;
         [SerializeField] private Transform mapMenu;
         [SerializeField] private Transform animalCharacteristicMenu;
-        [SerializeField] private Transform vegetationCharacteristicMenu;
+        [SerializeField] private Transform plantCharacteristicMenu;
         [SerializeField] private Button saveButton;
         [SerializeField] private Button deleteButton;
         [SerializeField] private Button playButton;
@@ -111,28 +111,28 @@ namespace UI
             
             CodeToUi.NumberToUi(0, 
                 200, 
-                e.VegetationDistribution?.InitialAmount ?? 0, 
-                vegetationCharacteristicMenu,
+                e.PlantDistribution?.InitialAmount ?? 0, 
+                plantCharacteristicMenu,
                 "Initial Amount")
-                .onValueChanged.AddListener(value =>  _experience.VegetationDistribution.InitialAmount = (ulong) value);
+                .onValueChanged.AddListener(value =>  _experience.PlantDistribution.InitialAmount = (ulong) value);
             CodeToUi.NumberToUi(0, 
                 100, 
-                e.VegetationDistribution?.Scattering ?? 0, 
-                vegetationCharacteristicMenu,
+                e.PlantDistribution?.Scattering ?? 0, 
+                plantCharacteristicMenu,
                 "Scattering")
-                .onValueChanged.AddListener(value =>  _experience.VegetationDistribution.Scattering = value);
-            CodeToUi.FloatsToUi(e.VegetationCharacteristicsMinimumBound, 
-                e.VegetationCharacteristicsMaximumBound,
-                e.VegetationCharacteristics, 
-                vegetationCharacteristicMenu)
+                .onValueChanged.AddListener(value =>  _experience.PlantDistribution.Scattering = value);
+            CodeToUi.FloatsToUi(e.PlantCharacteristicsMinimumBound, 
+                e.PlantCharacteristicsMaximumBound,
+                e.PlantCharacteristics, 
+                plantCharacteristicMenu)
                     .ForEach(elem =>
                     {
                         var (p, s) = elem;
                         s.onValueChanged.AddListener(value => 
-                            _experience.VegetationCharacteristics
+                            _experience.PlantCharacteristics
                                 .GetType()
                                 .GetProperty(p.Name)
-                                ?.SetValue(_experience.VegetationCharacteristics, value));
+                                ?.SetValue(_experience.PlantCharacteristics, value));
                     });
         }
 

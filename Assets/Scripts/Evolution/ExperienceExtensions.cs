@@ -85,18 +85,18 @@ namespace Evolution
                 },
                 AnimalCharacteristics = new Characteristics
                 {
-                    Computation = 10,
+                    Computation = 50,
                     Life = 50,
-                    Robustness = 0.5f,
+                    Robustness = 50,
                     Energy = 50,
                     ReproductionCost = 50,
-                    EnergyLoss = 0.1f,
+                    EnergyLoss = 50,
                     EatEnergyGain = 50,
                     DrinkEnergyGain = 50,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
-                        Speed = 50,
-                        RandomMovementRange = 50,
+                        Speed = 10,
+                        RandomMovementRange = 10,
                         SightRange = 50,
                         EatRange = 5,
                         Metabolism = 50,
@@ -109,7 +109,7 @@ namespace Evolution
                     Robustness = 0.1f,
                     Energy = 50,
                     ReproductionCost = 0,
-                    EnergyLoss = 0.01f,
+                    EnergyLoss = 1f,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -125,10 +125,10 @@ namespace Evolution
                 {
                     Computation = 100,
                     Life = 100,
-                    Robustness = 2,
+                    Robustness = 100,
                     Energy = 100,
                     ReproductionCost = 100,
-                    EnergyLoss = 1f,
+                    EnergyLoss = 100,
                     EatEnergyGain = 100,
                     DrinkEnergyGain = 100,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -145,7 +145,7 @@ namespace Evolution
                   InitialAmount = 20,
                   Scattering = 20
                 },
-                VegetationCharacteristics = new Characteristics
+                PlantCharacteristics = new Characteristics
                 {
                     Computation = 50,
                     Life = 50,
@@ -153,11 +153,11 @@ namespace Evolution
                     Energy = 50,
                     ReproductionCost = 50,
                     EnergyLoss = 0.1f,
-                    EatEnergyGain = 50,
+                    EatEnergyGain = 100,
                     DrinkEnergyGain = 50,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationCharacteristicsMinimumBound = new Characteristics
+                PlantCharacteristicsMinimumBound = new Characteristics
                 {
                     Computation = 0,
                     Life = 0,
@@ -167,9 +167,9 @@ namespace Evolution
                     EnergyLoss = 0.01f,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationCharacteristicsMaximumBound = new Characteristics
+                PlantCharacteristicsMaximumBound = new Characteristics
                 {
                     Computation = 100,
                     Life = 100,
@@ -179,9 +179,9 @@ namespace Evolution
                     EnergyLoss = 1f,
                     EatEnergyGain = 100,
                     DrinkEnergyGain = 100,
-                    VegetationCharacteristics = new Characteristics.Types.VegetationCharacteristics()
+                    PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
-                VegetationDistribution = new Experience.Types.PopulationDistribution
+                PlantDistribution = new Experience.Types.PopulationDistribution
                 {
                     InitialAmount = 20,
                     Scattering = 20

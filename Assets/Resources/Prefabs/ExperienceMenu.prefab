@@ -422,7 +422,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8936800941245622876}
   m_Direction: 2
   m_Value: 0.9999999
-  m_Size: 0.3405
+  m_Size: 0.353
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 3127720449855146124}
   - component: {fileID: 3127720449855146866}
   m_Layer: 0
-  m_Name: Vegetation
+  m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Vegetation
+  m_text: Plant
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.3
+  m_fontSize: 26.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   generalMenu: {fileID: 4054210214115409134}
   mapMenu: {fileID: 3127720451713146302}
   animalCharacteristicMenu: {fileID: 3127720450983901910}
-  vegetationCharacteristicMenu: {fileID: 3127720449855146867}
+  plantCharacteristicMenu: {fileID: 3127720449855146867}
   saveButton: {fileID: 8500712437914240615}
   deleteButton: {fileID: 3499725731582700484}
   playButton: {fileID: 5615046221205870351}

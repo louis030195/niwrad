@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Utils.Shapes;
 
 namespace Player
 {
@@ -23,12 +24,12 @@ namespace Player
         [SerializeField] private Menu experiencesMenu;
         [SerializeField] private Button closeHintsButton;
         [SerializeField] private Menu hintsBox;
-        public TextMeshProUGUI helpText;
+        [SerializeField] private TextMeshProUGUI helpText;
+        [SerializeField] private Transform settingsTransform;
         private Rts _rtsControls;
-
         private State _currentState;
         private string _defaultHelpText;
-
+        private LineInfo _lineInfo;
         private const string KDefaultHelpTextFormat = "Press {cancel} to start a new experience\n" +
                                                       "You can move around using {move}\n " +
                                                       "You can go up and down using {movey}";
@@ -65,6 +66,28 @@ namespace Player
                 hintsBox.Hide();
                 PlayerPrefs.SetInt("hints", 0); // Disabled hints for this player
             });
+            
+            // TODO: fix doesn't do anything
+            // _lineInfo = new LineInfo
+            // {
+            //     startPos = Vector3.zero,//helpText.transform.position,
+            //     endPos = new Vector3(0, 3, 0),//settingsTransform.position,
+            //     fillColor = Color.red,
+            //     width = 1,
+            //     forward = -Camera.main.transform.forward
+            //     // startArrow = true,
+            //     // arrowWidth = 5
+            // };
+        }
+
+        private void Update()
+        {
+            // _lineInfo.startPos = Vector3.zero;//helpText.transform.position,
+            // _lineInfo.endPos = new Vector3(0, 3, 0);//settingsTransform.position,
+            // _lineInfo.fillColor = Color.red;
+            // _lineInfo.width = 1;
+            // _lineInfo.forward = -Camera.main.transform.forward;
+            // LineSegment.Draw(_lineInfo);
         }
 
         private void OnEnable()

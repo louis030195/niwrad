@@ -80,7 +80,7 @@ namespace Evolution
 
 
 
-        public void ChangeHealth(float amount)
+        public void AddHealth(float amount)
         {
 	        m_CurrentHealth += amount;
 	        if (m_CurrentHealth > maxHealth)

@@ -10,19 +10,19 @@ using Random = UnityEngine.Random;
 
 namespace Evolution
 {
-	public class Vegetation : Host
+	public class Plant : Host
 	{
         
   //       protected new void Update()
 		// {
 		// 	// Sun gives life (maybe could multiply by "sun intensity here")
-		// 	health.ChangeHealth(characteristics.Robustness*Time.deltaTime);
-		// 	health.dead = !(health.currentHealth > characteristics.Life);
+		// 	// health.ChangeHealth(Time.deltaTime*(1-Age/characteristics.Robustness));
+		// 	// health.dead = !(health.currentHealth > characteristics.Life);
 		// }
 
         protected override void OnDeath()
         {
-            Hm.instance.DestroyVegetationSync(id);
+            Hm.instance.DestroyPlantSync(id);
         }
 
         public new void EnableBehaviour(bool value)
@@ -56,7 +56,7 @@ namespace Evolution
                     },
                     Color.magenta
                 );
-                controller.SetupAi(Memes["Grow"]);
+                controller.SetupAi(Memes["Grow"], 100/characteristics.Computation);
             }
             else
             {
@@ -77,7 +77,7 @@ namespace Evolution
 			//
 			// // Spawning a child around
 			// var p = transform.position.RandomPositionAroundAboveGroundWithDistance(reproductionSprayRadius,
-			// 	LayerMask.GetMask("Vegetation"),
+			// 	LayerMask.GetMask("Plant"),
 			// 	reproductionDistanceBetween);
 			// // Couldn't find free position
 			// if (p == Vector3.zero) return;

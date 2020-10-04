@@ -65,7 +65,7 @@ message NavMeshUpdate {
 message Spawn {
     oneof type {
         Transform any = 1; // Any object, no special behaviour
-        Tree tree = 2;
+        Plant plant = 2;
         Animal animal = 3;
         // TODO: other ?
     }
@@ -74,7 +74,7 @@ message Spawn {
 message Destroy {
     oneof type {
         Transform any = 1; // Any object, no special behaviour
-        Tree tree = 2;
+        Plant plant = 2;
         Animal animal = 3;
         // TODO: other ?
     }
@@ -95,7 +95,7 @@ message Transform { // TODO: is it worthwhile to add like "owner_id" ... ?
     protometry.quaternion.Quaternion rotation = 3;
 }
 
-message Tree {
+message Plant {
     Transform transform = 1;
     // TODO: other stats
 }
@@ -128,7 +128,7 @@ message Characteristics {
 
     oneof type {
         AnimalCharacteristics animal_characteristics = 15;
-        VegetationCharacteristics vegetation_characteristics = 16;
+        PlantCharacteristics plant_characteristics = 16;
     }
     message AnimalCharacteristics {
         float speed = 1;
@@ -137,11 +137,23 @@ message Characteristics {
         float eat_range = 4;
         float metabolism = 5;
     }
-    message VegetationCharacteristics {
+    message PlantCharacteristics {
     
     }
 }
 
+// TODO: instead of this, what about building a (binary ? tree type depend on reproduction type) tree, idk if that can scale
+message TimeSeriePoint { // TODO: generations (height of the tree)
+    // Discrete
+    int64 animals = 50;
+    int64 plants = 60;
+
+    // Computed, maybe variance no brain at first
+    double animal_age = 70;
+    Characteristics animal_characteristics = 10;
+    double plant_age = 90;
+    Characteristics plant_characteristics = 40;
+}
 
 message Experience {
     string name = 1;
@@ -151,10 +163,10 @@ message Experience {
     PopulationDistribution animal_distribution = 13;
     bool include_carnivorous = 14;
 
-    Characteristics vegetation_characteristics = 40;
-    Characteristics vegetation_characteristics_minimum_bound = 41;
-    Characteristics vegetation_characteristics_maximum_bound = 42;
-    PopulationDistribution vegetation_distribution = 43;
+    Characteristics plant_characteristics = 40;
+    Characteristics plant_characteristics_minimum_bound = 41;
+    Characteristics plant_characteristics_maximum_bound = 42;
+    PopulationDistribution plant_distribution = 43;
 
     Map map = 50;
     GeneralParameters general = 60;

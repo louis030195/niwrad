@@ -21,7 +21,8 @@ See related writings:
 
 * Online mode: [Nakama](https://github.com/heroiclabs/nakama)
 * Online mode: <https://github.com/louis030195/octree> for "network culling" i.e. if an animal moves in (1000,0,1000) and I'm in (0,0,0) I don't want to be notified of that.
-
+* Online mode: deployments (Docker, Kubernetes, Helm, Minikube / k3s)
+* Both: Unitask, Protobuf, TextMesh Pro
 
 ### Objectives
 
@@ -88,7 +89,7 @@ make test
 * [ ] More UI as code
 * [ ] Use less singletons and potentially move away from this pattern
 * [x] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag
-* [ ] Rename all ref to tree / vegetation to flora or plant
+* [x] Rename all ref to tree / vegetation to flora or plant
 * [ ] experience menu -> import json experience !!!!!!!!!!!!!!!!
 * [ ] Somehow improve the CI with some tag release stuff
 * [ ] Make offline & online start from same scene, e.g. main menu with a "coming soon" on the online button stuff disabled

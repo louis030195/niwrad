@@ -52,19 +52,22 @@ namespace Evolution
         protected void Update()
 		{
 			if (Time.frameCount % 5 != 0) return;
-			
+            // All hosts loses energy over time
+            characteristics.Energy -= Time.timeScale * characteristics.EnergyLoss * Age;
 			Age++;
 			// The older, the weaker
             var energyThreshold = 0.1f;
             // If high energy, gain health
             if (characteristics.Energy > characteristicsMax.Energy * (1 - energyThreshold))
             {
-                health.ChangeHealth(Time.deltaTime*(1-Age/10));
+                health.AddHealth(0.1f * Time.timeScale*(1 + Mathf.Clamp(characteristics.Robustness/Age, 0, 1)));
+                // Debug.Log($"{name} high energy health.AddHealth {Time.deltaTime*(1 + Mathf.Clamp(characteristics.Robustness/Age, 0, 1))}");
             } 
             // If low energy, lose health
             else if (characteristics.Energy < characteristicsMin.Energy * (1 + energyThreshold))
             {
-                health.ChangeHealth(-Time.deltaTime*(1+Age/10));
+                health.AddHealth(-0.1f * Time.timeScale*(1 - Mathf.Clamp(characteristics.Robustness/Age, 0, 1)));
+                // Debug.Log($"{name} low energy health.AddHealth {-Time.deltaTime*(1 - Mathf.Clamp(characteristics.Robustness/Age, 0, 1))}");
             }
 		}
 

@@ -47,65 +47,69 @@ namespace Api.Realtime {
             "CgRzZWVkGAIgASgDIksKD1VwZGF0ZVRyYW5zZm9ybRI4Cgl0cmFuc2Zvcm0Y",
             "ASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0i",
             "TQoNTmF2TWVzaFVwZGF0ZRIKCgJpZBgBIAEoBBIwCgtkZXN0aW5hdGlvbhgC",
-            "IAEoCzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzIq0BCgVTcGF3bhI0",
+            "IAEoCzIbLnByb3RvbWV0cnkudmVjdG9yMy5WZWN0b3IzIq8BCgVTcGF3bhI0",
             "CgNhbnkYASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFu",
-            "c2Zvcm1IABIwCgR0cmVlGAIgASgLMiAubmFrYW1hLm5pd3JhZC5hcGkucmVh",
-            "bHRpbWUuVHJlZUgAEjQKBmFuaW1hbBgDIAEoCzIiLm5ha2FtYS5uaXdyYWQu",
-            "YXBpLnJlYWx0aW1lLkFuaW1hbEgAQgYKBHR5cGUirwEKB0Rlc3Ryb3kSNAoD",
-            "YW55GAEgASgLMiUubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuVHJhbnNm",
-            "b3JtSAASMAoEdHJlZRgCIAEoCzIgLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
-            "aW1lLlRyZWVIABI0CgZhbmltYWwYAyABKAsyIi5uYWthbWEubml3cmFkLmFw",
-            "aS5yZWFsdGltZS5BbmltYWxIAEIGCgR0eXBlIiUKBE1lbWUSCgoCaWQYASAB",
-            "KAQSEQoJbWVtZV9uYW1lGAIgASgJIg0KC0luaXRpYWxpemVkInsKCVRyYW5z",
-            "Zm9ybRIKCgJpZBgBIAEoBBItCghwb3NpdGlvbhgCIAEoCzIbLnByb3RvbWV0",
-            "cnkudmVjdG9yMy5WZWN0b3IzEjMKCHJvdGF0aW9uGAMgASgLMiEucHJvdG9t",
-            "ZXRyeS5xdWF0ZXJuaW9uLlF1YXRlcm5pb24iQAoEVHJlZRI4Cgl0cmFuc2Zv",
-            "cm0YASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zv",
-            "cm0iQgoGQW5pbWFsEjgKCXRyYW5zZm9ybRgBIAEoCzIlLm5ha2FtYS5uaXdy",
-            "YWQuYXBpLnJlYWx0aW1lLlRyYW5zZm9ybSJUChhSZXF1ZXN0VHJhbnNmZXJP",
-            "d25lcnNoaXASOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuVHJhbnNmb3JtIrcECg9DaGFyYWN0ZXJpc3RpY3MSEwoL",
-            "Y29tcHV0YXRpb24YASABKAISDAoEbGlmZRgCIAEoAhISCgpyb2J1c3RuZXNz",
-            "GAMgASgCEg4KBmVuZXJneRgEIAEoAhIZChFyZXByb2R1Y3Rpb25fY29zdBgF",
-            "IAEoAhITCgtlbmVyZ3lfbG9zcxgGIAEoAhIXCg9lYXRfZW5lcmd5X2dhaW4Y",
-            "ByABKAISGQoRZHJpbmtfZW5lcmd5X2dhaW4YCCABKAISYwoWYW5pbWFsX2No",
-            "YXJhY3RlcmlzdGljcxgPIAEoCzJBLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
-            "aW1lLkNoYXJhY3RlcmlzdGljcy5BbmltYWxDaGFyYWN0ZXJpc3RpY3NIABJr",
-            "Chp2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljcxgQIAEoCzJFLm5ha2FtYS5u",
-            "aXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcy5WZWdldGF0aW9u",
-            "Q2hhcmFjdGVyaXN0aWNzSAAagQEKFUFuaW1hbENoYXJhY3RlcmlzdGljcxIN",
-            "CgVzcGVlZBgBIAEoAhIdChVyYW5kb21fbW92ZW1lbnRfcmFuZ2UYAiABKAIS",
-            "EwoLc2lnaHRfcmFuZ2UYAyABKAISEQoJZWF0X3JhbmdlGAQgASgCEhIKCm1l",
-            "dGFib2xpc20YBSABKAIaGwoZVmVnZXRhdGlvbkNoYXJhY3RlcmlzdGljc0IG",
-            "CgR0eXBlIqoJCgpFeHBlcmllbmNlEgwKBG5hbWUYASABKAkSSwoWYW5pbWFs",
-            "X2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
-            "YWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmltYWxfY2hhcmFjdGVyaXN0",
-            "aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWthbWEubml3cmFkLmFwaS5y",
-            "ZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5pbWFsX2NoYXJhY3Rlcmlz",
-            "dGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFrYW1hLm5pd3JhZC5hcGku",
-            "cmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2FuaW1hbF9kaXN0cmlidXRp",
-            "b24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmll",
-            "bmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SGwoTaW5jbHVkZV9jYXJuaXZv",
-            "cm91cxgOIAEoCBJPChp2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljcxgoIAEo",
-            "CzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGlj",
-            "cxJdCih2ZWdldGF0aW9uX2NoYXJhY3RlcmlzdGljc19taW5pbXVtX2JvdW5k",
-            "GCkgASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVy",
-            "aXN0aWNzEl0KKHZlZ2V0YXRpb25fY2hhcmFjdGVyaXN0aWNzX21heGltdW1f",
-            "Ym91bmQYKiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFy",
-            "YWN0ZXJpc3RpY3MSXgoXdmVnZXRhdGlvbl9kaXN0cmlidXRpb24YKyABKAsy",
-            "PS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLlBvcHVs",
-            "YXRpb25EaXN0cmlidXRpb24SNwoDbWFwGDIgASgLMioubmFrYW1hLm5pd3Jh",
-            "ZC5hcGkucmVhbHRpbWUuRXhwZXJpZW5jZS5NYXASSQoHZ2VuZXJhbBg8IAEo",
-            "CzI4Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuR2Vu",
-            "ZXJhbFBhcmFtZXRlcnMaRAoWUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhIWCg5p",
-            "bml0aWFsX2Ftb3VudBgBIAEoBBISCgpzY2F0dGVyaW5nGAIgASgCGnQKA01h",
-            "cBIMCgRzaXplGAEgASgBEg4KBmhlaWdodBgCIAEoARIOCgZzcHJlYWQYBSAB",
-            "KAESHQoVc3ByZWFkX3JlZHVjdGlvbl9yYXRlGAcgASgBEg0KBXdhdGVyGAgg",
-            "ASgIEhEKCWRpdmVyc2l0eRgKIAEoBBpjChFHZW5lcmFsUGFyYW1ldGVycxIR",
-            "Cgl0aW1lc2NhbGUYASABKA0SEgoKdGltZV9saW1pdBgCIAEoDRIOCgZyZXBl",
-            "YXQYAyABKAgSFwoPc2F2ZV9zdGF0aXN0aWNzGAQgASgIQjRaI25ha2FtYS9u",
-            "aXdyYWQvYXBpL3JlYWx0aW1lO3JlYWx0aW1lqgIMQXBpLlJlYWx0aW1lYgZw",
-            "cm90bzM="));
+            "c2Zvcm1IABIyCgVwbGFudBgCIAEoCzIhLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
+            "YWx0aW1lLlBsYW50SAASNAoGYW5pbWFsGAMgASgLMiIubmFrYW1hLm5pd3Jh",
+            "ZC5hcGkucmVhbHRpbWUuQW5pbWFsSABCBgoEdHlwZSKxAQoHRGVzdHJveRI0",
+            "CgNhbnkYASABKAsyJS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5UcmFu",
+            "c2Zvcm1IABIyCgVwbGFudBgCIAEoCzIhLm5ha2FtYS5uaXdyYWQuYXBpLnJl",
+            "YWx0aW1lLlBsYW50SAASNAoGYW5pbWFsGAMgASgLMiIubmFrYW1hLm5pd3Jh",
+            "ZC5hcGkucmVhbHRpbWUuQW5pbWFsSABCBgoEdHlwZSIlCgRNZW1lEgoKAmlk",
+            "GAEgASgEEhEKCW1lbWVfbmFtZRgCIAEoCSINCgtJbml0aWFsaXplZCJ7CglU",
+            "cmFuc2Zvcm0SCgoCaWQYASABKAQSLQoIcG9zaXRpb24YAiABKAsyGy5wcm90",
+            "b21ldHJ5LnZlY3RvcjMuVmVjdG9yMxIzCghyb3RhdGlvbhgDIAEoCzIhLnBy",
+            "b3RvbWV0cnkucXVhdGVybmlvbi5RdWF0ZXJuaW9uIkEKBVBsYW50EjgKCXRy",
+            "YW5zZm9ybRgBIAEoCzIlLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLlRy",
+            "YW5zZm9ybSJCCgZBbmltYWwSOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1h",
+            "Lm5pd3JhZC5hcGkucmVhbHRpbWUuVHJhbnNmb3JtIlQKGFJlcXVlc3RUcmFu",
+            "c2Zlck93bmVyc2hpcBI4Cgl0cmFuc2Zvcm0YASABKAsyJS5uYWthbWEubml3",
+            "cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0iqAQKD0NoYXJhY3RlcmlzdGlj",
+            "cxITCgtjb21wdXRhdGlvbhgBIAEoAhIMCgRsaWZlGAIgASgCEhIKCnJvYnVz",
+            "dG5lc3MYAyABKAISDgoGZW5lcmd5GAQgASgCEhkKEXJlcHJvZHVjdGlvbl9j",
+            "b3N0GAUgASgCEhMKC2VuZXJneV9sb3NzGAYgASgCEhcKD2VhdF9lbmVyZ3lf",
+            "Z2FpbhgHIAEoAhIZChFkcmlua19lbmVyZ3lfZ2FpbhgIIAEoAhJjChZhbmlt",
+            "YWxfY2hhcmFjdGVyaXN0aWNzGA8gASgLMkEubmFrYW1hLm5pd3JhZC5hcGku",
+            "cmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzLkFuaW1hbENoYXJhY3RlcmlzdGlj",
+            "c0gAEmEKFXBsYW50X2NoYXJhY3RlcmlzdGljcxgQIAEoCzJALm5ha2FtYS5u",
+            "aXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcy5QbGFudENoYXJh",
+            "Y3RlcmlzdGljc0gAGoEBChVBbmltYWxDaGFyYWN0ZXJpc3RpY3MSDQoFc3Bl",
+            "ZWQYASABKAISHQoVcmFuZG9tX21vdmVtZW50X3JhbmdlGAIgASgCEhMKC3Np",
+            "Z2h0X3JhbmdlGAMgASgCEhEKCWVhdF9yYW5nZRgEIAEoAhISCgptZXRhYm9s",
+            "aXNtGAUgASgCGhYKFFBsYW50Q2hhcmFjdGVyaXN0aWNzQgYKBHR5cGUi8QEK",
+            "DlRpbWVTZXJpZVBvaW50Eg8KB2FuaW1hbHMYMiABKAMSDgoGcGxhbnRzGDwg",
+            "ASgDEhIKCmFuaW1hbF9hZ2UYRiABKAESSwoWYW5pbWFsX2NoYXJhY3Rlcmlz",
+            "dGljcxgKIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJh",
+            "Y3RlcmlzdGljcxIRCglwbGFudF9hZ2UYWiABKAESSgoVcGxhbnRfY2hhcmFj",
+            "dGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
+            "Q2hhcmFjdGVyaXN0aWNzIpYJCgpFeHBlcmllbmNlEgwKBG5hbWUYASABKAkS",
+            "SwoWYW5pbWFsX2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2FtYS5uaXdy",
+            "YWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmltYWxfY2hh",
+            "cmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWthbWEubml3",
+            "cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5pbWFsX2No",
+            "YXJhY3RlcmlzdGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFrYW1hLm5p",
+            "d3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2FuaW1hbF9k",
+            "aXN0cmlidXRpb24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGlt",
+            "ZS5FeHBlcmllbmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SGwoTaW5jbHVk",
+            "ZV9jYXJuaXZvcm91cxgOIAEoCBJKChVwbGFudF9jaGFyYWN0ZXJpc3RpY3MY",
+            "KCABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
+            "c3RpY3MSWAojcGxhbnRfY2hhcmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQY",
+            "KSABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
+            "c3RpY3MSWAojcGxhbnRfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQY",
+            "KiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
+            "c3RpY3MSWQoScGxhbnRfZGlzdHJpYnV0aW9uGCsgASgLMj0ubmFrYW1hLm5p",
+            "d3JhZC5hcGkucmVhbHRpbWUuRXhwZXJpZW5jZS5Qb3B1bGF0aW9uRGlzdHJp",
+            "YnV0aW9uEjcKA21hcBgyIAEoCzIqLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
+            "aW1lLkV4cGVyaWVuY2UuTWFwEkkKB2dlbmVyYWwYPCABKAsyOC5uYWthbWEu",
+            "bml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0",
+            "ZXJzGkQKFlBvcHVsYXRpb25EaXN0cmlidXRpb24SFgoOaW5pdGlhbF9hbW91",
+            "bnQYASABKAQSEgoKc2NhdHRlcmluZxgCIAEoAhp0CgNNYXASDAoEc2l6ZRgB",
+            "IAEoARIOCgZoZWlnaHQYAiABKAESDgoGc3ByZWFkGAUgASgBEh0KFXNwcmVh",
+            "ZF9yZWR1Y3Rpb25fcmF0ZRgHIAEoARINCgV3YXRlchgIIAEoCBIRCglkaXZl",
+            "cnNpdHkYCiABKAQaYwoRR2VuZXJhbFBhcmFtZXRlcnMSEQoJdGltZXNjYWxl",
+            "GAEgASgNEhIKCnRpbWVfbGltaXQYAiABKA0SDgoGcmVwZWF0GAMgASgIEhcK",
+            "D3NhdmVfc3RhdGlzdGljcxgEIAEoCEI0WiNuYWthbWEvbml3cmFkL2FwaS9y",
+            "ZWFsdGltZTtyZWFsdGltZaoCDEFwaS5SZWFsdGltZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -113,17 +117,18 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.MatchJoin), global::Api.Realtime.MatchJoin.Parser, new[]{ "Region", "Seed" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.UpdateTransform), global::Api.Realtime.UpdateTransform.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.NavMeshUpdate), global::Api.Realtime.NavMeshUpdate.Parser, new[]{ "Id", "Destination" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Spawn), global::Api.Realtime.Spawn.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Destroy), global::Api.Realtime.Destroy.Parser, new[]{ "Any", "Tree", "Animal" }, new[]{ "Type" }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Spawn), global::Api.Realtime.Spawn.Parser, new[]{ "Any", "Plant", "Animal" }, new[]{ "Type" }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Destroy), global::Api.Realtime.Destroy.Parser, new[]{ "Any", "Plant", "Animal" }, new[]{ "Type" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Meme), global::Api.Realtime.Meme.Parser, new[]{ "Id", "MemeName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Initialized), global::Api.Realtime.Initialized.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Transform), global::Api.Realtime.Transform.Parser, new[]{ "Id", "Position", "Rotation" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Tree), global::Api.Realtime.Tree.Parser, new[]{ "Transform" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Plant), global::Api.Realtime.Plant.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Animal), global::Api.Realtime.Animal.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.RequestTransferOwnership), global::Api.Realtime.RequestTransferOwnership.Parser, new[]{ "Transform" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "AnimalCharacteristics", "VegetationCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.VegetationCharacteristics), global::Api.Realtime.Characteristics.Types.VegetationCharacteristics.Parser, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "IncludeCarnivorous", "VegetationCharacteristics", "VegetationCharacteristicsMinimumBound", "VegetationCharacteristicsMaximumBound", "VegetationDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.PlantCharacteristics), global::Api.Realtime.Characteristics.Types.PlantCharacteristics.Parser, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.TimeSeriePoint), global::Api.Realtime.TimeSeriePoint.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "IncludeCarnivorous", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "Timescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
           }));
@@ -1154,8 +1159,8 @@ namespace Api.Realtime {
         case TypeOneofCase.Any:
           Any = other.Any.Clone();
           break;
-        case TypeOneofCase.Tree:
-          Tree = other.Tree.Clone();
+        case TypeOneofCase.Plant:
+          Plant = other.Plant.Clone();
           break;
         case TypeOneofCase.Animal:
           Animal = other.Animal.Clone();
@@ -1184,14 +1189,14 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "tree" field.</summary>
-    public const int TreeFieldNumber = 2;
+    /// <summary>Field number for the "plant" field.</summary>
+    public const int PlantFieldNumber = 2;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Tree Tree {
-      get { return typeCase_ == TypeOneofCase.Tree ? (global::Api.Realtime.Tree) type_ : null; }
+    public global::Api.Realtime.Plant Plant {
+      get { return typeCase_ == TypeOneofCase.Plant ? (global::Api.Realtime.Plant) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Tree;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Plant;
       }
     }
 
@@ -1214,7 +1219,7 @@ namespace Api.Realtime {
     public enum TypeOneofCase {
       None = 0,
       Any = 1,
-      Tree = 2,
+      Plant = 2,
       Animal = 3,
     }
     private TypeOneofCase typeCase_ = TypeOneofCase.None;
@@ -1243,7 +1248,7 @@ namespace Api.Realtime {
         return true;
       }
       if (!object.Equals(Any, other.Any)) return false;
-      if (!object.Equals(Tree, other.Tree)) return false;
+      if (!object.Equals(Plant, other.Plant)) return false;
       if (!object.Equals(Animal, other.Animal)) return false;
       if (TypeCase != other.TypeCase) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1253,7 +1258,7 @@ namespace Api.Realtime {
     public override int GetHashCode() {
       int hash = 1;
       if (typeCase_ == TypeOneofCase.Any) hash ^= Any.GetHashCode();
-      if (typeCase_ == TypeOneofCase.Tree) hash ^= Tree.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Plant) hash ^= Plant.GetHashCode();
       if (typeCase_ == TypeOneofCase.Animal) hash ^= Animal.GetHashCode();
       hash ^= (int) typeCase_;
       if (_unknownFields != null) {
@@ -1273,9 +1278,9 @@ namespace Api.Realtime {
         output.WriteRawTag(10);
         output.WriteMessage(Any);
       }
-      if (typeCase_ == TypeOneofCase.Tree) {
+      if (typeCase_ == TypeOneofCase.Plant) {
         output.WriteRawTag(18);
-        output.WriteMessage(Tree);
+        output.WriteMessage(Plant);
       }
       if (typeCase_ == TypeOneofCase.Animal) {
         output.WriteRawTag(26);
@@ -1292,8 +1297,8 @@ namespace Api.Realtime {
       if (typeCase_ == TypeOneofCase.Any) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Any);
       }
-      if (typeCase_ == TypeOneofCase.Tree) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Tree);
+      if (typeCase_ == TypeOneofCase.Plant) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Plant);
       }
       if (typeCase_ == TypeOneofCase.Animal) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Animal);
@@ -1316,11 +1321,11 @@ namespace Api.Realtime {
           }
           Any.MergeFrom(other.Any);
           break;
-        case TypeOneofCase.Tree:
-          if (Tree == null) {
-            Tree = new global::Api.Realtime.Tree();
+        case TypeOneofCase.Plant:
+          if (Plant == null) {
+            Plant = new global::Api.Realtime.Plant();
           }
-          Tree.MergeFrom(other.Tree);
+          Plant.MergeFrom(other.Plant);
           break;
         case TypeOneofCase.Animal:
           if (Animal == null) {
@@ -1351,12 +1356,12 @@ namespace Api.Realtime {
             break;
           }
           case 18: {
-            global::Api.Realtime.Tree subBuilder = new global::Api.Realtime.Tree();
-            if (typeCase_ == TypeOneofCase.Tree) {
-              subBuilder.MergeFrom(Tree);
+            global::Api.Realtime.Plant subBuilder = new global::Api.Realtime.Plant();
+            if (typeCase_ == TypeOneofCase.Plant) {
+              subBuilder.MergeFrom(Plant);
             }
             input.ReadMessage(subBuilder);
-            Tree = subBuilder;
+            Plant = subBuilder;
             break;
           }
           case 26: {
@@ -1403,8 +1408,8 @@ namespace Api.Realtime {
         case TypeOneofCase.Any:
           Any = other.Any.Clone();
           break;
-        case TypeOneofCase.Tree:
-          Tree = other.Tree.Clone();
+        case TypeOneofCase.Plant:
+          Plant = other.Plant.Clone();
           break;
         case TypeOneofCase.Animal:
           Animal = other.Animal.Clone();
@@ -1433,14 +1438,14 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "tree" field.</summary>
-    public const int TreeFieldNumber = 2;
+    /// <summary>Field number for the "plant" field.</summary>
+    public const int PlantFieldNumber = 2;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Tree Tree {
-      get { return typeCase_ == TypeOneofCase.Tree ? (global::Api.Realtime.Tree) type_ : null; }
+    public global::Api.Realtime.Plant Plant {
+      get { return typeCase_ == TypeOneofCase.Plant ? (global::Api.Realtime.Plant) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Tree;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.Plant;
       }
     }
 
@@ -1463,7 +1468,7 @@ namespace Api.Realtime {
     public enum TypeOneofCase {
       None = 0,
       Any = 1,
-      Tree = 2,
+      Plant = 2,
       Animal = 3,
     }
     private TypeOneofCase typeCase_ = TypeOneofCase.None;
@@ -1492,7 +1497,7 @@ namespace Api.Realtime {
         return true;
       }
       if (!object.Equals(Any, other.Any)) return false;
-      if (!object.Equals(Tree, other.Tree)) return false;
+      if (!object.Equals(Plant, other.Plant)) return false;
       if (!object.Equals(Animal, other.Animal)) return false;
       if (TypeCase != other.TypeCase) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1502,7 +1507,7 @@ namespace Api.Realtime {
     public override int GetHashCode() {
       int hash = 1;
       if (typeCase_ == TypeOneofCase.Any) hash ^= Any.GetHashCode();
-      if (typeCase_ == TypeOneofCase.Tree) hash ^= Tree.GetHashCode();
+      if (typeCase_ == TypeOneofCase.Plant) hash ^= Plant.GetHashCode();
       if (typeCase_ == TypeOneofCase.Animal) hash ^= Animal.GetHashCode();
       hash ^= (int) typeCase_;
       if (_unknownFields != null) {
@@ -1522,9 +1527,9 @@ namespace Api.Realtime {
         output.WriteRawTag(10);
         output.WriteMessage(Any);
       }
-      if (typeCase_ == TypeOneofCase.Tree) {
+      if (typeCase_ == TypeOneofCase.Plant) {
         output.WriteRawTag(18);
-        output.WriteMessage(Tree);
+        output.WriteMessage(Plant);
       }
       if (typeCase_ == TypeOneofCase.Animal) {
         output.WriteRawTag(26);
@@ -1541,8 +1546,8 @@ namespace Api.Realtime {
       if (typeCase_ == TypeOneofCase.Any) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Any);
       }
-      if (typeCase_ == TypeOneofCase.Tree) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Tree);
+      if (typeCase_ == TypeOneofCase.Plant) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Plant);
       }
       if (typeCase_ == TypeOneofCase.Animal) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Animal);
@@ -1565,11 +1570,11 @@ namespace Api.Realtime {
           }
           Any.MergeFrom(other.Any);
           break;
-        case TypeOneofCase.Tree:
-          if (Tree == null) {
-            Tree = new global::Api.Realtime.Tree();
+        case TypeOneofCase.Plant:
+          if (Plant == null) {
+            Plant = new global::Api.Realtime.Plant();
           }
-          Tree.MergeFrom(other.Tree);
+          Plant.MergeFrom(other.Plant);
           break;
         case TypeOneofCase.Animal:
           if (Animal == null) {
@@ -1600,12 +1605,12 @@ namespace Api.Realtime {
             break;
           }
           case 18: {
-            global::Api.Realtime.Tree subBuilder = new global::Api.Realtime.Tree();
-            if (typeCase_ == TypeOneofCase.Tree) {
-              subBuilder.MergeFrom(Tree);
+            global::Api.Realtime.Plant subBuilder = new global::Api.Realtime.Plant();
+            if (typeCase_ == TypeOneofCase.Plant) {
+              subBuilder.MergeFrom(Plant);
             }
             input.ReadMessage(subBuilder);
-            Tree = subBuilder;
+            Plant = subBuilder;
             break;
           }
           case 26: {
@@ -2087,11 +2092,11 @@ namespace Api.Realtime {
 
   }
 
-  public sealed partial class Tree : pb::IMessage<Tree> {
-    private static readonly pb::MessageParser<Tree> _parser = new pb::MessageParser<Tree>(() => new Tree());
+  public sealed partial class Plant : pb::IMessage<Plant> {
+    private static readonly pb::MessageParser<Plant> _parser = new pb::MessageParser<Plant>(() => new Plant());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Tree> Parser { get { return _parser; } }
+    public static pb::MessageParser<Plant> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -2104,21 +2109,21 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Tree() {
+    public Plant() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Tree(Tree other) : this() {
+    public Plant(Plant other) : this() {
       transform_ = other.transform_ != null ? other.transform_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Tree Clone() {
-      return new Tree(this);
+    public Plant Clone() {
+      return new Plant(this);
     }
 
     /// <summary>Field number for the "transform" field.</summary>
@@ -2137,11 +2142,11 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Tree);
+      return Equals(other as Plant);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Tree other) {
+    public bool Equals(Plant other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -2191,7 +2196,7 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Tree other) {
+    public void MergeFrom(Plant other) {
       if (other == null) {
         return;
       }
@@ -2541,8 +2546,8 @@ namespace Api.Realtime {
         case TypeOneofCase.AnimalCharacteristics:
           AnimalCharacteristics = other.AnimalCharacteristics.Clone();
           break;
-        case TypeOneofCase.VegetationCharacteristics:
-          VegetationCharacteristics = other.VegetationCharacteristics.Clone();
+        case TypeOneofCase.PlantCharacteristics:
+          PlantCharacteristics = other.PlantCharacteristics.Clone();
           break;
       }
 
@@ -2642,7 +2647,7 @@ namespace Api.Realtime {
     public const int EatEnergyGainFieldNumber = 7;
     private float eatEnergyGain_;
     /// <summary>
-    /// TODO: do plants eat ?
+    /// TODO: do plants eat ? fed from sun ?
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public float EatEnergyGain {
@@ -2677,14 +2682,14 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "vegetation_characteristics" field.</summary>
-    public const int VegetationCharacteristicsFieldNumber = 16;
+    /// <summary>Field number for the "plant_characteristics" field.</summary>
+    public const int PlantCharacteristicsFieldNumber = 16;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Characteristics.Types.VegetationCharacteristics VegetationCharacteristics {
-      get { return typeCase_ == TypeOneofCase.VegetationCharacteristics ? (global::Api.Realtime.Characteristics.Types.VegetationCharacteristics) type_ : null; }
+    public global::Api.Realtime.Characteristics.Types.PlantCharacteristics PlantCharacteristics {
+      get { return typeCase_ == TypeOneofCase.PlantCharacteristics ? (global::Api.Realtime.Characteristics.Types.PlantCharacteristics) type_ : null; }
       set {
         type_ = value;
-        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.VegetationCharacteristics;
+        typeCase_ = value == null ? TypeOneofCase.None : TypeOneofCase.PlantCharacteristics;
       }
     }
 
@@ -2693,7 +2698,7 @@ namespace Api.Realtime {
     public enum TypeOneofCase {
       None = 0,
       AnimalCharacteristics = 15,
-      VegetationCharacteristics = 16,
+      PlantCharacteristics = 16,
     }
     private TypeOneofCase typeCase_ = TypeOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2729,7 +2734,7 @@ namespace Api.Realtime {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(EatEnergyGain, other.EatEnergyGain)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DrinkEnergyGain, other.DrinkEnergyGain)) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
-      if (!object.Equals(VegetationCharacteristics, other.VegetationCharacteristics)) return false;
+      if (!object.Equals(PlantCharacteristics, other.PlantCharacteristics)) return false;
       if (TypeCase != other.TypeCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -2746,7 +2751,7 @@ namespace Api.Realtime {
       if (EatEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(EatEnergyGain);
       if (DrinkEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DrinkEnergyGain);
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) hash ^= AnimalCharacteristics.GetHashCode();
-      if (typeCase_ == TypeOneofCase.VegetationCharacteristics) hash ^= VegetationCharacteristics.GetHashCode();
+      if (typeCase_ == TypeOneofCase.PlantCharacteristics) hash ^= PlantCharacteristics.GetHashCode();
       hash ^= (int) typeCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2797,9 +2802,9 @@ namespace Api.Realtime {
         output.WriteRawTag(122);
         output.WriteMessage(AnimalCharacteristics);
       }
-      if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
+      if (typeCase_ == TypeOneofCase.PlantCharacteristics) {
         output.WriteRawTag(130, 1);
-        output.WriteMessage(VegetationCharacteristics);
+        output.WriteMessage(PlantCharacteristics);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2836,8 +2841,8 @@ namespace Api.Realtime {
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
       }
-      if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
+      if (typeCase_ == TypeOneofCase.PlantCharacteristics) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristics);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2881,11 +2886,11 @@ namespace Api.Realtime {
           }
           AnimalCharacteristics.MergeFrom(other.AnimalCharacteristics);
           break;
-        case TypeOneofCase.VegetationCharacteristics:
-          if (VegetationCharacteristics == null) {
-            VegetationCharacteristics = new global::Api.Realtime.Characteristics.Types.VegetationCharacteristics();
+        case TypeOneofCase.PlantCharacteristics:
+          if (PlantCharacteristics == null) {
+            PlantCharacteristics = new global::Api.Realtime.Characteristics.Types.PlantCharacteristics();
           }
-          VegetationCharacteristics.MergeFrom(other.VegetationCharacteristics);
+          PlantCharacteristics.MergeFrom(other.PlantCharacteristics);
           break;
       }
 
@@ -2942,12 +2947,12 @@ namespace Api.Realtime {
             break;
           }
           case 130: {
-            global::Api.Realtime.Characteristics.Types.VegetationCharacteristics subBuilder = new global::Api.Realtime.Characteristics.Types.VegetationCharacteristics();
-            if (typeCase_ == TypeOneofCase.VegetationCharacteristics) {
-              subBuilder.MergeFrom(VegetationCharacteristics);
+            global::Api.Realtime.Characteristics.Types.PlantCharacteristics subBuilder = new global::Api.Realtime.Characteristics.Types.PlantCharacteristics();
+            if (typeCase_ == TypeOneofCase.PlantCharacteristics) {
+              subBuilder.MergeFrom(PlantCharacteristics);
             }
             input.ReadMessage(subBuilder);
-            VegetationCharacteristics = subBuilder;
+            PlantCharacteristics = subBuilder;
             break;
           }
         }
@@ -3202,11 +3207,11 @@ namespace Api.Realtime {
 
       }
 
-      public sealed partial class VegetationCharacteristics : pb::IMessage<VegetationCharacteristics> {
-        private static readonly pb::MessageParser<VegetationCharacteristics> _parser = new pb::MessageParser<VegetationCharacteristics>(() => new VegetationCharacteristics());
+      public sealed partial class PlantCharacteristics : pb::IMessage<PlantCharacteristics> {
+        private static readonly pb::MessageParser<PlantCharacteristics> _parser = new pb::MessageParser<PlantCharacteristics>(() => new PlantCharacteristics());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<VegetationCharacteristics> Parser { get { return _parser; } }
+        public static pb::MessageParser<PlantCharacteristics> Parser { get { return _parser; } }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
@@ -3219,29 +3224,29 @@ namespace Api.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public VegetationCharacteristics() {
+        public PlantCharacteristics() {
           OnConstruction();
         }
 
         partial void OnConstruction();
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public VegetationCharacteristics(VegetationCharacteristics other) : this() {
+        public PlantCharacteristics(PlantCharacteristics other) : this() {
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public VegetationCharacteristics Clone() {
-          return new VegetationCharacteristics(this);
+        public PlantCharacteristics Clone() {
+          return new PlantCharacteristics(this);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override bool Equals(object other) {
-          return Equals(other as VegetationCharacteristics);
+          return Equals(other as PlantCharacteristics);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(VegetationCharacteristics other) {
+        public bool Equals(PlantCharacteristics other) {
           if (ReferenceEquals(other, null)) {
             return false;
           }
@@ -3282,7 +3287,7 @@ namespace Api.Realtime {
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(VegetationCharacteristics other) {
+        public void MergeFrom(PlantCharacteristics other) {
           if (other == null) {
             return;
           }
@@ -3308,6 +3313,296 @@ namespace Api.Realtime {
 
   }
 
+  /// <summary>
+  /// TODO: instead of this, what about building a (binary ? tree type depend on reproduction type) tree, idk if that can scale
+  /// </summary>
+  public sealed partial class TimeSeriePoint : pb::IMessage<TimeSeriePoint> {
+    private static readonly pb::MessageParser<TimeSeriePoint> _parser = new pb::MessageParser<TimeSeriePoint>(() => new TimeSeriePoint());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<TimeSeriePoint> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[13]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeSeriePoint() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeSeriePoint(TimeSeriePoint other) : this() {
+      animals_ = other.animals_;
+      plants_ = other.plants_;
+      animalAge_ = other.animalAge_;
+      animalCharacteristics_ = other.animalCharacteristics_ != null ? other.animalCharacteristics_.Clone() : null;
+      plantAge_ = other.plantAge_;
+      plantCharacteristics_ = other.plantCharacteristics_ != null ? other.plantCharacteristics_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeSeriePoint Clone() {
+      return new TimeSeriePoint(this);
+    }
+
+    /// <summary>Field number for the "animals" field.</summary>
+    public const int AnimalsFieldNumber = 50;
+    private long animals_;
+    /// <summary>
+    /// Discrete
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Animals {
+      get { return animals_; }
+      set {
+        animals_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "plants" field.</summary>
+    public const int PlantsFieldNumber = 60;
+    private long plants_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Plants {
+      get { return plants_; }
+      set {
+        plants_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "animal_age" field.</summary>
+    public const int AnimalAgeFieldNumber = 70;
+    private double animalAge_;
+    /// <summary>
+    /// Computed, maybe variance no brain at first
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double AnimalAge {
+      get { return animalAge_; }
+      set {
+        animalAge_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "animal_characteristics" field.</summary>
+    public const int AnimalCharacteristicsFieldNumber = 10;
+    private global::Api.Realtime.Characteristics animalCharacteristics_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Characteristics AnimalCharacteristics {
+      get { return animalCharacteristics_; }
+      set {
+        animalCharacteristics_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "plant_age" field.</summary>
+    public const int PlantAgeFieldNumber = 90;
+    private double plantAge_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double PlantAge {
+      get { return plantAge_; }
+      set {
+        plantAge_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "plant_characteristics" field.</summary>
+    public const int PlantCharacteristicsFieldNumber = 40;
+    private global::Api.Realtime.Characteristics plantCharacteristics_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Api.Realtime.Characteristics PlantCharacteristics {
+      get { return plantCharacteristics_; }
+      set {
+        plantCharacteristics_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as TimeSeriePoint);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(TimeSeriePoint other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Animals != other.Animals) return false;
+      if (Plants != other.Plants) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(AnimalAge, other.AnimalAge)) return false;
+      if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(PlantAge, other.PlantAge)) return false;
+      if (!object.Equals(PlantCharacteristics, other.PlantCharacteristics)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Animals != 0L) hash ^= Animals.GetHashCode();
+      if (Plants != 0L) hash ^= Plants.GetHashCode();
+      if (AnimalAge != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(AnimalAge);
+      if (animalCharacteristics_ != null) hash ^= AnimalCharacteristics.GetHashCode();
+      if (PlantAge != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(PlantAge);
+      if (plantCharacteristics_ != null) hash ^= PlantCharacteristics.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (animalCharacteristics_ != null) {
+        output.WriteRawTag(82);
+        output.WriteMessage(AnimalCharacteristics);
+      }
+      if (plantCharacteristics_ != null) {
+        output.WriteRawTag(194, 2);
+        output.WriteMessage(PlantCharacteristics);
+      }
+      if (Animals != 0L) {
+        output.WriteRawTag(144, 3);
+        output.WriteInt64(Animals);
+      }
+      if (Plants != 0L) {
+        output.WriteRawTag(224, 3);
+        output.WriteInt64(Plants);
+      }
+      if (AnimalAge != 0D) {
+        output.WriteRawTag(177, 4);
+        output.WriteDouble(AnimalAge);
+      }
+      if (PlantAge != 0D) {
+        output.WriteRawTag(209, 5);
+        output.WriteDouble(PlantAge);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Animals != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(Animals);
+      }
+      if (Plants != 0L) {
+        size += 2 + pb::CodedOutputStream.ComputeInt64Size(Plants);
+      }
+      if (AnimalAge != 0D) {
+        size += 2 + 8;
+      }
+      if (animalCharacteristics_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
+      }
+      if (PlantAge != 0D) {
+        size += 2 + 8;
+      }
+      if (plantCharacteristics_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristics);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(TimeSeriePoint other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Animals != 0L) {
+        Animals = other.Animals;
+      }
+      if (other.Plants != 0L) {
+        Plants = other.Plants;
+      }
+      if (other.AnimalAge != 0D) {
+        AnimalAge = other.AnimalAge;
+      }
+      if (other.animalCharacteristics_ != null) {
+        if (animalCharacteristics_ == null) {
+          animalCharacteristics_ = new global::Api.Realtime.Characteristics();
+        }
+        AnimalCharacteristics.MergeFrom(other.AnimalCharacteristics);
+      }
+      if (other.PlantAge != 0D) {
+        PlantAge = other.PlantAge;
+      }
+      if (other.plantCharacteristics_ != null) {
+        if (plantCharacteristics_ == null) {
+          plantCharacteristics_ = new global::Api.Realtime.Characteristics();
+        }
+        PlantCharacteristics.MergeFrom(other.PlantCharacteristics);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 82: {
+            if (animalCharacteristics_ == null) {
+              animalCharacteristics_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(animalCharacteristics_);
+            break;
+          }
+          case 322: {
+            if (plantCharacteristics_ == null) {
+              plantCharacteristics_ = new global::Api.Realtime.Characteristics();
+            }
+            input.ReadMessage(plantCharacteristics_);
+            break;
+          }
+          case 400: {
+            Animals = input.ReadInt64();
+            break;
+          }
+          case 480: {
+            Plants = input.ReadInt64();
+            break;
+          }
+          case 561: {
+            AnimalAge = input.ReadDouble();
+            break;
+          }
+          case 721: {
+            PlantAge = input.ReadDouble();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class Experience : pb::IMessage<Experience> {
     private static readonly pb::MessageParser<Experience> _parser = new pb::MessageParser<Experience>(() => new Experience());
     private pb::UnknownFieldSet _unknownFields;
@@ -3316,7 +3611,7 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Api.Realtime.RealtimeReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3339,10 +3634,10 @@ namespace Api.Realtime {
       animalCharacteristicsMaximumBound_ = other.animalCharacteristicsMaximumBound_ != null ? other.animalCharacteristicsMaximumBound_.Clone() : null;
       animalDistribution_ = other.animalDistribution_ != null ? other.animalDistribution_.Clone() : null;
       includeCarnivorous_ = other.includeCarnivorous_;
-      vegetationCharacteristics_ = other.vegetationCharacteristics_ != null ? other.vegetationCharacteristics_.Clone() : null;
-      vegetationCharacteristicsMinimumBound_ = other.vegetationCharacteristicsMinimumBound_ != null ? other.vegetationCharacteristicsMinimumBound_.Clone() : null;
-      vegetationCharacteristicsMaximumBound_ = other.vegetationCharacteristicsMaximumBound_ != null ? other.vegetationCharacteristicsMaximumBound_.Clone() : null;
-      vegetationDistribution_ = other.vegetationDistribution_ != null ? other.vegetationDistribution_.Clone() : null;
+      plantCharacteristics_ = other.plantCharacteristics_ != null ? other.plantCharacteristics_.Clone() : null;
+      plantCharacteristicsMinimumBound_ = other.plantCharacteristicsMinimumBound_ != null ? other.plantCharacteristicsMinimumBound_.Clone() : null;
+      plantCharacteristicsMaximumBound_ = other.plantCharacteristicsMaximumBound_ != null ? other.plantCharacteristicsMaximumBound_.Clone() : null;
+      plantDistribution_ = other.plantDistribution_ != null ? other.plantDistribution_.Clone() : null;
       map_ = other.map_ != null ? other.map_.Clone() : null;
       general_ = other.general_ != null ? other.general_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -3422,47 +3717,47 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "vegetation_characteristics" field.</summary>
-    public const int VegetationCharacteristicsFieldNumber = 40;
-    private global::Api.Realtime.Characteristics vegetationCharacteristics_;
+    /// <summary>Field number for the "plant_characteristics" field.</summary>
+    public const int PlantCharacteristicsFieldNumber = 40;
+    private global::Api.Realtime.Characteristics plantCharacteristics_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Characteristics VegetationCharacteristics {
-      get { return vegetationCharacteristics_; }
+    public global::Api.Realtime.Characteristics PlantCharacteristics {
+      get { return plantCharacteristics_; }
       set {
-        vegetationCharacteristics_ = value;
+        plantCharacteristics_ = value;
       }
     }
 
-    /// <summary>Field number for the "vegetation_characteristics_minimum_bound" field.</summary>
-    public const int VegetationCharacteristicsMinimumBoundFieldNumber = 41;
-    private global::Api.Realtime.Characteristics vegetationCharacteristicsMinimumBound_;
+    /// <summary>Field number for the "plant_characteristics_minimum_bound" field.</summary>
+    public const int PlantCharacteristicsMinimumBoundFieldNumber = 41;
+    private global::Api.Realtime.Characteristics plantCharacteristicsMinimumBound_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Characteristics VegetationCharacteristicsMinimumBound {
-      get { return vegetationCharacteristicsMinimumBound_; }
+    public global::Api.Realtime.Characteristics PlantCharacteristicsMinimumBound {
+      get { return plantCharacteristicsMinimumBound_; }
       set {
-        vegetationCharacteristicsMinimumBound_ = value;
+        plantCharacteristicsMinimumBound_ = value;
       }
     }
 
-    /// <summary>Field number for the "vegetation_characteristics_maximum_bound" field.</summary>
-    public const int VegetationCharacteristicsMaximumBoundFieldNumber = 42;
-    private global::Api.Realtime.Characteristics vegetationCharacteristicsMaximumBound_;
+    /// <summary>Field number for the "plant_characteristics_maximum_bound" field.</summary>
+    public const int PlantCharacteristicsMaximumBoundFieldNumber = 42;
+    private global::Api.Realtime.Characteristics plantCharacteristicsMaximumBound_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Characteristics VegetationCharacteristicsMaximumBound {
-      get { return vegetationCharacteristicsMaximumBound_; }
+    public global::Api.Realtime.Characteristics PlantCharacteristicsMaximumBound {
+      get { return plantCharacteristicsMaximumBound_; }
       set {
-        vegetationCharacteristicsMaximumBound_ = value;
+        plantCharacteristicsMaximumBound_ = value;
       }
     }
 
-    /// <summary>Field number for the "vegetation_distribution" field.</summary>
-    public const int VegetationDistributionFieldNumber = 43;
-    private global::Api.Realtime.Experience.Types.PopulationDistribution vegetationDistribution_;
+    /// <summary>Field number for the "plant_distribution" field.</summary>
+    public const int PlantDistributionFieldNumber = 43;
+    private global::Api.Realtime.Experience.Types.PopulationDistribution plantDistribution_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Experience.Types.PopulationDistribution VegetationDistribution {
-      get { return vegetationDistribution_; }
+    public global::Api.Realtime.Experience.Types.PopulationDistribution PlantDistribution {
+      get { return plantDistribution_; }
       set {
-        vegetationDistribution_ = value;
+        plantDistribution_ = value;
       }
     }
 
@@ -3507,10 +3802,10 @@ namespace Api.Realtime {
       if (!object.Equals(AnimalCharacteristicsMaximumBound, other.AnimalCharacteristicsMaximumBound)) return false;
       if (!object.Equals(AnimalDistribution, other.AnimalDistribution)) return false;
       if (IncludeCarnivorous != other.IncludeCarnivorous) return false;
-      if (!object.Equals(VegetationCharacteristics, other.VegetationCharacteristics)) return false;
-      if (!object.Equals(VegetationCharacteristicsMinimumBound, other.VegetationCharacteristicsMinimumBound)) return false;
-      if (!object.Equals(VegetationCharacteristicsMaximumBound, other.VegetationCharacteristicsMaximumBound)) return false;
-      if (!object.Equals(VegetationDistribution, other.VegetationDistribution)) return false;
+      if (!object.Equals(PlantCharacteristics, other.PlantCharacteristics)) return false;
+      if (!object.Equals(PlantCharacteristicsMinimumBound, other.PlantCharacteristicsMinimumBound)) return false;
+      if (!object.Equals(PlantCharacteristicsMaximumBound, other.PlantCharacteristicsMaximumBound)) return false;
+      if (!object.Equals(PlantDistribution, other.PlantDistribution)) return false;
       if (!object.Equals(Map, other.Map)) return false;
       if (!object.Equals(General, other.General)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -3525,10 +3820,10 @@ namespace Api.Realtime {
       if (animalCharacteristicsMaximumBound_ != null) hash ^= AnimalCharacteristicsMaximumBound.GetHashCode();
       if (animalDistribution_ != null) hash ^= AnimalDistribution.GetHashCode();
       if (IncludeCarnivorous != false) hash ^= IncludeCarnivorous.GetHashCode();
-      if (vegetationCharacteristics_ != null) hash ^= VegetationCharacteristics.GetHashCode();
-      if (vegetationCharacteristicsMinimumBound_ != null) hash ^= VegetationCharacteristicsMinimumBound.GetHashCode();
-      if (vegetationCharacteristicsMaximumBound_ != null) hash ^= VegetationCharacteristicsMaximumBound.GetHashCode();
-      if (vegetationDistribution_ != null) hash ^= VegetationDistribution.GetHashCode();
+      if (plantCharacteristics_ != null) hash ^= PlantCharacteristics.GetHashCode();
+      if (plantCharacteristicsMinimumBound_ != null) hash ^= PlantCharacteristicsMinimumBound.GetHashCode();
+      if (plantCharacteristicsMaximumBound_ != null) hash ^= PlantCharacteristicsMaximumBound.GetHashCode();
+      if (plantDistribution_ != null) hash ^= PlantDistribution.GetHashCode();
       if (map_ != null) hash ^= Map.GetHashCode();
       if (general_ != null) hash ^= General.GetHashCode();
       if (_unknownFields != null) {
@@ -3568,21 +3863,21 @@ namespace Api.Realtime {
         output.WriteRawTag(112);
         output.WriteBool(IncludeCarnivorous);
       }
-      if (vegetationCharacteristics_ != null) {
+      if (plantCharacteristics_ != null) {
         output.WriteRawTag(194, 2);
-        output.WriteMessage(VegetationCharacteristics);
+        output.WriteMessage(PlantCharacteristics);
       }
-      if (vegetationCharacteristicsMinimumBound_ != null) {
+      if (plantCharacteristicsMinimumBound_ != null) {
         output.WriteRawTag(202, 2);
-        output.WriteMessage(VegetationCharacteristicsMinimumBound);
+        output.WriteMessage(PlantCharacteristicsMinimumBound);
       }
-      if (vegetationCharacteristicsMaximumBound_ != null) {
+      if (plantCharacteristicsMaximumBound_ != null) {
         output.WriteRawTag(210, 2);
-        output.WriteMessage(VegetationCharacteristicsMaximumBound);
+        output.WriteMessage(PlantCharacteristicsMaximumBound);
       }
-      if (vegetationDistribution_ != null) {
+      if (plantDistribution_ != null) {
         output.WriteRawTag(218, 2);
-        output.WriteMessage(VegetationDistribution);
+        output.WriteMessage(PlantDistribution);
       }
       if (map_ != null) {
         output.WriteRawTag(146, 3);
@@ -3618,17 +3913,17 @@ namespace Api.Realtime {
       if (IncludeCarnivorous != false) {
         size += 1 + 1;
       }
-      if (vegetationCharacteristics_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristics);
+      if (plantCharacteristics_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristics);
       }
-      if (vegetationCharacteristicsMinimumBound_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristicsMinimumBound);
+      if (plantCharacteristicsMinimumBound_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristicsMinimumBound);
       }
-      if (vegetationCharacteristicsMaximumBound_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationCharacteristicsMaximumBound);
+      if (plantCharacteristicsMaximumBound_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristicsMaximumBound);
       }
-      if (vegetationDistribution_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(VegetationDistribution);
+      if (plantDistribution_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantDistribution);
       }
       if (map_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(Map);
@@ -3677,29 +3972,29 @@ namespace Api.Realtime {
       if (other.IncludeCarnivorous != false) {
         IncludeCarnivorous = other.IncludeCarnivorous;
       }
-      if (other.vegetationCharacteristics_ != null) {
-        if (vegetationCharacteristics_ == null) {
-          vegetationCharacteristics_ = new global::Api.Realtime.Characteristics();
+      if (other.plantCharacteristics_ != null) {
+        if (plantCharacteristics_ == null) {
+          plantCharacteristics_ = new global::Api.Realtime.Characteristics();
         }
-        VegetationCharacteristics.MergeFrom(other.VegetationCharacteristics);
+        PlantCharacteristics.MergeFrom(other.PlantCharacteristics);
       }
-      if (other.vegetationCharacteristicsMinimumBound_ != null) {
-        if (vegetationCharacteristicsMinimumBound_ == null) {
-          vegetationCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+      if (other.plantCharacteristicsMinimumBound_ != null) {
+        if (plantCharacteristicsMinimumBound_ == null) {
+          plantCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
         }
-        VegetationCharacteristicsMinimumBound.MergeFrom(other.VegetationCharacteristicsMinimumBound);
+        PlantCharacteristicsMinimumBound.MergeFrom(other.PlantCharacteristicsMinimumBound);
       }
-      if (other.vegetationCharacteristicsMaximumBound_ != null) {
-        if (vegetationCharacteristicsMaximumBound_ == null) {
-          vegetationCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+      if (other.plantCharacteristicsMaximumBound_ != null) {
+        if (plantCharacteristicsMaximumBound_ == null) {
+          plantCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
         }
-        VegetationCharacteristicsMaximumBound.MergeFrom(other.VegetationCharacteristicsMaximumBound);
+        PlantCharacteristicsMaximumBound.MergeFrom(other.PlantCharacteristicsMaximumBound);
       }
-      if (other.vegetationDistribution_ != null) {
-        if (vegetationDistribution_ == null) {
-          vegetationDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
+      if (other.plantDistribution_ != null) {
+        if (plantDistribution_ == null) {
+          plantDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
         }
-        VegetationDistribution.MergeFrom(other.VegetationDistribution);
+        PlantDistribution.MergeFrom(other.PlantDistribution);
       }
       if (other.map_ != null) {
         if (map_ == null) {
@@ -3761,31 +4056,31 @@ namespace Api.Realtime {
             break;
           }
           case 322: {
-            if (vegetationCharacteristics_ == null) {
-              vegetationCharacteristics_ = new global::Api.Realtime.Characteristics();
+            if (plantCharacteristics_ == null) {
+              plantCharacteristics_ = new global::Api.Realtime.Characteristics();
             }
-            input.ReadMessage(vegetationCharacteristics_);
+            input.ReadMessage(plantCharacteristics_);
             break;
           }
           case 330: {
-            if (vegetationCharacteristicsMinimumBound_ == null) {
-              vegetationCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
+            if (plantCharacteristicsMinimumBound_ == null) {
+              plantCharacteristicsMinimumBound_ = new global::Api.Realtime.Characteristics();
             }
-            input.ReadMessage(vegetationCharacteristicsMinimumBound_);
+            input.ReadMessage(plantCharacteristicsMinimumBound_);
             break;
           }
           case 338: {
-            if (vegetationCharacteristicsMaximumBound_ == null) {
-              vegetationCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
+            if (plantCharacteristicsMaximumBound_ == null) {
+              plantCharacteristicsMaximumBound_ = new global::Api.Realtime.Characteristics();
             }
-            input.ReadMessage(vegetationCharacteristicsMaximumBound_);
+            input.ReadMessage(plantCharacteristicsMaximumBound_);
             break;
           }
           case 346: {
-            if (vegetationDistribution_ == null) {
-              vegetationDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
+            if (plantDistribution_ == null) {
+              plantDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
             }
-            input.ReadMessage(vegetationDistribution_);
+            input.ReadMessage(plantDistribution_);
             break;
           }
           case 402: {

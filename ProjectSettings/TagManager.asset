@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - vegetation
   - ground
   - hud
+  - plant
+  - vegetation
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - Vegetation
+  - Plant
   - Animal
   - Ground
   - 

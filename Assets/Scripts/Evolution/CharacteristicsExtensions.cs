@@ -41,11 +41,11 @@ namespace Evolution
                     minBounds = experiences.AnimalCharacteristicsMinimumBound.GetType().GetFields();
                     maxBounds = experiences.AnimalCharacteristicsMaximumBound.GetType().GetFields();
                     break;
-                case Characteristics.TypeOneofCase.VegetationCharacteristics:
-                    minChar = experiences.VegetationCharacteristicsMinimumBound;
-                    maxChar = experiences.VegetationCharacteristicsMaximumBound;
-                    minBounds = experiences.VegetationCharacteristicsMinimumBound.GetType().GetFields();
-                    maxBounds = experiences.VegetationCharacteristicsMaximumBound.GetType().GetFields();
+                case Characteristics.TypeOneofCase.PlantCharacteristics:
+                    minChar = experiences.PlantCharacteristicsMinimumBound;
+                    maxChar = experiences.PlantCharacteristicsMaximumBound;
+                    minBounds = experiences.PlantCharacteristicsMinimumBound.GetType().GetFields();
+                    maxBounds = experiences.PlantCharacteristicsMaximumBound.GetType().GetFields();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

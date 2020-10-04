@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
 using Gameplay;
 using Api.Session;
 using Evolution;
 using Input;
 using Player;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
@@ -19,7 +16,7 @@ namespace UI
     public class Actions : MonoBehaviour
     {
         [SerializeField] private Slider sliderAnimal;
-        [SerializeField] private Slider sliderVegetation;
+        [SerializeField] private Slider sliderPlant;
         [SerializeField] private GameObject seedTemplate;
 
         private Rts _rtsControls;
@@ -34,10 +31,10 @@ namespace UI
             Gm.instance.Experience.AnimalCharacteristics,
             Gm.instance.Experience.AnimalCharacteristicsMinimumBound,
             Gm.instance.Experience.AnimalCharacteristicsMaximumBound);
-        private readonly Spawn _hackVegetation = (p, r) => Hm.instance.SpawnVegetationSync(p, r, 
-            Gm.instance.Experience.VegetationCharacteristics,
-            Gm.instance.Experience.VegetationCharacteristicsMinimumBound,
-            Gm.instance.Experience.VegetationCharacteristicsMaximumBound);
+        private readonly Spawn _hackPlant = (p, r) => Hm.instance.SpawnPlantSync(p, r, 
+            Gm.instance.Experience.PlantCharacteristics,
+            Gm.instance.Experience.PlantCharacteristicsMinimumBound,
+            Gm.instance.Experience.PlantCharacteristicsMaximumBound);
 
         
         private void Awake()
@@ -118,12 +115,12 @@ namespace UI
 
         public void StartDraggingAnimal() => StartDragging(Color.blue);
 
-        public void StartDraggingTree() => StartDragging(Color.green);
+        public void StartDraggingPlant() => StartDragging(Color.green);
 
         public void StopDraggingAnimal() => StopDragging((int) sliderAnimal.value, Color.blue,
             !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
-        public void StopDraggingTree() => StopDragging((int) sliderVegetation.value, Color.green,
-            !Gm.instance.online || Sm.instance.isServer ? _hackVegetation : Hm.instance.RequestSpawnVegetation);
+        public void StopDraggingPlant() => StopDragging((int) sliderPlant.value, Color.green,
+            !Gm.instance.online || Sm.instance.isServer ? _hackPlant : Hm.instance.RequestSpawnPlant);
     }
 }

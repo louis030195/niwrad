@@ -84,11 +84,11 @@ namespace Api.Utils
 			};
 			return p;
 		}
-		public static Packet ReqSpawnVegetation(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		public static Packet ReqSpawnPlant(this Packet p, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
 		{
 			p.RequestSpawn = new Spawn
 			{
-				Tree = new Tree
+				Plant = new Plant
 				{
 					Transform = new Transform
 					{
@@ -99,11 +99,11 @@ namespace Api.Utils
 			};
 			return p;
 		}
-		public static Packet SpawnTree(this Packet p, ulong id, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
+		public static Packet SpawnPlant(this Packet p, ulong id, UnityEngine.Vector3 v, UnityEngine.Quaternion q)
 		{
 			p.Spawn = new Spawn
 			{
-				Tree = new Tree
+                Plant = new Plant
 				{
 					Transform = new Transform
 					{
@@ -131,11 +131,11 @@ namespace Api.Utils
 			return p;
 		}
 
-		public static Packet DestroyTree(this Packet p, ulong id)
+		public static Packet DestroyPlant(this Packet p, ulong id)
 		{
 			p.Destroy = new Destroy
 			{
-				Tree = new Tree
+                Plant = new Plant
 				{
 					Transform = new Transform
 					{

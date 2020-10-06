@@ -44,17 +44,7 @@ namespace Gameplay
 
         [SerializeField, Tooltip("Prefab containing all network managers, not required offline")]
         private GameObject networkManagersPrefab;
-
-        [Header("Map")] 
-        [SerializeField, Range(1, 12)]
-        private int mapSize = 3;
-        [SerializeField, Range(1, 1000)]
-        private int mapHeight = 10;
-        [SerializeField, Range(0, 2000)]
-        private int mapSpread = 1000;
-        [SerializeField, Range(0, 1)]
-        private float mapSpreadReductionRate = 0.8f;
-
+        
         public Experience Experience { get; private set; }
 
 

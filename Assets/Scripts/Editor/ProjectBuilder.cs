@@ -102,25 +102,30 @@ namespace Editor
             // Set version for this build
             PlayerSettings.bundleVersion = options["buildVersion"];
             // PlayerSettings.macOS.buildNumber = options["buildVersion"];
-            // PlayerSettings.Android.bundleVersionCode = int.Parse(options["androidVersionCode"]);
+            PlayerSettings.Android.bundleVersionCode = int.Parse(options["androidVersionCode"]);
 
             // Apply build target
             var buildTarget = (BuildTarget) Enum.Parse(typeof(BuildTarget), options["buildTarget"]);
             if (buildTarget == BuildTarget.Android)
             {
-                // EditorUserBuildSettings.buildAppBundle = options["customBuildPath"].EndsWith(".aab");
-                // if (options.TryGetValue("androidKeystoreName", out string keystoreName) &&
-                //     !string.IsNullOrEmpty(keystoreName))
-                //     PlayerSettings.Android.keystoreName = keystoreName;
-                // if (options.TryGetValue("androidKeystorePass", out string keystorePass) &&
-                //     !string.IsNullOrEmpty(keystorePass))
-                //     PlayerSettings.Android.keystorePass = keystorePass;
-                // if (options.TryGetValue("androidKeyaliasName", out string keyaliasName) &&
-                //     !string.IsNullOrEmpty(keyaliasName))
-                //     PlayerSettings.Android.keyaliasName = keyaliasName;
-                // if (options.TryGetValue("androidKeyaliasPass", out string keyaliasPass) &&
-                //     !string.IsNullOrEmpty(keyaliasPass))
-                //     PlayerSettings.Android.keyaliasPass = keyaliasPass;
+                EditorUserBuildSettings.buildAppBundle = options["customBuildPath"].EndsWith(".aab");
+                if (options.TryGetValue("androidKeystoreName", out var keystoreName) &&
+                    !string.IsNullOrEmpty(keystoreName))
+                    PlayerSettings.Android.keystoreName = keystoreName;
+                if (options.TryGetValue("androidKeystorePass", out var keystorePass) &&
+                    !string.IsNullOrEmpty(keystorePass))
+                    PlayerSettings.Android.keystorePass = keystorePass;
+                if (options.TryGetValue("androidKeyaliasName", out var keyaliasName) &&
+                    !string.IsNullOrEmpty(keyaliasName))
+                    PlayerSettings.Android.keyaliasName = keyaliasName;
+                if (options.TryGetValue("androidKeyaliasPass", out var keyaliasPass) &&
+                    !string.IsNullOrEmpty(keyaliasPass))
+                    PlayerSettings.Android.keyaliasPass = keyaliasPass;
+                // IL2CPP 
+                PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+                // Google Play want all CPU especially arm64
+                PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
+                PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             }
             else if (buildTarget != BuildTarget.iOS)
             {

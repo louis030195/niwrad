@@ -69,8 +69,8 @@ namespace Evolution
                 Name = "BasicExperience",
                 Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
                 {
-                    Size = 7,
-                    Height = 10,
+                    Size = 8,
+                    Height = 20,
                     Spread = 10,
                     SpreadReductionRate = 0.6,
                     Water = false,
@@ -89,8 +89,8 @@ namespace Evolution
                     Life = 50,
                     Robustness = 50,
                     Energy = 50,
-                    ReproductionCost = 50,
-                    EnergyLoss = 50,
+                    ReproductionCost = 90,
+                    EnergyLoss = 100,
                     EatEnergyGain = 50,
                     DrinkEnergyGain = 50,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -104,12 +104,12 @@ namespace Evolution
                 },
                 AnimalCharacteristicsMinimumBound = new Characteristics
                 {
-                    Computation = 1,
+                    Computation = 0,
                     Life = 0,
-                    Robustness = 0.1f,
-                    Energy = 50,
+                    Robustness = 0,
+                    Energy = 0,
                     ReproductionCost = 0,
-                    EnergyLoss = 1f,
+                    EnergyLoss = 0,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
@@ -142,18 +142,18 @@ namespace Evolution
                 },
                 AnimalDistribution = new Experience.Types.PopulationDistribution
                 {
-                  InitialAmount = 20,
-                  Scattering = 20
+                  InitialAmount = 100,
+                  Scattering = 10
                 },
                 PlantCharacteristics = new Characteristics
                 {
-                    Computation = 50,
+                    Computation = 10,
                     Life = 50,
                     Robustness = 50,
                     Energy = 50,
-                    ReproductionCost = 50,
-                    EnergyLoss = 0.1f,
-                    EatEnergyGain = 100,
+                    ReproductionCost = 90,
+                    EnergyLoss = 25,
+                    EatEnergyGain = 10,
                     DrinkEnergyGain = 50,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
@@ -164,7 +164,7 @@ namespace Evolution
                     Robustness = 0,
                     Energy = 0,
                     ReproductionCost = 0,
-                    EnergyLoss = 0.01f,
+                    EnergyLoss = 0,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
@@ -176,15 +176,15 @@ namespace Evolution
                     Robustness = 100,
                     Energy = 100,
                     ReproductionCost = 100,
-                    EnergyLoss = 1f,
+                    EnergyLoss = 100,
                     EatEnergyGain = 100,
                     DrinkEnergyGain = 100,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
                 PlantDistribution = new Experience.Types.PopulationDistribution
                 {
-                    InitialAmount = 20,
-                    Scattering = 20
+                    InitialAmount = 200,
+                    Scattering = 10
                 },
             }; // TODO: move somewhere else
             var i = 0;

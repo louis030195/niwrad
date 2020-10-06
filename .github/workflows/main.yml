@@ -115,6 +115,7 @@ jobs:
   unityOffline:
     name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -150,12 +151,12 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
-          # androidAppBundle: true
-          # androidKeystoreName: nw.keystore
-          # androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          # androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
-          # androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
-          # androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+          androidAppBundle: false # Need Android NDK, not officially supported by unity-builder so idc
+          androidKeystoreName: nw.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
           buildsPath: builds
       - uses: actions/upload-artifact@v2
         with:
@@ -167,7 +168,8 @@ jobs:
 
   page:
     runs-on: ubuntu-latest
-    needs: unityOffline
+    needs: unityOffline # TODO: should be "if unityOffline/WebGL"
+    if: always() # https://stackoverflow.com/questions/58858429/how-to-run-a-github-actions-step-even-if-the-previous-step-fails-while-still-f
     steps:
       - uses: actions/checkout@v2
         with:
@@ -178,9 +180,10 @@ jobs:
           name: offline-clients
       # Quick & dirty hack for custom index.html :p 
       - run: |
-          sed -i '/<body>/a<h1><a href="https://github.com/louis030195/niwrad">Github repository<\/a><\/h1>' WebGL/WebGL/index.html
-          sed -i '/<body>/a<h1><a href="https://forms.gle/uKvEqqnjvFkqDrTU9">Give feedback here<\/a><\/h1>' WebGL/WebGL/index.html
-          sed -i '/<body>/a<h1>PROTIP: PRESS ESCAPE IN GAME AND RUN AN EXPERIENCE<\/h1>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<iframe width="560" height="315" src="https://www.youtube.com/embed/B0MwLHRPuP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1><a href="https://github.com/louis030195/niwrad">Github repository</a></h1>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1><a href="https://forms.gle/uKvEqqnjvFkqDrTU9">Give feedback here</a></h1>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1>PROTIP: PRESS ESCAPE IN GAME AND RUN AN EXPERIENCE</h1>' WebGL/WebGL/index.html
           sed -i "s|<title>.*</title>|<title>Niwrad 0.0.1-$(date '+%D')</title>|g" WebGL/WebGL/index.html
           echo "Hacked index.html :)"
       - name: Deploy 🚀 

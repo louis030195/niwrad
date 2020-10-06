@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,18 @@ namespace Utils
 	{
 		private static readonly Collider[] Results = new Collider[1000];
 
-		/// <summary>
-		/// Returns the closest GameObject around to this position given mask.
-		/// Doesn't guarantee closest when there is more than 1000 colliders around with the given mask
-		/// </summary>
-		/// <param name="go"></param>
-		/// <param name="radius"></param>
-		/// <param name="mask"></param>
-		/// <param name="skipInactive"></param>
-		/// <returns></returns>
-		public static GameObject Closest(this GameObject go, float radius, LayerMask mask, bool skipInactive = true)
+        /// <summary>
+        /// Returns the closest GameObject around to this position given mask.
+        /// Doesn't guarantee closest when there is more than 1000 colliders around with the given mask
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="radius"></param>
+        /// <param name="mask"></param>
+        /// <param name="skipInactive"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public static GameObject Closest(this GameObject go, float radius, LayerMask mask, bool skipInactive = true, 
+            Func<GameObject, bool> filter = null)
 		{
 			var center = go.transform.position;
 			if (UnityEngine.Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
@@ -28,6 +31,7 @@ namespace Utils
 			{
 				// Skip inactive ? Skip self
 				if (c == null || skipInactive && !c.gameObject.activeInHierarchy || c.gameObject.Equals(go)) return;
+                // var f = filter != null && filter.Invoke(c.gameObject); // TODO
 				if (min == default ||
 					Vector3.Distance(c.transform.position, center) <
 				    Vector3.Distance(min.transform.position, center))

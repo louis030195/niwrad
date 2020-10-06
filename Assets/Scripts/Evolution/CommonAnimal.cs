@@ -35,8 +35,7 @@ namespace Evolution
                 characteristics, characteristicsMin, characteristicsMax);
             childHost.characteristics.Mutate(th.characteristics, characteristics, characteristicsMin, characteristicsMax);
 
-            // It's costly to reproduce, proportional to animal age
-            // TODO: change energy instead
+            // It's costly to reproduce, proportional to animal age ?
             characteristics.Energy -= characteristics.ReproductionCost;
             // health.ChangeHealth(-characteristics.ReproductionCost*(1+Age/100));
             if (other != null && th != null)

@@ -410,6 +410,15 @@ namespace Evolution
 
         private Plant SpawnPlant(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
+            if (_plants.Count > 500)
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else    
+                // Yeah let's crash other ppl PCs
+                // Application.Quit();
+#endif
+            }
             var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
                 Pool.Spawn(lowPolyPlantPrefab, p, r).GetComponent<Plant>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Plant>();

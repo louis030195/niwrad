@@ -37,7 +37,9 @@ namespace Evolution
 		// Do plants and animals share senses ? like:
 		// protected Sense<GameObject> feel;
 		// protected Memory<GameObject> feelMemory;
-
+        private Renderer _renderer; // TODO: nothing to do here
+        private Color _originalColor;
+        
         protected void Awake()
         {
             Age = 0;
@@ -47,13 +49,15 @@ namespace Evolution
             // Not sure required, maybe could be useful to prevent hosts forgetting to implement breeding meme
             var n = "Breed";
             Memes[n] = new Meme(n, null, null);
+            _renderer = GetComponent<Renderer>();
+            _originalColor = _renderer.material.color;
         }
 
         protected void Update()
 		{
 			if (Time.frameCount % 5 != 0) return;
             // All hosts loses energy over time
-            characteristics.Energy -= Time.timeScale * characteristics.EnergyLoss * Age;
+            characteristics.Energy -= Time.timeScale * (characteristics.EnergyLoss / 100); //* Age;
 			Age++;
 			// The older, the weaker
             var energyThreshold = 0.1f;
@@ -69,7 +73,9 @@ namespace Evolution
                 health.AddHealth(-0.1f * Time.timeScale*(1 - Mathf.Clamp(characteristics.Robustness/Age, 0, 1)));
                 // Debug.Log($"{name} low energy health.AddHealth {-Time.deltaTime*(1 - Mathf.Clamp(characteristics.Robustness/Age, 0, 1))}");
             }
-		}
+
+            _renderer.material.color = _originalColor * (100 / health.currentHealth);
+        }
 
         /// <summary>
         /// Public function to bring the host to life, or deactivate

@@ -1,3 +1,4 @@
+<!-- Hack that seems necessary for WebGL builds -->
 <linker>
     <assembly fullname="Google.Protobuf" preserve="all"/>
 </linker>

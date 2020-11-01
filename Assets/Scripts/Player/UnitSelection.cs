@@ -121,8 +121,8 @@ namespace Player {
             // Create a rect from both mouse positions
                 
             var rect = Draw.GetScreenRect( _lastMousePosition, Mouse.current.position.ReadValue() );
-            Draw.DrawScreenRect( rect, new Color( 0.8f, 0.8f, 0.95f, 0.25f ) );
-            Draw.DrawScreenRectBorder( rect, 2, new Color( 0.8f, 0.8f, 0.95f ) );
+            Draw.DrawScreenRect( rect, new Color( 0f, 0f, 0f, 0.25f ) );
+            Draw.DrawScreenRectBorder( rect, 2, Color.green );
         }
 
 		private bool IsWithinSelectionBounds( GameObject go )

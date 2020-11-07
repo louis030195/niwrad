@@ -11,8 +11,8 @@ namespace UI
 {
     public static class CodeToUi
     {
-        private const string SliderTemplatePath = "Prefabs/SliderTemplate";
-        private const string CheckboxTemplatePath = "Prefabs/CheckboxTemplate";
+        private const string SliderTemplatePath = "Prefabs/BlueSliderTemplate";
+        private const string CheckboxTemplatePath = "Prefabs/BlueCheckboxTemplate";
         private static readonly GameObject DefaultSlider = Resources.Load(SliderTemplatePath) as GameObject;
         private static readonly GameObject DefaultCheckBox = Resources.Load(CheckboxTemplatePath) as GameObject;
         

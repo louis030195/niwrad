@@ -1,70 +1,69 @@
 name: Build Niwrad
-
+# All online stuff off, online mode is pushed aside right now
 on:
   push: { branches: [dev, master] }
   pull_request: { branches: [master] }
-  release: { types: [published] }
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  nakama:
-    name: Test code, build image and push it
-    strategy:
-      matrix:
-        go-version: [1.14.x]
-        platform: [ubuntu-latest]
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.go-version }}
-      - name: Checkout code
-        uses: actions/checkout@v2
+  # nakama:
+  #   name: Test code, build image and push it
+  #   strategy:
+  #     matrix:
+  #       go-version: [1.14.x]
+  #       platform: [ubuntu-latest]
+  #   runs-on: ${{ matrix.platform }}
+  #   steps:
+  #     - name: Install Go
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ matrix.go-version }}
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
       # - name: Move to Go directory
       #   run: cd nakama/niwrad
       # - name: Test go code
       #   run: go test ./...
-      - name: Build and push Niwrad's Nakama Docker images
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: louis030195/nakama
-          tag_with_ref: true
-          tag_with_sha: true
-          path: nakama/niwrad
-          registry: docker.io
-          dockerfile: nakama/niwrad/build/Dockerfile
+      # - name: Build and push Niwrad's Nakama Docker images
+      #   uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      #     repository: louis030195/nakama
+      #     tag_with_ref: true
+      #     tag_with_sha: true
+      #     path: nakama/niwrad
+      #     registry: docker.io
+      #     dockerfile: nakama/niwrad/build/Dockerfile
   # Build Unity executor, run unit tests, build and push Docker image
-  unityExecutor:
-    name: Build Unity executor and container for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        projectPath:
-          - .
-        unityVersion:
-          - 2019.4.11f1
-        targetPlatform:
-          - StandaloneLinux64
-    steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
+  # unityExecutor:
+  #   name: Build Unity executor and container for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       projectPath:
+  #         - .
+  #       unityVersion:
+  #         - 2019.4.11f1
+  #       targetPlatform:
+  #         - StandaloneLinux64
+  #   steps:
+  #     # Checkout
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
 
-      # Cache
-      - uses: actions/cache@v1.1.0
-        with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-          restore-keys: |
-            Library-${{ matrix.projectPath }}-
-            Library-
+  #     # Cache
+  #     - uses: actions/cache@v1.1.0
+  #       with:
+  #         path: ${{ matrix.projectPath }}/Library
+  #         key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+  #         restore-keys: |
+  #           Library-${{ matrix.projectPath }}-
+  #           Library-
 
       # Test
       # TODO: unlimited loading
@@ -85,31 +84,31 @@ jobs:
 
 
       # Build
-      - uses: webbertakken/unity-builder@v1.2
-        with:
-          customParameters: '-niwradMode executor' # '-nographics'
-          projectPath: ${{ matrix.projectPath }}
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-          buildMethod: Editor.Builds.BuildOptions
-          buildsPath: executor
-          allowDirtyBuild: true
-      - uses: actions/upload-artifact@v2
-        with:
-          name: executor
-          path: executor
-          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
+      # - uses: webbertakken/unity-builder@v1.2
+      #   with:
+      #     customParameters: '-niwradMode executor' # '-nographics'
+      #     projectPath: ${{ matrix.projectPath }}
+      #     unityVersion: ${{ matrix.unityVersion }}
+      #     targetPlatform: ${{ matrix.targetPlatform }}
+      #     buildMethod: Editor.Builds.BuildOptions
+      #     buildsPath: executor
+      #     allowDirtyBuild: true
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: executor
+      #     path: executor
+      #     if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
 
       # Build and push Docker image
-      - uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: louis030195/executor
-          tag_with_ref: true
-          tag_with_sha: true
-          path: .
-          dockerfile: Dockerfile
+      # - uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      #     repository: louis030195/executor
+      #     tag_with_ref: true
+      #     tag_with_sha: true
+      #     path: .
+      #     dockerfile: Dockerfile
 
   # Build Unity offline client
   unityOffline:
@@ -144,14 +143,14 @@ jobs:
             Library-
 
       # Build
-      - uses: webbertakken/unity-builder@v1.2
+      - uses: webbertakken/unity-builder@v1.5
         with:
           customParameters: '-niwradMode offline' # '-nographics'
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
-          androidAppBundle: false # Need Android NDK, not officially supported by unity-builder so idc
+          androidAppBundle: true
           androidKeystoreName: nw.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
@@ -183,7 +182,7 @@ jobs:
           sed -i '\|<body>|a<iframe width="560" height="315" src="https://www.youtube.com/embed/B0MwLHRPuP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' WebGL/WebGL/index.html
           sed -i '\|<body>|a<h1><a href="https://github.com/louis030195/niwrad">Github repository</a></h1>' WebGL/WebGL/index.html
           sed -i '\|<body>|a<h1><a href="https://forms.gle/uKvEqqnjvFkqDrTU9">Give feedback here</a></h1>' WebGL/WebGL/index.html
-          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset, i.e. ur pc will burn</h1>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset or your pc will burn</h1>' WebGL/WebGL/index.html
           sed -i "s|<title>.*</title>|<title>Niwrad 0.0.1-$(date '+%D')</title>|g" WebGL/WebGL/index.html
           echo "Hacked index.html :)"
       - name: Deploy 🚀 
@@ -194,67 +193,67 @@ jobs:
           FOLDER: WebGL/WebGL # The folder the action should deploy.
 
   # Build integration tests
-  build-integration:
-    needs: unityExecutor
-    name: Build integration tests
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        projectPath:
-          - helm/templates/tests/ApiTest
-    steps:
-      # Checkout
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
+  # build-integration:
+  #   needs: unityExecutor
+  #   name: Build integration tests
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       projectPath:
+  #         - helm/templates/tests/ApiTest
+  #   steps:
+  #     # Checkout
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
 
-      # Restores Library Unity folder (int tests use some of unity project code)
-      - uses: actions/cache@v1.1.0
-        with:
-          path: Library
-          key: Library-.-StandaloneLinux64
-          restore-keys: |
-            Library-.-
-            Library-
+  #     # Restores Library Unity folder (int tests use some of unity project code)
+  #     - uses: actions/cache@v1.1.0
+  #       with:
+  #         path: Library
+  #         key: Library-.-StandaloneLinux64
+  #         restore-keys: |
+  #           Library-.-
+  #           Library-
 
-      # Build and push Docker image
-      - name: Build and push Niwrad's integration test Docker image
-        uses: docker/build-push-action@v1 # TODO: update to 2 https://github.com/docker/build-push-action
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: louis030195/integration
-          tag_with_ref: true
-          tag_with_sha: true
-          path: .
-          dockerfile: ${{ matrix.projectPath }}/Dockerfile
+  #     # Build and push Docker image
+  #     - name: Build and push Niwrad's integration test Docker image
+  #       uses: docker/build-push-action@v1 # TODO: update to 2 https://github.com/docker/build-push-action
+  #       with:
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
+  #         repository: louis030195/integration
+  #         tag_with_ref: true
+  #         tag_with_sha: true
+  #         path: .
+  #         dockerfile: ${{ matrix.projectPath }}/Dockerfile
 
   # Run integration tests
-  run-integration:
-    needs: [nakama, unityExecutor, build-integration]
-    name: Run integration tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # run-integration:
+  #   needs: [nakama, unityExecutor, build-integration]
+  #   name: Run integration tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Fetch history
-        run: git fetch --prune --unshallow
+  #     - name: Fetch history
+  #       run: git fetch --prune --unshallow
 
-      - name: Run chart-testing (lint)
-        id: lint
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          command: lint --all
+  #     - name: Run chart-testing (lint)
+  #       id: lint
+  #       uses: helm/chart-testing-action@v1.0.0
+  #       with:
+  #         command: lint --all
 
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.0.0
-        # Only build a kind cluster if there are chart changes to test.
-        # if: steps.lint.outputs.changed == 'true'
+  #     - name: Create kind cluster
+  #       uses: helm/kind-action@v1.0.0
+  #       # Only build a kind cluster if there are chart changes to test.
+  #       # if: steps.lint.outputs.changed == 'true'
 
-      - name: Run chart-testing
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          config: helm/
-          command: install --all
+  #     - name: Run chart-testing
+  #       uses: helm/chart-testing-action@v1.0.0
+  #       with:
+  #         config: helm/
+  #         command: install --all

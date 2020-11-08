@@ -7,13 +7,10 @@ using Api.Session;
 using Api.Utils;
 using Cysharp.Threading.Tasks;
 using Evolution;
-using ProceduralTree;
-using TMPro;
 using UI;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
 
@@ -44,15 +41,14 @@ namespace Gameplay
 
         [SerializeField, Tooltip("Prefab containing all network managers, not required offline")]
         private GameObject networkManagersPrefab;
-        
-        public Experience Experience { get; private set; }
 
+        public Experience Experience { get; private set; }
+        
 
         private GameObject _map;
         protected override async void Awake()
         {
             base.Awake();
-
             foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
             {
                 // Debug.Log($"{kv.Key}={kv.Value}");
@@ -145,6 +141,7 @@ namespace Gameplay
                     (float) e.Map.Spread, 
                     (float) e.Map.SpreadReductionRate);
             _map.tag = "ground";
+
             var m = GetComponent<NavMeshSurface>();
             Debug.Log($"Generating map and baking it for path finding");
             m.BuildNavMesh();

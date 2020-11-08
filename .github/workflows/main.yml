@@ -143,9 +143,9 @@ jobs:
             Library-
 
       # Build
-      - uses: webbertakken/unity-builder@v1.5
+      - uses: webbertakken/unity-builder@v2.0-alpha-1
         with:
-          customParameters: '-niwradMode offline' # '-nographics'
+          customParameters: '-niwradMode offline' # '-nographics' 
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}

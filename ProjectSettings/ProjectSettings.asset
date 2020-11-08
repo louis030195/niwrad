@@ -710,6 +710,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
+    1: MAPMAGIC2
     7: MAPMAGIC2
   platformArchitecture: {}
   scriptingBackend:

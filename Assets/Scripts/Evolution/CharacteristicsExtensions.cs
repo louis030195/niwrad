@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Api.Realtime;
 using TMPro;
@@ -62,12 +63,14 @@ namespace Evolution
         /// <param name="secondParent"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
+        /// <param name="ignored">Ignored fields</param>
         public static void MutateObjects( // TODO: gotta benchmark this, will be called quite often
             this object child, 
             object firstParent, 
             object secondParent,
             object min,
-            object max)
+            object max,
+            string[] ignored = null)
         {
             // TODO: seems that c# object is fields, protobuf is properties
             var childFields = child.GetType().GetProperties();
@@ -87,7 +90,8 @@ namespace Evolution
             for (var i = 0; i < childFields.Length; i++)
             {
                 var val = childFields[i].GetValue(child);
-                if (val == null) continue;
+                // Filter out ignored fields
+                if (val == null || ignored != null && ignored.Contains(childFields[i].Name)) continue;
                 // Detected an object field potentially containing some number to mutate
                 if (!(val is float) && val.GetType().GetFields().Length > 0)
                 {
@@ -118,14 +122,16 @@ namespace Evolution
         /// <param name="secondParent"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
+        /// <param name="ignored">ignore characteristics</param>
         public static void Mutate( // TODO: gotta benchmark this, will be called quite often
             this Characteristics child, 
             Characteristics firstParent, 
             Characteristics secondParent,
             Characteristics min,
-            Characteristics max)
+            Characteristics max,
+            string[] ignored = null)
         {
-            child.MutateObjects(firstParent, secondParent, min, max);
+            child.MutateObjects(firstParent, secondParent, min, max, ignored);
         }
         
     }

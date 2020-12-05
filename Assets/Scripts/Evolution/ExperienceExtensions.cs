@@ -64,9 +64,12 @@ namespace Evolution
         {
             if(!Directory.Exists(ExperiencesPath)) Directory.CreateDirectory(ExperiencesPath);
             // var e = Load($"Assets/Scripts/Tests/Data/BasicExperience.json", true);
+            // TODO: normalize value, either all are percentage then tweaked in logic either direct value
             var e = new Experience
             {
                 Name = "BasicExperience",
+                IncludeCarnivorous = true, // include carnivorous by default but not much
+                CarnivorousPercent = 10, // 10% chance born carnivorous (first spawn)
                 Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
                 {
                     Size = 8,
@@ -93,12 +96,14 @@ namespace Evolution
                     EnergyLoss = 100,
                     EatEnergyGain = 50,
                     DrinkEnergyGain = 50,
+                    ReproductionDelay = 50,
+                    ReproductionProbability = 10,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
-                        Speed = 10,
+                        Speed = 5,
                         RandomMovementRange = 10,
                         SightRange = 50,
-                        EatRange = 5,
+                        EatRange = 2,
                         Metabolism = 50,
                     }
                 },
@@ -112,6 +117,8 @@ namespace Evolution
                     EnergyLoss = 0,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
+                    ReproductionDelay = 0,
+                    ReproductionProbability = 0,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 1,
@@ -131,6 +138,8 @@ namespace Evolution
                     EnergyLoss = 100,
                     EatEnergyGain = 100,
                     DrinkEnergyGain = 100,
+                    ReproductionDelay = 100,
+                    ReproductionProbability = 100,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 100,
@@ -151,10 +160,12 @@ namespace Evolution
                     Life = 50,
                     Robustness = 50,
                     Energy = 50,
-                    ReproductionCost = 90,
+                    ReproductionCost = 0,
                     EnergyLoss = 25,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 50,
+                    ReproductionDelay = 5,
+                    ReproductionProbability = 50,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
                 PlantCharacteristicsMinimumBound = new Characteristics
@@ -167,6 +178,8 @@ namespace Evolution
                     EnergyLoss = 0,
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 10,
+                    ReproductionDelay = 0,
+                    ReproductionProbability = 0,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
                 PlantCharacteristicsMaximumBound = new Characteristics
@@ -179,6 +192,8 @@ namespace Evolution
                     EnergyLoss = 100,
                     EatEnergyGain = 100,
                     DrinkEnergyGain = 100,
+                    ReproductionDelay = 100,
+                    ReproductionProbability = 100,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
                 PlantDistribution = new Experience.Types.PopulationDistribution

@@ -4,18 +4,31 @@
 ![Acquire activation file](https://github.com/louis030195/niwrad/workflows/Acquire%20activation%20file/badge.svg)
 ![Build project](https://github.com/louis030195/niwrad/workflows/Build%20project/badge.svg)
 
-<img src="docs/images/demo1.gif" width="300"><img src="docs/images/demo2.gif" width="300">
+[![Video](docs/images/demo1.gif)](https://www.youtube.com/watch?v=B0MwLHRPuP8)
 
-[![Alt text](https://img.youtube.com/vi/B0MwLHRPuP8/0.jpg)](https://www.youtube.com/watch?v=B0MwLHRPuP8)
+Try the offline WebGL version directly [here](http://louis030195.github.io/niwrad), if you want to try on other OS (Windows, Linux, Android, Web available) [check out latest Github Actions artifacts](https://github.com/louis030195/niwrad/actions) or releases.
 
-Try the offline WebGL version directly [here](http://louis030195.com/niwrad), if you want to try on other OS (Windows, Linux, Android, Web available) [check out latest Github Actions artifacts](https://github.com/louis030195/niwrad/actions).
+**The development on online, multiplayer version is paused.**
 
 See related writings:
 
 * [Blog post part one](https://medium.com/swlh/a-simulation-of-evolution-part-one-62a1acfb009a)
 * [Blog post part two](https://medium.com/@louis.beaumont/a-simulation-of-evolution-two-b26664d159a5)
 
-## How it works
+## Features
+
+* [x] Heuristic AI (state machine)
+* [x] Artificial selection (partially)
+  * [x] Spawn plants / animals by drag & drop
+* [x] Reproducible experiences
+  * [x] Ugly as hell UI but UX works
+* [x] Experience metrics (partially)
+  * [x] Big ugly panel in game with number of animals ...
+* [x] Optional carnivorous hosts
+* [x] Android, Linux, Windows, Web, (iOS/MacOS not tested but should work)
+  * [x] Mobile joysticks
+
+## Development
 
 ### Dependencies
 
@@ -24,11 +37,15 @@ See related writings:
 * Online mode: deployments (Docker, Kubernetes, Helm, Minikube / k3s)
 * Both: Unitask, Protobuf, TextMesh Pro
 
-### Objectives
+### Goals
 
-* Hosts (any life form) have characteristics. When hosts reproduce sexually or asexually, the offspring characteristics are its parent's plus mutations.
-* Hosts behaviour code MUST be generic, so we can either implement simple heuristics like state-machines, behaviour trees or go more complex like reinforcement learning.
+* Hosts have characteristics. When hosts reproduce sexually or asexually, the offspring characteristics are its parent's plus mutations.
+* Hosts behaviour code MUST be generic, so we can either implement simple heuristics like state-machines, behaviour trees, utility or try learning AI like reinforcement learning.
 * Observers can trigger artificial selection, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some species
+
+### Non-goals
+
+* Simulating nature at the quantum level
 
 ## Development
 
@@ -81,15 +98,7 @@ make test
 
 ## TODO
 
-* [x] Implement artificial selection
-* [x] Allow reproducable experiences,
-* [ ] experience metrics, 
-* [ ] experience different reproductions (asexual, sexual species, predators, parasites)
-* [ ] implement optional carnivorous hosts
-* [ ] More UI as code
-* [ ] Use less singletons and potentially move away from this pattern
-* [x] <https://github.com/actions/download-artifact> + <https://github.com/actions/upload-release-asset> with manual trigger, input tag
-* [x] Rename all ref to tree / vegetation to flora or plant
-* [ ] experience menu -> import json experience !!!!!!!!!!!!!!!!
-* [ ] Somehow improve the CI with some tag release stuff
-* [ ] Make offline & online start from same scene, e.g. main menu with a "coming soon" on the online button stuff disabled
+* experience menu -> import experiences (setup a cloud storage with some experiences for example).
+* experience different reproductions (asexual, sexual species, predators, parasites)
+* better metrics
+* see issues

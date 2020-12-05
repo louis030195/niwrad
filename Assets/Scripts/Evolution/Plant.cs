@@ -22,6 +22,17 @@ namespace Evolution
             Hm.instance.DestroyPlantSync(id);
         }
 
+        public override bool CanBreed()
+        {
+            // Scaling between 10 and 310 second the reproduction delay
+            // Plus hard-coded probability (90% fail to reproduce)
+            var luckyNewBorn = 100*Random.value < characteristics.ReproductionProbability;
+            var canBreedAgain = Time.time - LastBreed > 10 + 300 * (characteristics.ReproductionDelay / 100);
+            var enoughEnergy = characteristics.Energy > characteristics.ReproductionCost;
+            // Debug.Log($"luckyNewBorn {luckyNewBorn} e {characteristics.Energy} {canBreedAgain}");
+            return luckyNewBorn && canBreedAgain && enoughEnergy;
+        }
+
         public new void EnableBehaviour(bool value)
 		{
             base.EnableBehaviour(value);
@@ -36,7 +47,7 @@ namespace Evolution
                     },
                     new List<Transition>
                     {
-                        new Transition("CanBreed", 0, CanBreed)
+                        new Transition("CanBreed", 0, Breed)
                     },
                     Color.green
                 );
@@ -49,7 +60,7 @@ namespace Evolution
                     },
                     new List<Transition>
                     {
-                        new Transition("CanBreed", 0, CanBreed)
+                        new Transition("CanBreed", 0, Breed)
                     },
                     Color.magenta
                 );
@@ -68,9 +79,7 @@ namespace Evolution
         }
 		private void Reproduce(MemeController c)
         {
-            const float reproductionProbability = 0.1f;
-			// There is a probability of reproduction
-			if (Random.value > reproductionProbability) return;
+            if (!CanBreed()) return;
 			
 			// Spawning a child around
 			var p = transform.position.RandomPositionAroundAboveGroundWithDistance(5,
@@ -86,17 +95,18 @@ namespace Evolution
             characteristics.Energy -= characteristics.ReproductionCost;
 
             // TODO: mutate should handle asexual reproduction
-			childHost.characteristics.Mutate(characteristics, characteristics, characteristicsMin, characteristicsMax);
+			childHost.characteristics.Mutate(characteristics, 
+                characteristics, 
+                characteristicsMin, 
+                characteristicsMax,
+                new []{"Descriptor", "Parser", "Carnivorous", "ReproductionDelay", "Life", "Energy"});
 			LastBreed = Time.time;
 		}
 		#endregion
 
 		#region Transitions
 
-		private Meme CanBreed(MemeController c)
-        {
-            return characteristics.Energy > characteristics.ReproductionCost && health.currentHealth > 50 ? Memes["Breed"] : Memes["Grow"];
-        }
+		private Meme Breed(MemeController c) => CanBreed() ? Memes["Breed"] : Memes["Grow"];
 
 		#endregion
 	}

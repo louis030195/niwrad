@@ -16,10 +16,25 @@ namespace Evolution
 	public class CommonAnimal : Host
 	{
 		[HideInInspector] public Movement movement;
+        protected int _foodLayer;
+        // No sex between different species allowed
+        protected int _specieLayer;
+        public bool isCarnivorous;
 
         protected override void OnDeath()
         {
             Hm.instance.DestroyAnimalSync(id);
+        }
+        
+        public override bool CanBreed()
+        {
+            // Scaling between 10 and 310 second the reproduction delay
+            // Plus hard-coded probability (90% fail to reproduce)
+            var luckyNewBorn = 100*Random.value < characteristics.ReproductionProbability;
+            var canBreedAgain = Time.time - LastBreed > 10 + 300 * (characteristics.ReproductionDelay / 100);
+            var enoughEnergy = characteristics.Energy > characteristics.ReproductionCost;
+            // Debug.Log($"luckyNewBorn {luckyNewBorn} e {characteristics.Energy} {canBreedAgain}");
+            return luckyNewBorn && canBreedAgain && enoughEnergy;
         }
         
         protected void BreedAndMutate(GameObject other)
@@ -33,7 +48,11 @@ namespace Evolution
 			// var p = (transform.position + Random.insideUnitSphere * 10).AboveGround();
 			var childHost = Hm.instance.SpawnAnimalSync(transform.position, Quaternion.identity, 
                 characteristics, characteristicsMin, characteristicsMax);
-            childHost.characteristics.Mutate(th.characteristics, characteristics, characteristicsMin, characteristicsMax);
+            childHost.characteristics.Mutate(th.characteristics, 
+                characteristics, 
+                characteristicsMin, 
+                characteristicsMax, // Description and Parser are protobuf garbage
+                new []{"Descriptor", "Parser", "Carnivorous", "ReproductionDelay", "Life", "Energy"});
 
             // It's costly to reproduce, proportional to animal age ?
             characteristics.Energy -= characteristics.ReproductionCost;
@@ -71,6 +90,12 @@ namespace Evolution
             base.EnableBehaviour(value);
             if (value)
             {
+                _foodLayer = isCarnivorous ? // TODO: LayerMask.get stuff return strange values so just going straight
+                    LayerMask.NameToLayer("HerbivorousAnimal") : 
+                    LayerMask.NameToLayer("Plant");
+                _specieLayer = isCarnivorous ? 
+                    LayerMask.NameToLayer("CarnivorousAnimal") : 
+                    LayerMask.NameToLayer("HerbivorousAnimal");
                 movement = GetComponent<Movement>();
                 movement.navMeshAgent.enabled = true;
                 // TODO: how costly is it to cast everytime ?

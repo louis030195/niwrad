@@ -10,6 +10,7 @@ using ProceduralTree;
 using UnityEngine;
 using Utils;
 using Quaternion = UnityEngine.Quaternion;
+using Random = UnityEngine.Random;
 using Transform = Api.Realtime.Transform;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,7 +19,7 @@ namespace Evolution
     /// <summary>
     /// Defines the level of details of prefab used, e.g. low = cubes only, fast perf
     /// </summary>
-    enum GraphicTier
+    internal enum GraphicTier
     {
         Low,
         Medium,
@@ -32,9 +33,10 @@ namespace Evolution
 	public class Hm : Singleton<Hm> // TODO: fix ugly as hell min max stuff
     {
         [SerializeField] private GraphicTier graphicTier = GraphicTier.Low;
-        [SerializeField] private GameObject lowPolyAnimalPrefab; // E.g. red cube
-        [SerializeField] private GameObject lowPolyPlantPrefab; // E.g. green cube
-
+        [SerializeField] private GameObject lowPolyHerbivorousAnimalPrefab; // E.g. blue cube
+        [SerializeField] private GameObject lowPolyCarnivorousAnimalPrefab; // E.g. red cube
+        [SerializeField] private GameObject lowPolyHerbivorousPlantPrefab; // E.g. green cube
+        [SerializeField] private GameObject lowPolyCarnivorousPlantPrefab; // E.g. green cube
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
@@ -60,15 +62,15 @@ namespace Evolution
             switch (graphicTier)
             {
                 case GraphicTier.Low:
-                    Pool.Preload(lowPolyAnimalPrefab, 100);
-                    Pool.Preload(lowPolyPlantPrefab, 100);
+                    Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
+                    Pool.Preload(lowPolyHerbivorousPlantPrefab, 100);
                     break;
                 case GraphicTier.Medium:
-                    Pool.Preload(lowPolyAnimalPrefab, 100);
+                    Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
                     TreePool.instance.FillSlowly(100);
                     break;
                 case GraphicTier.High:
-                    Pool.Preload(lowPolyAnimalPrefab, 100);
+                    Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
                     TreePool.instance.FillSlowly(100);
                     break;
                 default:
@@ -229,35 +231,51 @@ namespace Evolution
             Reset();
             var areaRadius = Mathf.Pow(2, (float) e.Map.Size*0.9f);
             var middleOfMap = new Vector3(areaRadius, 0, areaRadius);
+            var currentSeed = Random.state;
             for (ulong i = 0; i < e.AnimalDistribution.InitialAmount; i++)
             {
+                Random.InitState(Random.Range(0, 10_000));
+                var mask = LayerMask.GetMask("HerbivorousAnimal");
+                // TODO: maybe should reset seed at some point
+                var isCarnivorous = e.IncludeCarnivorous && Random.Range(0, 100) > 100 - e.CarnivorousPercent;
+                // Debug.Log($"is carn {isCarnivorous} - {Random.value}");
+                if (isCarnivorous) {
+                    // If carnivorous ON = 1/2 chance of animal being carnivorous (TODO: better parameter for carni population)
+                    mask = LayerMask.GetMask("CarnivorousAnimal");
+                }
                 // Random position within the map spaced according to a given scattering
                 var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
-                    LayerMask.GetMask("Animal"),
+                    mask,
                     e.AnimalDistribution.Scattering,
                     (float) e.Map.Height);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
+                e.AnimalCharacteristics.Carnivorous = isCarnivorous;
                 var a = SpawnAnimal(pos, Quaternion.identity, 
                     e.AnimalCharacteristics,
                     e.AnimalCharacteristicsMinimumBound,
                     e.AnimalCharacteristicsMaximumBound);
+
             }
             
             for (ulong i = 0; i < e.PlantDistribution.InitialAmount; i++)
             {
+                Random.InitState(Random.Range(0, 10_000));
                 // Random position within the map spaced according to a given scattering
                 var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
                     LayerMask.GetMask("Plant"),
                     e.PlantDistribution.Scattering,
                     (float) e.Map.Height);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
+                var isCarnivorous = e.IncludeCarnivorous && Random.Range(0, 100) > 100 - e.CarnivorousPercent;
+                e.PlantCharacteristics.Carnivorous = isCarnivorous;
                 var a = SpawnPlant(pos, Quaternion.identity, 
                     e.PlantCharacteristics,
                     e.PlantCharacteristicsMinimumBound,
                     e.PlantCharacteristicsMaximumBound);
             }
 
-
+            // Reset to game seed
+            Random.state = currentSeed;
             Play();
         }
         #endregion
@@ -346,12 +364,14 @@ namespace Evolution
             }
             // Debug.Log($"Spawning animal {obj}");
             _nextId++;
-            var a = Pool.Spawn(lowPolyAnimalPrefab, p, r);
+            var a = Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousAnimalPrefab : lowPolyHerbivorousAnimalPrefab, p, r);
             _animals[_nextId] = a.GetComponent<SimpleAnimal>();
             _animals[_nextId].characteristics = c.Clone(); // TODO: prob quite expensive gotta pool later or something maybe
             _animals[_nextId].characteristicsMin = cMin;
             _animals[_nextId].characteristicsMax = cMax;
             _animals[_nextId].id = _nextId;
+            _animals[_nextId].isCarnivorous = c.Carnivorous;
+            // TODO: should prob have 2 prefab
             // Only server handle animal behaviours
             if (!Gm.instance.online || Sm.instance.isServer)
             {
@@ -420,7 +440,7 @@ namespace Evolution
 #endif
             }
             var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
-                Pool.Spawn(lowPolyPlantPrefab, p, r).GetComponent<Plant>() : 
+                Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousPlantPrefab : lowPolyHerbivorousPlantPrefab, p, r).GetComponent<Plant>() : 
                 TreePool.instance.Spawn(p, r).go.GetComponent<Plant>();
             _nextId++;
             _plants[_nextId] = veg;
@@ -428,8 +448,9 @@ namespace Evolution
             _plants[_nextId].characteristicsMin = cMin;
             _plants[_nextId].characteristicsMax = cMax;
             _plants[_nextId].id = _nextId;
+            // _plants[_nextId].isCarnivorous = c.Carnivorous; // TODO:
 
-	        if (!Gm.instance.online || Sm.instance.isServer) _plants[_nextId].EnableBehaviour(true);
+            if (!Gm.instance.online || Sm.instance.isServer) _plants[_nextId].EnableBehaviour(true);
 	        return _plants[_nextId];
         }
 

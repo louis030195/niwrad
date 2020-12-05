@@ -63,7 +63,7 @@ namespace UI
         [ContextMenu("Show")]
         public virtual void Show()
         {
-            Debug.Log($"Showing {gameObject.name}");
+            // Debug.Log($"Showing {gameObject.name}");
             _canvasGroup.alpha = 1;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
@@ -77,7 +77,7 @@ namespace UI
         [ContextMenu("Hide")]
         public virtual void Hide()
         {
-            Debug.Log($"Hiding {gameObject.name}");
+            // Debug.Log($"Hiding {gameObject.name}");
             _canvasGroup.alpha = 0;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;

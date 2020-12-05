@@ -143,14 +143,14 @@ jobs:
             Library-
 
       # Build
-      - uses: webbertakken/unity-builder@v2.0-alpha-1
+      - uses: webbertakken/unity-builder@v1.2 # from 1.5 it uses nographics which breaks the project build
         with:
           customParameters: '-niwradMode offline' # '-nographics' 
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
-          androidAppBundle: true
+          androidAppBundle: false
           androidKeystoreName: nw.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
@@ -181,9 +181,8 @@ jobs:
       - run: |
           sed -i '\|<body>|a<iframe width="560" height="315" src="https://www.youtube.com/embed/B0MwLHRPuP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' WebGL/WebGL/index.html
           sed -i '\|<body>|a<h1><a href="https://github.com/louis030195/niwrad">Github repository</a></h1>' WebGL/WebGL/index.html
-          sed -i '\|<body>|a<h1><a href="https://forms.gle/uKvEqqnjvFkqDrTU9">Give feedback here</a></h1>' WebGL/WebGL/index.html
-          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset or your pc will burn</h1>' WebGL/WebGL/index.html
-          sed -i "s|<title>.*</title>|<title>Niwrad 0.0.1-$(date '+%D')</title>|g" WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset or your pc will burn, IM SORRY FOR UGLY AS HELL UI</h1>' WebGL/WebGL/index.html
+          sed -i "s|<title>.*</title>|<title>Niwrad-$(date '+%D')</title>|g" WebGL/WebGL/index.html
           echo "Hacked index.html :)"
       - name: Deploy 🚀 
         uses: JamesIves/github-pages-deploy-action@releases/v3

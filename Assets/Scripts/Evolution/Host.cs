@@ -56,6 +56,7 @@ namespace Evolution
         protected void Update()
 		{
 			if (Time.frameCount % 5 != 0) return;
+
             // All hosts loses energy over time
             characteristics.Energy -= Time.timeScale * (characteristics.EnergyLoss / 100); //* Age;
 			Age++;
@@ -107,5 +108,6 @@ namespace Evolution
 		// if (memes.Values.Count > 0) controller.SetupAi(memes.Values.AnyItem(), true);
 
         protected abstract void OnDeath();
+        public abstract bool CanBreed();
     }
 }

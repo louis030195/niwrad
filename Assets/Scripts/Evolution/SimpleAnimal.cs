@@ -13,7 +13,6 @@ namespace Evolution
     {
         private GameObject _target;
 
-
         public new void EnableBehaviour(bool value)
         {
             base.EnableBehaviour(value);
@@ -129,10 +128,13 @@ namespace Evolution
 
         private void Eat(MemeController c)
         {
+            // Debug.Log($"i carnivorous {isCarnivorous} eat animal: {_target.GetComponent<SimpleAnimal>() != null}");
+
             // Stop moving
             movement.isStopped = true;
             attack.EatTarget(_target);
-            _target.GetComponent<Health>().AddHealth(-characteristics.Computation/10); // TODO: ?
+            // The more energy, the more damage to food ?
+            _target.GetComponent<Health>().AddHealth(-characteristics.Energy/10); // TODO: ?
             // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
             // TODO: maybe age reduce life gain on eat ?
             characteristics.Energy += characteristics.EatEnergyGain;
@@ -151,16 +153,15 @@ namespace Evolution
         private Meme FoodAround(MemeController c)
         {
             // TODO: params
-            if (health.currentHealth > 90f) return Memes["Wander"];
-
-            var layerMask = 1 << LayerMask.NameToLayer("Plant");
+            if (health.currentHealth > 90f) return null;
 
             // Any matching object around ? Try to get the closest if any
-            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask/*, 
+            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, _foodLayer/*, 
                 filter: go => !go.GetComponent<Health>().dead*/);
-
             // No food around OR target is dead / too weak
             if (closest == default) return null;
+            // Debug.Log($"found food {closest}");
+
             _target = closest;
 
             // Stop current movement
@@ -172,16 +173,12 @@ namespace Evolution
         private Meme PartnerAround(MemeController c)
         {
             // Look for partner
-            if (!(characteristics.Energy > characteristics.ReproductionCost))
-                return null;
-            // No animal to breed with around
-            var layerMask = 1 << LayerMask.NameToLayer("Animal");
-
+            if (!CanBreed()) return null;
             // Any matching object around ? Try to get the closest if any
-            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, layerMask/*,
+            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, _specieLayer/*,
                 filter: go => go.GetComponent<SimpleAnimal>().characteristics.Energy > characteristics.ReproductionCost*/);
-            // No animal to breed with around
-            if (closest == default) return null;
+            // No animal to breed with around, TODO: move the canbreed filter to Closest()
+            if (closest == default || !closest.GetComponent<Host>().CanBreed()) return null;
             _target = closest;
 
             // Stop current movement

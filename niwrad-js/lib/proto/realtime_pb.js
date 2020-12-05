@@ -2774,6 +2774,9 @@ proto.nakama.niwrad.api.realtime.Characteristics.toObject = function(includeInst
     energyLoss: +jspb.Message.getFieldWithDefault(msg, 6, 0.0),
     eatEnergyGain: +jspb.Message.getFieldWithDefault(msg, 7, 0.0),
     drinkEnergyGain: +jspb.Message.getFieldWithDefault(msg, 8, 0.0),
+    carnivorous: jspb.Message.getFieldWithDefault(msg, 9, false),
+    reproductionDelay: +jspb.Message.getFieldWithDefault(msg, 10, 0.0),
+    reproductionProbability: +jspb.Message.getFieldWithDefault(msg, 11, 0.0),
     animalCharacteristics: (f = msg.getAnimalCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics.toObject(includeInstance, f),
     plantCharacteristics: (f = msg.getPlantCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.PlantCharacteristics.toObject(includeInstance, f)
   };
@@ -2843,6 +2846,18 @@ proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader = f
     case 8:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setDrinkEnergyGain(value);
+      break;
+    case 9:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setCarnivorous(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setReproductionDelay(value);
+      break;
+    case 11:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setReproductionProbability(value);
       break;
     case 15:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics;
@@ -2936,6 +2951,27 @@ proto.nakama.niwrad.api.realtime.Characteristics.serializeBinaryToWriter = funct
   if (f !== 0.0) {
     writer.writeFloat(
       8,
+      f
+    );
+  }
+  f = message.getCarnivorous();
+  if (f) {
+    writer.writeBool(
+      9,
+      f
+    );
+  }
+  f = message.getReproductionDelay();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      10,
+      f
+    );
+  }
+  f = message.getReproductionProbability();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      11,
       f
     );
   }
@@ -3445,6 +3481,53 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.setDrinkEnergyGain = 
 
 
 /**
+ * optional bool carnivorous = 9;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getCarnivorous = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 9, false));
+};
+
+
+/** @param {boolean} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setCarnivorous = function(value) {
+  jspb.Message.setProto3BooleanField(this, 9, value);
+};
+
+
+/**
+ * optional float reproduction_delay = 10;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getReproductionDelay = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 10, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setReproductionDelay = function(value) {
+  jspb.Message.setProto3FloatField(this, 10, value);
+};
+
+
+/**
+ * optional float reproduction_probability = 11;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.getReproductionProbability = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 11, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Characteristics.prototype.setReproductionProbability = function(value) {
+  jspb.Message.setProto3FloatField(this, 11, value);
+};
+
+
+/**
  * optional AnimalCharacteristics animal_characteristics = 15;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics.AnimalCharacteristics}
  */
@@ -3863,11 +3946,12 @@ proto.nakama.niwrad.api.realtime.Experience.prototype.toObject = function(opt_in
 proto.nakama.niwrad.api.realtime.Experience.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    includeCarnivorous: jspb.Message.getFieldWithDefault(msg, 14, false),
+    carnivorousPercent: jspb.Message.getFieldWithDefault(msg, 15, 0),
     animalCharacteristics: (f = msg.getAnimalCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
     animalCharacteristicsMinimumBound: (f = msg.getAnimalCharacteristicsMinimumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
     animalCharacteristicsMaximumBound: (f = msg.getAnimalCharacteristicsMaximumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
     animalDistribution: (f = msg.getAnimalDistribution()) && proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject(includeInstance, f),
-    includeCarnivorous: jspb.Message.getFieldWithDefault(msg, 14, false),
     plantCharacteristics: (f = msg.getPlantCharacteristics()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
     plantCharacteristicsMinimumBound: (f = msg.getPlantCharacteristicsMinimumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
     plantCharacteristicsMaximumBound: (f = msg.getPlantCharacteristicsMaximumBound()) && proto.nakama.niwrad.api.realtime.Characteristics.toObject(includeInstance, f),
@@ -3914,6 +3998,14 @@ proto.nakama.niwrad.api.realtime.Experience.deserializeBinaryFromReader = functi
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
+    case 14:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIncludeCarnivorous(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCarnivorousPercent(value);
+      break;
     case 10:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Characteristics.deserializeBinaryFromReader);
@@ -3933,10 +4025,6 @@ proto.nakama.niwrad.api.realtime.Experience.deserializeBinaryFromReader = functi
       var value = new proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution;
       reader.readMessage(value,proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBinaryFromReader);
       msg.setAnimalDistribution(value);
-      break;
-    case 14:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setIncludeCarnivorous(value);
       break;
     case 40:
       var value = new proto.nakama.niwrad.api.realtime.Characteristics;
@@ -4004,6 +4092,20 @@ proto.nakama.niwrad.api.realtime.Experience.serializeBinaryToWriter = function(m
       f
     );
   }
+  f = message.getIncludeCarnivorous();
+  if (f) {
+    writer.writeBool(
+      14,
+      f
+    );
+  }
+  f = message.getCarnivorousPercent();
+  if (f !== 0) {
+    writer.writeInt32(
+      15,
+      f
+    );
+  }
   f = message.getAnimalCharacteristics();
   if (f != null) {
     writer.writeMessage(
@@ -4034,13 +4136,6 @@ proto.nakama.niwrad.api.realtime.Experience.serializeBinaryToWriter = function(m
       13,
       f,
       proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBinaryToWriter
-    );
-  }
-  f = message.getIncludeCarnivorous();
-  if (f) {
-    writer.writeBool(
-      14,
-      f
     );
   }
   f = message.getPlantCharacteristics();
@@ -4785,6 +4880,38 @@ proto.nakama.niwrad.api.realtime.Experience.prototype.setName = function(value) 
 
 
 /**
+ * optional bool include_carnivorous = 14;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getIncludeCarnivorous = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 14, false));
+};
+
+
+/** @param {boolean} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setIncludeCarnivorous = function(value) {
+  jspb.Message.setProto3BooleanField(this, 14, value);
+};
+
+
+/**
+ * optional int32 carnivorous_percent = 15;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Experience.prototype.getCarnivorousPercent = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Experience.prototype.setCarnivorousPercent = function(value) {
+  jspb.Message.setProto3IntField(this, 15, value);
+};
+
+
+/**
  * optional Characteristics animal_characteristics = 10;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
@@ -4901,23 +5028,6 @@ proto.nakama.niwrad.api.realtime.Experience.prototype.clearAnimalDistribution = 
  */
 proto.nakama.niwrad.api.realtime.Experience.prototype.hasAnimalDistribution = function() {
   return jspb.Message.getField(this, 13) != null;
-};
-
-
-/**
- * optional bool include_carnivorous = 14;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.nakama.niwrad.api.realtime.Experience.prototype.getIncludeCarnivorous = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 14, false));
-};
-
-
-/** @param {boolean} value */
-proto.nakama.niwrad.api.realtime.Experience.prototype.setIncludeCarnivorous = function(value) {
-  jspb.Message.setProto3BooleanField(this, 14, value);
 };
 
 

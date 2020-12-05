@@ -25,12 +25,14 @@ namespace Utils
             Func<GameObject, bool> filter = null)
 		{
 			var center = go.transform.position;
-			if (UnityEngine.Physics.OverlapSphereNonAlloc(center, radius, Results, mask) == 0) return default;
+            // WARNING: NonAlloc means objects stay in the DS after, have to post-filter then usually
+			if (UnityEngine.Physics.OverlapSphereNonAlloc(center, radius, Results, 1 << mask) == 0) return default;
 			var min = default(GameObject);
 			Results.ToList().ForEach(c =>
-			{
-				// Skip inactive ? Skip self
-				if (c == null || skipInactive && !c.gameObject.activeInHierarchy || c.gameObject.Equals(go)) return;
+            {
+				// Skip inactive ? Skip self, Skip non-target layers leftover in the data structure
+				if (c == null || mask != c.gameObject.layer || skipInactive && !c.gameObject.activeInHierarchy || c.gameObject.Equals(go)) return;
+
                 // var f = filter != null && filter.Invoke(c.gameObject); // TODO
 				if (min == default ||
 					Vector3.Distance(c.transform.position, center) <
@@ -41,7 +43,6 @@ namespace Utils
 					min = c.gameObject;
 				}
 			});
-
 			return min;
 		}
 		// TODO: similar for other raycasts

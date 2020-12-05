@@ -64,52 +64,55 @@ namespace Api.Realtime {
             "YW5zZm9ybSJCCgZBbmltYWwSOAoJdHJhbnNmb3JtGAEgASgLMiUubmFrYW1h",
             "Lm5pd3JhZC5hcGkucmVhbHRpbWUuVHJhbnNmb3JtIlQKGFJlcXVlc3RUcmFu",
             "c2Zlck93bmVyc2hpcBI4Cgl0cmFuc2Zvcm0YASABKAsyJS5uYWthbWEubml3",
-            "cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0iqAQKD0NoYXJhY3RlcmlzdGlj",
+            "cmFkLmFwaS5yZWFsdGltZS5UcmFuc2Zvcm0i+wQKD0NoYXJhY3RlcmlzdGlj",
             "cxITCgtjb21wdXRhdGlvbhgBIAEoAhIMCgRsaWZlGAIgASgCEhIKCnJvYnVz",
             "dG5lc3MYAyABKAISDgoGZW5lcmd5GAQgASgCEhkKEXJlcHJvZHVjdGlvbl9j",
             "b3N0GAUgASgCEhMKC2VuZXJneV9sb3NzGAYgASgCEhcKD2VhdF9lbmVyZ3lf",
-            "Z2FpbhgHIAEoAhIZChFkcmlua19lbmVyZ3lfZ2FpbhgIIAEoAhJjChZhbmlt",
-            "YWxfY2hhcmFjdGVyaXN0aWNzGA8gASgLMkEubmFrYW1hLm5pd3JhZC5hcGku",
-            "cmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzLkFuaW1hbENoYXJhY3RlcmlzdGlj",
-            "c0gAEmEKFXBsYW50X2NoYXJhY3RlcmlzdGljcxgQIAEoCzJALm5ha2FtYS5u",
-            "aXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcy5QbGFudENoYXJh",
-            "Y3RlcmlzdGljc0gAGoEBChVBbmltYWxDaGFyYWN0ZXJpc3RpY3MSDQoFc3Bl",
-            "ZWQYASABKAISHQoVcmFuZG9tX21vdmVtZW50X3JhbmdlGAIgASgCEhMKC3Np",
-            "Z2h0X3JhbmdlGAMgASgCEhEKCWVhdF9yYW5nZRgEIAEoAhISCgptZXRhYm9s",
-            "aXNtGAUgASgCGhYKFFBsYW50Q2hhcmFjdGVyaXN0aWNzQgYKBHR5cGUi8QEK",
-            "DlRpbWVTZXJpZVBvaW50Eg8KB2FuaW1hbHMYMiABKAMSDgoGcGxhbnRzGDwg",
-            "ASgDEhIKCmFuaW1hbF9hZ2UYRiABKAESSwoWYW5pbWFsX2NoYXJhY3Rlcmlz",
-            "dGljcxgKIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJh",
-            "Y3RlcmlzdGljcxIRCglwbGFudF9hZ2UYWiABKAESSgoVcGxhbnRfY2hhcmFj",
-            "dGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
-            "Q2hhcmFjdGVyaXN0aWNzIpYJCgpFeHBlcmllbmNlEgwKBG5hbWUYASABKAkS",
-            "SwoWYW5pbWFsX2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2FtYS5uaXdy",
-            "YWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmltYWxfY2hh",
-            "cmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWthbWEubml3",
-            "cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5pbWFsX2No",
-            "YXJhY3RlcmlzdGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFrYW1hLm5p",
-            "d3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2FuaW1hbF9k",
-            "aXN0cmlidXRpb24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGlt",
-            "ZS5FeHBlcmllbmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SGwoTaW5jbHVk",
-            "ZV9jYXJuaXZvcm91cxgOIAEoCBJKChVwbGFudF9jaGFyYWN0ZXJpc3RpY3MY",
-            "KCABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
-            "c3RpY3MSWAojcGxhbnRfY2hhcmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQY",
-            "KSABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
-            "c3RpY3MSWAojcGxhbnRfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQY",
-            "KiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
-            "c3RpY3MSWQoScGxhbnRfZGlzdHJpYnV0aW9uGCsgASgLMj0ubmFrYW1hLm5p",
-            "d3JhZC5hcGkucmVhbHRpbWUuRXhwZXJpZW5jZS5Qb3B1bGF0aW9uRGlzdHJp",
-            "YnV0aW9uEjcKA21hcBgyIAEoCzIqLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0",
-            "aW1lLkV4cGVyaWVuY2UuTWFwEkkKB2dlbmVyYWwYPCABKAsyOC5uYWthbWEu",
-            "bml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0",
-            "ZXJzGkQKFlBvcHVsYXRpb25EaXN0cmlidXRpb24SFgoOaW5pdGlhbF9hbW91",
-            "bnQYASABKAQSEgoKc2NhdHRlcmluZxgCIAEoAhp0CgNNYXASDAoEc2l6ZRgB",
-            "IAEoARIOCgZoZWlnaHQYAiABKAESDgoGc3ByZWFkGAUgASgBEh0KFXNwcmVh",
-            "ZF9yZWR1Y3Rpb25fcmF0ZRgHIAEoARINCgV3YXRlchgIIAEoCBIRCglkaXZl",
-            "cnNpdHkYCiABKAQaYwoRR2VuZXJhbFBhcmFtZXRlcnMSEQoJdGltZXNjYWxl",
-            "GAEgASgNEhIKCnRpbWVfbGltaXQYAiABKA0SDgoGcmVwZWF0GAMgASgIEhcK",
-            "D3NhdmVfc3RhdGlzdGljcxgEIAEoCEI0WiNuYWthbWEvbml3cmFkL2FwaS9y",
-            "ZWFsdGltZTtyZWFsdGltZaoCDEFwaS5SZWFsdGltZWIGcHJvdG8z"));
+            "Z2FpbhgHIAEoAhIZChFkcmlua19lbmVyZ3lfZ2FpbhgIIAEoAhITCgtjYXJu",
+            "aXZvcm91cxgJIAEoCBIaChJyZXByb2R1Y3Rpb25fZGVsYXkYCiABKAISIAoY",
+            "cmVwcm9kdWN0aW9uX3Byb2JhYmlsaXR5GAsgASgCEmMKFmFuaW1hbF9jaGFy",
+            "YWN0ZXJpc3RpY3MYDyABKAsyQS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGlt",
+            "ZS5DaGFyYWN0ZXJpc3RpY3MuQW5pbWFsQ2hhcmFjdGVyaXN0aWNzSAASYQoV",
+            "cGxhbnRfY2hhcmFjdGVyaXN0aWNzGBAgASgLMkAubmFrYW1hLm5pd3JhZC5h",
+            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzLlBsYW50Q2hhcmFjdGVyaXN0",
+            "aWNzSAAagQEKFUFuaW1hbENoYXJhY3RlcmlzdGljcxINCgVzcGVlZBgBIAEo",
+            "AhIdChVyYW5kb21fbW92ZW1lbnRfcmFuZ2UYAiABKAISEwoLc2lnaHRfcmFu",
+            "Z2UYAyABKAISEQoJZWF0X3JhbmdlGAQgASgCEhIKCm1ldGFib2xpc20YBSAB",
+            "KAIaFgoUUGxhbnRDaGFyYWN0ZXJpc3RpY3NCBgoEdHlwZSLxAQoOVGltZVNl",
+            "cmllUG9pbnQSDwoHYW5pbWFscxgyIAEoAxIOCgZwbGFudHMYPCABKAMSEgoK",
+            "YW5pbWFsX2FnZRhGIAEoARJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAog",
+            "ASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0",
+            "aWNzEhEKCXBsYW50X2FnZRhaIAEoARJKChVwbGFudF9jaGFyYWN0ZXJpc3Rp",
+            "Y3MYKCABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0",
+            "ZXJpc3RpY3MiswkKCkV4cGVyaWVuY2USDAoEbmFtZRgBIAEoCRIbChNpbmNs",
+            "dWRlX2Nhcm5pdm9yb3VzGA4gASgIEhsKE2Nhcm5pdm9yb3VzX3BlcmNlbnQY",
+            "DyABKAUSSwoWYW5pbWFsX2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2Ft",
+            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmlt",
+            "YWxfY2hhcmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWth",
+            "bWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5p",
+            "bWFsX2NoYXJhY3RlcmlzdGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFr",
+            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2Fu",
+            "aW1hbF9kaXN0cmlidXRpb24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5y",
+            "ZWFsdGltZS5FeHBlcmllbmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SSgoV",
+            "cGxhbnRfY2hhcmFjdGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5h",
+            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElgKI3BsYW50X2NoYXJhY3Rl",
+            "cmlzdGljc19taW5pbXVtX2JvdW5kGCkgASgLMisubmFrYW1hLm5pd3JhZC5h",
+            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElgKI3BsYW50X2NoYXJhY3Rl",
+            "cmlzdGljc19tYXhpbXVtX2JvdW5kGCogASgLMisubmFrYW1hLm5pd3JhZC5h",
+            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKEnBsYW50X2Rpc3RyaWJ1",
+            "dGlvbhgrIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVy",
+            "aWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhI3CgNtYXAYMiABKAsyKi5u",
+            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLk1hcBJJCgdn",
+            "ZW5lcmFsGDwgASgLMjgubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRXhw",
+            "ZXJpZW5jZS5HZW5lcmFsUGFyYW1ldGVycxpEChZQb3B1bGF0aW9uRGlzdHJp",
+            "YnV0aW9uEhYKDmluaXRpYWxfYW1vdW50GAEgASgEEhIKCnNjYXR0ZXJpbmcY",
+            "AiABKAIadAoDTWFwEgwKBHNpemUYASABKAESDgoGaGVpZ2h0GAIgASgBEg4K",
+            "BnNwcmVhZBgFIAEoARIdChVzcHJlYWRfcmVkdWN0aW9uX3JhdGUYByABKAES",
+            "DQoFd2F0ZXIYCCABKAgSEQoJZGl2ZXJzaXR5GAogASgEGmMKEUdlbmVyYWxQ",
+            "YXJhbWV0ZXJzEhEKCXRpbWVzY2FsZRgBIAEoDRISCgp0aW1lX2xpbWl0GAIg",
+            "ASgNEg4KBnJlcGVhdBgDIAEoCBIXCg9zYXZlX3N0YXRpc3RpY3MYBCABKAhC",
+            "NFojbmFrYW1hL25pd3JhZC9hcGkvcmVhbHRpbWU7cmVhbHRpbWWqAgxBcGku",
+            "UmVhbHRpbWViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -125,10 +128,10 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Plant), global::Api.Realtime.Plant.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Animal), global::Api.Realtime.Animal.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.RequestTransferOwnership), global::Api.Realtime.RequestTransferOwnership.Parser, new[]{ "Transform" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "Carnivorous", "ReproductionDelay", "ReproductionProbability", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.PlantCharacteristics), global::Api.Realtime.Characteristics.Types.PlantCharacteristics.Parser, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.TimeSeriePoint), global::Api.Realtime.TimeSeriePoint.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "IncludeCarnivorous", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "Timescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
           }));
@@ -2542,6 +2545,9 @@ namespace Api.Realtime {
       energyLoss_ = other.energyLoss_;
       eatEnergyGain_ = other.eatEnergyGain_;
       drinkEnergyGain_ = other.drinkEnergyGain_;
+      carnivorous_ = other.carnivorous_;
+      reproductionDelay_ = other.reproductionDelay_;
+      reproductionProbability_ = other.reproductionProbability_;
       switch (other.TypeCase) {
         case TypeOneofCase.AnimalCharacteristics:
           AnimalCharacteristics = other.AnimalCharacteristics.Clone();
@@ -2671,6 +2677,45 @@ namespace Api.Realtime {
       }
     }
 
+    /// <summary>Field number for the "carnivorous" field.</summary>
+    public const int CarnivorousFieldNumber = 9;
+    private bool carnivorous_;
+    /// <summary>
+    /// Both plant and animals can be carnivorous
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Carnivorous {
+      get { return carnivorous_; }
+      set {
+        carnivorous_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "reproduction_delay" field.</summary>
+    public const int ReproductionDelayFieldNumber = 10;
+    private float reproductionDelay_;
+    /// <summary>
+    /// Hardcoded delay
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float ReproductionDelay {
+      get { return reproductionDelay_; }
+      set {
+        reproductionDelay_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "reproduction_probability" field.</summary>
+    public const int ReproductionProbabilityFieldNumber = 11;
+    private float reproductionProbability_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float ReproductionProbability {
+      get { return reproductionProbability_; }
+      set {
+        reproductionProbability_ = value;
+      }
+    }
+
     /// <summary>Field number for the "animal_characteristics" field.</summary>
     public const int AnimalCharacteristicsFieldNumber = 15;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2733,6 +2778,9 @@ namespace Api.Realtime {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(EnergyLoss, other.EnergyLoss)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(EatEnergyGain, other.EatEnergyGain)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DrinkEnergyGain, other.DrinkEnergyGain)) return false;
+      if (Carnivorous != other.Carnivorous) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(ReproductionDelay, other.ReproductionDelay)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(ReproductionProbability, other.ReproductionProbability)) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
       if (!object.Equals(PlantCharacteristics, other.PlantCharacteristics)) return false;
       if (TypeCase != other.TypeCase) return false;
@@ -2750,6 +2798,9 @@ namespace Api.Realtime {
       if (EnergyLoss != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(EnergyLoss);
       if (EatEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(EatEnergyGain);
       if (DrinkEnergyGain != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DrinkEnergyGain);
+      if (Carnivorous != false) hash ^= Carnivorous.GetHashCode();
+      if (ReproductionDelay != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(ReproductionDelay);
+      if (ReproductionProbability != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(ReproductionProbability);
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) hash ^= AnimalCharacteristics.GetHashCode();
       if (typeCase_ == TypeOneofCase.PlantCharacteristics) hash ^= PlantCharacteristics.GetHashCode();
       hash ^= (int) typeCase_;
@@ -2798,6 +2849,18 @@ namespace Api.Realtime {
         output.WriteRawTag(69);
         output.WriteFloat(DrinkEnergyGain);
       }
+      if (Carnivorous != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(Carnivorous);
+      }
+      if (ReproductionDelay != 0F) {
+        output.WriteRawTag(85);
+        output.WriteFloat(ReproductionDelay);
+      }
+      if (ReproductionProbability != 0F) {
+        output.WriteRawTag(93);
+        output.WriteFloat(ReproductionProbability);
+      }
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
         output.WriteRawTag(122);
         output.WriteMessage(AnimalCharacteristics);
@@ -2836,6 +2899,15 @@ namespace Api.Realtime {
         size += 1 + 4;
       }
       if (DrinkEnergyGain != 0F) {
+        size += 1 + 4;
+      }
+      if (Carnivorous != false) {
+        size += 1 + 1;
+      }
+      if (ReproductionDelay != 0F) {
+        size += 1 + 4;
+      }
+      if (ReproductionProbability != 0F) {
         size += 1 + 4;
       }
       if (typeCase_ == TypeOneofCase.AnimalCharacteristics) {
@@ -2878,6 +2950,15 @@ namespace Api.Realtime {
       }
       if (other.DrinkEnergyGain != 0F) {
         DrinkEnergyGain = other.DrinkEnergyGain;
+      }
+      if (other.Carnivorous != false) {
+        Carnivorous = other.Carnivorous;
+      }
+      if (other.ReproductionDelay != 0F) {
+        ReproductionDelay = other.ReproductionDelay;
+      }
+      if (other.ReproductionProbability != 0F) {
+        ReproductionProbability = other.ReproductionProbability;
       }
       switch (other.TypeCase) {
         case TypeOneofCase.AnimalCharacteristics:
@@ -2935,6 +3016,18 @@ namespace Api.Realtime {
           }
           case 69: {
             DrinkEnergyGain = input.ReadFloat();
+            break;
+          }
+          case 72: {
+            Carnivorous = input.ReadBool();
+            break;
+          }
+          case 85: {
+            ReproductionDelay = input.ReadFloat();
+            break;
+          }
+          case 93: {
+            ReproductionProbability = input.ReadFloat();
             break;
           }
           case 122: {
@@ -3629,11 +3722,12 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Experience(Experience other) : this() {
       name_ = other.name_;
+      includeCarnivorous_ = other.includeCarnivorous_;
+      carnivorousPercent_ = other.carnivorousPercent_;
       animalCharacteristics_ = other.animalCharacteristics_ != null ? other.animalCharacteristics_.Clone() : null;
       animalCharacteristicsMinimumBound_ = other.animalCharacteristicsMinimumBound_ != null ? other.animalCharacteristicsMinimumBound_.Clone() : null;
       animalCharacteristicsMaximumBound_ = other.animalCharacteristicsMaximumBound_ != null ? other.animalCharacteristicsMaximumBound_.Clone() : null;
       animalDistribution_ = other.animalDistribution_ != null ? other.animalDistribution_.Clone() : null;
-      includeCarnivorous_ = other.includeCarnivorous_;
       plantCharacteristics_ = other.plantCharacteristics_ != null ? other.plantCharacteristics_.Clone() : null;
       plantCharacteristicsMinimumBound_ = other.plantCharacteristicsMinimumBound_ != null ? other.plantCharacteristicsMinimumBound_.Clone() : null;
       plantCharacteristicsMaximumBound_ = other.plantCharacteristicsMaximumBound_ != null ? other.plantCharacteristicsMaximumBound_.Clone() : null;
@@ -3656,6 +3750,28 @@ namespace Api.Realtime {
       get { return name_; }
       set {
         name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "include_carnivorous" field.</summary>
+    public const int IncludeCarnivorousFieldNumber = 14;
+    private bool includeCarnivorous_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IncludeCarnivorous {
+      get { return includeCarnivorous_; }
+      set {
+        includeCarnivorous_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "carnivorous_percent" field.</summary>
+    public const int CarnivorousPercentFieldNumber = 15;
+    private int carnivorousPercent_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CarnivorousPercent {
+      get { return carnivorousPercent_; }
+      set {
+        carnivorousPercent_ = value;
       }
     }
 
@@ -3703,17 +3819,6 @@ namespace Api.Realtime {
       get { return animalDistribution_; }
       set {
         animalDistribution_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "include_carnivorous" field.</summary>
-    public const int IncludeCarnivorousFieldNumber = 14;
-    private bool includeCarnivorous_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool IncludeCarnivorous {
-      get { return includeCarnivorous_; }
-      set {
-        includeCarnivorous_ = value;
       }
     }
 
@@ -3775,6 +3880,9 @@ namespace Api.Realtime {
     /// <summary>Field number for the "general" field.</summary>
     public const int GeneralFieldNumber = 60;
     private global::Api.Realtime.Experience.Types.GeneralParameters general_;
+    /// <summary>
+    /// TODO: why general object ?
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Api.Realtime.Experience.Types.GeneralParameters General {
       get { return general_; }
@@ -3797,11 +3905,12 @@ namespace Api.Realtime {
         return true;
       }
       if (Name != other.Name) return false;
+      if (IncludeCarnivorous != other.IncludeCarnivorous) return false;
+      if (CarnivorousPercent != other.CarnivorousPercent) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
       if (!object.Equals(AnimalCharacteristicsMinimumBound, other.AnimalCharacteristicsMinimumBound)) return false;
       if (!object.Equals(AnimalCharacteristicsMaximumBound, other.AnimalCharacteristicsMaximumBound)) return false;
       if (!object.Equals(AnimalDistribution, other.AnimalDistribution)) return false;
-      if (IncludeCarnivorous != other.IncludeCarnivorous) return false;
       if (!object.Equals(PlantCharacteristics, other.PlantCharacteristics)) return false;
       if (!object.Equals(PlantCharacteristicsMinimumBound, other.PlantCharacteristicsMinimumBound)) return false;
       if (!object.Equals(PlantCharacteristicsMaximumBound, other.PlantCharacteristicsMaximumBound)) return false;
@@ -3815,11 +3924,12 @@ namespace Api.Realtime {
     public override int GetHashCode() {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (IncludeCarnivorous != false) hash ^= IncludeCarnivorous.GetHashCode();
+      if (CarnivorousPercent != 0) hash ^= CarnivorousPercent.GetHashCode();
       if (animalCharacteristics_ != null) hash ^= AnimalCharacteristics.GetHashCode();
       if (animalCharacteristicsMinimumBound_ != null) hash ^= AnimalCharacteristicsMinimumBound.GetHashCode();
       if (animalCharacteristicsMaximumBound_ != null) hash ^= AnimalCharacteristicsMaximumBound.GetHashCode();
       if (animalDistribution_ != null) hash ^= AnimalDistribution.GetHashCode();
-      if (IncludeCarnivorous != false) hash ^= IncludeCarnivorous.GetHashCode();
       if (plantCharacteristics_ != null) hash ^= PlantCharacteristics.GetHashCode();
       if (plantCharacteristicsMinimumBound_ != null) hash ^= PlantCharacteristicsMinimumBound.GetHashCode();
       if (plantCharacteristicsMaximumBound_ != null) hash ^= PlantCharacteristicsMaximumBound.GetHashCode();
@@ -3863,6 +3973,10 @@ namespace Api.Realtime {
         output.WriteRawTag(112);
         output.WriteBool(IncludeCarnivorous);
       }
+      if (CarnivorousPercent != 0) {
+        output.WriteRawTag(120);
+        output.WriteInt32(CarnivorousPercent);
+      }
       if (plantCharacteristics_ != null) {
         output.WriteRawTag(194, 2);
         output.WriteMessage(PlantCharacteristics);
@@ -3898,6 +4012,12 @@ namespace Api.Realtime {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
+      if (IncludeCarnivorous != false) {
+        size += 1 + 1;
+      }
+      if (CarnivorousPercent != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CarnivorousPercent);
+      }
       if (animalCharacteristics_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
       }
@@ -3909,9 +4029,6 @@ namespace Api.Realtime {
       }
       if (animalDistribution_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalDistribution);
-      }
-      if (IncludeCarnivorous != false) {
-        size += 1 + 1;
       }
       if (plantCharacteristics_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantCharacteristics);
@@ -3945,6 +4062,12 @@ namespace Api.Realtime {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
+      if (other.IncludeCarnivorous != false) {
+        IncludeCarnivorous = other.IncludeCarnivorous;
+      }
+      if (other.CarnivorousPercent != 0) {
+        CarnivorousPercent = other.CarnivorousPercent;
+      }
       if (other.animalCharacteristics_ != null) {
         if (animalCharacteristics_ == null) {
           animalCharacteristics_ = new global::Api.Realtime.Characteristics();
@@ -3968,9 +4091,6 @@ namespace Api.Realtime {
           animalDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
         }
         AnimalDistribution.MergeFrom(other.AnimalDistribution);
-      }
-      if (other.IncludeCarnivorous != false) {
-        IncludeCarnivorous = other.IncludeCarnivorous;
       }
       if (other.plantCharacteristics_ != null) {
         if (plantCharacteristics_ == null) {
@@ -4053,6 +4173,10 @@ namespace Api.Realtime {
           }
           case 112: {
             IncludeCarnivorous = input.ReadBool();
+            break;
+          }
+          case 120: {
+            CarnivorousPercent = input.ReadInt32();
             break;
           }
           case 322: {

@@ -124,7 +124,9 @@ message Characteristics {
     float energy_loss = 6; // Cost in energy
     float eat_energy_gain = 7; // TODO: do plants eat ? fed from sun ?
     float drink_energy_gain = 8; // TODO: lot of hard coded stuff can we do better ?
-
+    bool carnivorous = 9; // Both plant and animals can be carnivorous
+    float reproduction_delay = 10; // Hardcoded delay
+    float reproduction_probability = 11;
 
     oneof type {
         AnimalCharacteristics animal_characteristics = 15;
@@ -157,19 +159,20 @@ message TimeSeriePoint { // TODO: generations (height of the tree)
 
 message Experience {
     string name = 1;
+    bool include_carnivorous = 14;
+    int32 carnivorous_percent = 15;
+
     Characteristics animal_characteristics = 10;
     Characteristics animal_characteristics_minimum_bound = 11; // E.g. for example speed is bounded between 0 and 100 to keep balance
     Characteristics animal_characteristics_maximum_bound = 12;
     PopulationDistribution animal_distribution = 13;
-    bool include_carnivorous = 14;
-
     Characteristics plant_characteristics = 40;
     Characteristics plant_characteristics_minimum_bound = 41;
     Characteristics plant_characteristics_maximum_bound = 42;
     PopulationDistribution plant_distribution = 43;
 
     Map map = 50;
-    GeneralParameters general = 60;
+    GeneralParameters general = 60; // TODO: why general object ?
     // How should we spawn individuals, tons grouped on a specific point or very scattered ... ?
     message PopulationDistribution {
         uint64 initial_amount = 1;

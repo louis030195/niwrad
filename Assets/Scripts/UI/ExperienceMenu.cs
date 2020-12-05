@@ -73,6 +73,14 @@ namespace UI
                 .onValueChanged.AddListener(value =>  _experience.Map.SpreadReductionRate = value);
             
             // General
+            e.IncludeCarnivorous.BooleanToUI(generalMenu, "Include Carnivorous")
+                .onValueChanged.AddListener(value =>  _experience.IncludeCarnivorous = value);
+            CodeToUi.NumberToUi(0,
+                    100,
+                    e.CarnivorousPercent, 
+                    generalMenu,
+                    "Carnivorous Percent")
+                .onValueChanged.AddListener(value =>  _experience.CarnivorousPercent = (int) value);
             CodeToUi.NumberToUi(1, 
                     50, 
                     e.General?.Timescale ?? 1, 
@@ -93,8 +101,6 @@ namespace UI
                 animalCharacteristicMenu,
                 "Scattering")
                 .onValueChanged.AddListener(value =>  _experience.AnimalDistribution.Scattering = value);
-            e.IncludeCarnivorous.BooleanToUI(animalCharacteristicMenu, "Include Carnivorous")
-                .onValueChanged.AddListener(value =>  _experience.IncludeCarnivorous = value);
             CodeToUi.FloatsToUi(e.AnimalCharacteristicsMinimumBound, 
                 e.AnimalCharacteristicsMaximumBound,
                 e.AnimalCharacteristics, 

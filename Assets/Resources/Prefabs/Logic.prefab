@@ -49,10 +49,6 @@ MonoBehaviour:
   online: 0
   seed: 666
   networkManagersPrefab: {fileID: 0}
-  mapSize: 6
-  mapHeight: 10
-  mapSpread: 10
-  mapSpreadReductionRate: 0.6
 --- !u!114 &5441787142046220018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +104,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphicTier: 0
-  lowPolyAnimalPrefab: {fileID: 4443387354701748607, guid: f9982c60569558577aaf00e50619bcea,
+  lowPolyHerbivorousAnimalPrefab: {fileID: 4443387354701748607, guid: f9982c60569558577aaf00e50619bcea,
     type: 3}
-  lowPolyPlantPrefab: {fileID: 4443387354701748607, guid: 8de57423e509875b2a6abd03a0f8e079,
+  lowPolyCarnivorousAnimalPrefab: {fileID: 4443387354701748607, guid: 56da60a6d133d90509d87a869a172f9a,
+    type: 3}
+  lowPolyHerbivorousPlantPrefab: {fileID: 4443387354701748607, guid: 8de57423e509875b2a6abd03a0f8e079,
+    type: 3}
+  lowPolyCarnivorousPlantPrefab: {fileID: 4443387354701748607, guid: 8de57423e509875b2a6abd03a0f8e079,
     type: 3}

@@ -1,7 +1,7 @@
 {
 "companyName": "niwrad",
 "productName": "niwrad",
-"productVersion": "0.0.52",
+"productVersion": "0.0.55",
 "dataUrl": "WebGL.data.unityweb",
 "wasmCodeUrl": "WebGL.wasm.code.unityweb",
 "wasmFrameworkUrl": "WebGL.wasm.framework.unityweb",

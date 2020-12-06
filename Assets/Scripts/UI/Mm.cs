@@ -36,13 +36,9 @@ namespace UI
     {
         [SerializeField] private UnitSelection unitSelection;
         [SerializeField] private CameraController cameraController;
-        [SerializeField] private Menu hud;
+        public Menu hud;
+        public Menu settings;
         private readonly StackL<Menu> _stack = new StackL<Menu>();
-
-        private void Start()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
 
         private void OnEscapeMenu(bool push = false)
         {

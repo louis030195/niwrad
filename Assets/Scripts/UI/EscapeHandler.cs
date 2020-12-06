@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay;
 using Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,19 +10,19 @@ namespace UI
     public class EscapeHandler : MonoBehaviour
     {
         [SerializeField] private Menu escapeScrollView;
+        [SerializeField] private Menu experienceMenu;
+        [SerializeField] private Menu inputsMenu;
         [SerializeField] private Button resumeButton;
+        [SerializeField] private Button inputsButton;
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private Button experienceButton;
         [SerializeField] private Button quitButton;
-        [SerializeField] private Button ecapeButton;
 
         private Rts _rtsControls;
         private void Awake()
         {
             _rtsControls = new Rts();
             _rtsControls.Player.Cancel.started += ShowEscapeMenu;
-            ecapeButton.onClick.AddListener(SubShow);
-// #if UNITY_IOS || UNITY_ANDROID
-// #endif
-
         }
         
         private void OnEnable()
@@ -36,7 +37,10 @@ namespace UI
 
         private void Start()
         {
-            resumeButton.onClick.AddListener(() => Mm.instance.PopAll());
+            settingsButton.onClick.AddListener(SubShow);
+            resumeButton.onClick.AddListener(Mm.instance.PopAll);
+            inputsButton.onClick.AddListener(inputsMenu.Push);
+            experienceButton.onClick.AddListener(experienceMenu.Push);
             quitButton.onClick.AddListener(Quit);
         }
 
@@ -53,13 +57,22 @@ namespace UI
 
         private void ShowEscapeMenu(InputAction.CallbackContext ctx)
         {
+            if (Gm.instance.State == GameState.Menu) return;
             SubShow();
         }
 
         private void SubShow()
         {
-            if (Mm.instance.IsEmpty()) Mm.instance.Push(escapeScrollView);
-            else Mm.instance.PopAll();
+            if (Mm.instance.IsEmpty())
+            {
+                settingsButton.gameObject.SetActive(false);
+                Mm.instance.Push(escapeScrollView);
+            }
+            else
+            {
+                settingsButton.gameObject.SetActive(true);
+                Mm.instance.PopAll();
+            }
         }
     }
 }

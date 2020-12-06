@@ -1,8 +1,8 @@
 To learn more about the release, try:
 
-  $ helm status {{ .Release.Name }}
-  $ helm get all {{ .Release.Name }}
-  $ kubectl logs -f deployment/{{.Release.Name }}
+  $ helm status {{ .Release.Name }} -n {{ Release.Namespace }}
+  $ helm get all {{ .Release.Name }} -n {{ Release.Namespace }}
+  $ kubectl logs -f deployment/{{.Release.Name }} -n {{ Release.Namespace }}
 
 If you're developing with Minikube (or other k8s-in-container) and building container images locally, don't forget to use:
 
@@ -18,4 +18,4 @@ To connect to the cluster, try:
 
 To get logs from the executors, try:
 
-  $ kubectl logs -f -l tier=executor
+  $ kubectl logs -f -l tier=executor -n {{ Release.Namespace }}

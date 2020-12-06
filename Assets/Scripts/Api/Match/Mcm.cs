@@ -65,7 +65,7 @@ namespace Api.Match
         /// <summary>
         /// Current socket which connects client to Nakama server. Through this socket are sent match messages.
         /// </summary>
-        private ISocket socket => Sm.instance.socket;
+        private ISocket socket => Sm.instance.Socket;
         
         public IUserPresence self { get; private set; }
         public Box region { get; private set; }
@@ -91,7 +91,7 @@ namespace Api.Match
         public async Task<string[]> GetMatchListAsync()
         {
 	        // The message containing last match id we send to server in order to receive required match info
-	        var response = await Sm.instance.socket.RpcAsync( "list_matches");
+	        var response = await Sm.instance.Socket.RpcAsync( "list_matches");
             if (response.Payload == null) return new string[]{};
             var matches = ListMatchesResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(response.Payload));
             return matches.MatchesId.ToArray();
@@ -270,7 +270,7 @@ namespace Api.Match
         {
 	        foreach (var user in e.Joins)
             {
-	            if (Sm.instance.session.UserId == user.UserId) self = user; // Set myself
+	            if (Sm.instance.Session.UserId == user.UserId) self = user; // Set myself
 	            // If user is not already in the list
 	            if (players.FindIndex(x => x.UserId == user.UserId) == -1)
                 {

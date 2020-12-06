@@ -16,6 +16,11 @@ using Random = UnityEngine.Random;
 
 namespace Gameplay
 {
+    public enum GameState
+    {
+        Menu,
+        Play
+    }
     /// <summary>
     /// Gm is GameManager, used to share data across online / offline, handle logic generally
     /// </summary>
@@ -44,6 +49,7 @@ namespace Gameplay
 
         public Experience Experience { get; private set; }
         
+        public GameState State;
 
         private GameObject _map;
         protected override async void Awake()
@@ -56,17 +62,10 @@ namespace Gameplay
                 if (kv.Key is string k) Envs[k] = v;
             }
 
-            // If it's online and there is a MATCH_ID var it's an executor
-            var isExecutor = Envs["MATCH_ID"].Equals(string.Empty);
-            if (online && isExecutor)
-            {
-                Instantiate(networkManagersPrefab);
-                await InitializeNet();
-            }
-
             // Online shouldn't have set seed, server will send it
             await UniTask.WaitUntil(() => seed != default);
             InitializeGameplay();
+            GameLoop().Forget();
         }
 
         private void Start()
@@ -74,25 +73,10 @@ namespace Gameplay
             Mm.instance.EnableHud(false);
         }
 
-        private async UniTask InitializeNet()
+        private async UniTaskVoid GameLoop()
         {
-            Debug.Log($"Trying to connect to nakama at {Envs["NAKAMA_IP"]}:{Envs["NAKAMA_PORT"]}");
-            // Server account !
-            var (res, msg) = await Sm.instance.ConnectAsync(Envs["EMAIL"],
-                Envs["PASSWORD"],
-                ip: Envs["NAKAMA_IP"],
-                p: int.Parse(Envs["NAKAMA_PORT"]));
-            if (!res)
-            {
-                Debug.LogError($"Failed to connect to Nakama {msg}");
-#if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-#endif
-                Application.Quit();
-            }
-            await Sm.instance.ConnectSocketAsync();
-            Sm.instance.isServer = true;
-            await Mcm.instance.JoinMatchAsync(Envs["MATCH_ID"]);
+            InitializeGameplay();
+            await UniTask.Yield();
         }
 
         private void InitializeGameplay()

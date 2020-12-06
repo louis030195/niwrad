@@ -32,24 +32,31 @@ spec:
         - |
           /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
            exec /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257
-        image: {{ .Values.nakama.image.repository }}
+        image: {{ .Values.nakama.image.repository }} # TODO: ^can nakama even reach the db in other pod ?
         imagePullPolicy: {{ .Values.nakama.image.pullPolicy }}
+        volumeMounts:
+          - name: config-volume
+            mountPath: /backend/build/nakama-config.yml
+            subPath: nakama-config.yml
         livenessProbe:
           exec:
             command:
             - curl
             - -f
-            - http://localhost:7350/
+            - http://localhost:{{ .Values.service.portApi }}/
           failureThreshold: 5
           periodSeconds: 10
           timeoutSeconds: 5
         name: game-backend
         ports:
         - containerPort: 7349
-        - containerPort: 7350
+        - containerPort: {{ .Values.service.portApi }}
         - containerPort: 7351
         resources: {}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-configmap
       restartPolicy: Always
       serviceAccountName: "default"
-      volumes: null
 status: {}

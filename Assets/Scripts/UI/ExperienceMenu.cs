@@ -73,6 +73,8 @@ namespace UI
                 .onValueChanged.AddListener(value =>  _experience.Map.SpreadReductionRate = value);
             
             // General
+            false.BooleanToUI(generalMenu, "Record Experience")
+                .onValueChanged.AddListener(value =>  _experience.IncludeCarnivorous = value);
             e.IncludeCarnivorous.BooleanToUI(generalMenu, "Include Carnivorous")
                 .onValueChanged.AddListener(value =>  _experience.IncludeCarnivorous = value);
             CodeToUi.NumberToUi(0,

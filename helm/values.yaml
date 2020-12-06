@@ -3,18 +3,17 @@ unity:
 
   image:
     repository: louis030195/executor
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
 
 nakama:
   replicaCount: 1
 
   image:
     repository: louis030195/nakama
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
 
   service:
-    type: NodePort # not reachable outside cluster -> ClusterIP
-    port: 80 # TODO: ports for nakama
+    type: NodePort
     portApi: 7350
 
   default:

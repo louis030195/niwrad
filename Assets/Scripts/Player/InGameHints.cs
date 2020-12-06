@@ -7,6 +7,7 @@ using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils.Shapes;
+using Cysharp.Threading.Tasks;
 
 namespace Player
 {
@@ -19,17 +20,14 @@ namespace Player
     }
     public class InGameHints : MonoBehaviour
     {
+        public NiwradMenu niwradMenu;
+
         [SerializeField] private Menu mainMenu;
         [SerializeField] private Menu inputsMenu;
         [SerializeField] private Menu experiencesMenu;
-        [SerializeField] private Button closeHintsButton;
-        [SerializeField] private Menu hintsBox;
-        [SerializeField] private TextMeshProUGUI helpText;
-        [SerializeField] private Transform settingsTransform;
         private Rts _rtsControls;
         private State _currentState;
         private string _defaultHelpText;
-        private LineInfo _lineInfo;
         private const string KDefaultHelpTextFormat = "Press {cancel} to start a new experience\n" +
                                                       "You can move around using {move}\n " +
                                                       "You can go up and down using {movey}";
@@ -49,51 +47,31 @@ namespace Player
             // TODO: yet always on
             /*if (PlayerPrefs.HasKey("hints") && PlayerPrefs.GetInt("hints") == 0) hintsBox.Hide();
             else*/ _currentState = State.Wandering;
-            mainMenu.VisibilityChanged += b =>
-            {
-                if (b) ChangeState(State.MainMenu);
-            };
-            inputsMenu.VisibilityChanged += b =>
-            {
-                if (b) ChangeState(State.InputMenu);
-            };
-            experiencesMenu.VisibilityChanged += b =>
-            {
-                if (b) ChangeState(State.ExperiencesMenu);
-            };
-            closeHintsButton.onClick.AddListener(() =>
-            {
-                hintsBox.Hide();
-                PlayerPrefs.SetInt("hints", 0); // Disabled hints for this player
-            });
-            
-            // TODO: fix doesn't do anything
-            // _lineInfo = new LineInfo
+            // mainMenu.VisibilityChanged += b =>
             // {
-            //     startPos = Vector3.zero,//helpText.transform.position,
-            //     endPos = new Vector3(0, 3, 0),//settingsTransform.position,
-            //     fillColor = Color.red,
-            //     width = 1,
-            //     forward = -Camera.main.transform.forward
-            //     // startArrow = true,
-            //     // arrowWidth = 5
+            //     if (b) ChangeState(State.MainMenu);
             // };
+            void Im(bool b)
+            {
+                if (!b) return;
+                ChangeState(State.InputMenu);
+                inputsMenu.VisibilityChanged -= Im;
+            } // Just once
+            inputsMenu.VisibilityChanged += Im;
+            
+            void Em(bool b)
+            {
+                if (!b) return;
+                ChangeState(State.ExperiencesMenu);
+                experiencesMenu.VisibilityChanged -= Em;
+            } // Just once
+            experiencesMenu.VisibilityChanged += Em;
         }
-
-        private void Update()
-        {
-            // _lineInfo.startPos = Vector3.zero;//helpText.transform.position,
-            // _lineInfo.endPos = new Vector3(0, 3, 0);//settingsTransform.position,
-            // _lineInfo.fillColor = Color.red;
-            // _lineInfo.width = 1;
-            // _lineInfo.forward = -Camera.main.transform.forward;
-            // LineSegment.Draw(_lineInfo);
-        }
+        
 
         private void OnEnable()
         {
             _rtsControls.Enable();
-            UpdateUIHints();
         }
 
         private void OnDisable()
@@ -124,23 +102,25 @@ namespace Player
 
             switch (_currentState)
             {
-                case State.Wandering:
-                    if (_defaultHelpText == null)
-                        _defaultHelpText = KDefaultHelpTextFormat.Replace("{cancel}",
-                                _rtsControls.Player.Cancel.GetBindingDisplayString())
-                            .Replace("{move}", _rtsControls.Player.Move.GetBindingDisplayString())
-                            .Replace("{movey}", _rtsControls.Player.MoveY.GetBindingDisplayString());
-                    helpText.text = _defaultHelpText;
-                    break;
-                case State.MainMenu:
-                    helpText.text = KMainMenuHelpTextFormat;
-                    break;
+                // case State.Wandering:
+                //     if (_defaultHelpText == null)
+                //         _defaultHelpText = KDefaultHelpTextFormat.Replace("{cancel}",
+                //                 _rtsControls.Player.Cancel.GetBindingDisplayString())
+                //             .Replace("{move}", _rtsControls.Player.Move.GetBindingDisplayString())
+                //             .Replace("{movey}", _rtsControls.Player.MoveY.GetBindingDisplayString());
+                //     niwradMenu.ShowToast(_defaultHelpText).Forget();
+                //     break;
+                // case State.MainMenu:
+                //     niwradMenu.ShowToast(KMainMenuHelpTextFormat).Forget();
+                //     break;
                 case State.InputMenu:
-                    helpText.text = KInputsMenuHelpTextFormat;
+                    niwradMenu.ShowToast(KInputsMenuHelpTextFormat).Forget();
                     break;
                 case State.ExperiencesMenu:
-                    helpText.text = KExperiencesMenuHelpTextFormat;
+                    niwradMenu.ShowToast(KExperiencesMenuHelpTextFormat).Forget();
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

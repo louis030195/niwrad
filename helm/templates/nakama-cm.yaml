@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  nakama-config.yml: |
+    name: {{ Release.Name }}
+    data_dir: "./data/"
+
+    #logger:
+    #  stdout: false
+    #  level: "warn"
+    #  file: "/tmp/path/to/logfile.log"
+
+    metrics:
+      reporting_freq_sec: 60
+      namespace: ""
+      stackdriver_projectid: ""
+      prometheus_port: 0
+
+    database:
+      address:
+          - "root@cockroachdb:26257"
+      conn_max_lifetime_ms: 0
+      max_open_conns: 0
+      max_idle_conns: 100
+
+    runtime:
+      path: "/nakama/data/modules"
+      http_key: "defaultkey"
+
+    socket:
+      server_key: "defaultkey"
+      port: {{ .Values.service.portApi }}
+      max_message_size_bytes: 4096 # bytes
+      read_timeout_ms: 10000
+      write_timeout_ms: 10000
+      idle_timeout_ms: 60000
+      write_wait_ms: 5000
+      pong_wait_ms: 10000
+      ping_period_ms: 8000 # Must be less than pong_wait_ms
+      outgoing_queue_size: 16
+
+    session:
+      encryption_key: "defaultencryptionkey"
+      token_expiry_sec: 6000
+
+    console:
+      port: 7351
+      username: "admin"
+      password: "password"

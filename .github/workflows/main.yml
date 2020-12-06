@@ -126,7 +126,7 @@ jobs:
           - WebGL
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          - Android # Build an Android .apk standalone app.
+          # - Android # Not suppported yet # Build an Android .apk standalone app.
     steps:
       # Checkout
       - uses: actions/checkout@v2
@@ -181,7 +181,7 @@ jobs:
       - run: |
           sed -i '\|<body>|a<iframe width="560" height="315" src="https://www.youtube.com/embed/B0MwLHRPuP8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' WebGL/WebGL/index.html
           sed -i '\|<body>|a<h1><a href="https://github.com/louis030195/niwrad">Github repository</a></h1>' WebGL/WebGL/index.html
-          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset or your pc will burn, IM SORRY FOR UGLY AS HELL UI</h1>' WebGL/WebGL/index.html
+          sed -i '\|<body>|a<h1>PROTIP: when reaching 500+ animals, pause or reset or your pc will burn</h1>' WebGL/WebGL/index.html
           sed -i "s|<title>.*</title>|<title>Niwrad-$(date '+%D')</title>|g" WebGL/WebGL/index.html
           echo "Hacked index.html :)"
       - name: Deploy 🚀 

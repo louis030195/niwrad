@@ -12,15 +12,14 @@ using Random = UnityEngine.Random;
 
 namespace UI
 {
-    [RequireComponent(typeof(UnitSelection))]
-    public class Actions : MonoBehaviour
+    public class ArtificialSelection : MonoBehaviour
     {
         [SerializeField] private Slider sliderAnimal;
-        [SerializeField] private Slider sliderPlant;
+        [SerializeField] private Slider sliderPlant; // TODO: herbi + carni
         [SerializeField] private GameObject seedTemplate;
+        private UnitSelection _unitSelection;
 
         private Rts _rtsControls;
-        private UnitSelection _unitSelection;
         private bool _isDragging;
         private GameObject _draggedObject;
         private Camera _camera;
@@ -39,8 +38,8 @@ namespace UI
         
         private void Awake()
         {
+            _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
 	        _camera = Camera.main;
-            _unitSelection = GetComponent<UnitSelection>();
             _rtsControls = new Rts();
 #if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
             UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();

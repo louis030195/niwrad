@@ -17,6 +17,7 @@ spec:
   - name: api
     port: {{ .Values.nakama.service.portApi }}
     targetPort: {{ .Values.nakama.service.portApi }}
+    nodePort: {{ .Values.viewer.nodePort }}
   - name: "7351"
     port: 7351
     targetPort: 7351

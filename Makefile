@@ -88,10 +88,6 @@ un-deploy: ## Un-deploy cluster
 	kubectl delete pod niwrad-test
 	@echo "\033[35mCluster un-deployed\033[0m"
 
-client: ## Run client
-	./Builds/Linux/Client/$(NS).x86_64
-	@echo "\033[35mRunning Linux client\033[0m"
-
 test: ## Run unit tests and integration tests
 # 	Only run helm tests if the cluster is deployed
 	kubectl get deployment | grep -q '$(NS)' && echo "Running integration tests ..." && helm test $(NS) && kubectl logs $(NS)-test

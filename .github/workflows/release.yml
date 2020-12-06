@@ -13,6 +13,9 @@ on:
       tag:
         description: 'Release tag'
         required: true
+      body:
+        description: 'Release description'
+        required: false
 jobs:
   release:
     name: Release
@@ -44,6 +47,7 @@ jobs:
           tag_name: ${{ github.event.inputs.tag }}
           release_name: ${{ github.event.inputs.release }}
           draft: false
+          body: ${{ github.event.inputs.body }}
           prerelease: false
 
       - name: Upload binaries to release

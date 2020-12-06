@@ -126,7 +126,7 @@ namespace UI
 			          $"Initial animals: {ia}, " +
 			          $"Initial plants: {ip}");
 			var p = new CreateMatchRequest().ToByteString().ToStringUtf8();
-			var protoResponse = await Sm.instance.socket.RpcAsync("create_match", 
+			var protoResponse = await Sm.instance.Socket.RpcAsync("create_match", 
                 p);
 			var response = CreateMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"CreateMatchResponse: {response}");
@@ -138,7 +138,7 @@ namespace UI
 			{
 				MatchId = m_MatchId
 			}.ToByteString().ToStringUtf8();
-			var protoResponse = await Sm.instance.socket.RpcAsync("stop_match", p);
+			var protoResponse = await Sm.instance.Socket.RpcAsync("stop_match", p);
 			var response = StopMatchResponse.Parser.ParseFrom(Encoding.UTF8.GetBytes(protoResponse.Payload));
 			Debug.Log($"StopServer response: {response}");
 		}

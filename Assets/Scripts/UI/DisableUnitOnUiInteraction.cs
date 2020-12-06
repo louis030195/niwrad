@@ -9,7 +9,7 @@ namespace UI
 {
     public class DisableUnitOnUiInteraction : MonoBehaviour
     {
-        [SerializeField] private UnitSelection unitSelection;
+        private UnitSelection _unitSelection;
         private EventSystem _eventSystem;
         private BaseInputModule _currentInputModule;
         private Rts _rtsControls;
@@ -21,6 +21,7 @@ namespace UI
 
         private void Start()
         {
+            _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
             _eventSystem = GetComponent<EventSystem>();
             _currentInputModule = _eventSystem.currentInputModule;
         }
@@ -38,7 +39,7 @@ namespace UI
 
         private void Update()
         {
-            unitSelection.disable = _rtsControls.UI.Click.triggered; //_eventSystem.currentSelectedGameObject != null;
+            _unitSelection.disable = _rtsControls.UI.Click.triggered; //_eventSystem.currentSelectedGameObject != null;
         }
     }
 }

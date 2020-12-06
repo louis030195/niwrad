@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    [RequireComponent(typeof(UnitSelection))]
 	public class CameraController : MonoBehaviour
     {
         [HideInInspector] public bool disable;
@@ -16,7 +15,7 @@ namespace Player
         [SerializeField] private GameObject moveJoystick;
         [SerializeField] private GameObject rotateJoystick;
         [SerializeField] private GameObject flyJoystick;
-        private UnitSelection _unitSelection;
+        public UnitSelection unitSelection;
         private FixedJoystick _moveJoystick;
         private FixedJoystick _rotateJoystick;
         private FixedJoystick _flyJoystick;
@@ -39,7 +38,6 @@ namespace Player
             rotationSpeed *= 10; // Somehow slower on mobile
             _mobile = true;
 #endif
-            _unitSelection = GetComponent<UnitSelection>();
             _rtsControls = new Rts();
             // Skip PC inputs if it's mobile
             if (_mobile) return;
@@ -67,7 +65,7 @@ namespace Player
             if (disable) return;
             var t = transform;
             // Disable unit selection when using joysticks on mobile
-            _unitSelection.disable = _mobile && _moveJoystick.isDragging || 
+            unitSelection.disable = _mobile && _moveJoystick.isDragging || 
                                      _mobile && _rotateJoystick.isDragging ||
                                     _mobile && _flyJoystick.isDragging;
             if (_mobile) transform.position += Vector3.up * (_flyJoystick.Vertical * zoomSpeed);

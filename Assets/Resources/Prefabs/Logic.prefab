@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5441787142046220018}
   - component: {fileID: 5441787142046220021}
   - component: {fileID: 5441787142046220022}
+  - component: {fileID: 2038893904}
+  - component: {fileID: 497211639}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -112,3 +114,31 @@ MonoBehaviour:
     type: 3}
   lowPolyCarnivorousPlantPrefab: {fileID: 4443387354701748607, guid: 8de57423e509875b2a6abd03a0f8e079,
     type: 3}
+--- !u!114 &2038893904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441787142046220017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b95a54e172629e5581d87bf47570202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &497211639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441787142046220017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c830461d11bee6f89ca5ec6b023e104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  ipAddress: localhost
+  port: 7350
+  isServer: 0

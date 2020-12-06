@@ -2,7 +2,7 @@
 # niwrad
 
 ![Acquire activation file](https://github.com/louis030195/niwrad/workflows/Acquire%20activation%20file/badge.svg)
-![Build project](https://github.com/louis030195/niwrad/workflows/Build%20project/badge.svg)
+![Build Niwrad](https://github.com/louis030195/niwrad/workflows/Build%20Niwrad/badge.svg)
 
 [![Video](docs/images/demo1.gif)](https://www.youtube.com/watch?v=B0MwLHRPuP8)
 

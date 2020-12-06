@@ -19,7 +19,7 @@ namespace Editor
         };
 
         private static readonly string[] OfflineScenes = {
-            "Assets/Scenes/Offline.unity",
+            "Assets/Scenes/SingleClient.unity",
         };
 
         private static void ParseCommandLineArguments(out Dictionary<string, string> providedArguments)

@@ -24,6 +24,24 @@ namespace UI
             _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
             _eventSystem = GetComponent<EventSystem>();
             _currentInputModule = _eventSystem.currentInputModule;
+            // FIX
+            // _rtsControls.UI.Click.started += _ =>
+            // {
+            //     _unitSelection.disable = true;
+            //     Debug.Log("started");
+            // };
+            // _rtsControls.UI.Click.performed += _ =>
+            // {
+            //     _unitSelection.disable = true;
+            //     Debug.Log("performed");
+            //
+            // };
+            // _rtsControls.UI.Click.canceled += _ =>
+            // {
+            //     _unitSelection.disable = false;
+            //     Debug.Log("canceled");
+            // };
+            // _eventSystem.currentSelectedGameObject
         }
         
         private void OnEnable()
@@ -39,7 +57,8 @@ namespace UI
 
         private void Update()
         {
-            _unitSelection.disable = _rtsControls.UI.Click.triggered; //_eventSystem.currentSelectedGameObject != null;
+            // TODO: instead remove eventtrigger & use new IS for d&d
+            _unitSelection.disable = _eventSystem.currentSelectedGameObject != null || _rtsControls.UI.Click.triggered; //
         }
     }
 }

@@ -89,6 +89,7 @@ namespace UI
         public void PopAll()
         {
             while(_stack.Count > 0) Pop();
+            settings.gameObject.SetActive(true);
         }
 
         public bool IsEmpty()

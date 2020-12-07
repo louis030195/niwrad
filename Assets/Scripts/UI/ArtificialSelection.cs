@@ -4,6 +4,7 @@ using Evolution;
 using Input;
 using Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
@@ -16,6 +17,8 @@ namespace UI
     {
         [SerializeField] private Slider sliderAnimal;
         [SerializeField] private Slider sliderPlant; // TODO: herbi + carni
+        [SerializeField] private EventTrigger triggerAnimal;
+        [SerializeField] private EventTrigger triggerPlant;
         [SerializeField] private GameObject seedTemplate;
         private UnitSelection _unitSelection;
 
@@ -41,6 +44,22 @@ namespace UI
             _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
 	        _camera = Camera.main;
             _rtsControls = new Rts();
+            
+            // Setup UI callbacks, TODO: must check if something cleaner with new input system
+            var e = new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag };
+            e.callback.AddListener(StartDraggingAnimal);
+            triggerAnimal.triggers.Add(e);
+            e = new EventTrigger.Entry { eventID = EventTriggerType.EndDrag };
+            e.callback.AddListener(StopDraggingAnimal);
+            triggerAnimal.triggers.Add(e);
+            
+            e = new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag };
+            e.callback.AddListener(StartDraggingPlant);
+            triggerPlant.triggers.Add(e);
+            e = new EventTrigger.Entry { eventID = EventTriggerType.EndDrag };
+            e.callback.AddListener(StopDraggingPlant);
+            triggerPlant.triggers.Add(e);
+            
 #if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
             UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
 #endif
@@ -112,14 +131,14 @@ namespace UI
             }
         }
 
-        public void StartDraggingAnimal() => StartDragging(Color.blue);
+        private void StartDraggingAnimal(BaseEventData _) => StartDragging(Color.blue);
 
-        public void StartDraggingPlant() => StartDragging(Color.green);
+        private void StartDraggingPlant(BaseEventData _) => StartDragging(Color.green);
 
-        public void StopDraggingAnimal() => StopDragging((int) sliderAnimal.value, Color.blue,
+        private void StopDraggingAnimal(BaseEventData _) => StopDragging((int) sliderAnimal.value, Color.blue,
             !Gm.instance.online || Sm.instance.isServer ? _hackAnimal : Hm.instance.RequestSpawnAnimal);
 
-        public void StopDraggingPlant() => StopDragging((int) sliderPlant.value, Color.green,
+        private void StopDraggingPlant(BaseEventData _) => StopDragging((int) sliderPlant.value, Color.green,
             !Gm.instance.online || Sm.instance.isServer ? _hackPlant : Hm.instance.RequestSpawnPlant);
     }
 }

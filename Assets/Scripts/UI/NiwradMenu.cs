@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Api.Session;
 using Gameplay;
+using Input;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
@@ -32,6 +34,8 @@ namespace UI
         public Button singlePlayerButton;
         public Button multiplayerButton;
 
+
+        private Rts _rtsControls;
         
 		protected override void Start()
 		{
@@ -54,6 +58,30 @@ namespace UI
                 Mm.instance.settings.Show();
             });
             multiplayerButton.onClick.AddListener(() => throw new NotImplementedException("Online mode in maintenance")); // TODO next
+            
+            _rtsControls = new Rts();
+#if UNITY_STANDALONE
+            // Lock cursor withing window in standalone
+            Cursor.lockState = CursorLockMode.Confined;
+
+            void ReLock(InputAction.CallbackContext _)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                ShowToast("Cursor locked again").Forget();
+                _rtsControls.Player.Fire.performed -= ReLock;
+            }
+            // Can unlock cursor from the window in standalone by pressing escape
+            _rtsControls.Player.DoubleCancel.performed += ctx =>
+            {
+                Cursor.lockState = CursorLockMode.None;
+                ShowToast("Cursor unlocked from the window, click inside the window to re-lock the cursor").Forget();
+                // Can re-lock cursor from the window in standalone by pressing escape
+                _rtsControls.Player.Fire.performed += ReLock;
+            };
+#endif
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+            UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
+#endif
         }
 
         private async void Connect()

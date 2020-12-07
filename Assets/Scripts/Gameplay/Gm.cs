@@ -125,12 +125,12 @@ namespace Gameplay
                     (float) e.Map.Spread, 
                     (float) e.Map.SpreadReductionRate);
             _map.tag = "ground";
-
-            var m = GetComponent<NavMeshSurface>();
-            Debug.Log($"Generating map and baking it for path finding");
-            m.BuildNavMesh();
             Experience = e;
             Mm.instance.EnableHud(true);
+            Mm.instance.settings.gameObject.SetActive(true); // TODO: shouldn't be here, fix UI again
+            var m = GetComponent<NavMeshSurface>();
+            Debug.Log($"Generating map and baking it for path finding");
+            m.BuildNavMesh(); // TODO: can crash if weird meshes, maybe should try catch here
             // TODO: other general stuff
             Hm.instance.StartExperience(e);
             // TODO: generate map based on e.Map.Stuff

@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "DoubleCancel",
+                    "type": "PassThrough",
+                    "id": "f4f5018b-c5fe-420e-95e8-8c3a6316c8cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -307,6 +315,17 @@
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41b1eafd-ed1f-43a3-8f3d-66cc8bdadb5c",
+                    "path": "*/{Cancel}",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleCancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -391,6 +410,14 @@
                     "type": "PassThrough",
                     "id": "b7698a22-e878-4d41-9d92-9307262db245",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LongCancel",
+                    "type": "PassThrough",
+                    "id": "33d3f1a9-0539-4683-baee-b42b3764d4bd",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -811,6 +838,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de0e1d35-d1b5-42da-b9c8-dc05a5bc329b",
+                    "path": "*/{Cancel}",
+                    "interactions": "Hold(duration=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LongCancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

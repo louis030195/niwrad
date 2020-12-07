@@ -22,15 +22,6 @@ namespace Player {
 		{
 			_cam = Camera.main;
             _rtsControls = new Rts();
-#if UNITY_STANDALONE
-			// Lock cursor withing window in standalone
-			Cursor.lockState = CursorLockMode.Confined;
-            // Can unlock cursor from the window in standalone by pressing escape
-            _rtsControls.UI.Cancel.performed += ctx => Cursor.lockState = CursorLockMode.None;
-#endif
-#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
-            UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
-#endif
         }
         
         private void OnEnable()

@@ -67,6 +67,14 @@ namespace Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DoubleCancel"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f4f5018b-c5fe-420e-95e8-8c3a6316c8cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -322,6 +330,17 @@ namespace Input
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41b1eafd-ed1f-43a3-8f3d-66cc8bdadb5c"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleCancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -406,6 +425,14 @@ namespace Input
                     ""type"": ""PassThrough"",
                     ""id"": ""b7698a22-e878-4d41-9d92-9307262db245"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LongCancel"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""33d3f1a9-0539-4683-baee-b42b3764d4bd"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -828,6 +855,17 @@ namespace Input
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de0e1d35-d1b5-42da-b9c8-dc05a5bc329b"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": ""Hold(duration=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LongCancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -903,6 +941,7 @@ namespace Input
             m_Player_MoveY = m_Player.FindAction("MoveY", throwIfNotFound: true);
             m_Player_RotateY = m_Player.FindAction("RotateY", throwIfNotFound: true);
             m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
+            m_Player_DoubleCancel = m_Player.FindAction("DoubleCancel", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -915,6 +954,7 @@ namespace Input
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            m_UI_LongCancel = m_UI.FindAction("LongCancel", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -970,6 +1010,7 @@ namespace Input
         private readonly InputAction m_Player_MoveY;
         private readonly InputAction m_Player_RotateY;
         private readonly InputAction m_Player_Cancel;
+        private readonly InputAction m_Player_DoubleCancel;
         public struct PlayerActions
         {
             private @Rts m_Wrapper;
@@ -980,6 +1021,7 @@ namespace Input
             public InputAction @MoveY => m_Wrapper.m_Player_MoveY;
             public InputAction @RotateY => m_Wrapper.m_Player_RotateY;
             public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
+            public InputAction @DoubleCancel => m_Wrapper.m_Player_DoubleCancel;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1007,6 +1049,9 @@ namespace Input
                     @Cancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
                     @Cancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
                     @Cancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                    @DoubleCancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleCancel;
+                    @DoubleCancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleCancel;
+                    @DoubleCancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleCancel;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1029,6 +1074,9 @@ namespace Input
                     @Cancel.started += instance.OnCancel;
                     @Cancel.performed += instance.OnCancel;
                     @Cancel.canceled += instance.OnCancel;
+                    @DoubleCancel.started += instance.OnDoubleCancel;
+                    @DoubleCancel.performed += instance.OnDoubleCancel;
+                    @DoubleCancel.canceled += instance.OnDoubleCancel;
                 }
             }
         }
@@ -1047,6 +1095,7 @@ namespace Input
         private readonly InputAction m_UI_RightClick;
         private readonly InputAction m_UI_TrackedDevicePosition;
         private readonly InputAction m_UI_TrackedDeviceOrientation;
+        private readonly InputAction m_UI_LongCancel;
         public struct UIActions
         {
             private @Rts m_Wrapper;
@@ -1061,6 +1110,7 @@ namespace Input
             public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
             public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
             public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+            public InputAction @LongCancel => m_Wrapper.m_UI_LongCancel;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1100,6 +1150,9 @@ namespace Input
                     @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                     @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                     @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                    @LongCancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLongCancel;
+                    @LongCancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLongCancel;
+                    @LongCancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLongCancel;
                 }
                 m_Wrapper.m_UIActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1134,6 +1187,9 @@ namespace Input
                     @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                     @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                     @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                    @LongCancel.started += instance.OnLongCancel;
+                    @LongCancel.performed += instance.OnLongCancel;
+                    @LongCancel.canceled += instance.OnLongCancel;
                 }
             }
         }
@@ -1191,6 +1247,7 @@ namespace Input
             void OnMoveY(InputAction.CallbackContext context);
             void OnRotateY(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
+            void OnDoubleCancel(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
@@ -1204,6 +1261,7 @@ namespace Input
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+            void OnLongCancel(InputAction.CallbackContext context);
         }
     }
 }

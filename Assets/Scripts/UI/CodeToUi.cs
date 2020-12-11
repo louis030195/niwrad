@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Cysharp.Threading.Tasks;
+using Lean.Gui;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,7 +66,9 @@ namespace UI
         /// <param name="parent"></param>
         /// <param name="name"></param>
         /// <param name="sliderTemplate">Object with 1: label text mp pro gui, 2 slider, 3 value text mp pro gui</param>
-        public static Slider NumberToUi(object min, object max, object value, Transform parent, string name, GameObject sliderTemplate = null)
+        /// <param name="tooltip"></param>
+        public static Slider NumberToUi(object min, object max, object value, Transform parent, string name, 
+            GameObject sliderTemplate = null, string tooltip = "")
         {
             if (!min.IsNumber()) throw new Exception("This method only accept numbers");
             sliderTemplate = sliderTemplate ? sliderTemplate : DefaultSlider;
@@ -73,6 +77,7 @@ namespace UI
             s.minValue = Convert.ToSingle(min);
             s.maxValue = Convert.ToSingle(max);
             s.value = Convert.ToSingle(value);
+            go.GetComponent<LeanTooltipData>().Text = tooltip;
             var labelValue = go.transform.GetChild(0);
             labelValue.GetComponent<TextMeshProUGUI>().text = $"{name}";
             var sliderValue = go.transform.GetChild(2);
@@ -91,6 +96,34 @@ namespace UI
             var labelValue = go.transform.GetChild(0);
             labelValue.GetComponent<TextMeshProUGUI>().text = $"{name}";
             return t;
+        }
+        
+        public static async UniTaskVoid FadeInAndOut(this Graphic target, bool fadeIn, float duration)
+        {
+            //Set Values depending on if fadeIn or fadeOut
+            float a, b;
+            if (fadeIn)
+            {
+                a = 0f;
+                b = 1f;
+            }
+            else
+            {
+                a = 1f;
+                b = 0f;
+            }
+
+            var currentColor = target.color;
+            var counter = 0f;
+
+            while (counter < duration)
+            {
+                counter += Time.deltaTime;
+                var alpha = Mathf.Lerp(a, b, counter / duration);
+
+                target.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+                await UniTask.Yield();
+            }
         }
     }
 }

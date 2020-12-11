@@ -1,4 +1,4 @@
-name: nakama-1
+name: nakama
 data_dir: "./data/"
 
 #logger:
@@ -25,8 +25,8 @@ runtime:
 
 socket:
   server_key: "defaultkey"
-  port: 6666
-  max_message_size_bytes: 4096 # bytes
+  port: 7350
+  max_message_size_bytes: 8192 # bytes
   read_timeout_ms: 10000
   write_timeout_ms: 10000
   idle_timeout_ms: 60000

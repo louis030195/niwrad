@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   nakama-config.yml: |
-    name: {{ Release.Name }}
+    name: {{ .Release.Name }}
     data_dir: "./data/"
 
     #logger:
@@ -31,8 +31,8 @@ data:
 
     socket:
       server_key: "defaultkey"
-      port: {{ .Values.service.portApi }}
-      max_message_size_bytes: 4096 # bytes
+      port: {{ .Values.nakama.service.portApi }}
+      max_message_size_bytes: 8192 # bytes
       read_timeout_ms: 10000
       write_timeout_ms: 10000
       idle_timeout_ms: 60000

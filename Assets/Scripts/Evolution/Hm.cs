@@ -6,7 +6,6 @@ using Api.Realtime;
 using Api.Session;
 using Api.Utils;
 using Gameplay;
-using ProceduralTree;
 using UnityEngine;
 using Utils;
 using Quaternion = UnityEngine.Quaternion;
@@ -19,7 +18,7 @@ namespace Evolution
     /// <summary>
     /// Defines the level of details of prefab used, e.g. low = cubes only, fast perf
     /// </summary>
-    internal enum GraphicTier
+    internal enum GraphicTier // TODO: useless yet
     {
         Low,
         Medium,
@@ -40,12 +39,12 @@ namespace Evolution
 		/// <summary>
         /// Dictionary containing animals
         /// </summary>
-        private readonly Dictionary<ulong, SimpleAnimal> _animals = new Dictionary<ulong, SimpleAnimal>();
+        public Dictionary<ulong, SimpleAnimal> Animals = new Dictionary<ulong, SimpleAnimal>();
 
 		/// <summary>
 		/// Dictionary containing Plants
 		/// </summary>
-		private readonly Dictionary<ulong, Plant> _plants = new Dictionary<ulong, Plant>();
+		public Dictionary<ulong, Plant> Plants = new Dictionary<ulong, Plant>();
 
         /// <summary>
         /// Next id to give for new host
@@ -61,17 +60,13 @@ namespace Evolution
             base.Awake();
             switch (graphicTier)
             {
+                case GraphicTier.Medium:
+                case GraphicTier.High:
                 case GraphicTier.Low:
                     Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
                     Pool.Preload(lowPolyHerbivorousPlantPrefab, 100);
-                    break;
-                case GraphicTier.Medium:
-                    Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
-                    TreePool.instance.FillSlowly(100);
-                    break;
-                case GraphicTier.High:
-                    Pool.Preload(lowPolyHerbivorousAnimalPrefab, 100);
-                    TreePool.instance.FillSlowly(100);
+                    Pool.Preload(lowPolyCarnivorousAnimalPrefab, 100);
+                    Pool.Preload(lowPolyCarnivorousPlantPrefab, 100);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -87,10 +82,10 @@ namespace Evolution
         private void Update()
         {
             if (Time.frameCount % 5 != 0) return;
-            Statistics.Push(new TimeSeriePoint // TODO: should keep latest computed variables
+            Statistics.Push(new ExperienceSample // TODO: should keep latest computed variables
             {
-                Animals = _animals.Count,
-                Plants = _plants.Count,
+                Animals = Animals.Count,
+                Plants = Plants.Count,
             });
         }
 
@@ -210,20 +205,20 @@ namespace Evolution
         /// </summary>
         public void Reset()
         {
-            _animals.Keys.ToList().ForEach(id => DestroyAnimal(id));
-            _plants.Keys.ToList().ForEach(id => DestroyPlant(id));
+            Animals.Keys.ToList().ForEach(id => DestroyAnimal(id));
+            Plants.Keys.ToList().ForEach(id => DestroyPlant(id));
         }
 
         public void Pause()
         {
-            _animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
-            _plants.Values.ToList().ForEach(v => v.controller.aiActive = false);
+            Animals.Values.ToList().ForEach(a => a.controller.aiActive = false);
+            Plants.Values.ToList().ForEach(v => v.controller.aiActive = false);
         }
         
         public void Play()
         {
-            _animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
-            _plants.Values.ToList().ForEach(v => v.controller.aiActive = true);
+            Animals.Values.ToList().ForEach(a => a.controller.aiActive = true);
+            Plants.Values.ToList().ForEach(v => v.controller.aiActive = true);
         }
 
         public void StartExperience(Experience e)
@@ -353,7 +348,7 @@ namespace Evolution
         private CommonAnimal SpawnAnimal(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
             // Just a little hack to avoid crashing the PC ! :)
-            if (_animals.Count > 500)
+            if (Animals.Count > 500)
             {
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -365,36 +360,36 @@ namespace Evolution
             // Debug.Log($"Spawning animal {obj}");
             _nextId++;
             var a = Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousAnimalPrefab : lowPolyHerbivorousAnimalPrefab, p, r);
-            _animals[_nextId] = a.GetComponent<SimpleAnimal>();
-            _animals[_nextId].characteristics = c.Clone(); // TODO: prob quite expensive gotta pool later or something maybe
-            _animals[_nextId].characteristicsMin = cMin;
-            _animals[_nextId].characteristicsMax = cMax;
-            _animals[_nextId].id = _nextId;
-            _animals[_nextId].isCarnivorous = c.Carnivorous;
+            Animals[_nextId] = a.GetComponent<SimpleAnimal>();
+            Animals[_nextId].characteristics = c.Clone(); // TODO: prob quite expensive gotta pool later or something maybe
+            Animals[_nextId].characteristicsMin = cMin;
+            Animals[_nextId].characteristicsMax = cMax;
+            Animals[_nextId].id = _nextId;
+            Animals[_nextId].isCarnivorous = c.Carnivorous;
             // TODO: should prob have 2 prefab
             // Only server handle animal behaviours
             if (!Gm.instance.online || Sm.instance.isServer)
             {
-                _animals[_nextId].EnableBehaviour(true);
+                Animals[_nextId].EnableBehaviour(true);
                 // var tSync = m_Animals[obj.Id].gameObject.AddComponent<TransformSync>();
                 // tSync.id = obj.Id;
             }
 
-            return _animals[_nextId];
+            return Animals[_nextId];
         }
 
         private CommonAnimal DestroyAnimal(ulong id)
         {
-	        if (!_animals.ContainsKey(id))
+	        if (!Animals.ContainsKey(id))
 	        {
 		        // TODO: fix
 		        // Debug.LogError($"Tried to destroy in-existent animal {obj.Id}");
 		        return null;
 	        }
 
-            var animal = _animals[id];
+            var animal = Animals[id];
 	        Pool.Despawn(animal.gameObject);
-	        if (!_animals.Remove(id)) Debug.LogError($"Failed to remove animal {id}");
+	        if (!Animals.Remove(id)) Debug.LogError($"Failed to remove animal {id}");
             return animal;
         }
 
@@ -430,7 +425,7 @@ namespace Evolution
 
         private Plant SpawnPlant(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            if (_plants.Count > 500)
+            if (Plants.Count > 500)
             {
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -439,34 +434,33 @@ namespace Evolution
                 // Application.Quit();
 #endif
             }
-            var veg = graphicTier == GraphicTier.Low ? // TODO: for now ugly if else, better = OOP stuff: spawn something i dont care what it is
-                Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousPlantPrefab : lowPolyHerbivorousPlantPrefab, p, r).GetComponent<Plant>() : 
-                TreePool.instance.Spawn(p, r).go.GetComponent<Plant>();
+
+            var veg = Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousPlantPrefab : lowPolyHerbivorousPlantPrefab, p, r)
+                .GetComponent<Plant>();
             _nextId++;
-            _plants[_nextId] = veg;
-            _plants[_nextId].characteristics = c.Clone();
-            _plants[_nextId].characteristicsMin = cMin;
-            _plants[_nextId].characteristicsMax = cMax;
-            _plants[_nextId].id = _nextId;
+            Plants[_nextId] = veg;
+            Plants[_nextId].characteristics = c.Clone();
+            Plants[_nextId].characteristicsMin = cMin;
+            Plants[_nextId].characteristicsMax = cMax;
+            Plants[_nextId].id = _nextId;
             // _plants[_nextId].isCarnivorous = c.Carnivorous; // TODO:
 
-            if (!Gm.instance.online || Sm.instance.isServer) _plants[_nextId].EnableBehaviour(true);
-	        return _plants[_nextId];
+            if (!Gm.instance.online || Sm.instance.isServer) Plants[_nextId].EnableBehaviour(true);
+	        return Plants[_nextId];
         }
 
 
         private Plant DestroyPlant(ulong id)
         {
-	        if (!_plants.ContainsKey(id))
+	        if (!Plants.ContainsKey(id))
 	        {
 		        // Debug.LogError($"Tried to destroy in-existent tree {obj.Id}");
 		        return null;
 	        }
 
-            var plant = _plants[id];
-            if (graphicTier == GraphicTier.Low) Pool.Despawn(plant.gameObject);
-            else TreePool.instance.Despawn(plant.gameObject);
-	        _plants.Remove(id);
+            var plant = Plants[id];
+            Pool.Despawn(plant.gameObject);
+            Plants.Remove(id);
             return plant;
         }
 
@@ -475,9 +469,9 @@ namespace Evolution
         private void OnMemeUpdated(Meme obj)
         {
 	        // If this id doesn't belong to animals, maybe it's a tree
-	        if (_animals.ContainsKey(obj.Id))
+	        if (Animals.ContainsKey(obj.Id))
 	        {
-		        var h = _animals[obj.Id];
+		        var h = Animals[obj.Id];
 		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
@@ -487,9 +481,9 @@ namespace Evolution
 		        // Transition to the new received meme
 		        h.controller.Transition(h.Memes[obj.MemeName]);
 	        }
-	        else if (_plants.ContainsKey(obj.Id))
+	        else if (Plants.ContainsKey(obj.Id))
 	        {
-		        var h = _plants[obj.Id];
+		        var h = Plants[obj.Id];
 		        if (!h.Memes.ContainsKey(obj.MemeName))
 		        {
 			        Debug.LogError($"Tried to update in-existent meme {obj.MemeName} on host {obj.Id}");
@@ -507,25 +501,25 @@ namespace Evolution
 
         private void OnTransformUpdated(Transform obj) // TODO: merge spawn and update ?
         {
-	        if (!_animals.ContainsKey(obj.Id))
+	        if (!Animals.ContainsKey(obj.Id))
 	        {
 		        // Debug.LogError($"Tried to update in-existent animal {obj.Id}"); // TODO: maybe should pass client id
 		        return;
 	        }
 
-	        _animals[obj.Id].transform.position = obj.Position.ToVector3();
-	        _animals[obj.Id].transform.rotation = obj.Rotation.ToQuaternion();
+	        Animals[obj.Id].transform.position = obj.Position.ToVector3();
+	        Animals[obj.Id].transform.rotation = obj.Rotation.ToQuaternion();
         }
 
         private void OnNavMeshUpdated(NavMeshUpdate obj)
         {
-	        if (!_animals.ContainsKey(obj.Id))
+	        if (!Animals.ContainsKey(obj.Id))
 	        {
 		        // Debug.LogError($"Tried to update in-existent animal {obj.Id}"); // TODO: maybe should pass client id
 		        return;
 	        }
 
-	        _animals[obj.Id].movement.MoveTo(obj.Destination.ToVector3());
+	        Animals[obj.Id].movement.MoveTo(obj.Destination.ToVector3());
         }
 
         #endregion

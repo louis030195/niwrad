@@ -44,32 +44,32 @@
          "initialAmount": "20",
          "scattering": 20 
     },
-     "vegetationCharacteristics": {
+     "plantCharacteristics": {
          "computation": 50,
          "life": 50,
          "robustness": 50,
          "energy": 50,
          "reproductionCost": 50,
-         "vegetationCharacteristics": {
+         "plantCharacteristics": {
              
         } 
     },
-     "vegetationCharacteristicsMinimumBound": {
-         "vegetationCharacteristics": {
+     "plantCharacteristicsMinimumBound": {
+         "plantCharacteristics": {
              
         } 
     },
-     "vegetationCharacteristicsMaximumBound": {
+     "plantCharacteristicsMaximumBound": {
          "computation": 100,
          "life": 100,
          "robustness": 100,
          "energy": 100,
          "reproductionCost": 100,
-         "vegetationCharacteristics": {
+         "plantCharacteristics": {
              
         } 
     },
-     "vegetationDistribution": {
+     "plantDistribution": {
          "initialAmount": "20",
          "scattering": 20 
     },

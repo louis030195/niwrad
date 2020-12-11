@@ -8,17 +8,17 @@ namespace Evolution
 {
     public class Statistics
     {
-        private readonly List<TimeSeriePoint> _points = new List<TimeSeriePoint>();
+        private readonly List<ExperienceSample> _points = new List<ExperienceSample>();
         // private readonly List<float> _times = new List<float>(); // TODO: yet useless
-        public event Action<(TimeSeriePoint p, float t)> Pushed;
+        public event Action<(ExperienceSample p, float t)> Pushed;
         
-        public void Push(TimeSeriePoint p)
+        public void Push(ExperienceSample p)
         {
             _points.Add(p);
             // _times.Add(Time.time);
             Pushed?.Invoke((p, Time.time));
         }
 
-        public TimeSeriePoint Get() => _points.Last();
+        public ExperienceSample Get() => _points.Last();
     }
 }

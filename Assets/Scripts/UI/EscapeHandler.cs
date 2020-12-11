@@ -12,11 +12,13 @@ namespace UI
         [SerializeField] private Menu escapeScrollView;
         [SerializeField] private Menu experienceMenu;
         [SerializeField] private Menu inputsMenu;
+        [SerializeField] private Menu leaderboardMenu;
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button inputsButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button experienceButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private Button leaderboardButton;
 
         private Rts _rtsControls;
         private void Awake()
@@ -38,10 +40,11 @@ namespace UI
         private void Start()
         {
             settingsButton.onClick.AddListener(SubShow);
-            resumeButton.onClick.AddListener(Mm.instance.PopAll);
+            resumeButton.onClick.AddListener(NiwradMenu.instance.PopAll);
             inputsButton.onClick.AddListener(inputsMenu.Push);
             experienceButton.onClick.AddListener(experienceMenu.Push);
             quitButton.onClick.AddListener(Quit);
+            leaderboardButton.onClick.AddListener(leaderboardMenu.Push);
         }
 
         private void Quit()
@@ -57,21 +60,21 @@ namespace UI
 
         private void ShowEscapeMenu(InputAction.CallbackContext ctx)
         {
-            if (Gm.instance.State == GameState.Menu) return;
+            if (Gm.instance.state == GameState.Menu) return;
             SubShow();
         }
 
         private void SubShow()
         {
-            if (Mm.instance.IsEmpty())
+            if (NiwradMenu.instance.IsEmpty())
             {
                 settingsButton.gameObject.SetActive(false);
-                Mm.instance.Push(escapeScrollView);
+                NiwradMenu.instance.Push(escapeScrollView);
             }
             else
             {
                 settingsButton.gameObject.SetActive(true);
-                Mm.instance.PopAll();
+                NiwradMenu.instance.PopAll();
             }
         }
     }

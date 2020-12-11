@@ -1,3 +1,4 @@
+using System.Linq;
 using Gameplay;
 using Api.Session;
 using Evolution;
@@ -86,8 +87,9 @@ namespace UI
         {
             _unitSelection.disable = true;
             Vector3 seedPosition;
+
 #if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
-            seedPosition = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.FirstOrDefault().screenPosition;
+            seedPosition = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.First().screenPosition;
 #else
             seedPosition = Mouse.current.position.ReadValue();
 #endif

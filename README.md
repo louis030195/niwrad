@@ -20,85 +20,35 @@ See related writings:
 * [x] Heuristic AI (state machine)
 * [x] Artificial selection (partially)
   * [x] Spawn plants / animals by drag & drop
-* [x] Reproducible experiences
-  * [x] Ugly as hell UI but UX works
+* [x] Parametrable experiences
+  * [x] Working UX
 * [x] Experience metrics (partially)
   * [x] Big ugly panel in game with number of animals ...
 * [x] Optional carnivorous hosts
 * [x] Android, Linux, Windows, Web, (iOS/MacOS not tested but should work)
   * [x] Mobile joysticks
+  * [x] Passable UX
+* [x] Multiplayer + singleplayer
+  * [x] Can share experiences
+  * [x] Leaderboard (naïve who had the most hosts alive = biggest computer)
 
-## Development
-
-### Dependencies
+## Dependencies
 
 * Online mode: [Nakama](https://github.com/heroiclabs/nakama)
 * Online mode: <https://github.com/louis030195/octree> for "network culling" i.e. if an animal moves in (1000,0,1000) and I'm in (0,0,0) I don't want to be notified of that.
 * Online mode: deployments (Docker, Kubernetes, Helm, Minikube / k3s)
-* Both: Unitask, Protobuf, TextMesh Pro
+* Both: Unitask, Protobuf, TextMesh Pro, new unity input system
 
-### Goals
+## Goals
 
 * Hosts have characteristics. When hosts reproduce sexually or asexually, the offspring characteristics are its parent's plus mutations.
 * Hosts behaviour code MUST be generic, so we can either implement simple heuristics like state-machines, behaviour trees, utility or try learning AI like reinforcement learning.
 * Observers can trigger artificial selection, the goal is to implement actions that offer the possibility to influence evolution. Currently what came to my mind: any way to protect, harm, heal, feed ... some species
 
-### Non-goals
+## Non-goals
 
 * Simulating nature at the quantum level
 
 ## Development
 
-```bash
-git clone https://github.com/louis030195/niwrad
-```
-
-### Prerequisites
-
-#### Online
-
-1. [Docker](https://www.docker.com)
-2. [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-3. [Install helm](https://helm.sh/docs/intro/install/)
-4. [Install minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) (for local k8s)
-
-#### Online & Offline
-
-1. [Unity](https://unity.com) to build artifacts or find a client [here](https://github.com/louis030195/niwrad/actions)
-2. make is recommended: `sudo apt install make`
-3. [protoc, protoc-gen-go, protoc-gen-csharp](https://github.com/protocolbuffers/protobuf)
-    - `sudo apt install -y protobuf-compiler`
-    - `go get -u github.com/golang/protobuf/protoc-gen-go`
-
-```make
-usage: make [target] ...
-
-targets:
-help                               Display this help
-build-client-artifact              Build unity client
-build-server-artifact              Build unity server
-build-unity-image                  Build unity server docker image
-build-js-image                     Build js client docker image
-build-integration-tests-image      Build integration tests docker image
-build-nakama-image                 Build nakama docker image
-build-proto                        Build protobuf stubs
-deploy                             Deploy cluster
-un-deploy                          Un-deploy cluster
-client                             Run client
-test                               Run unit tests and integration tests
-```
-
-## Testing
-
-```bash
-# Should run Unity unit tests (but unfortunately Unity CLI rarely works on Ubuntu 20.04 at least so it Seg Fault)
-# Run integration tests with Helm (imply that you have a configured k8s/k3s cluster, Helm)
-make test
-```
-
-## TODO
-
-* experience menu -> import experiences (setup a cloud storage with some experiences for example).
-* experience different reproductions (asexual, sexual species, predators, parasites)
-* better metrics
-* see issues
+[See](docs/DEVELOPMENT.md)

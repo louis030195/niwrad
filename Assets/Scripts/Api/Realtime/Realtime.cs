@@ -78,41 +78,41 @@ namespace Api.Realtime {
             "aWNzSAAagQEKFUFuaW1hbENoYXJhY3RlcmlzdGljcxINCgVzcGVlZBgBIAEo",
             "AhIdChVyYW5kb21fbW92ZW1lbnRfcmFuZ2UYAiABKAISEwoLc2lnaHRfcmFu",
             "Z2UYAyABKAISEQoJZWF0X3JhbmdlGAQgASgCEhIKCm1ldGFib2xpc20YBSAB",
-            "KAIaFgoUUGxhbnRDaGFyYWN0ZXJpc3RpY3NCBgoEdHlwZSLxAQoOVGltZVNl",
-            "cmllUG9pbnQSDwoHYW5pbWFscxgyIAEoAxIOCgZwbGFudHMYPCABKAMSEgoK",
-            "YW5pbWFsX2FnZRhGIAEoARJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAog",
-            "ASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0",
-            "aWNzEhEKCXBsYW50X2FnZRhaIAEoARJKChVwbGFudF9jaGFyYWN0ZXJpc3Rp",
-            "Y3MYKCABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0",
-            "ZXJpc3RpY3MiswkKCkV4cGVyaWVuY2USDAoEbmFtZRgBIAEoCRIbChNpbmNs",
-            "dWRlX2Nhcm5pdm9yb3VzGA4gASgIEhsKE2Nhcm5pdm9yb3VzX3BlcmNlbnQY",
-            "DyABKAUSSwoWYW5pbWFsX2NoYXJhY3RlcmlzdGljcxgKIAEoCzIrLm5ha2Ft",
-            "YS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRhbmlt",
-            "YWxfY2hhcmFjdGVyaXN0aWNzX21pbmltdW1fYm91bmQYCyABKAsyKy5uYWth",
-            "bWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQokYW5p",
-            "bWFsX2NoYXJhY3RlcmlzdGljc19tYXhpbXVtX2JvdW5kGAwgASgLMisubmFr",
-            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzEloKE2Fu",
-            "aW1hbF9kaXN0cmlidXRpb24YDSABKAsyPS5uYWthbWEubml3cmFkLmFwaS5y",
-            "ZWFsdGltZS5FeHBlcmllbmNlLlBvcHVsYXRpb25EaXN0cmlidXRpb24SSgoV",
-            "cGxhbnRfY2hhcmFjdGVyaXN0aWNzGCggASgLMisubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElgKI3BsYW50X2NoYXJhY3Rl",
-            "cmlzdGljc19taW5pbXVtX2JvdW5kGCkgASgLMisubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElgKI3BsYW50X2NoYXJhY3Rl",
-            "cmlzdGljc19tYXhpbXVtX2JvdW5kGCogASgLMisubmFrYW1hLm5pd3JhZC5h",
-            "cGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKEnBsYW50X2Rpc3RyaWJ1",
-            "dGlvbhgrIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVy",
-            "aWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhI3CgNtYXAYMiABKAsyKi5u",
-            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLk1hcBJJCgdn",
-            "ZW5lcmFsGDwgASgLMjgubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRXhw",
-            "ZXJpZW5jZS5HZW5lcmFsUGFyYW1ldGVycxpEChZQb3B1bGF0aW9uRGlzdHJp",
-            "YnV0aW9uEhYKDmluaXRpYWxfYW1vdW50GAEgASgEEhIKCnNjYXR0ZXJpbmcY",
-            "AiABKAIadAoDTWFwEgwKBHNpemUYASABKAESDgoGaGVpZ2h0GAIgASgBEg4K",
-            "BnNwcmVhZBgFIAEoARIdChVzcHJlYWRfcmVkdWN0aW9uX3JhdGUYByABKAES",
-            "DQoFd2F0ZXIYCCABKAgSEQoJZGl2ZXJzaXR5GAogASgEGmMKEUdlbmVyYWxQ",
-            "YXJhbWV0ZXJzEhEKCXRpbWVzY2FsZRgBIAEoDRISCgp0aW1lX2xpbWl0GAIg",
-            "ASgNEg4KBnJlcGVhdBgDIAEoCBIXCg9zYXZlX3N0YXRpc3RpY3MYBCABKAhC",
-            "NFojbmFrYW1hL25pd3JhZC9hcGkvcmVhbHRpbWU7cmVhbHRpbWWqAgxBcGku",
-            "UmVhbHRpbWViBnByb3RvMw=="));
+            "KAIaFgoUUGxhbnRDaGFyYWN0ZXJpc3RpY3NCBgoEdHlwZSLzAQoQRXhwZXJp",
+            "ZW5jZVNhbXBsZRIPCgdhbmltYWxzGDIgASgDEg4KBnBsYW50cxg8IAEoAxIS",
+            "CgphbmltYWxfYWdlGEYgASgBEksKFmFuaW1hbF9jaGFyYWN0ZXJpc3RpY3MY",
+            "CiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
+            "c3RpY3MSEQoJcGxhbnRfYWdlGFogASgBEkoKFXBsYW50X2NoYXJhY3Rlcmlz",
+            "dGljcxgoIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJh",
+            "Y3RlcmlzdGljcyKzCQoKRXhwZXJpZW5jZRIMCgRuYW1lGAEgASgJEhsKE2lu",
+            "Y2x1ZGVfY2Fybml2b3JvdXMYDiABKAgSGwoTY2Fybml2b3JvdXNfcGVyY2Vu",
+            "dBgPIAEoBRJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAogASgLMisubmFr",
+            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKJGFu",
+            "aW1hbF9jaGFyYWN0ZXJpc3RpY3NfbWluaW11bV9ib3VuZBgLIAEoCzIrLm5h",
+            "a2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRh",
+            "bmltYWxfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQYDCABKAsyKy5u",
+            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWgoT",
+            "YW5pbWFsX2Rpc3RyaWJ1dGlvbhgNIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBp",
+            "LnJlYWx0aW1lLkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhJK",
+            "ChVwbGFudF9jaGFyYWN0ZXJpc3RpY3MYKCABKAsyKy5uYWthbWEubml3cmFk",
+            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWAojcGxhbnRfY2hhcmFj",
+            "dGVyaXN0aWNzX21pbmltdW1fYm91bmQYKSABKAsyKy5uYWthbWEubml3cmFk",
+            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWAojcGxhbnRfY2hhcmFj",
+            "dGVyaXN0aWNzX21heGltdW1fYm91bmQYKiABKAsyKy5uYWthbWEubml3cmFk",
+            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQoScGxhbnRfZGlzdHJp",
+            "YnV0aW9uGCsgASgLMj0ubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRXhw",
+            "ZXJpZW5jZS5Qb3B1bGF0aW9uRGlzdHJpYnV0aW9uEjcKA21hcBgyIAEoCzIq",
+            "Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuTWFwEkkK",
+            "B2dlbmVyYWwYPCABKAsyOC5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5F",
+            "eHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0ZXJzGkQKFlBvcHVsYXRpb25EaXN0",
+            "cmlidXRpb24SFgoOaW5pdGlhbF9hbW91bnQYASABKAQSEgoKc2NhdHRlcmlu",
+            "ZxgCIAEoAhp0CgNNYXASDAoEc2l6ZRgBIAEoARIOCgZoZWlnaHQYAiABKAES",
+            "DgoGc3ByZWFkGAUgASgBEh0KFXNwcmVhZF9yZWR1Y3Rpb25fcmF0ZRgHIAEo",
+            "ARINCgV3YXRlchgIIAEoCBIRCglkaXZlcnNpdHkYCiABKAQaYwoRR2VuZXJh",
+            "bFBhcmFtZXRlcnMSEQoJdGltZXNjYWxlGAEgASgNEhIKCnRpbWVfbGltaXQY",
+            "AiABKA0SDgoGcmVwZWF0GAMgASgIEhcKD3NhdmVfc3RhdGlzdGljcxgEIAEo",
+            "CEI0WiNuYWthbWEvbml3cmFkL2FwaS9yZWFsdGltZTtyZWFsdGltZaoCDEFw",
+            "aS5SZWFsdGltZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -130,7 +130,7 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.RequestTransferOwnership), global::Api.Realtime.RequestTransferOwnership.Parser, new[]{ "Transform" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "Carnivorous", "ReproductionDelay", "ReproductionProbability", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.PlantCharacteristics), global::Api.Realtime.Characteristics.Types.PlantCharacteristics.Parser, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.TimeSeriePoint), global::Api.Realtime.TimeSeriePoint.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.ExperienceSample), global::Api.Realtime.ExperienceSample.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "Timescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
@@ -3408,12 +3408,13 @@ namespace Api.Realtime {
 
   /// <summary>
   /// TODO: instead of this, what about building a (binary ? tree type depend on reproduction type) tree, idk if that can scale
+  /// so this is like a prometheus thing ? idk ..
   /// </summary>
-  public sealed partial class TimeSeriePoint : pb::IMessage<TimeSeriePoint> {
-    private static readonly pb::MessageParser<TimeSeriePoint> _parser = new pb::MessageParser<TimeSeriePoint>(() => new TimeSeriePoint());
+  public sealed partial class ExperienceSample : pb::IMessage<ExperienceSample> {
+    private static readonly pb::MessageParser<ExperienceSample> _parser = new pb::MessageParser<ExperienceSample>(() => new ExperienceSample());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<TimeSeriePoint> Parser { get { return _parser; } }
+    public static pb::MessageParser<ExperienceSample> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -3426,14 +3427,14 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public TimeSeriePoint() {
+    public ExperienceSample() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public TimeSeriePoint(TimeSeriePoint other) : this() {
+    public ExperienceSample(ExperienceSample other) : this() {
       animals_ = other.animals_;
       plants_ = other.plants_;
       animalAge_ = other.animalAge_;
@@ -3444,8 +3445,8 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public TimeSeriePoint Clone() {
-      return new TimeSeriePoint(this);
+    public ExperienceSample Clone() {
+      return new ExperienceSample(this);
     }
 
     /// <summary>Field number for the "animals" field.</summary>
@@ -3522,11 +3523,11 @@ namespace Api.Realtime {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as TimeSeriePoint);
+      return Equals(other as ExperienceSample);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(TimeSeriePoint other) {
+    public bool Equals(ExperienceSample other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -3621,7 +3622,7 @@ namespace Api.Realtime {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(TimeSeriePoint other) {
+    public void MergeFrom(ExperienceSample other) {
       if (other == null) {
         return;
       }

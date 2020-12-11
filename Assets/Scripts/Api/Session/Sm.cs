@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Api.Realtime;
+using Api.Rpc;
+using Google.Protobuf;
 using Nakama;
 using Nakama.TinyJson;
+using UI;
 using UnityEngine;
 using Utils;
 
@@ -191,9 +196,9 @@ namespace Api.Session
         /// Invokes <see cref="ConnectionSucceed"/> or <see cref="ConnectionFailed"/>.
         /// </summary>
         /// <returns></returns>
-        public async Task<AuthenticationResponse> ConnectAsync()
+        public async Task<AuthenticationResponse> ConnectAsync(string username = null)
         {
-            var response = await RestoreTokenAsync();
+            var response = await RestoreTokenAsync(username);
             switch (response)
             {
                 case AuthenticationResponse.Authenticated:
@@ -207,6 +212,7 @@ namespace Api.Session
                     ConnectionFailed?.Invoke();
                     break;
                 case AuthenticationResponse.UserInfoUpdated:
+                    ConnectionSucceed?.Invoke();
                     break;
                 default:
                     Debug.LogError("Unhandled response received: " + response);
@@ -219,15 +225,16 @@ namespace Api.Session
         /// Restores saved Session Authentication Token if user has already authenticated with the server in the past.
         /// If it's the first time authenticating using this device id, a new account will be created.
         /// </summary>
-        private async Task<AuthenticationResponse> RestoreTokenAsync()
+        private async Task<AuthenticationResponse> RestoreTokenAsync(string username = null)
         {
+            var response = AuthenticationResponse.Authenticated;
             // Restoring authentication token from player prefs
             var authToken = PlayerPrefs.GetString("nakama.authToken", null);
             if (string.IsNullOrWhiteSpace(authToken))
             {
                 // Token not found
                 // Authenticating new session
-                return await AuthenticateAsync();
+                return await AuthenticateAsync(username);
             }
 
             // Restoring previous session
@@ -236,7 +243,7 @@ namespace Api.Session
             {
                 // Restored session has expired
                 // Authenticating new session
-                return await AuthenticateAsync();
+                return await AuthenticateAsync(username);
             }
 
             // Session restored
@@ -246,18 +253,26 @@ namespace Api.Session
             {
                 // Account not found
                 // Creating new account
-                return await AuthenticateAsync();
+                return await AuthenticateAsync(username);
+            }
+            
+            // Use case : previously logged on this device, different username now
+            if (username != Account.User.Username)
+            {
+                Debug.Log($"{Account.User.Username} changing its username to {username}");
+                response = await Sm.instance.UpdateUserInfoAsync(username,
+                    "https://i.kym-cdn.com/entries/icons/medium/000/028/526/honklhonk.jpg");
+                if (response == AuthenticationResponse.Error) return response;
+                Account = await GetAccountAsync(); // Re-fetch updated account
+                if (Account == null) return AuthenticationResponse.Error;
             }
 
             // Creating real-time communication socket
             var socketConnected = await ConnectSocketAsync();
-            if (socketConnected == false)
-            {
-                return AuthenticationResponse.Error;
-            }
+            if (socketConnected == false) return AuthenticationResponse.Error;
 
             Debug.Log("Session restored with token:" + Session.AuthToken);
-            return AuthenticationResponse.Authenticated;
+            return response;
         }
 
         /// <summary>
@@ -267,25 +282,27 @@ namespace Api.Session
         /// and real-time communication socket is connected.
         /// </summary>
         /// <returns>Returns true if every server call was successful.</returns>
-        private async Task<AuthenticationResponse> AuthenticateAsync()
+        private async Task<AuthenticationResponse> AuthenticateAsync(string username = null)
         {
-            var response = await AuthenticateDeviceIdAsync();
-            if (response == AuthenticationResponse.Error)
-            {
-                return AuthenticationResponse.Error;
-            }
+            var response = await AuthenticateDeviceIdAsync(username);
+            if (response == AuthenticationResponse.Error) return AuthenticationResponse.Error;
 
             Account = await GetAccountAsync();
-            if (Account == null)
+            if (Account == null) return AuthenticationResponse.Error;
+            
+            // Use case : previously logged on this device, different username now
+            if (username != Account.User.Username)
             {
-                return AuthenticationResponse.Error;
+                Debug.Log($"{Account.User.Username} changing its username to {username}");
+                response = await Sm.instance.UpdateUserInfoAsync(username,
+                    "https://i.kym-cdn.com/entries/icons/medium/000/028/526/honklhonk.jpg");
+                if (response == AuthenticationResponse.Error) return response;
+                Account = await GetAccountAsync(); // Re-fetch updated account
+                if (Account == null) return AuthenticationResponse.Error;
             }
 
             var socketConnected = await ConnectSocketAsync();
-            if (socketConnected == false)
-            {
-                return AuthenticationResponse.Error;
-            }
+            if (socketConnected == false) return AuthenticationResponse.Error;
 
             StoreSessionToken();
             return response;
@@ -296,11 +313,11 @@ namespace Api.Session
         /// this device, new account is created.
         /// </summary>
         /// <returns>Returns true if every server call was successful.</returns>
-        private async Task<AuthenticationResponse> AuthenticateDeviceIdAsync()
+        private async Task<AuthenticationResponse> AuthenticateDeviceIdAsync(string username = null)
         {
             try
             {
-                Session = await Client.AuthenticateDeviceAsync(_deviceId, null, false);
+                Session = await Client.AuthenticateDeviceAsync(_deviceId, username, false);
                 Debug.Log("Device authenticated with token:" + Session.AuthToken);
                 return AuthenticationResponse.Authenticated;
             }
@@ -309,7 +326,7 @@ namespace Api.Session
                 if (e.StatusCode == (long)System.Net.HttpStatusCode.NotFound)
                 {
                     Debug.Log("Couldn't find DeviceId in database, creating new user; message: " + e);
-                    return await CreateAccountAsync();
+                    return await CreateAccountAsync(username);
                 }
 
                 Debug.LogWarning("An error has occured reaching Nakama server; message: " + e);
@@ -326,11 +343,11 @@ namespace Api.Session
         /// Creates new account on Nakama server using local <see cref="_deviceId"/>.
         /// </summary>
         /// <returns>Returns true if account was successfully created.</returns>
-        private async Task<AuthenticationResponse> CreateAccountAsync()
+        private async Task<AuthenticationResponse> CreateAccountAsync(string username = null)
         {
             try
             {
-                Session = await Client.AuthenticateDeviceAsync(_deviceId);
+                Session = await Client.AuthenticateDeviceAsync(_deviceId, username);
                 return AuthenticationResponse.NewAccountCreated;
             }
             catch (Exception e)
@@ -386,7 +403,39 @@ namespace Api.Session
                 Disconnected.Invoke();
             }
         }
+
+        public async void WriteNaiveLeaderboard(long score)
+        {
+            if (!IsConnected) return;
+            var p = new NaiveLeaderboardRequest{Hosts = score}.ToByteString().ToStringUtf8();
+            var res = await Socket.RpcAsync("send_leaderboard", p);
+        }
         
+        public async Task<IApiLeaderboardRecordList> ReadNaiveLeaderboard()
+        {
+            if (!IsConnected) return null;
+            return await _client.ListLeaderboardRecordsAsync(Session, "naive", limit: 10);
+        }
+
+        public async Task<IApiStorageObjectAcks> ShareExperience(Experience e)
+        {
+            if (!IsConnected) return null;
+            return await Client.WriteStorageObjectsAsync(Session, new WriteStorageObject
+                {
+                    Key = e.Name,
+                    Value = JsonFormatter.Default.Format(e),
+                    Collection = "experiences", // TODO: use version (somehow some static version)
+                    PermissionRead = 2,
+                    // Version = Application.version
+                });
+            // TODO: check that it properly tag collection row with user, so if 2 users put same experience name ...
+        }
+
+        public async Task<IApiStorageObjectList> ExperienceList()
+        {
+            if (!IsConnected) return null;
+            return await Client.ListStorageObjectsAsync(Session, "experiences", 10); // TODO: cursor
+        }
 
 
         #endregion

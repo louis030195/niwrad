@@ -1,17 +1,11 @@
-using System;
-using Cysharp.Threading.Tasks;
-using Api.Match;
 using Api.Realtime;
-using Api.Session;
 using Evolution;
-using ProceduralTree;
 using TMPro;
 using UnityEngine;
-using Utils;
 
 namespace UI
 {
-	public class EvolutionPanel : MonoBehaviour
+	public class EvolutionPanel : MonoBehaviour // TODO: spawn middle above terrain ?
 	{
 		[SerializeField]
 		private TextMeshProUGUI animals;
@@ -23,7 +17,7 @@ namespace UI
             Hm.instance.Statistics.Pushed += StatisticsOnPushed;
         }
 
-        private void StatisticsOnPushed((TimeSeriePoint p, float t) obj)
+        private void StatisticsOnPushed((ExperienceSample p, float t) obj)
         {
             animals.text = $"{obj.p.Animals}";
             plants.text = $"{obj.p.Plants}";

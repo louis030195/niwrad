@@ -19,7 +19,8 @@ namespace Gameplay
     public enum GameState
     {
         Menu,
-        Play
+        Play,
+        Experience
     }
     /// <summary>
     /// Gm is GameManager, used to share data across online / offline, handle logic generally
@@ -49,7 +50,7 @@ namespace Gameplay
 
         public Experience Experience { get; private set; }
         
-        public GameState State;
+        public GameState state;
 
         private GameObject _map;
         protected override async void Awake()
@@ -70,7 +71,7 @@ namespace Gameplay
 
         private void Start()
         {
-            Mm.instance.EnableHud(false);
+            NiwradMenu.instance.EnableHud(false);
         }
 
         private async UniTaskVoid GameLoop()
@@ -126,13 +127,14 @@ namespace Gameplay
                     (float) e.Map.SpreadReductionRate);
             _map.tag = "ground";
             Experience = e;
-            Mm.instance.EnableHud(true);
-            Mm.instance.settings.gameObject.SetActive(true); // TODO: shouldn't be here, fix UI again
+            NiwradMenu.instance.EnableHud(true);
+            NiwradMenu.instance.settings.gameObject.SetActive(true); // TODO: shouldn't be here, fix UI again
             var m = GetComponent<NavMeshSurface>();
             Debug.Log($"Generating map and baking it for path finding");
             m.BuildNavMesh(); // TODO: can crash if weird meshes, maybe should try catch here
             // TODO: other general stuff
             Hm.instance.StartExperience(e);
+            state = GameState.Experience;
             // TODO: generate map based on e.Map.Stuff
         }
     }

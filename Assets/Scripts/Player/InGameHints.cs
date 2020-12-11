@@ -33,9 +33,9 @@ namespace Player
                                                       "You can go up and down using {movey}";
         private const string KMainMenuHelpTextFormat = "Open experiences menu to start experimenting things !";
         private const string KInputsMenuHelpTextFormat = "Arrange the key map to your will ...";
-        private const string KExperiencesMenuHelpTextFormat = "Select or create an experience and tweak " +
-                                                              "its parameters to your will, don't abuse " +
-                                                              "or your computer will have hard times !";
+        private const string KExperiencesMenuHelpTextFormat = "Select or create an experience and tweak \n" +
+                                                              "its parameters to your will, don't abuse \n" +
+                                                              "or your computer will have hard times !\n";
 
         private void Awake()
         {

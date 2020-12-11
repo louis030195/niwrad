@@ -144,8 +144,10 @@ message Characteristics {
     }
 }
 
+
 // TODO: instead of this, what about building a (binary ? tree type depend on reproduction type) tree, idk if that can scale
-message TimeSeriePoint { // TODO: generations (height of the tree)
+// so this is like a prometheus thing ? idk ..
+message ExperienceSample { // TODO: generations (height of the tree)
     // Discrete
     int64 animals = 50;
     int64 plants = 60;

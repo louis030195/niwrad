@@ -16,6 +16,7 @@ services:
   nakama:
     build:
       context: ..
+      dockerfile: ./build/Dockerfile
     container_name: nakama
     depends_on:
       - cockroachdb
@@ -27,10 +28,10 @@ services:
          exec /nakama/nakama --config /nakama/nakama-config.yml
     expose:
       - "7349"
-      - "6666"
+      - "7350"
       - "7351"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6666/"]
+      test: ["CMD", "curl", "-f", "http://localhost:7350/"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -38,7 +39,7 @@ services:
       - "cockroachdb:db"
     ports:
       - "7349:7349"
-      - "6666:6666"
+      - "7350:7350"
       - "7351:7351"
     restart: "no"
 

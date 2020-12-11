@@ -176,7 +176,7 @@ func RpcStopMatch(ctx context.Context, logger runtime.Logger, db *sql.DB, nk run
 		request)
 
 	// Stop the k8s deployment
-	err = stopMatch(db, request.MatchId)
+	err = stopMatch(ctx, db, request.MatchId)
 	if err != nil {
 		logger.Error(err.Error())
 		return "", err

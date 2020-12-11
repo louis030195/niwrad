@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using AI;
-using Gameplay;
-using ProceduralTree;
 using UnityEngine;
 using Utils;
 using Action = AI.Action;

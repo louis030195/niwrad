@@ -33,26 +33,27 @@ namespace Api.Rpc {
             "YXRjaENvbXBsZXRpb25SZXN1bHQiFAoSRGVsZXRlVXNlcnNSZXF1ZXN0IlkK",
             "E0RlbGV0ZVVzZXJzUmVzcG9uc2USQgoGcmVzdWx0GAEgASgOMjIubmFrYW1h",
             "Lm5pd3JhZC5hcGkucnBjLkRlbGV0ZVVzZXJzQ29tcGxldGlvblJlc3VsdCIp",
-            "ChNMaXN0TWF0Y2hlc1Jlc3BvbnNlEhIKCm1hdGNoZXNfaWQYASADKAkqnwQK",
-            "G0NyZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdBI1CjFjcmVhdGVNYXRjaENv",
-            "bXBsZXRpb25SZXN1bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASKAokY3Jl",
-            "YXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAESPAovY3JlYXRl",
-            "TWF0Y2hDb21wbGV0aW9uUmVzdWx0VW5rbm93bkNsaWVudEZhaWx1cmUQnP//",
-            "////////ARJFCjhjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRBbHJlYWR5",
-            "SW5NYXRjaE9mU3BlY2lmaWVkVHlwZRCd//////////8BEjwKL2NyZWF0ZU1h",
-            "dGNoQ29tcGxldGlvblJlc3VsdEFscmVhZHlDcmVhdGluZ01hdGNoEJ7/////",
-            "/////wESNgopY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFkeUlu",
-            "TWF0Y2gQn///////////ARI9CjBjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1",
-            "bHRGYWlsZWRUb0NyZWF0ZU11Y1Jvb20QoP//////////ARIyCiVjcmVhdGVN",
-            "YXRjaENvbXBsZXRpb25SZXN1bHROb1Jlc3BvbnNlEKH//////////wESMQok",
-            "Y3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0TG9nZ2VkT3V0EKL/////////",
-            "/wEqegoZU3RvcE1hdGNoQ29tcGxldGlvblJlc3VsdBI0CjBzdG9wU2VydmVy",
-            "Q29tcGxldGlvblJlc3VsdFVua25vd25JbnRlcm5hbEZhaWx1cmUQABInCiNz",
-            "dG9wU2VydmVyQ29tcGxldGlvblJlc3VsdFN1Y2NlZWRlZBABKn4KG0RlbGV0",
-            "ZVVzZXJzQ29tcGxldGlvblJlc3VsdBI1CjFkZWxldGVVc2Vyc0NvbXBsZXRp",
-            "b25SZXN1bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASKAokZGVsZXRlVXNl",
-            "cnNDb21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAFCJVoZbmFrYW1hL25pd3Jh",
-            "ZC9hcGkvcnBjO3JwY6oCB0FwaS5ScGNiBnByb3RvMw=="));
+            "ChNMaXN0TWF0Y2hlc1Jlc3BvbnNlEhIKCm1hdGNoZXNfaWQYASADKAkiKAoX",
+            "TmFpdmVMZWFkZXJib2FyZFJlcXVlc3QSDQoFaG9zdHMYASABKAMqnwQKG0Ny",
+            "ZWF0ZU1hdGNoQ29tcGxldGlvblJlc3VsdBI1CjFjcmVhdGVNYXRjaENvbXBs",
+            "ZXRpb25SZXN1bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASKAokY3JlYXRl",
+            "TWF0Y2hDb21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAESPAovY3JlYXRlTWF0",
+            "Y2hDb21wbGV0aW9uUmVzdWx0VW5rbm93bkNsaWVudEZhaWx1cmUQnP//////",
+            "////ARJFCjhjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRBbHJlYWR5SW5N",
+            "YXRjaE9mU3BlY2lmaWVkVHlwZRCd//////////8BEjwKL2NyZWF0ZU1hdGNo",
+            "Q29tcGxldGlvblJlc3VsdEFscmVhZHlDcmVhdGluZ01hdGNoEJ7/////////",
+            "/wESNgopY3JlYXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0QWxyZWFkeUluTWF0",
+            "Y2gQn///////////ARI9CjBjcmVhdGVNYXRjaENvbXBsZXRpb25SZXN1bHRG",
+            "YWlsZWRUb0NyZWF0ZU11Y1Jvb20QoP//////////ARIyCiVjcmVhdGVNYXRj",
+            "aENvbXBsZXRpb25SZXN1bHROb1Jlc3BvbnNlEKH//////////wESMQokY3Jl",
+            "YXRlTWF0Y2hDb21wbGV0aW9uUmVzdWx0TG9nZ2VkT3V0EKL//////////wEq",
+            "egoZU3RvcE1hdGNoQ29tcGxldGlvblJlc3VsdBI0CjBzdG9wU2VydmVyQ29t",
+            "cGxldGlvblJlc3VsdFVua25vd25JbnRlcm5hbEZhaWx1cmUQABInCiNzdG9w",
+            "U2VydmVyQ29tcGxldGlvblJlc3VsdFN1Y2NlZWRlZBABKn4KG0RlbGV0ZVVz",
+            "ZXJzQ29tcGxldGlvblJlc3VsdBI1CjFkZWxldGVVc2Vyc0NvbXBsZXRpb25S",
+            "ZXN1bHRVbmtub3duSW50ZXJuYWxGYWlsdXJlEAASKAokZGVsZXRlVXNlcnND",
+            "b21wbGV0aW9uUmVzdWx0U3VjY2VlZGVkEAFCJVoZbmFrYW1hL25pd3JhZC9h",
+            "cGkvcnBjO3JwY6oCB0FwaS5ScGNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Api.Rpc.CreateMatchCompletionResult), typeof(global::Api.Rpc.StopMatchCompletionResult), typeof(global::Api.Rpc.DeleteUsersCompletionResult), }, new pbr::GeneratedClrTypeInfo[] {
@@ -62,7 +63,8 @@ namespace Api.Rpc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.StopMatchResponse), global::Api.Rpc.StopMatchResponse.Parser, new[]{ "Result" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.DeleteUsersRequest), global::Api.Rpc.DeleteUsersRequest.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.DeleteUsersResponse), global::Api.Rpc.DeleteUsersResponse.Parser, new[]{ "Result" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.ListMatchesResponse), global::Api.Rpc.ListMatchesResponse.Parser, new[]{ "MatchesId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.ListMatchesResponse), global::Api.Rpc.ListMatchesResponse.Parser, new[]{ "MatchesId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Rpc.NaiveLeaderboardRequest), global::Api.Rpc.NaiveLeaderboardRequest.Parser, new[]{ "Hosts" }, null, null, null)
           }));
     }
     #endregion
@@ -953,6 +955,138 @@ namespace Api.Rpc {
             break;
           case 10: {
             matchesId_.AddEntriesFrom(input, _repeated_matchesId_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// Naive leaderboard record that reward the one with the biggest computer ;)
+  /// </summary>
+  public sealed partial class NaiveLeaderboardRequest : pb::IMessage<NaiveLeaderboardRequest> {
+    private static readonly pb::MessageParser<NaiveLeaderboardRequest> _parser = new pb::MessageParser<NaiveLeaderboardRequest>(() => new NaiveLeaderboardRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NaiveLeaderboardRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Api.Rpc.RpcReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NaiveLeaderboardRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NaiveLeaderboardRequest(NaiveLeaderboardRequest other) : this() {
+      hosts_ = other.hosts_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NaiveLeaderboardRequest Clone() {
+      return new NaiveLeaderboardRequest(this);
+    }
+
+    /// <summary>Field number for the "hosts" field.</summary>
+    public const int HostsFieldNumber = 1;
+    private long hosts_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Hosts {
+      get { return hosts_; }
+      set {
+        hosts_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NaiveLeaderboardRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NaiveLeaderboardRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Hosts != other.Hosts) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Hosts != 0L) hash ^= Hosts.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Hosts != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(Hosts);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Hosts != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Hosts);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NaiveLeaderboardRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Hosts != 0L) {
+        Hosts = other.Hosts;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Hosts = input.ReadInt64();
             break;
           }
         }

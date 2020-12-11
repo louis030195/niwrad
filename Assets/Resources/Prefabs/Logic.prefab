@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5441787142046220019}
   - component: {fileID: 5441787142046220020}
-  - component: {fileID: 5441787142046220018}
   - component: {fileID: 5441787142046220021}
   - component: {fileID: 5441787142046220022}
   - component: {fileID: 2038893904}
   - component: {fileID: 497211639}
+  - component: {fileID: 6209523389073596872}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -51,19 +51,7 @@ MonoBehaviour:
   online: 0
   seed: 666
   networkManagersPrefab: {fileID: 0}
---- !u!114 &5441787142046220018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441787142046220017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 897067ccb5754c94a72d234094e7ca8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1312664663463674464, guid: 67c7084bae552890997762e57d57deea, type: 3}
+  state: 0
 --- !u!114 &5441787142046220021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +130,17 @@ MonoBehaviour:
   ipAddress: localhost
   port: 7350
   isServer: 0
+  erasePlayerPrefsOnStart: 0
+  suffix: 
+--- !u!114 &6209523389073596872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441787142046220017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f264bbebd2c5cbf2fb574246c18dc570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -143,7 +143,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	}
 
 	// Create Deployment
-	_, err = deploymentsClient.Create(deployment) // TODO: delete deployment on exit ?
+	_, err = deploymentsClient.Create(ctx, deployment, metav1.CreateOptions{}) // TODO: delete deployment on exit ?
 	if err != nil {
 		return "", err
 	}
@@ -154,7 +154,7 @@ func startMatch(ctx context.Context, nk runtime.NakamaModule, userID string, dis
 	return matchId, nil
 }
 
-func stopMatch(db *sql.DB, matchID string) error {
+func stopMatch(ctx context.Context, db *sql.DB, matchID string) error {
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		return err
@@ -168,7 +168,7 @@ func stopMatch(db *sql.DB, matchID string) error {
 	deleteOptions := &metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
-	if err = client.Delete(fmt.Sprintf("niwrad-unity-%s", matchID), deleteOptions); err != nil {
+	if err = client.Delete(ctx, fmt.Sprintf("niwrad-unity-%s", matchID), *deleteOptions); err != nil {
 		return err
 	}
 	// TODO: Do we want to erase it ? or keep for later restart ?

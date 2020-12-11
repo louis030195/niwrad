@@ -3,18 +3,22 @@ unity:
 
   image:
     repository: louis030195/executor
-    pullPolicy: IfNotPresent
+    pullPolicy: Never
+
+externalIPs:
 
 nakama:
   replicaCount: 1
 
   image:
-    repository: louis030195/nakama
+    repository: louis030195/niwrad-nakama
+    tag: ""
     pullPolicy: IfNotPresent
 
   service:
     type: NodePort
     portApi: 7350
+    nodePort: 30020
 
   default:
     username: azerty@azerty.com
@@ -33,9 +37,11 @@ js:
 
   image:
     repository: louis030195/niwrad-js
+    tag: ""
     pullPolicy: Never
 
 test:
   image:
     repository: louis030195/integration
-    pullPolicy: Always
+    tag: ""
+    pullPolicy: IfNotPresent

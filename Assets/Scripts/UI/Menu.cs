@@ -87,12 +87,12 @@ namespace UI
 
         public virtual void Push()
         {
-            Mm.instance.Push(this);
+            NiwradMenu.instance.Push(this);
         }
         
         public virtual void Pop()
         {
-            Mm.instance.Pop();
+            NiwradMenu.instance.Pop();
         }
 
         #endregion

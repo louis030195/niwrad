@@ -23,6 +23,7 @@ goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.GeneralParameters', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.Map', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution', null, global);
+goog.exportSymbol('proto.nakama.niwrad.api.realtime.ExperienceSample', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Initialized', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.MatchJoin', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Meme', null, global);
@@ -31,7 +32,6 @@ goog.exportSymbol('proto.nakama.niwrad.api.realtime.Packet', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Plant', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.RequestTransferOwnership', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Spawn', null, global);
-goog.exportSymbol('proto.nakama.niwrad.api.realtime.TimeSeriePoint', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.Transform', null, global);
 goog.exportSymbol('proto.nakama.niwrad.api.realtime.UpdateTransform', null, global);
 
@@ -3598,12 +3598,12 @@ proto.nakama.niwrad.api.realtime.Characteristics.prototype.hasPlantCharacteristi
  * @extends {jspb.Message}
  * @constructor
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint = function(opt_data) {
+proto.nakama.niwrad.api.realtime.ExperienceSample = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.nakama.niwrad.api.realtime.TimeSeriePoint, jspb.Message);
+goog.inherits(proto.nakama.niwrad.api.realtime.ExperienceSample, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.nakama.niwrad.api.realtime.TimeSeriePoint.displayName = 'proto.nakama.niwrad.api.realtime.TimeSeriePoint';
+  proto.nakama.niwrad.api.realtime.ExperienceSample.displayName = 'proto.nakama.niwrad.api.realtime.ExperienceSample';
 }
 
 
@@ -3618,8 +3618,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.toObject = function(opt_includeInstance) {
-  return proto.nakama.niwrad.api.realtime.TimeSeriePoint.toObject(opt_includeInstance, this);
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.toObject = function(opt_includeInstance) {
+  return proto.nakama.niwrad.api.realtime.ExperienceSample.toObject(opt_includeInstance, this);
 };
 
 
@@ -3628,11 +3628,11 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.toObject = function(op
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.nakama.niwrad.api.realtime.TimeSeriePoint} msg The msg instance to transform.
+ * @param {!proto.nakama.niwrad.api.realtime.ExperienceSample} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.toObject = function(includeInstance, msg) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.toObject = function(includeInstance, msg) {
   var f, obj = {
     animals: jspb.Message.getFieldWithDefault(msg, 50, 0),
     plants: jspb.Message.getFieldWithDefault(msg, 60, 0),
@@ -3653,23 +3653,23 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.toObject = function(includeInsta
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.nakama.niwrad.api.realtime.TimeSeriePoint}
+ * @return {!proto.nakama.niwrad.api.realtime.ExperienceSample}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.deserializeBinary = function(bytes) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.nakama.niwrad.api.realtime.TimeSeriePoint;
-  return proto.nakama.niwrad.api.realtime.TimeSeriePoint.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.nakama.niwrad.api.realtime.ExperienceSample;
+  return proto.nakama.niwrad.api.realtime.ExperienceSample.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.nakama.niwrad.api.realtime.TimeSeriePoint} msg The message object to deserialize into.
+ * @param {!proto.nakama.niwrad.api.realtime.ExperienceSample} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.nakama.niwrad.api.realtime.TimeSeriePoint}
+ * @return {!proto.nakama.niwrad.api.realtime.ExperienceSample}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.deserializeBinaryFromReader = function(msg, reader) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3715,9 +3715,9 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.deserializeBinaryFromReader = fu
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.serializeBinary = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.nakama.niwrad.api.realtime.TimeSeriePoint.serializeBinaryToWriter(this, writer);
+  proto.nakama.niwrad.api.realtime.ExperienceSample.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3725,11 +3725,11 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.serializeBinary = func
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.nakama.niwrad.api.realtime.TimeSeriePoint} message
+ * @param {!proto.nakama.niwrad.api.realtime.ExperienceSample} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.serializeBinaryToWriter = function(message, writer) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getAnimals();
   if (f !== 0) {
@@ -3782,13 +3782,13 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.serializeBinaryToWriter = functi
  * optional int64 animals = 50;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getAnimals = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getAnimals = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 50, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setAnimals = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setAnimals = function(value) {
   jspb.Message.setProto3IntField(this, 50, value);
 };
 
@@ -3797,13 +3797,13 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setAnimals = function(
  * optional int64 plants = 60;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getPlants = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getPlants = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 60, 0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setPlants = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setPlants = function(value) {
   jspb.Message.setProto3IntField(this, 60, value);
 };
 
@@ -3812,13 +3812,13 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setPlants = function(v
  * optional double animal_age = 70;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getAnimalAge = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getAnimalAge = function() {
   return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 70, 0.0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setAnimalAge = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setAnimalAge = function(value) {
   jspb.Message.setProto3FloatField(this, 70, value);
 };
 
@@ -3827,19 +3827,19 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setAnimalAge = functio
  * optional Characteristics animal_characteristics = 10;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getAnimalCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getAnimalCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
     jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 10));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setAnimalCharacteristics = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setAnimalCharacteristics = function(value) {
   jspb.Message.setWrapperField(this, 10, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.clearAnimalCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.clearAnimalCharacteristics = function() {
   this.setAnimalCharacteristics(undefined);
 };
 
@@ -3848,7 +3848,7 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.clearAnimalCharacteris
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.hasAnimalCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.hasAnimalCharacteristics = function() {
   return jspb.Message.getField(this, 10) != null;
 };
 
@@ -3857,13 +3857,13 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.hasAnimalCharacteristi
  * optional double plant_age = 90;
  * @return {number}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getPlantAge = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getPlantAge = function() {
   return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 90, 0.0));
 };
 
 
 /** @param {number} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setPlantAge = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setPlantAge = function(value) {
   jspb.Message.setProto3FloatField(this, 90, value);
 };
 
@@ -3872,19 +3872,19 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setPlantAge = function
  * optional Characteristics plant_characteristics = 40;
  * @return {?proto.nakama.niwrad.api.realtime.Characteristics}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.getPlantCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.getPlantCharacteristics = function() {
   return /** @type{?proto.nakama.niwrad.api.realtime.Characteristics} */ (
     jspb.Message.getWrapperField(this, proto.nakama.niwrad.api.realtime.Characteristics, 40));
 };
 
 
 /** @param {?proto.nakama.niwrad.api.realtime.Characteristics|undefined} value */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.setPlantCharacteristics = function(value) {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.setPlantCharacteristics = function(value) {
   jspb.Message.setWrapperField(this, 40, value);
 };
 
 
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.clearPlantCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.clearPlantCharacteristics = function() {
   this.setPlantCharacteristics(undefined);
 };
 
@@ -3893,7 +3893,7 @@ proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.clearPlantCharacterist
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.nakama.niwrad.api.realtime.TimeSeriePoint.prototype.hasPlantCharacteristics = function() {
+proto.nakama.niwrad.api.realtime.ExperienceSample.prototype.hasPlantCharacteristics = function() {
   return jspb.Message.getField(this, 40) != null;
 };
 

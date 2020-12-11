@@ -1,19 +1,18 @@
 package niwrad
 
 import (
-	"context"
-	"database/sql"
-	"fmt"
-	"github.com/louis030195/niwrad/api/realtime"
-	"github.com/louis030195/niwrad/internal/gen"
-	octree "github.com/louis030195/octree/pkg"
-	"github.com/louis030195/protometry/api/volume"
-	"math"
-	"math/rand"
-	"strconv"
+    "context"
+    "database/sql"
+    "fmt"
+    "github.com/louis030195/niwrad/api/realtime"
+    octree "github.com/louis030195/octree/pkg"
+    "github.com/louis030195/protometry/api/volume"
+    "math"
+    "math/rand"
+    "strconv"
 
-	"github.com/golang/protobuf/proto"
-	c "github.com/heroiclabs/nakama-common/runtime"
+    "github.com/golang/protobuf/proto"
+    c "github.com/heroiclabs/nakama-common/runtime"
 )
 
 var (
@@ -33,7 +32,7 @@ type MatchState struct {
 	servers      []*volume.Box
 	distribution int // TODO: reduce the state as much as possible
 	ready        int
-	m            *realtime.Matrix
+	//m            *realtime.Matrix
 	spawned      int
 	seed         int64
 }
@@ -41,18 +40,18 @@ type MatchState struct {
 type Match struct{}
 
 func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c.NakamaModule, params map[string]interface{}) (interface{}, int, string) {
-	generatedMap, err := gen.DiamondSquare(int(math.Pow(2, 8)+1), 40, 1)
+	//generatedMap, err := gen.DiamondSquare(int(math.Pow(2, 8)+1), 40, 1)
 
-	if err != nil {
-		logger.Error(err.Error())
-		return nil, 0, ""
-	}
+	//if err != nil {
+	//	logger.Error(err.Error())
+	//	return nil, 0, ""
+	//}
 
 	matchID := ctx.Value(c.RUNTIME_CTX_MATCH_ID).(string)
 	distribution, ok := params["distribution"].(int)
 	if !ok {
 		logger.Error("Failed to init match, no distribution given")
-		if err := stopMatch(db, matchID); err != nil {
+		if err := stopMatch(ctx, db, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -62,7 +61,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		userID, ok := params[fmt.Sprintf("admin%d", i)].(string)
 		if !ok {
 			logger.Error("Failed to init match, couldn't retrieve admin user ID")
-			if err := stopMatch(db, matchID); err != nil {
+			if err := stopMatch(ctx, db, matchID); err != nil {
 				logger.Error(err.Error())
 				return nil, 0, ""
 			}
@@ -72,7 +71,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 	}
 	if !ok {
 		logger.Error("Failed to init match, no admins")
-		if err := stopMatch(db, matchID); err != nil {
+		if err := stopMatch(ctx, db, matchID); err != nil {
 			logger.Error(err.Error())
 			return nil, 0, ""
 		}
@@ -89,7 +88,7 @@ func (m *Match) MatchInit(ctx context.Context, logger c.Logger, db *sql.DB, nk c
 		presences:    make(map[string]PresenceState),
 		octree:       oc,
 		distribution: distribution,
-		m:            generatedMap,
+		//m:            generatedMap,
 		seed:         seed,
 	}
 	logger.Info("MatchInit, params: %v, state: %v", params, state)

@@ -5,6 +5,7 @@ package nakama.niwrad.api.rpc;
 option csharp_namespace = "Api.Rpc";
 option go_package = "nakama/niwrad/api/rpc;rpc";
 // import "github.com/heroiclabs/nakama-common/rtapi/realtime.proto";
+// import "realtime.proto";
 
 
 message CreateMatchRequest {
@@ -55,3 +56,22 @@ message DeleteUsersResponse {
 message ListMatchesResponse {
 	repeated string matches_id = 1;
 }
+
+// Naive leaderboard record that reward the one with the biggest computer ;)
+message NaiveLeaderboardRequest {
+    int64 hosts = 1;
+} // No response
+
+// message ShareExperienceRequest {
+//     realtime.Experience experience = 1;
+// }
+
+// enum ShareExperienceCompletionResult {
+// 	shareExperienceCompletionResultUnknownInternalFailure        = 0; // TODO: maybe case user spamming share, refusal
+// 	shareExperienceCompletionResultSucceeded                     = 1;
+// 	shareExperienceCompletionResultInvalidName          = -100;
+// }
+
+// message ShareExperienceResponse {
+//     ShareExperienceCompletionResult result = 1;
+// }

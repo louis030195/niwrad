@@ -6,6 +6,7 @@ GOPATH=$(HOME)/go/src
 PROTOMETRY=$(GOPATH)/github.com/louis030195/protometry
 CSHARP_OUT=Assets/Scripts/Api
 JS_OUT=niwrad-js/lib/proto
+REPOSITORY ?= louis030195
 
 # TODO: make k8s namespace for niwrad
 
@@ -23,19 +24,19 @@ build-images: build-executor-image build-js-image build-integration-tests-image 
 
 build-executor-image: ## Build unity executor docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t niwrad-unity .
+	docker build -t ${REPOSITORY}/niwrad-unity .
 
 build-js-image: ## Build js client docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t niwrad-js -f ./niwrad-js/Dockerfile niwrad-js
+	docker build -t ${REPOSITORY}/niwrad-js -f ./niwrad-js/Dockerfile niwrad-js
 
 build-integration-tests-image: ## Build integration tests docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t niwrad-integration-tests -f ./helm/templates/tests/ApiTest/Dockerfile .
+	docker build -t ${REPOSITORY}/niwrad-integration-tests -f ./helm/templates/tests/ApiTest/Dockerfile .
 
 build-nakama-image: ## Build nakama docker image
 	# Don't forget to run `eval $(minikube -p minikube docker-env)` if using minikube :)
-	docker build -t nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
+	docker build -t ${REPOSITORY}/nakama -f ./nakama/niwrad/build/Dockerfile nakama/niwrad
 
 build-proto: ## Build protobuf stubs
 	mkdir -p Assets/Scripts/Api/Protometry Assets/Scripts/Api/Realtime Assets/Scripts/Api/Rpc
@@ -71,11 +72,12 @@ build-proto: ## Build protobuf stubs
 		$(PROTOS)/realtime/*.proto
 	protoc -I $(GOPATH) \
 		-I $(PROTOS)/rpc \
+		-I $(PROTOS)/realtime \
 		--csharp_out=$(CSHARP_OUT)/Rpc \
 		--go_out=. \
 		--js_out=import_style=commonjs,binary:$(JS_OUT) \
 		$(PROTOS)/rpc/*.proto
-
+#	-I is used for reference to other proto (-I $(PROTOS)/realtime)
 	@echo "\033[35mProtocol buffer compiled\033[0m"
 
 deploy: ## Deploy cluster

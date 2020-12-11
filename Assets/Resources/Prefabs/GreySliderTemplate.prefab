@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 6921091435952615477}
   - component: {fileID: 3387844947925697564}
   - component: {fileID: 965703712321738727}
+  - component: {fileID: 5614860568681728294}
   m_Layer: 0
   m_Name: GreySliderTemplate
   m_TagString: Untagged
@@ -535,6 +536,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5614860568681728294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962314031584243254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed695b998b0cb44b9cb978b10fd70b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectable: {fileID: 0}
+  text: 
 --- !u!1 &8790804812512014740
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +641,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.65
+  m_fontSize: 32.3
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1

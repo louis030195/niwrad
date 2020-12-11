@@ -8,19 +8,11 @@ namespace Editor
 {
     public static class Builds
     {
-        private static readonly string[] OnlineScenes = {
-	        "Assets/Scenes/LoginMenu.unity",
-	        "Assets/Scenes/SecondMenu.unity",
-            "Assets/Scenes/Online.unity",
-        };
-
-        private static readonly string[] ExecutorScenes = {
-            "Assets/Scenes/Online.unity",
-        };
-
-        private static readonly string[] OfflineScenes = {
+        private static readonly string[] Scenes = {
             "Assets/Scenes/SingleClient.unity",
         };
+        private static readonly List<string> Secrets = new List<string>
+            {"androidKeystorePass", "androidKeyaliasName", "androidKeyaliasPass"};
 
         private static void ParseCommandLineArguments(out Dictionary<string, string> providedArguments)
         {
@@ -44,11 +36,11 @@ namespace Editor
                 var flag = args[current].TrimStart('-');
 
                 // Parse optional value
-                bool flagHasValue = next < args.Length && !args[next].StartsWith("-");
-                string value = flagHasValue ? args[next].TrimStart('-') : "";
-                // bool secret = Secrets.Contains(flag);
-                bool secret = false;
-                string displayValue = secret ? "*HIDDEN*" : "\"" + value + "\"";
+                var flagHasValue = next < args.Length && !args[next].StartsWith("-");
+                var value = flagHasValue ? args[next].TrimStart('-') : "";
+                var secret = Secrets.Contains(flag);
+                // Useless anyway, Github hides it somehow, but a good safety
+                var displayValue = secret ? "*HIDDEN*" : "\"" + value + "\"";
 
                 // Assign
                 Console.WriteLine($"Found flag \"{flag}\" with value {displayValue}.");
@@ -77,18 +69,6 @@ namespace Editor
                 EditorApplication.Exit(121);
             }
 
-            // if (!validatedOptions.ContainsKey("customBuildPath"))
-            // {
-            //     Console.WriteLine("Missing argument -customBuildPath");
-            //     EditorApplication.Exit(130);
-            // }
-
-            if (!validatedOptions.ContainsKey("niwradMode"))
-            {
-                Console.WriteLine("Missing argument -niwradMode");
-                EditorApplication.Exit(130);
-            }
-
             return validatedOptions;
         }
 
@@ -100,66 +80,60 @@ namespace Editor
             var options = GetValidatedOptions();
 
             // Set version for this build
-            PlayerSettings.bundleVersion = options["buildVersion"];
-            // PlayerSettings.macOS.buildNumber = options["buildVersion"];
-            PlayerSettings.Android.bundleVersionCode = int.Parse(options["androidVersionCode"]);
+            options.TryGetValue("buildVersion", out var buildVersion);
+            PlayerSettings.bundleVersion = buildVersion;
+            PlayerSettings.macOS.buildNumber = buildVersion;
+
+            options.TryGetValue("androidVersionCode", out var androidVersionCode);
+            PlayerSettings.Android.bundleVersionCode = int.Parse(androidVersionCode ?? "-1");
+
+            options.TryGetValue("customBuildPath", out var customBuildPath);
 
             // Apply build target
             var buildTarget = (BuildTarget) Enum.Parse(typeof(BuildTarget), options["buildTarget"]);
-            if (buildTarget == BuildTarget.Android)
+            switch (buildTarget)
             {
-                EditorUserBuildSettings.buildAppBundle = options["customBuildPath"].EndsWith(".aab");
-                if (options.TryGetValue("androidKeystoreName", out var keystoreName) &&
-                    !string.IsNullOrEmpty(keystoreName))
-                    PlayerSettings.Android.keystoreName = keystoreName;
-                if (options.TryGetValue("androidKeystorePass", out var keystorePass) &&
-                    !string.IsNullOrEmpty(keystorePass))
-                    PlayerSettings.Android.keystorePass = keystorePass;
-                if (options.TryGetValue("androidKeyaliasName", out var keyaliasName) &&
-                    !string.IsNullOrEmpty(keyaliasName))
-                    PlayerSettings.Android.keyaliasName = keyaliasName;
-                if (options.TryGetValue("androidKeyaliasPass", out var keyaliasPass) &&
-                    !string.IsNullOrEmpty(keyaliasPass))
-                    PlayerSettings.Android.keyaliasPass = keyaliasPass;
-                // IL2CPP 
-                PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
-                // Google Play want all CPU especially arm64
-                PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
-                PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
-            }
-            else if (buildTarget != BuildTarget.iOS)
-            {
-                // PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.Mono2x);
+                case BuildTarget.Android:
+                    if (customBuildPath != null)
+                        EditorUserBuildSettings.buildAppBundle = customBuildPath.EndsWith(".aab");
+                    if (options.TryGetValue("androidKeystoreName", out var keystoreName) &&
+                        !string.IsNullOrEmpty(keystoreName))
+                        PlayerSettings.Android.keystoreName = keystoreName;
+                    if (options.TryGetValue("androidKeystorePass", out var keystorePass) &&
+                        !string.IsNullOrEmpty(keystorePass))
+                        PlayerSettings.Android.keystorePass = keystorePass;
+                    if (options.TryGetValue("androidKeyaliasName", out var keyaliasName) &&
+                        !string.IsNullOrEmpty(keyaliasName))
+                        PlayerSettings.Android.keyaliasName = keyaliasName;
+                    if (options.TryGetValue("androidKeyaliasPass", out var keyaliasPass) &&
+                        !string.IsNullOrEmpty(keyaliasPass))
+                        PlayerSettings.Android.keyaliasPass = keyaliasPass;
+                    // IL2CPP 
+                    PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+                    // Google Play want all CPU especially arm64
+                    PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
+                    PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+                    break;
+                case BuildTarget.StandaloneOSX:
+                    PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.Mono2x);
+                    break;
             }
 
-            // Custom build
-            Build(buildTarget, options["customBuildPath"], options["niwradMode"]);
+            options.TryGetValue("niwradMode", out var mode);
+            Build(buildTarget, customBuildPath != string.Empty ? customBuildPath : "build" , mode);
         }
 
         // Internal main entry point of all builds
         private static void Build(BuildTarget buildTarget, string filePath, string niwradMode) 
         {
-            string[] scenes = {""};
             BuildOptions options = 0;
-            if (niwradMode == "online") {
-                scenes = OnlineScenes;
-            } else if (niwradMode == "offline") {
-                scenes = OfflineScenes;
-            } else if (niwradMode == "executor") {
-                scenes = ExecutorScenes;
+            if (niwradMode == "executor") {
                 options = UnityEditor.BuildOptions.EnableHeadlessMode;
-            } else {
-                Console.WriteLine("Invalid argument -niwradMode");
-                EditorApplication.Exit(130);
             }
-
-            // if (buildTarget == BuildTarget.WebGL)
-            // {
-            //     options = options & UnityEditor.BuildOptions.Development; // Tentative to disable code stripping which breaks everything
-            // }
+            
             var buildPlayerOptions = new BuildPlayerOptions
             {
-                scenes = scenes,
+                scenes = Scenes,
                 locationPathName = filePath,
                 target = buildTarget,
                 options = options

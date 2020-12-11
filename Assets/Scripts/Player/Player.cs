@@ -5,12 +5,14 @@ namespace Player
 {
 	public class NiwradUser : IApiUser
 	{
-		public string AvatarUrl { get; }
+        public string AppleId { get; }
+        public string AvatarUrl { get; }
 		public string CreateTime { get; }
 		public string DisplayName { get; }
 		public int EdgeCount { get; }
 		public string FacebookId { get; }
-		public string GamecenterId { get; }
+        public string FacebookInstantGameId { get; }
+        public string GamecenterId { get; }
 		public string GoogleId { get; }
 		public string Id { get; }
 		public string LangTag { get; }

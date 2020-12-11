@@ -22,7 +22,7 @@ package nakama.api;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
-option go_package = "api";
+option go_package = "github.com/heroiclabs/nakama-common/api";
 
 option java_multiple_files = true;
 option java_outer_classname = "NakamaApi";
@@ -48,6 +48,14 @@ message Account {
   google.protobuf.Timestamp verify_time = 6;
   // The UNIX time when the user's account was disabled/banned.
   google.protobuf.Timestamp disable_time = 7;
+}
+
+// Send a Apple Sign In token to the server. Used with authenticate/link/unlink.
+message AccountApple {
+  // The ID token received from Apple to validate.
+  string token = 1;
+  // Extra information that will be bundled in the session token.
+  map<string, string> vars = 2;
 }
 
 // Send a custom ID to the server. Used with authenticate/link/unlink.
@@ -142,6 +150,16 @@ message AddGroupUsersRequest {
   string group_id = 1;
   // The users to add.
   repeated string user_ids = 2;
+}
+
+// Authenticate against the server with Apple Sign In.
+message AuthenticateAppleRequest {
+  // The Apple account details.
+  AccountApple account = 1;
+  // Register the account if the user does not already exist.
+  google.protobuf.BoolValue create = 2;
+  // Set the username on the account at register. Must be unique.
+  string username = 3;
 }
 
 // Authenticate against the server with a custom ID.
@@ -276,10 +294,12 @@ message ChannelMessage {
 message ChannelMessageList {
   // A list of messages.
   repeated ChannelMessage messages = 1;
-  // The cursor to send when retireving the next page, if any.
+  // The cursor to send when retrieving the next page, if any.
   string next_cursor = 2;
   // The cursor to send when retrieving the previous page, if any.
   string prev_cursor = 3;
+  // Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
+  string cacheable_cursor = 4;
 }
 
 // Create a group with the current user as owner.
@@ -750,6 +770,14 @@ message PromoteGroupUsersRequest {
   repeated string user_ids = 2;
 }
 
+// Demote a set of users in a group to the next role down.
+message DemoteGroupUsersRequest {
+  // The group ID to demote in.
+  string group_id = 1;
+  // The users to demote.
+  repeated string user_ids = 2;
+}
+
 // Storage objects to get.
 message ReadStorageObjectId {
   // The collection which stores the object.
@@ -962,8 +990,10 @@ message User {
   google.protobuf.Timestamp create_time = 15;
   // The UNIX time when the user was last updated.
   google.protobuf.Timestamp update_time = 16;
-  // The Facebook Instant Game id in the user's account.
+  // The Facebook Instant Game ID in the user's account.
   string facebook_instant_game_id = 17;
+  // The Apple Sign In ID in the user's account.
+  string apple_id = 18;
 }
 
 // A list of groups belonging to a user, along with the user's role in each group.

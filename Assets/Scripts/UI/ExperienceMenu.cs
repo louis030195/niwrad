@@ -63,7 +63,8 @@ namespace UI
                     9,
                     e.Map?.Size ?? 5,
                     mapMenu,
-                    "Size") // TODO: animation while generating map !
+                    "Size",
+                    tooltip: "Size of the map") // TODO: animation while generating map !
                 .onValueChanged.AddListener(value => _experience.Map.Size = value);
             CodeToUi.NumberToUi(10,
                     100,
@@ -103,6 +104,21 @@ namespace UI
                 .onValueChanged.AddListener(value => _experience.General.Timescale = (uint) value);
 
             // Hosts
+            var charTooltips = new[]
+            {
+                "Influences the <color=red>decision frequency</color>, reaction time",
+                "",
+                "Resistance to life",
+                "Used for all actions, <color=red>influences life</color>",
+                "How energy costly it is",
+                "How much energy eating brings",
+                "How much energy drinking brings",
+                "Carnivorous host ?",
+                "Hard-delay between reproductions",
+                ""
+            };
+            
+            // Animals
             CodeToUi.NumberToUi(0,
                     200,
                     e.AnimalDistribution?.InitialAmount ?? 0,
@@ -118,7 +134,8 @@ namespace UI
             CodeToUi.FloatsToUi(e.AnimalCharacteristicsMinimumBound,
                     e.AnimalCharacteristicsMaximumBound,
                     e.AnimalCharacteristics,
-                    animalCharacteristicMenu)
+                    animalCharacteristicMenu,
+                    tooltips: charTooltips)
                 .ForEach(elem =>
                 {
                     var (p, s) = elem;
@@ -129,6 +146,7 @@ namespace UI
                             ?.SetValue(_experience.AnimalCharacteristics, value));
                 });
 
+            // Plants
             CodeToUi.NumberToUi(0,
                     200,
                     e.PlantDistribution?.InitialAmount ?? 0,
@@ -144,7 +162,8 @@ namespace UI
             CodeToUi.FloatsToUi(e.PlantCharacteristicsMinimumBound,
                     e.PlantCharacteristicsMaximumBound,
                     e.PlantCharacteristics,
-                    plantCharacteristicMenu)
+                    plantCharacteristicMenu,
+                    tooltips: charTooltips)
                 .ForEach(elem =>
                 {
                     var (p, s) = elem;

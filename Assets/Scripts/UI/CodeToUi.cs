@@ -17,7 +17,7 @@ namespace UI
         private const string CheckboxTemplatePath = "Prefabs/GreyCheckboxTemplate"; // TODO: should throw if cant find asset
         private static readonly GameObject DefaultSlider = Resources.Load(SliderTemplatePath) as GameObject;
         private static readonly GameObject DefaultCheckBox = Resources.Load(CheckboxTemplatePath) as GameObject;
-        
+
         /// <summary>
         /// Given an object with number fields, an object of same number of fields representing the minimum value and
         /// another object of same number of fields representing the maximum value, create sliders for each fields properly
@@ -28,13 +28,16 @@ namespace UI
         /// <param name="value">Slider value</param>
         /// <param name="parent">Parent object</param>
         /// <param name="sliderTemplate">Object with 1: label text mp pro gui, 2 slider, 3 value text mp pro gui</param>
-        public static List<(PropertyInfo p, Slider s)> FloatsToUi(object min, object max, object value, Transform parent, GameObject sliderTemplate = null)
+        /// <param name="tooltips"></param>
+        public static List<(PropertyInfo p, Slider s)> FloatsToUi(object min, object max, object value, Transform parent, 
+            GameObject sliderTemplate = null, string[] tooltips = null)
         {
             sliderTemplate = sliderTemplate ? sliderTemplate : DefaultSlider;
             var ret = new List<(PropertyInfo p, Slider s)>();
             var minProps = min.GetType().GetProperties();
             var maxProps = max.GetType().GetProperties();
             var valueProps = value.GetType().GetProperties();
+            var nonNumberCount = 0;
             for (var i = 0; i < minProps.Length; i++)
             {
                 var minVal = minProps[i].GetValue(min);
@@ -43,11 +46,19 @@ namespace UI
                 var valVal = valueProps[i].GetValue(value);
                 if (minVal.IsNumber())
                 {
-                    ret.Add((p: minProps[i], s: NumberToUi(minVal, maxVal, valVal, parent, minProps[i].Name, sliderTemplate)));
+                    var tooltip = tooltips != null && i - nonNumberCount < tooltips.LongLength ? 
+                        tooltips[i - nonNumberCount] :
+                        "";
+                    ret.Add((p: minProps[i], s: NumberToUi(minVal, maxVal, valVal, parent, minProps[i].Name, 
+                        sliderTemplate, tooltip)));
                 } else if (minVal.GetType().GetFields().Length > 0) // Object
                 {
                     // TODO: could put as sub child in a new GO with object name ...
                     ret.AddRange(FloatsToUi(minVal, maxVal, valVal, parent));
+                }
+                else
+                {
+                    nonNumberCount++; // Only used for tooltips
                 }
             }
 

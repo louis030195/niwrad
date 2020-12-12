@@ -288,8 +288,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /home/louis/Documents/android_key/nw.keystore
-  AndroidKeyaliasName: nw
+  AndroidKeystoreName: /home/louis/Documents/android_key/niwrad.keystore
+  AndroidKeyaliasName: niwrad
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

@@ -85,7 +85,7 @@ namespace Editor
             PlayerSettings.macOS.buildNumber = buildVersion;
 
             options.TryGetValue("androidVersionCode", out var androidVersionCode);
-            PlayerSettings.Android.bundleVersionCode = int.Parse(androidVersionCode ?? "-1");
+            PlayerSettings.Android.bundleVersionCode = int.Parse(androidVersionCode ?? "1");
 
             options.TryGetValue("customBuildPath", out var customBuildPath);
 

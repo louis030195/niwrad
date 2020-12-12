@@ -52,9 +52,8 @@ make test
 * experience different reproductions (asexual, sexual species, predators, parasites)
 * artificial selection: carnivorous, rework, limited (cooldown ?), parameterable
 * record experience, better metrics
-* tooltip on UI
 * overall UX: toasts improvement (%random sentence discord-like, deploy a GPT3 on a raspberry ? ;))
-* fix android build => deploy google play
-* iOS
+* android google play
 * Steam
+* Helm chart: optional [Prometheus operator](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) setup (ServiceMonitor CRD) or metrics pusher, [Vector](https://github.com/timberio/vector) for logs to cloud
 * for more, see issues

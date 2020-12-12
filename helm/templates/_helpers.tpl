@@ -44,11 +44,19 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Selector labels
+Selector labels niwrad
 */}}
 {{- define "niwrad.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "niwrad.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Selector labels nakama
+*/}}
+{{- define "nakama.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "niwrad.name" . }}-nakama
+app.kubernetes.io/instance: {{ .Release.Name }}-nakama
 {{- end }}
 
 {{/*

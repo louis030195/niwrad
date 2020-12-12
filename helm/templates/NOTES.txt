@@ -1,24 +1,8 @@
-To learn more about the release, try:
-
-  $ helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
-  $ helm get all -n {{ .Release.Namespace }}
-  $ kubectl logs -f deployment/{{.Release.Name }} -n {{ .Release.Namespace }}
-
-{{- /*
-If you're developing with Minikube (or other k8s-in-container) and building container images locally, don't forget to use:
-
-  $ eval $(minikube -p minikube docker-env)
-
-Otherwise your images won't be built inside Minikube Docker, e.g. k8s won't be able to pull it
-
-To connect to the cluster, try:
-
-  $ minikube ip
-  $ kubectl get service {{ .Release.Name }} -o jsonpath='{.spec.ports[?(@.name=="api")].nodePort}'
-  $ make client
-
-To get logs from the executors, try:
-
-  $ kubectl logs -f -l tier=executor -n {{ .Release.Namespace }}
-*/ -}}
-
+* Export Nakama Pod name
+  $ export NK_POD=$(kubectl -n {{ .Release.Namespace }} get pod -l app.kubernetes.io/instance={{ include "niwrad.name" . }}-nakama | grep -v '^NAME' | awk '{print $1}' | head -n 1)
+* Get Nakama logs
+  $ kubectl logs ${NK_POD} -n {{ .Release.Namespace }} -f
+* Get all pods
+  $ kubectl get all -n {{ .Release.Namespace }}
+* Access Nakama UI
+  $ kubectl port-forward ${NK_POD} -n niwrad 7351:7351 

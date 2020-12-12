@@ -42,18 +42,25 @@ namespace Player {
 				return;
 			}
 
-            Vector3 mouse;
-#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
-            mouse = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.FirstOrDefault().screenPosition;
-#else
+            var mouse = Vector3.zero;
+            bool clickPressed;
+            bool clickReleased;
+#if UNITY_STANDALONE || UNITY_EDITOR
             mouse = Mouse.current.position.ReadValue();
+            clickPressed = Mouse.current.leftButton.wasPressedThisFrame;
+            clickReleased = Mouse.current.leftButton.wasReleasedThisFrame;
+#elif UNITY_IOS || UNITY_ANDROID
+            enabled = false; // Disabled unit selection on mobile yet
+            mouse = Touchscreen.current.position.ReadValue();
+            clickPressed = Touchscreen.current.press.wasPressedThisFrame;
+            clickReleased = Touchscreen.current.press.wasReleasedThisFrame;
 #endif
+
 			var ray = _cam.ScreenPointToRay(mouse);
 			_hit = Physics.Raycast(ray, out var info, float.MaxValue);
-
-
+            
 			// If we press the left mouse button, save mouse location and begin selection
-			if(Mouse.current.leftButton.wasPressedThisFrame) // TODO: works cross platform ?
+			if(clickPressed) // TODO: works cross platform ?
 			{
 				_isSelecting = true;
 				_lastMousePosition = mouse;
@@ -65,7 +72,7 @@ namespace Player {
 				}
 			}
 			// If we let go of the left mouse button, end selection
-			if (Mouse.current.leftButton.wasReleasedThisFrame) // TODO: works cross platform ?
+			if (clickReleased) // TODO: works cross platform ?
 			{
 				_isSelecting = false;
 			}
@@ -92,17 +99,15 @@ namespace Player {
 				}
 			}
             
-			if (Mouse.current.leftButton.wasReleasedThisFrame && _hit)
+			if (clickReleased && _hit)
 			{
 				var selectableObject = info.collider.GetComponent<SelectableUnit>();
 				// If the clicked object has something to show
-				if (selectableObject != null)
-				{
-					// Show its information
-					selectableObject.information.SetActive(true);
-					selectableObject.selectionCircle.SetActive(true);
-				}
-			}
+                if (selectableObject == null) return;
+                // Show its information
+                selectableObject.information.SetActive(true);
+                selectableObject.selectionCircle.SetActive(true);
+            }
 
 		}
 

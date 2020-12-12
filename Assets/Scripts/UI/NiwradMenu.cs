@@ -77,6 +77,7 @@ namespace UI
 			_serverPort = serverPortGameObject.GetComponent<TMP_InputField>();
             playButton.onClick.AddListener(Connect);
             debugToggle.onValueChanged.AddListener(Debug);
+            username.text = PlayerPrefs.GetString("username");
             _serverIp.text = PlayerPrefs.GetString("serverIp");
 			_serverPort.text = PlayerPrefs.GetString("serverPort");
             
@@ -137,7 +138,7 @@ namespace UI
                     throw new ArgumentOutOfRangeException();
             }
             
-            // Save IP:PORT (dev stuff)
+            PlayerPrefs.SetString("username", username.text);
             PlayerPrefs.SetString("serverIp", _serverIp.text);
             PlayerPrefs.SetString("serverPort", _serverPort.text);
             PlayerPrefs.Save();

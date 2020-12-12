@@ -28,18 +28,7 @@ namespace Api.Session
 
         public bool debug;
 
-        /// <summary>
-        /// IP Address of the server.
-        /// For demonstration purposes, the value is set through Inspector.
-        /// </summary>
-        [SerializeField] private string ipAddress = "localhost";
 
-        /// <summary>
-        /// Port behind which Nakama server can be found.
-        /// The default value is 7350
-        /// For demonstration purposes, the value is set through Inspector.
-        /// </summary>
-        [SerializeField] private int port = 7350;
 
         /// <summary>
         /// Cached value of <see cref="SystemInfo.deviceUniqueIdentifier"/>.
@@ -85,18 +74,23 @@ namespace Api.Session
         {
             get
             {
-                if (_client == null || _client.Host != ipAddress || _client.Port != port) // Not created or host/port changed
+                if (_client != null) return _client;
+                // TODO: yet hard-coded k8s cluster
+                const string publicHost = "91.121.67.56";
+                const string publicPort = "30020";
+                var tmp = PlayerPrefs.GetString("serverIp", publicHost);
+                var ipAddress = tmp != string.Empty ? tmp : publicHost;
+                tmp = PlayerPrefs.GetString("serverPort", publicPort);
+                var port = int.Parse(tmp != string.Empty ? tmp : publicPort);
+                // "defaultkey" should be changed when releasing the app
+                // see https://heroiclabs.com/docs/install-configuration/#socket
+                // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
+                _client = new Client("http",ipAddress, port, "defaultkey",  UnityWebRequestAdapter.Instance)
                 {
-                    // "defaultkey" should be changed when releasing the app
-                    // see https://heroiclabs.com/docs/install-configuration/#socket
-                    // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
-                    _client = new Client("http",ipAddress, port, "defaultkey",  UnityWebRequestAdapter.Instance)
-                    {
 #if UNITY_EDITOR
-	                    Logger = new UnityLogger()
+                    Logger = new UnityLogger()
 #endif
-                    };
-                }
+                };
                 return _client;
             }
         }

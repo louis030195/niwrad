@@ -3,6 +3,7 @@ using Input;
 using Player.Joysticks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace Player
 {
@@ -31,7 +32,7 @@ namespace Player
             moveJoystick.SetActive(false);
             rotateJoystick.SetActive(false);
             flyJoystick.SetActive(false);
-#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
             moveJoystick.SetActive(true);
             rotateJoystick.SetActive(true);
             flyJoystick.SetActive(true);
@@ -65,10 +66,11 @@ namespace Player
             if (disable) return;
             var t = transform;
             // Disable unit selection when using joysticks on mobile
-            unitSelection.disable = _mobile && _moveJoystick.isDragging || 
-                                     _mobile && _rotateJoystick.isDragging ||
-                                    _mobile && _flyJoystick.isDragging;
-            if (_mobile) transform.position += Vector3.up * (_flyJoystick.Vertical * zoomSpeed);
+            // TODO: unitSelection disabled on mobile now
+            // unitSelection.disable = _mobile && _moveJoystick.isDragging || 
+            //                          _mobile && _rotateJoystick.isDragging ||
+            //                         _mobile && _flyJoystick.isDragging;
+            if (_mobile && _flyJoystick.Vertical.IsNumber()) transform.position += Vector3.up * (_flyJoystick.Vertical * zoomSpeed);
             //Get Forward face
             var dir = t.forward;
             //Reset/Ignore y axis
@@ -77,9 +79,9 @@ namespace Player
             // Move position with arrows around
             var move = _mobile ? _moveJoystick.Direction : _rtsControls.Player.Move.ReadValue<Vector2>();
             t.position += (t.right * move.x + dir * move.y) * movementSpeed;
-            
+
             // Rotation on Y axis
-            if (Mouse.current.rightButton.isPressed || _mobile && _rotateJoystick.isDragging) // TODO: check works cross platform
+            if (!_mobile && Mouse.current.rightButton.isPressed || _rotateJoystick.isDragging) // TODO: check works cross platform
             {
                 var look = _mobile ? _rotateJoystick.Horizontal : _rtsControls.Player.Look.ReadValue<Vector2>().x;
                 t.Rotate(new Vector3(0, look * rotationSpeed, 0));

@@ -18,7 +18,7 @@ spec:
     port: 7351
     targetPort: 7351
   selector:
-    {{- include "niwrad.selectorLabels" . | nindent 4 }}
+    {{- include "nakama.selectorLabels" . | nindent 4 }}
   externalIPs:
     {{- with .Values.externalIPs }}
       {{- range . }}

@@ -10,7 +10,7 @@ spec:
 {{- end }}
   selector:
     matchLabels:
-      {{- include "niwrad.selectorLabels" . | nindent 6 }}
+      {{- include "nakama.selectorLabels" . | nindent 6 }}
   strategy: {}
   template:
     metadata:
@@ -19,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "niwrad.selectorLabels" . | nindent 8 }}
+        {{- include "nakama.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -31,7 +31,7 @@ spec:
         - -ecx
         - |
           /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
-           exec /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257
+           exec /nakama/nakama --database.address root@cockroachdb:26257 --config /backend/build/nakama-config.yml
         image: {{ .Values.nakama.image.repository }}:{{ .Values.nakama.image.tag | default "latest" }}
         imagePullPolicy: {{ .Values.nakama.image.pullPolicy }}
         volumeMounts:
@@ -43,7 +43,7 @@ spec:
             command:
             - curl
             - -f
-            - http://localhost:{{ .Values.nakama.service.portApi }}/
+            - http://{{ include "niwrad.fullname" . }}:{{ .Values.nakama.service.portApi }}
           failureThreshold: 5
           periodSeconds: 10
           timeoutSeconds: 5

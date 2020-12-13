@@ -93,8 +93,8 @@ namespace UI
             labelValue.GetComponent<TextMeshProUGUI>().text = $"{name}";
             var sliderValue = go.transform.GetChild(2);
             var sliderValueText = sliderValue.GetComponent<TextMeshProUGUI>();
-            sliderValueText.text = $"{s.value:####}";
-            s.onValueChanged.AddListener(v => sliderValueText.text = $"{v}");
+            sliderValueText.text = $"{s.value:0}";
+            s.onValueChanged.AddListener(v => sliderValueText.text = $"{v:0}");
             return s;
         }
         

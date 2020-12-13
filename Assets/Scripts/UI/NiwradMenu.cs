@@ -125,9 +125,12 @@ namespace UI
                 case AuthenticationResponse.Authenticated:
                     ShowToast($"Authenticated as {Sm.instance.Account.User.Username}").Forget();
                     break;
-                case AuthenticationResponse.Error:
+                case AuthenticationResponse.ErrorInternal:
                     ShowToast("Failed to reach server, mode offline ...").Forget();
                     break;
+                case AuthenticationResponse.ErrorUsernameAlreadyExists:
+                    ShowToast("Username already taken !", 5).Forget();
+                    return;
                 case AuthenticationResponse.NewAccountCreated:
                     ShowToast($"New account created as {Sm.instance.Account.User.Username}").Forget();
                     break;

@@ -130,7 +130,6 @@ namespace Editor
             if (niwradMode == "executor") {
                 options = UnityEditor.BuildOptions.EnableHeadlessMode;
             }
-            
             var buildPlayerOptions = new BuildPlayerOptions
             {
                 scenes = Scenes,

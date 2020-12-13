@@ -12,9 +12,14 @@
         Authenticated,
 
         /// <summary>
-        /// Couldn't authenticate givec device id.
+        /// Couldn't authenticate given device id.
         /// </summary>
-        Error,
+        ErrorInternal,
+        
+        /// <summary>
+        /// Username already.
+        /// </summary>
+        ErrorUsernameAlreadyExists,
 
         /// <summary>
         /// Given device id not found on the server. New account created.

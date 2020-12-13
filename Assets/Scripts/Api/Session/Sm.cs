@@ -196,17 +196,16 @@ namespace Api.Session
             switch (response)
             {
                 case AuthenticationResponse.Authenticated:
+                case AuthenticationResponse.UserInfoUpdated:
                     ConnectionSucceed?.Invoke();
                     break;
                 case AuthenticationResponse.NewAccountCreated:
                     NewAccountCreated?.Invoke();
                     ConnectionSucceed?.Invoke();
                     break;
-                case AuthenticationResponse.Error:
+                case AuthenticationResponse.ErrorUsernameAlreadyExists:
+                case AuthenticationResponse.ErrorInternal:
                     ConnectionFailed?.Invoke();
-                    break;
-                case AuthenticationResponse.UserInfoUpdated:
-                    ConnectionSucceed?.Invoke();
                     break;
                 default:
                     Debug.LogError("Unhandled response received: " + response);
@@ -256,14 +255,14 @@ namespace Api.Session
                 Debug.Log($"{Account.User.Username} changing its username to {username}");
                 response = await Sm.instance.UpdateUserInfoAsync(username,
                     "https://i.kym-cdn.com/entries/icons/medium/000/028/526/honklhonk.jpg");
-                if (response == AuthenticationResponse.Error) return response;
+                if (response == AuthenticationResponse.ErrorInternal) return response;
                 Account = await GetAccountAsync(); // Re-fetch updated account
-                if (Account == null) return AuthenticationResponse.Error;
+                if (Account == null) return AuthenticationResponse.ErrorInternal;
             }
 
             // Creating real-time communication socket
             var socketConnected = await ConnectSocketAsync();
-            if (socketConnected == false) return AuthenticationResponse.Error;
+            if (socketConnected == false) return AuthenticationResponse.ErrorInternal;
 
             Debug.Log("Session restored with token:" + Session.AuthToken);
             return response;
@@ -279,10 +278,11 @@ namespace Api.Session
         private async Task<AuthenticationResponse> AuthenticateAsync(string username = null)
         {
             var response = await AuthenticateDeviceIdAsync(username);
-            if (response == AuthenticationResponse.Error) return AuthenticationResponse.Error;
+            if (response == AuthenticationResponse.ErrorInternal) return AuthenticationResponse.ErrorInternal;
+            if (response == AuthenticationResponse.ErrorUsernameAlreadyExists) return AuthenticationResponse.ErrorUsernameAlreadyExists;
 
             Account = await GetAccountAsync();
-            if (Account == null) return AuthenticationResponse.Error;
+            if (Account == null) return AuthenticationResponse.ErrorInternal;
             
             // Use case : previously logged on this device, different username now
             if (username != Account.User.Username)
@@ -290,13 +290,13 @@ namespace Api.Session
                 Debug.Log($"{Account.User.Username} changing its username to {username}");
                 response = await Sm.instance.UpdateUserInfoAsync(username,
                     "https://i.kym-cdn.com/entries/icons/medium/000/028/526/honklhonk.jpg");
-                if (response == AuthenticationResponse.Error) return response;
+                if (response == AuthenticationResponse.ErrorInternal) return response;
                 Account = await GetAccountAsync(); // Re-fetch updated account
-                if (Account == null) return AuthenticationResponse.Error;
+                if (Account == null) return AuthenticationResponse.ErrorInternal;
             }
 
             var socketConnected = await ConnectSocketAsync();
-            if (socketConnected == false) return AuthenticationResponse.Error;
+            if (socketConnected == false) return AuthenticationResponse.ErrorInternal;
 
             StoreSessionToken();
             return response;
@@ -324,12 +324,12 @@ namespace Api.Session
                 }
 
                 Debug.LogWarning("An error has occured reaching Nakama server; message: " + e);
-                return AuthenticationResponse.Error;
+                return AuthenticationResponse.ErrorInternal;
             }
             catch (Exception e)
             {
                 Debug.LogWarning("Couldn't connect to Nakama server; message: " + e);
-                return AuthenticationResponse.Error;
+                return AuthenticationResponse.ErrorInternal;
             }
         }
 
@@ -346,8 +346,10 @@ namespace Api.Session
             }
             catch (Exception e)
             {
-                Debug.LogError("Couldn't create account using DeviceId; message: " + e);
-                return AuthenticationResponse.Error;
+                Debug.LogWarning("Couldn't create account using DeviceId; message: " + e);
+                return e.Message.Contains("Username") ? // TODO: ugly string hack because no access to better information
+                    AuthenticationResponse.ErrorUsernameAlreadyExists : 
+                    AuthenticationResponse.ErrorInternal;
             }
         }
 
@@ -505,12 +507,12 @@ namespace Api.Session
             catch (ApiResponseException e)
             {
                 Debug.LogError("Couldn't update user info with code " + e.StatusCode + ": " + e);
-                return AuthenticationResponse.Error;
+                return AuthenticationResponse.ErrorInternal;
             }
             catch (Exception e)
             {
                 Debug.LogError("Couldn't update user info: " + e);
-                return AuthenticationResponse.Error;
+                return AuthenticationResponse.ErrorInternal;
             }
         }
 

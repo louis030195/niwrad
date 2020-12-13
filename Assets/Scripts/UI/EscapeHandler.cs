@@ -7,14 +7,18 @@ using UnityEngine.UI;
 
 namespace UI
 {
+
+    
     public class EscapeHandler : MonoBehaviour
     {
         [SerializeField] private Menu escapeScrollView;
         [SerializeField] private Menu experienceMenu;
         [SerializeField] private Menu inputsMenu;
+        [SerializeField] private Menu audioMenu;
         [SerializeField] private Menu leaderboardMenu;
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button inputsButton;
+        [SerializeField] private Button audioButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button experienceButton;
         [SerializeField] private Button quitButton;
@@ -39,12 +43,13 @@ namespace UI
 
         private void Start()
         {
-            settingsButton.onClick.AddListener(SubShow);
             resumeButton.onClick.AddListener(NiwradMenu.instance.PopAll);
+            settingsButton.onClick.AddListener(SubShow);
             inputsButton.onClick.AddListener(inputsMenu.Push);
+            audioButton.onClick.AddListener(audioMenu.Push);
             experienceButton.onClick.AddListener(experienceMenu.Push);
-            quitButton.onClick.AddListener(Quit);
             leaderboardButton.onClick.AddListener(leaderboardMenu.Push);
+            quitButton.onClick.AddListener(Quit);
         }
 
         private void Quit()
@@ -54,7 +59,7 @@ namespace UI
             // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+            Application.Quit(1);
 #endif
         }
 

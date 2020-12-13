@@ -26,11 +26,13 @@ See related writings:
   * [x] Big ugly panel in game with number of animals ...
 * [x] Optional carnivorous hosts
 * [x] Android, Linux, Windows, Web, iOS, MacOS
-  * [x] Mobile joysticks
-  * [x] Passable UX
-* [x] Multiplayer + singleplayer
+  * [x] Decent cross platform UX
+* [x] Multiplayer (91.121.67.56:30020) + singleplayer
   * [x] Can share experiences
   * [x] Leaderboard (yet naïve: who had the most hosts alive = biggest computer)
+* [x] Audio (parametrable)
+* [x] Inputs (not parametrable)
+  * [x] Cross platform
 
 ## Dependencies
 

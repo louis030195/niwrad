@@ -161,11 +161,6 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      # see https://github.com/louis030195/niwrad/runs/1539500329?check_suite_focus=true#step:4:1572
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-
       # Build
       - uses: webbertakken/unity-builder@v2.0-aplha-5
         with:

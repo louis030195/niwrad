@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Api.Realtime;
 using Api.Session;
+using Cysharp.Threading.Tasks;
 using Evolution;
 using Gameplay;
 using Lean.Gui;
@@ -22,8 +24,9 @@ namespace UI
         [SerializeField] private LeanButton shareButton;
         [SerializeField] private LeanButton playButton;
         [SerializeField] private TMP_InputField experienceNameInputField;
+        [SerializeField] private TextMeshProUGUI experienceOwnerText;
         private Experience _experience;
-
+        [HideInInspector] public string owner;
 
         /// <summary>
         /// Triggered when saved as a new experience
@@ -41,22 +44,17 @@ namespace UI
             saveButton.OnClick.AddListener(Save);
             deleteButton.OnClick.AddListener(Delete);
             playButton.OnClick.AddListener(Play); // TODO: show TOASTS
-            shareButton.OnClick.AddListener(async () =>
-            {
-                var res = await Sm.instance.ShareExperience(_experience);
-                var message = res.Acks.LongCount() == 0 ? 
-                    $"Failed to share experience {_experience.Name}" :
-                    $"Experience {_experience.Name} has been shared to the community !";
-                NiwradMenu.instance.ShowNotification(message);
-            });
+            shareButton.OnClick.AddListener(Share);
             experienceNameInputField.onEndEdit.AddListener(value => _experience.Name = value);
             // TODO: name validation ? will fuck up if user name it something like /root/destroy_the_universe.exe
         }
 
-        public void Load(Experience e)
+        public void Load(Experience e, string givenOwner = "")
         {
             _experience = e;
             experienceNameInputField.text = e.Name;
+            owner = givenOwner;
+            experienceOwnerText.text = owner == "" ? "" : $"<color=blue>Created by</color> {owner}";
             // Map
             CodeToUi.NumberToUi(1,
                     9,
@@ -116,7 +114,7 @@ namespace UI
                 "Hard-delay between reproductions",
                 ""
             };
-            
+
             // Animals
             CodeToUi.NumberToUi(0,
                     200,
@@ -176,25 +174,51 @@ namespace UI
 
         private void Save()
         {
-            // If it's a new experience, notify it
-            if (_experience.Save()) Added?.Invoke(); // TODO: animation
-            NiwradMenu.instance
-                .ShowNotification($"Experience {_experience.Name} has been saved !");
+            try
+            {
+                // If it's a new experience, notify it
+                if (_experience.Save()) Added?.Invoke(); // TODO: animation
+                NiwradMenu.instance.ShowNotification($"Experience {_experience.Name} has been saved !");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                NiwradMenu.instance.ShowNotification($"{_experience.Name} is not a valid name," +
+                                                     $" avoid using special characters please");
+            }
         }
 
         private void Delete()
         {
-            _experience.Delete(); // TODO: animation
-            Deleted?.Invoke();
-            NiwradMenu.instance
-                .ShowNotification($"Experience {_experience.Name} has been deleted !");
+            try
+            {
+                _experience.Delete(); // TODO: animation
+                Deleted?.Invoke();
+                NiwradMenu.instance.ShowNotification($"Experience {_experience.Name} has been deleted !");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                NiwradMenu.instance.ShowNotification($"Failed to delete {_experience.Name} !");
+            }
         }
 
-        public void Play()
+        private async void Play()
         {
-            NiwradMenu.instance.PopAll();
             NiwradMenu.instance.ShowNotification($"Loading experience {_experience.Name} ...");
+            // TODO: temporary hack to let the notification show because map gen freeze everything
+            await UniTask.Delay(1000);
+            NiwradMenu.instance.PopAll();
             Gm.instance.StartExperience(_experience);
+        }
+        
+        private async void Share()
+        {
+            // TODO: name validation ?
+            // TODO: limit number of shares, propose to delete some idk ..
+            var res = await Sm.instance.ShareExperience(_experience);
+            var message = res.Acks.LongCount() == 0
+                ? $"Failed to share experience {_experience.Name}"
+                : $"Experience {_experience.Name} has been shared to the community !";
+            NiwradMenu.instance.ShowNotification(message);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace UI
         [SerializeField] private GameObject experienceMenuTemplate;
         [SerializeField] private LeanButton newExperienceButton;
         private readonly List<ExperienceMenu> _experienceMenus = new List<ExperienceMenu>();
+
         protected override void Start()
         {
             base.Start();
@@ -29,40 +30,50 @@ namespace UI
                 Debug.Log($"Creating directory {expDir}");
                 Directory.CreateDirectory(expDir);
             }
+
             var experiences = Directory.GetFiles(expDir);
             foreach (var experienceFile in experiences)
             {
-                var e  = ExperienceExtensions.Load(experienceFile, true);
+                var e = ExperienceExtensions.Load(experienceFile, true);
                 AddExperienceMenu(e);
             }
+
             newExperienceButton.OnClick.AddListener(() =>
             {
                 var e = ExperienceExtensions.New();
                 AddExperienceMenu(e);
             });
-            Sm.instance.ConnectionSucceed += async () =>
+
+            async void AddCommunityExperiences()
             {
                 var communityExperiences = await Sm.instance.ExperienceList();
                 foreach (var experience in communityExperiences.Objects)
                 {
                     var parsedExperience = Experience.Parser.ParseJson(experience.Value);
-                    var result = await Sm.instance.Client.GetUsersAsync(Sm.instance.Session, new []{experience.UserId});
-                    parsedExperience.Name += $" - <color=blue>By {result.Users.FirstOrDefault()?.Username}</color>";
-                    AddExperienceMenu(parsedExperience);
+                    var result = await Sm.instance.Client.GetUsersAsync(Sm.instance.Session, new[] {experience.UserId});
+                    AddExperienceMenu(parsedExperience, result.Users.FirstOrDefault()?.Username);
+                    // TODO: doesn't scale @see cursor stuff in @Sm
                 }
-            };
+
+                // Just once 
+                Sm.instance.ConnectionSucceed -= AddCommunityExperiences;
+            }
+
+            Sm.instance.ConnectionSucceed += AddCommunityExperiences;
         }
 
         /// <summary>
         /// Based on an experience, create an experience menu and a button referring to it
         /// </summary>
         /// <param name="e"></param>
-        private void AddExperienceMenu(Experience e)
+        /// <param name="owner"></param>
+        private void AddExperienceMenu(Experience e, string owner = "")
         {
             var goButton = Instantiate(experienceButtonTemplate, experienceGrid);
-            goButton.GetComponentInChildren<TextMeshProUGUI>().text = e.Name;
+            var createdBy = owner == "" ? "" : $" - <color=blue>Created By {owner}</color>";
+            goButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{e.Name}{createdBy}";
             var expMenu = Instantiate(experienceMenuTemplate, transform.parent).GetComponent<ExperienceMenu>();
-            expMenu.Load(e);
+            expMenu.Load(e, owner);
             expMenu.Deleted += () =>
             {
                 _experienceMenus.Remove(expMenu);
@@ -73,5 +84,30 @@ namespace UI
             _experienceMenus.Add(expMenu);
             goButton.GetComponent<LeanButton>().OnClick.AddListener(() => expMenu.Push());
         }
+
+        // public override async void Show()
+        // {
+        //     base.Show();
+        //     if (!Sm.instance.IsConnected) return; // Offline
+        //     var communityExperiences = await Sm.instance.ExperienceList();
+        //     foreach (var experience in communityExperiences.Objects)
+        //     {
+        //         var parsedExperience = Experience.Parser.ParseJson(experience.Value);
+        //         var result = await Sm.instance.Client.GetUsersAsync(Sm.instance.Session, new []{experience.UserId});
+        //         AddExperienceMenu(parsedExperience, result.Users.FirstOrDefault()?.Username);
+        //         // TODO: doesn't scale @see cursor stuff in @Sm
+        //     }
+        // }
+
+        // public override void Hide()
+        // {
+        //     base.Hide();
+        //     if (!Sm.instance.IsConnected) return; // Offline
+        //     // Clear all community stuff
+        //     for (var i = _experienceMenus.Count - 1; i >= 0; i--)
+        //     {
+        //         if (_experienceMenus[i].owner != "") Destroy(_experienceMenus[i]);
+        //     }
+        // }
     }
 }

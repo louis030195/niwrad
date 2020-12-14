@@ -35,15 +35,18 @@ namespace Sounds
                 mixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("MasterVolume"));
                 mixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
                 mixer.SetFloat("MasterSFXVolume", PlayerPrefs.GetFloat("MasterSFXVolume"));
+                mixer.SetFloat("MasterUIVolume", PlayerPrefs.GetFloat("MasterUIVolume"));
             }
             else
             {
                 mixer.GetFloat("MasterVolume", out var masterVolume);
                 mixer.GetFloat("MusicVolume", out var musicVolume);
                 mixer.GetFloat("MasterSFXVolume", out var masterSfxVolume);
+                mixer.GetFloat("MasterUIVolume", out var masterUiVolume);
                 PlayerPrefs.SetFloat("MasterVolume", masterVolume);
                 PlayerPrefs.SetFloat("MusicVolume", musicVolume);
                 PlayerPrefs.SetFloat("MasterSFXVolume", masterSfxVolume);
+                PlayerPrefs.SetFloat("MasterUIVolume", masterUiVolume);
                 PlayerPrefs.Save();
             }
 

@@ -1034,7 +1034,6 @@ func (*Characteristics_AnimalCharacteristics_) isCharacteristics_Type() {}
 
 func (*Characteristics_PlantCharacteristics_) isCharacteristics_Type() {}
 
-// TODO: instead of this, what about building a (binary ? tree type depend on reproduction type) tree, idk if that can scale
 // so this is like a prometheus thing ? idk ..
 type ExperienceSample struct {
 	state         protoimpl.MessageState

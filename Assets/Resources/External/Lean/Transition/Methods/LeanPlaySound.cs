@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.Audio;
 
 namespace Lean.Transition.Method
 {
@@ -7,7 +9,7 @@ namespace Lean.Transition.Method
 	[HelpURL(LeanTransition.HelpUrlPrefix + "LeanPlaySound")]
 	[AddComponentMenu(LeanTransition.MethodsMenuPrefix + "Play Sound" + LeanTransition.MethodsMenuSuffix + "(LeanPlaySound)")]
 	public class LeanPlaySound : LeanMethodWithStateAndTarget
-	{
+    {
 		public override System.Type GetTargetType()
 		{
 			return typeof(AudioClip);
@@ -45,8 +47,20 @@ namespace Lean.Transition.Method
 #endif
 					var gameObject  = new GameObject(Target.name);
 					var audioSource = gameObject.AddComponent<AudioSource>();
+                    // UGLY HACK TO UPSTREAM TO FORCE THROUGH MIXER
+                    var mixer = Resources.Load("Sounds/Base") as AudioMixer;
+                    if (mixer == null)
+                    {
+                        Debug.LogError("Can't find Sounds/Base AudioMixer in resources, did it moved ?");
+                    }
+                    else
+                    {
+                        var uiMixer = mixer.FindMatchingGroups("Master/UI").First();
+                        audioSource.outputAudioMixerGroup = uiMixer;
+                    }
+                    /////////////////
 
-					audioSource.clip   = Target;
+                    audioSource.clip   = Target;
 					audioSource.volume = Volume;
 
 					audioSource.Play();

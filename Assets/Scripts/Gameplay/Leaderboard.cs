@@ -27,8 +27,9 @@ namespace Gameplay
             while (true)
             {
                 yield return _delay;
-                if (_gameManager.state == GameState.Experience)
+                if (_gameManager.State == GameState.Experience)
                 {
+                    // _hostManager.Statistics.Get().
                     _sessionManager.WriteNaiveLeaderboard(_hostManager.Animals.Count + _hostManager.Plants.Count);
                     // Debug.Log(
                         // $"Sending new leaderboard score {_hostManager.Animals.Count + _hostManager.Plants.Count}");

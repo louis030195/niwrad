@@ -56,7 +56,15 @@
                 {
                     "name": "DoubleCancel",
                     "type": "PassThrough",
-                    "id": "f4f5018b-c5fe-420e-95e8-8c3a6316c8cc",
+                    "id": "6010db31-6ca2-4fa5-ac02-76fe7f27e885",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LongCancel",
+                    "type": "Button",
+                    "id": "4790bf2e-187a-446f-9285-e4cd3918cecd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -318,12 +326,23 @@
                 },
                 {
                     "name": "",
-                    "id": "41b1eafd-ed1f-43a3-8f3d-66cc8bdadb5c",
+                    "id": "b3fee0fd-2df1-447c-b65c-9c4ae1bfef08",
                     "path": "*/{Cancel}",
                     "interactions": "MultiTap",
                     "processors": "",
                     "groups": "",
                     "action": "DoubleCancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bb5f93f-c445-47ab-8e7d-be2980760ecd",
+                    "path": "*/{Cancel}",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LongCancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -410,14 +429,6 @@
                     "type": "PassThrough",
                     "id": "b7698a22-e878-4d41-9d92-9307262db245",
                     "expectedControlType": "Quaternion",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "LongCancel",
-                    "type": "PassThrough",
-                    "id": "33d3f1a9-0539-4683-baee-b42b3764d4bd",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -690,7 +701,7 @@
                 {
                     "name": "",
                     "id": "9e92bb26-7e3b-4ec4-b06b-3c8f8e498ddc",
-                    "path": "*/{Submit}",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -838,17 +849,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "de0e1d35-d1b5-42da-b9c8-dc05a5bc329b",
-                    "path": "*/{Cancel}",
-                    "interactions": "Hold(duration=2)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LongCancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

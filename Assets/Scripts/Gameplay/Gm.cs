@@ -49,8 +49,34 @@ namespace Gameplay
         private GameObject networkManagersPrefab;
 
         public Experience Experience { get; private set; }
-        
-        public GameState state;
+
+        private GameState _state;
+        public GameState State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                switch(value)
+                {
+                    case GameState.Menu:
+                        MenuStateStarted?.Invoke();
+                        break;
+                    case GameState.Play:
+                        PlayStateStarted?.Invoke();
+                        break;
+                    case GameState.Experience:
+                        ExperienceStateStarted?.Invoke();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
+                }
+            }
+        }
+
+        public event Action MenuStateStarted;
+        public event Action PlayStateStarted;
+        public event Action ExperienceStateStarted;
 
         private GameObject _map;
         protected override async void Awake()
@@ -134,7 +160,7 @@ namespace Gameplay
             m.BuildNavMesh(); // TODO: can crash if weird meshes, maybe should try catch here
             // TODO: other general stuff
             Hm.instance.StartExperience(e);
-            state = GameState.Experience;
+            State = GameState.Experience;
             // TODO: generate map based on e.Map.Stuff
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay;
 using Input;
+using Lean.Gui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -16,13 +17,17 @@ namespace UI
         [SerializeField] private Menu inputsMenu;
         [SerializeField] private Menu audioMenu;
         [SerializeField] private Menu leaderboardMenu;
-        [SerializeField] private Button resumeButton;
-        [SerializeField] private Button inputsButton;
-        [SerializeField] private Button audioButton;
-        [SerializeField] private Button settingsButton;
-        [SerializeField] private Button experienceButton;
-        [SerializeField] private Button quitButton;
-        [SerializeField] private Button leaderboardButton;
+        
+        // Choices you see when reaching escape menu
+        [SerializeField] private LeanButton resumeButton;
+        [SerializeField] private LeanButton inputsButton;
+        [SerializeField] private LeanButton audioButton;
+        [SerializeField] private LeanButton experienceButton;
+        [SerializeField] private LeanButton quitButton;
+        
+        // Stuff in corners
+        [SerializeField] private LeanButton leaderboardButton;
+        [SerializeField] private LeanButton settingsButton;
 
         private Rts _rtsControls;
         private void Awake()
@@ -43,13 +48,15 @@ namespace UI
 
         private void Start()
         {
-            resumeButton.onClick.AddListener(NiwradMenu.instance.PopAll);
-            settingsButton.onClick.AddListener(SubShow);
-            inputsButton.onClick.AddListener(inputsMenu.Push);
-            audioButton.onClick.AddListener(audioMenu.Push);
-            experienceButton.onClick.AddListener(experienceMenu.Push);
-            leaderboardButton.onClick.AddListener(leaderboardMenu.Push);
-            quitButton.onClick.AddListener(Quit);
+            resumeButton.OnClick.AddListener(NiwradMenu.instance.PopAll);
+            inputsButton.OnClick.AddListener(inputsMenu.Push);
+            audioButton.OnClick.AddListener(audioMenu.Push);
+            experienceButton.OnClick.AddListener(experienceMenu.Push);
+            quitButton.OnClick.AddListener(Quit);
+            
+            settingsButton.OnClick.AddListener(SubShow);
+            leaderboardButton.OnClick.AddListener(leaderboardMenu.Push);
+
         }
 
         private void Quit()
@@ -65,7 +72,7 @@ namespace UI
 
         private void ShowEscapeMenu(InputAction.CallbackContext ctx)
         {
-            if (Gm.instance.state == GameState.Menu) return;
+            if (Gm.instance.State == GameState.Menu) return;
             SubShow();
         }
 

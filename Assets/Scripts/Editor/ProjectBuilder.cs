@@ -120,6 +120,8 @@ namespace Editor
             }
 
             options.TryGetValue("niwradMode", out var mode);
+
+            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
             Build(buildTarget, customBuildPath != string.Empty ? customBuildPath : "build" , mode);
         }
 

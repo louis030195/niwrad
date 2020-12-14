@@ -7,6 +7,8 @@ using Cysharp.Threading.Tasks;
 using Api.Session;
 using Gameplay;
 using Input;
+using Lean.Gui;
+using Lean.Transition.Method;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -18,7 +20,6 @@ namespace UI
 {
     public class StackL<T> : Stack<T>
     {
-
         public event Action<T> OnPush;
         public event Action<T> OnPop;
 
@@ -27,7 +28,7 @@ namespace UI
             OnPush?.Invoke(item);
             base.Push(item);
         }
-        
+
         public new T Pop()
         {
             var item = base.Pop();
@@ -35,9 +36,9 @@ namespace UI
             return item;
         }
     }
-    
-	public class NiwradMenu : Singleton<NiwradMenu>
-	{
+
+    public class NiwradMenu : Singleton<NiwradMenu>
+    {
         public UnitSelection unitSelection;
         public CameraController cameraController;
         public Menu hud;
@@ -48,126 +49,163 @@ namespace UI
         [SerializeField] private Menu background;
 
         [Header("First Menu")] 
-        
         public TMP_InputField username;
         public Menu firstMenu;
-        public Button playButton;
+        public LeanButton playButton;
+        public LeanPulse notification;
         public Toggle debugToggle;
         [SerializeField] private GameObject serverIpGameObject;
-		[SerializeField] private GameObject serverPortGameObject; // TODO: unused yet, who cares ?
+        [SerializeField] private GameObject serverPortGameObject; // TODO: unused yet, who cares ?
         private TMP_InputField _serverIp;
-		private TMP_InputField _serverPort;
-        
-        [Header("Second Menu")]
+        private TMP_InputField _serverPort;
 
-        public Menu secondMenu;
-        public Button singlePlayerButton;
-        public Button multiplayerButton;
-        
+        [Header("Second Menu")] public Menu secondMenu;
+        public LeanButton singlePlayerButton;
+        public LeanButton multiplayerButton;
+
         private Rts _rtsControls;
         private readonly StackL<Menu> _stack = new StackL<Menu>();
+        private LeanJoinDelay _notificationJoinDelay;
+        private TextMeshProUGUI _notificationText;
 
-        
-		private void Start()
-		{
-            
+        private void Start()
+        {
             settings.Hide();
-            
-			_serverIp = serverIpGameObject.GetComponent<TMP_InputField>();
-			_serverPort = serverPortGameObject.GetComponent<TMP_InputField>();
-            playButton.onClick.AddListener(Connect);
-            debugToggle.onValueChanged.AddListener(Debug);
+            _notificationText = notification.GetComponentInChildren<TextMeshProUGUI>();
+            _notificationJoinDelay = notification.GetComponentInChildren<LeanJoinDelay>();
+            _serverIp = serverIpGameObject.GetComponent<TMP_InputField>();
+            _serverPort = serverPortGameObject.GetComponent<TMP_InputField>();
+            playButton.OnClick.AddListener(() => Connect(new InputAction.CallbackContext()));
+            _rtsControls = new Rts();
+            _rtsControls.Enable();
+            _rtsControls.UI.Submit.performed += Connect;
+            debugToggle.onValueChanged.AddListener(Advanced);
             username.text = PlayerPrefs.GetString("username");
             _serverIp.text = PlayerPrefs.GetString("serverIp");
-			_serverPort.text = PlayerPrefs.GetString("serverPort");
-            
-            singlePlayerButton.onClick.AddListener(() =>
+            _serverPort.text = PlayerPrefs.GetString("serverPort");
+
+            singlePlayerButton.OnClick.AddListener(() =>
             {
                 secondMenu.Hide();
                 background.Hide();
-                Gm.instance.state = GameState.Play;
+                Gm.instance.State = GameState.Play;
                 settings.Show();
             });
-            multiplayerButton.onClick.AddListener(() => throw new NotImplementedException("Online mode in maintenance")); // TODO next
+            multiplayerButton.OnClick.AddListener(() =>
+                throw new NotImplementedException("Online mode in maintenance")); // TODO next
             
-            _rtsControls = new Rts();
-#if UNITY_STANDALONE
+            // Pointless for mobile
+#if UNITY_STANDALONE || UNITY_EDITOR
             // Lock cursor withing window in standalone
             Cursor.lockState = CursorLockMode.Confined;
 
             void ReLock(InputAction.CallbackContext _)
             {
+                Screen.fullScreen = true;
                 Cursor.lockState = CursorLockMode.Confined;
-                ShowToast("Cursor locked again").Forget();
+                ShowNotification("Cursor locked again");
                 _rtsControls.Player.Fire.performed -= ReLock;
             }
-            // Can unlock cursor from the window in standalone by pressing escape
+
+            // Basically copy paste of how Google Stadia handle full screen :D
             _rtsControls.Player.DoubleCancel.performed += ctx =>
             {
+                ShowNotification($"Press and hold {_rtsControls.Player.LongCancel.activeControl.displayName}" +
+                                 $" to unlock the cursor from the window");
+            };
+            // Can unlock cursor from the window in standalone by pressing escape
+            _rtsControls.Player.LongCancel.performed += ctx =>
+            {
+                Screen.fullScreen = false;
                 Cursor.lockState = CursorLockMode.None;
-                ShowToast("Cursor unlocked from the window, click inside the window to re-lock the cursor").Forget();
+                ShowNotification("Cursor unlocked from the window," +
+                                 " click inside the window to re-lock the cursor");
                 // Can re-lock cursor from the window in standalone by pressing escape
                 _rtsControls.Player.Fire.performed += ReLock;
             };
-#endif
-#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
+#elif UNITY_IOS || UNITY_ANDROID
             UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
 #endif
+
+
+            Sm.instance.ConnectionSucceed += OnConnectionSucceed;
         }
 
-        private async void Connect()
+        private void OnConnectionSucceed()
         {
-            // TODO username validation
-            var res = await Sm.instance.ConnectAsync(username.text != "" ? username.text : null);
-            
-            switch (res)
-            {
-                case AuthenticationResponse.Authenticated:
-                    ShowToast($"Authenticated as {Sm.instance.Account.User.Username}").Forget();
-                    break;
-                case AuthenticationResponse.ErrorInternal:
-                    ShowToast("Failed to reach server, mode offline ...").Forget();
-                    break;
-                case AuthenticationResponse.ErrorUsernameAlreadyExists:
-                    ShowToast("Username already taken !", 5).Forget();
-                    return;
-                case AuthenticationResponse.NewAccountCreated:
-                    ShowToast($"New account created as {Sm.instance.Account.User.Username}").Forget();
-                    break;
-                case AuthenticationResponse.UserInfoUpdated:
-                    ShowToast($"User information updated, {Sm.instance.Account.User.Username}").Forget();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
             PlayerPrefs.SetString("username", username.text);
             PlayerPrefs.SetString("serverIp", _serverIp.text);
             PlayerPrefs.SetString("serverPort", _serverPort.text);
             PlayerPrefs.Save();
-            
+
             // Next menu in any case, if Nakama auth failed => auth-less mode
             firstMenu.Hide();
             secondMenu.Show();
+
+            // Unbind Submit from connect then
+            // _submitAction.started -= Connect;
+            _rtsControls.UI.Submit.performed -= Connect;
+
+            // Just once (imagine "failed to reach server, going offline then at some point connect during the game")
+            Sm.instance.ConnectionSucceed -= OnConnectionSucceed;
         }
-        
-        private void Debug(bool value)
-		{
-			serverIpGameObject.SetActive(value);
-			serverPortGameObject.SetActive(value);
-		}
-        
+
+        private async void Connect(InputAction.CallbackContext _)
+        {
+            // TODO username validation
+            var res = await Sm.instance.ConnectAsync(username.text != "" ? username.text : null);
+
+            switch (res)
+            {
+                case AuthenticationResponse.Authenticated:
+                    ShowNotification($"Authenticated as {Sm.instance.Account.User.Username}");
+                    break;
+                case AuthenticationResponse.ErrorInternal:
+                    ShowNotification("Failed to reach server, mode offline ...");
+                    // Go offline if internal server error
+                    OnConnectionSucceed();
+                    break;
+                case AuthenticationResponse.ErrorUsernameAlreadyExists:
+                    ShowNotification("Username already taken !", 3);
+                    break;
+                case AuthenticationResponse.NewAccountCreated:
+                    ShowNotification($"New account created as {Sm.instance.Account.User.Username}");
+                    break;
+                case AuthenticationResponse.UserInfoUpdated:
+                    ShowNotification($"User information updated, {Sm.instance.Account.User.Username}");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void Advanced(bool value)
+        {
+            serverIpGameObject.SetActive(value);
+            serverPortGameObject.SetActive(value);
+        }
+
+        public void ShowNotification(string text, int duration = 2) // TODO: !!!! dismiss swipe / click
+        {
+            _notificationText.text = text;
+            _notificationJoinDelay.Duration = duration;
+            notification.Pulse();
+        }
+
+        /**
+         * Kinda deprecated see -> ShowNotification
+         */
         public async UniTaskVoid ShowToast(string text, int duration = 2)
         {
             var originalColor = toast.color;
-            
+
             toast.text = text;
             toast.enabled = true;
-            
+
             //Fade in
             toast.FadeInAndOut(true, 0.5f).Forget();
             toastBackground.FadeInAndOut(true, 0.5f).Forget();
-            
+
             //Wait for the duration
             float counter = 0;
             while (counter < duration)
@@ -175,17 +213,16 @@ namespace UI
                 counter += Time.deltaTime;
                 await UniTask.Yield();
             }
-            
+
             //Fade out
             toast.FadeInAndOut(false, 0.5f).Forget();
             toastBackground.FadeInAndOut(false, 0.5f).Forget();
-            
+
             toast.enabled = false;
             toast.color = originalColor;
         }
-        
 
-        
+
         private void OnEscapeMenu(bool push = false)
         {
             var isEmpty = IsEmpty();
@@ -199,7 +236,9 @@ namespace UI
         public void Push(Menu menu)
         {
             OnEscapeMenu(true);
-            if (_stack.Count > 0) _stack.Peek().Hide(); // TODO: By default hide current but maybe in some cases could want to literally stack UIs ?
+            if (_stack.Count > 0)
+                _stack.Peek()
+                    .Hide(); // TODO: By default hide current but maybe in some cases could want to literally stack UIs ?
             _stack.Push(menu);
             menu.Show();
         }
@@ -225,16 +264,17 @@ namespace UI
             while (_stack.Count > 0)
             {
                 ret.Add(Pop());
-                
+
                 // Break the loop once we've popped up to the given menu
                 if (ret.Last().Equals(menu)) break;
             }
+
             return ret;
         }
 
         public void PopAll()
         {
-            while(_stack.Count > 0) Pop();
+            while (_stack.Count > 0) Pop();
             settings.gameObject.SetActive(true);
         }
 
@@ -259,5 +299,5 @@ namespace UI
                 hud.Hide();
             }
         }
-	}
+    }
 }

@@ -47,7 +47,7 @@ jobs:
         with:
           context: nakama/niwrad
           file: nakama/niwrad/build/Dockerfile
-          platforms: linux/arm,linux/arm64,linux/amd64
+          platforms: linux/amd64 # linux/arm,linux/arm64 # TODO: nakama base image doesnt support ARM yet
           push: true
           tags: |
             louis030195/niwrad-nakama:latest
@@ -168,6 +168,8 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
+          buildVersion: 0.0.9
+          androidVersionCode: 9
           androidAppBundle: false
           androidKeystoreName: niwrad.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}

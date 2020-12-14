@@ -5,6 +5,7 @@ using Api.Realtime;
 using Api.Session;
 using Evolution;
 using Google.Protobuf;
+using Lean.Gui;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +18,9 @@ namespace UI
         [SerializeField] private Transform experienceGrid;
         [SerializeField] private GameObject experienceButtonTemplate;
         [SerializeField] private GameObject experienceMenuTemplate;
-        [SerializeField] private Button newExperienceButton;
+        [SerializeField] private LeanButton newExperienceButton;
         private readonly List<ExperienceMenu> _experienceMenus = new List<ExperienceMenu>();
-        protected override async void Start()
+        protected override void Start()
         {
             base.Start();
             var expDir = $"{Application.persistentDataPath}/Experiences";
@@ -34,7 +35,7 @@ namespace UI
                 var e  = ExperienceExtensions.Load(experienceFile, true);
                 AddExperienceMenu(e);
             }
-            newExperienceButton.onClick.AddListener(() =>
+            newExperienceButton.OnClick.AddListener(() =>
             {
                 var e = ExperienceExtensions.New();
                 AddExperienceMenu(e);
@@ -46,7 +47,7 @@ namespace UI
                 {
                     var parsedExperience = Experience.Parser.ParseJson(experience.Value);
                     var result = await Sm.instance.Client.GetUsersAsync(Sm.instance.Session, new []{experience.UserId});
-                    parsedExperience.Name += $"- By {result.Users.FirstOrDefault()?.Username}";
+                    parsedExperience.Name += $" - <color=blue>By {result.Users.FirstOrDefault()?.Username}</color>";
                     AddExperienceMenu(parsedExperience);
                 }
             };
@@ -70,7 +71,7 @@ namespace UI
             };
             expMenu.Added += () => AddExperienceMenu(e);
             _experienceMenus.Add(expMenu);
-            goButton.GetComponent<Button>().onClick.AddListener(() => expMenu.Push());
+            goButton.GetComponent<LeanButton>().OnClick.AddListener(() => expMenu.Push());
         }
     }
 }

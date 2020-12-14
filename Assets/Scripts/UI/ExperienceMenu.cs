@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Api.Realtime;
-using Api.Rpc;
 using Api.Session;
 using Evolution;
 using Gameplay;
+using Lean.Gui;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Transform = UnityEngine.Transform;
 
 namespace UI
@@ -18,10 +17,10 @@ namespace UI
         [SerializeField] private Transform mapMenu;
         [SerializeField] private Transform animalCharacteristicMenu;
         [SerializeField] private Transform plantCharacteristicMenu;
-        [SerializeField] private Button saveButton;
-        [SerializeField] private Button deleteButton;
-        [SerializeField] private Button shareButton;
-        [SerializeField] private Button playButton;
+        [SerializeField] private LeanButton saveButton;
+        [SerializeField] private LeanButton deleteButton;
+        [SerializeField] private LeanButton shareButton;
+        [SerializeField] private LeanButton playButton;
         [SerializeField] private TMP_InputField experienceNameInputField;
         private Experience _experience;
 
@@ -39,16 +38,16 @@ namespace UI
         protected override void Start()
         {
             base.Start();
-            saveButton.onClick.AddListener(Save);
-            deleteButton.onClick.AddListener(Delete);
-            playButton.onClick.AddListener(Play); // TODO: show TOASTS
-            shareButton.onClick.AddListener(async () =>
+            saveButton.OnClick.AddListener(Save);
+            deleteButton.OnClick.AddListener(Delete);
+            playButton.OnClick.AddListener(Play); // TODO: show TOASTS
+            shareButton.OnClick.AddListener(async () =>
             {
                 var res = await Sm.instance.ShareExperience(_experience);
                 var message = res.Acks.LongCount() == 0 ? 
                     $"Failed to share experience {_experience.Name}" :
-                    $"Experience {_experience.Name}\nhas been shared to the community !";
-                NiwradMenu.instance.ShowToast(message).Forget();
+                    $"Experience {_experience.Name} has been shared to the community !";
+                NiwradMenu.instance.ShowNotification(message);
             });
             experienceNameInputField.onEndEdit.AddListener(value => _experience.Name = value);
             // TODO: name validation ? will fuck up if user name it something like /root/destroy_the_universe.exe
@@ -180,8 +179,7 @@ namespace UI
             // If it's a new experience, notify it
             if (_experience.Save()) Added?.Invoke(); // TODO: animation
             NiwradMenu.instance
-                .ShowToast($"Experience {_experience.Name} has been saved !")
-                .Forget();
+                .ShowNotification($"Experience {_experience.Name} has been saved !");
         }
 
         private void Delete()
@@ -189,17 +187,14 @@ namespace UI
             _experience.Delete(); // TODO: animation
             Deleted?.Invoke();
             NiwradMenu.instance
-                .ShowToast($"Experience {_experience.Name} has been deleted !")
-                .Forget();
+                .ShowNotification($"Experience {_experience.Name} has been deleted !");
         }
 
         public void Play()
         {
             NiwradMenu.instance.PopAll();
+            NiwradMenu.instance.ShowNotification($"Loading experience {_experience.Name} ...");
             Gm.instance.StartExperience(_experience);
-            NiwradMenu.instance
-                .ShowToast($"Loading experience {_experience.Name} ...")
-                .Forget();
         }
     }
 }

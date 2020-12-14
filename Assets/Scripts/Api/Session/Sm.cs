@@ -14,7 +14,6 @@ using Utils;
 
 namespace Api.Session
 {
-
     /// <summary>
     /// Manages Nakama server interaction and user session throughout the game.
     /// </summary>
@@ -27,7 +26,6 @@ namespace Api.Session
         #region Variables
 
         public bool debug;
-
 
 
         /// <summary>
@@ -85,7 +83,7 @@ namespace Api.Session
                 // "defaultkey" should be changed when releasing the app
                 // see https://heroiclabs.com/docs/install-configuration/#socket
                 // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
-                _client = new Client("http",ipAddress, port, "defaultkey",  UnityWebRequestAdapter.Instance)
+                _client = new Client("http", ipAddress, port, "defaultkey", UnityWebRequestAdapter.Instance)
                 {
 #if UNITY_EDITOR
                     Logger = new UnityLogger()
@@ -111,12 +109,13 @@ namespace Api.Session
         public bool isServer;
 
         #endregion
-        
+
         #region Debug
 
         [Header("Debug")]
         // If true, stored session authentication token and device id will be erased on start
-        [SerializeField] private bool erasePlayerPrefsOnStart = false;
+        [SerializeField]
+        private bool erasePlayerPrefsOnStart = false;
 
         /// <summary>
         /// Sufix added to <see cref="_deviceId"/> to generate new device id.
@@ -140,7 +139,7 @@ namespace Api.Session
         /// <summary>
         /// Invoked upon DeviceId authorisation failure.
         /// </summary>
-        public event Action ConnectionFailed = delegate { Debug.Log(">> Connection Error"); };
+        public event Action ConnectionFailed = delegate { Debug.LogError(">> Connection Error"); };
 
         /// <summary>
         /// Invoked after <see cref="Disconnect"/> is called.
@@ -157,7 +156,6 @@ namespace Api.Session
         /// </summary>
         private async void Start()
         {
-            
             if (erasePlayerPrefsOnStart)
             {
                 PlayerPrefs.SetString("nakama.authToken", "");
@@ -211,6 +209,7 @@ namespace Api.Session
                     Debug.LogError("Unhandled response received: " + response);
                     break;
             }
+
             return response;
         }
 
@@ -248,7 +247,7 @@ namespace Api.Session
                 // Creating new account
                 return await AuthenticateAsync(username);
             }
-            
+
             // Use case : previously logged on this device, different username now
             if (username != Account.User.Username)
             {
@@ -279,11 +278,12 @@ namespace Api.Session
         {
             var response = await AuthenticateDeviceIdAsync(username);
             if (response == AuthenticationResponse.ErrorInternal) return AuthenticationResponse.ErrorInternal;
-            if (response == AuthenticationResponse.ErrorUsernameAlreadyExists) return AuthenticationResponse.ErrorUsernameAlreadyExists;
+            if (response == AuthenticationResponse.ErrorUsernameAlreadyExists)
+                return AuthenticationResponse.ErrorUsernameAlreadyExists;
 
             Account = await GetAccountAsync();
             if (Account == null) return AuthenticationResponse.ErrorInternal;
-            
+
             // Use case : previously logged on this device, different username now
             if (username != Account.User.Username)
             {
@@ -317,7 +317,7 @@ namespace Api.Session
             }
             catch (ApiResponseException e)
             {
-                if (e.StatusCode == (long)System.Net.HttpStatusCode.NotFound)
+                if (e.StatusCode == (long) System.Net.HttpStatusCode.NotFound)
                 {
                     Debug.Log("Couldn't find DeviceId in database, creating new user; message: " + e);
                     return await CreateAccountAsync(username);
@@ -344,15 +344,19 @@ namespace Api.Session
                 Session = await Client.AuthenticateDeviceAsync(_deviceId, username);
                 return AuthenticationResponse.NewAccountCreated;
             }
+            catch (ApiResponseException e)
+            {
+                Debug.LogError("Couldn't update user info with code " + e.StatusCode + ": " + e);
+                return e.GrpcStatusCode == 6
+                    ? AuthenticationResponse.ErrorUsernameAlreadyExists
+                    : AuthenticationResponse.ErrorInternal;
+            }
             catch (Exception e)
             {
-                Debug.LogWarning("Couldn't create account using DeviceId; message: " + e);
-                return e.Message.Contains("Username") ? // TODO: ugly string hack because no access to better information
-                    AuthenticationResponse.ErrorUsernameAlreadyExists : 
-                    AuthenticationResponse.ErrorInternal;
+                Debug.LogError("Couldn't create account using DeviceId; message: " + e);
+                return AuthenticationResponse.ErrorInternal;
             }
         }
-
 
 
         /// <summary>
@@ -370,7 +374,7 @@ namespace Api.Session
             }
             catch (Exception e)
             {
-	            Debug.Log($"Couldn't disconnect the socket: {e}");
+                Debug.Log($"Couldn't disconnect the socket: {e}");
             }
 
             try
@@ -380,7 +384,7 @@ namespace Api.Session
             }
             catch (Exception e)
             {
-	            Debug.Log($"An error has occured while connecting socket: {e}");
+                Debug.Log($"An error has occured while connecting socket: {e}");
                 return false;
             }
         }
@@ -392,7 +396,7 @@ namespace Api.Session
         {
             if (Session != null)
             {
-	            Session = null;
+                Session = null;
                 Account = null;
 
                 Debug.Log("Disconnected from Nakama");
@@ -403,10 +407,10 @@ namespace Api.Session
         public async void WriteNaiveLeaderboard(long score)
         {
             if (!IsConnected) return;
-            var p = new NaiveLeaderboardRequest{Hosts = score}.ToByteString().ToStringUtf8();
+            var p = new NaiveLeaderboardRequest {Hosts = score}.ToByteString().ToStringUtf8();
             var res = await Socket.RpcAsync("send_leaderboard", p);
         }
-        
+
         public async Task<IApiLeaderboardRecordList> ReadNaiveLeaderboard()
         {
             if (!IsConnected) return null;
@@ -417,13 +421,13 @@ namespace Api.Session
         {
             if (!IsConnected) return null;
             return await Client.WriteStorageObjectsAsync(Session, new WriteStorageObject
-                {
-                    Key = e.Name,
-                    Value = JsonFormatter.Default.Format(e),
-                    Collection = "experiences", // TODO: use version (somehow some static version)
-                    PermissionRead = 2,
-                    // Version = Application.version
-                });
+            {
+                Key = e.Name,
+                Value = JsonFormatter.Default.Format(e),
+                Collection = "experiences", // TODO: use version (somehow some static version)
+                PermissionRead = 2,
+                // Version = Application.version
+            });
             // TODO: check that it properly tag collection row with user, so if 2 users put same experience name ...
         }
 
@@ -433,11 +437,10 @@ namespace Api.Session
             return await Client.ListStorageObjectsAsync(Session, "experiences", 10); // TODO: cursor
         }
 
-
         #endregion
 
         #region UserInfo
-        
+
         /// <summary>
         /// Retrieves device id from player prefs. If it's the first time running this app
         /// on this device, <see cref="_deviceId"/> is filled with <see cref="SystemInfo.deviceUniqueIdentifier"/>.
@@ -455,9 +458,10 @@ namespace Api.Session
                     _deviceId = System.Guid.NewGuid().ToString();
 #else
                     _deviceId = SystemInfo.deviceUniqueIdentifier;
-#endif                    
+#endif
                     PlayerPrefs.SetString("nakama.deviceId", _deviceId);
                 }
+
                 _deviceId += suffix;
             }
         }
@@ -489,7 +493,7 @@ namespace Api.Session
             }
             catch (Exception e)
             {
-	            Debug.Log($"An error has occured while retrieving account: {e}");
+                Debug.Log($"An error has occured while retrieving account: {e}");
                 return null;
             }
         }
@@ -507,7 +511,9 @@ namespace Api.Session
             catch (ApiResponseException e)
             {
                 Debug.LogError("Couldn't update user info with code " + e.StatusCode + ": " + e);
-                return AuthenticationResponse.ErrorInternal;
+                return e.GrpcStatusCode == 3
+                    ? AuthenticationResponse.ErrorUsernameAlreadyExists
+                    : AuthenticationResponse.ErrorInternal;
             }
             catch (Exception e)
             {
@@ -518,5 +524,4 @@ namespace Api.Session
 
         #endregion
     }
-
 }

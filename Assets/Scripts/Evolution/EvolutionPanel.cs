@@ -1,9 +1,8 @@
 using Api.Realtime;
-using Evolution;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace Evolution
 {
 	public class EvolutionPanel : MonoBehaviour // TODO: spawn middle above terrain ?
 	{

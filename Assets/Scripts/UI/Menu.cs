@@ -1,4 +1,5 @@
 ﻿using System;
+using Lean.Gui;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ namespace UI
         /// </summary>
         private CanvasGroup _canvasGroup;
 
-        [SerializeField] private Button backButton;
+        [SerializeField] private LeanButton backButton;
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace UI
 
         protected virtual void Start()
         {
-            if (backButton != null) backButton.onClick.AddListener(Pop); // TODO: Should trigger before all UI-set actions
+            if (backButton != null) backButton.OnClick.AddListener(Pop); // TODO: Should trigger before all UI-set actions
         }
 
         protected virtual void OnDestroy()

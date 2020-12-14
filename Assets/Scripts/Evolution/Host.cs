@@ -28,6 +28,7 @@ namespace Evolution
 		/// Map of (name; meme)
 		/// </summary>
         public readonly Dictionary<string, Meme> Memes = new Dictionary<string, Meme>();
+        // public event System.Action<Host> Bred;
 		protected float LastBreed;
 
 		/// <summary>

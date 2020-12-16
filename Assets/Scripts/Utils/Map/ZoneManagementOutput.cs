@@ -5,8 +5,9 @@ using MapMagic.Nodes;
 using MapMagic.Products;
 using MapMagic.Terrains;
 using UnityEngine;
+using Utils.Map;
 
-namespace Utils.Map {
+namespace MapMagic {
     [System.Serializable]
     [GeneratorMenu(
         menu = "Map/Output",

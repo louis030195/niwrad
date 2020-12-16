@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using Utils;
+using Utils.Physics;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using Assert = NUnit.Framework.Assert;

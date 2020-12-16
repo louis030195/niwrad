@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using Evolution;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using Random = UnityEngine.Random;
+using Utils.Physics;
 
 namespace Utils
 {
-    [ExecuteAlways]
     public class SomeScript : MonoBehaviour
     {
-
+        private void Start()
+        {
+            Debug.Log($"current pos {transform.position}, above ground {transform.position.PositionAboveGround()}");
+        }
     }
 }

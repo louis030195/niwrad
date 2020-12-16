@@ -9,6 +9,7 @@ using Gameplay;
 using UI;
 using UnityEngine;
 using Utils;
+using Utils.Physics;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Transform = Api.Realtime.Transform;
@@ -47,14 +48,16 @@ namespace Evolution
 		/// </summary>
 		public Dictionary<ulong, Plant> Plants = new Dictionary<ulong, Plant>();
 
+        public Statistics Statistics = new Statistics();
+        [HideInInspector] public uint maxHostsUntilPause;
+        
         /// <summary>
         /// Next id to give for new host
         /// </summary>
         private ulong _nextId;
 
-        public Statistics Statistics = new Statistics();
-        [HideInInspector] public uint maxHostsUntilPause;
-
+        
+        
         #region MONO
 
         protected override void Awake()
@@ -239,10 +242,9 @@ namespace Evolution
                     mask = LayerMask.GetMask("CarnivorousAnimal");
                 }
                 // Random position within the map spaced according to a given scattering
-                var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
+                var pos = middleOfMap.Spray(areaRadius,
                     mask,
                     e.AnimalDistribution.Scattering,
-                    (float) e.Map.Height,
                     numberOfTries: 100);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
                 e.AnimalCharacteristics.Carnivorous = isCarnivorous;
@@ -255,10 +257,10 @@ namespace Evolution
             for (ulong i = 0; i < e.PlantDistribution.InitialAmount; i++)
             {
                 // Random position within the map spaced according to a given scattering
-                var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
+                var pos = middleOfMap.Spray(
+                    areaRadius,
                     LayerMask.GetMask("Plant"),
                     e.PlantDistribution.Scattering,
-                    (float) e.Map.Height,
                     numberOfTries: 100);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
                 var isCarnivorous = e.IncludeCarnivorous && Random.Range(0, 100) > 100 - e.CarnivorousPercent;

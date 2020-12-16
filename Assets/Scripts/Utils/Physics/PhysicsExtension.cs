@@ -67,5 +67,10 @@ namespace Utils.Physics
 
 			return closest;
 		}
-	}
+        
+        public static bool AlmostEquals(this Vector3 a, Vector3 b, float epsilon=1e-005f)
+        {
+            return Vector3.SqrMagnitude(a - b) < epsilon;
+        }
+    }
 }

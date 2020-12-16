@@ -168,7 +168,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: Editor.Builds.BuildOptions
-          version: 0.1.0
+          version: 0.1.1
           androidAppBundle: false
           androidKeystoreName: niwrad.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}

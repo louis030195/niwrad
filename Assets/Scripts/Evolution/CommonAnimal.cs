@@ -6,6 +6,7 @@ using Api.Utils;
 using Gameplay;
 using UnityEngine;
 using Utils;
+using Utils.Physics;
 using Meme = AI.Meme;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -124,7 +125,7 @@ namespace Evolution
 			if (movement.remainingDistance <= movement.stoppingDistance + 1)
 			{
 				// Try to find a random position on map, otherwise will just go to zero
-				var p = transform.position.RandomPositionAroundAboveGroundWithDistance(
+				var p = transform.position.Spray(
                     characteristics.AnimalCharacteristics.RandomMovementRange,
 					default,
 					0);

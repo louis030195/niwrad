@@ -92,26 +92,18 @@ namespace Gameplay
             // Online shouldn't have set seed, server will send it
             await UniTask.WaitUntil(() => seed != default);
             InitializeGameplay();
-            GameLoop().Forget();
         }
 
         private void Start()
         {
             NiwradMenu.instance.EnableHud(false);
         }
-
-        private async UniTaskVoid GameLoop()
-        {
-            InitializeGameplay();
-            await UniTask.Yield();
-        }
-
+        
         private void InitializeGameplay()
         {
             // Online mode should receive seed from Nakama for determinism, otherwise 666 :)
             Random.InitState((int)seed);
-            Debug.Log($"Seed loaded: {Random.state}");
-            if (!online) return;
+            if (!online) return; // TODO: fix this
             
             var pos = Mcm.instance.region.GetCenter();
             transform.position = pos;

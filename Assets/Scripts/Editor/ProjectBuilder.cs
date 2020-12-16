@@ -111,7 +111,7 @@ namespace Editor
                     // IL2CPP 
                     PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
                     // Google Play want all CPU especially arm64
-                    PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
+                    PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
                     PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
                     break;
                 case BuildTarget.StandaloneOSX:

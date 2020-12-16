@@ -35,7 +35,7 @@ namespace UI
         private void Awake()
         {
             _rtsControls = new Rts();
-            _rtsControls.Player.Cancel.started += _ => SubShow();
+            Gm.instance.PlayStateStarted += () => _rtsControls.Player.Cancel.started += _ => SubShow();
         }
         
         private void OnEnable()

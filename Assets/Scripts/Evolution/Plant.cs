@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AI;
 using UnityEngine;
 using Utils;
+using Utils.Physics;
 using Action = AI.Action;
 using Random = UnityEngine.Random;
 
@@ -80,7 +81,7 @@ namespace Evolution
             if (!CanBreed()) return;
 			
 			// Spawning a child around
-			var p = transform.position.RandomPositionAroundAboveGroundWithDistance(5,
+			var p = transform.position.Spray(5,
 				LayerMask.GetMask("Plant"),
 				3);
 			// Couldn't find free position

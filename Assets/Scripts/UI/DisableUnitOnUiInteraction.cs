@@ -23,12 +23,10 @@ namespace UI
             _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
             Gm.instance.MenuStateStarted += () =>
             {
-                Debug.Log("Disabling unit selection");
                 _unitSelection.disable = true;
             };
             Gm.instance.ExperienceStateStarted += () =>
             {
-                Debug.Log("Enabling unit selection");
                 _unitSelection.disable = false;
             };
             Gm.instance.PlayStateStarted += () => _unitSelection.disable = false;

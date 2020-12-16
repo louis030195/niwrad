@@ -87,11 +87,10 @@ namespace UI
         {
             _unitSelection.disable = true;
             Vector3 seedPosition;
-
-#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
-            seedPosition = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.First().screenPosition;
-#else
+#if UNITY_STANDALONE || UNITY_EDITOR
             seedPosition = Mouse.current.position.ReadValue();
+#elif UNITY_IOS || UNITY_ANDROID
+            seedPosition = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.First().screenPosition;
 #endif
             seedPosition.z = 100.0f;
             seedPosition = _camera.ScreenToWorldPoint(seedPosition);

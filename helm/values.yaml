@@ -45,3 +45,6 @@ test:
     repository: louis030195/integration
     tag: ""
     pullPolicy: IfNotPresent
+
+clusterRole:
+  enabled: false

@@ -44,12 +44,11 @@ namespace Tests.TestsEdit
             foreach (var i in Enumerable.Range(0, nbObjects))
             {
                 var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                go.layer = LayerMask.NameToLayer("Water"); // Random layer so that ray-cast doesn't hit
                 var randomPositionOnTerrain = Random.insideUnitCircle * Mathf.Pow(2, 9);
                 go.transform.position = middleOfTerrain + 
                                         new Vector3(randomPositionOnTerrain.x, 0, randomPositionOnTerrain.y) +
                                         Vector3.up * height; // TODO: see @Utils.Spatial.PositionAboveGround
-                var aboveGround = go.transform.position.PositionAboveGround(prefabHeight:goScale, LayerMask.NameToLayer("Water"));
+                var aboveGround = go.transform.position.PositionAboveGround(prefabHeight:goScale);
                 Physics.Raycast(aboveGround, Vector3.down, out var hit, Mathf.Infinity);
                 Assert.NotNull(hit.transform, "didn't hit");
                 Assert.Less(hit.transform.position.y as IComparable, aboveGround.y, "Ray-cast hit should be below object !");

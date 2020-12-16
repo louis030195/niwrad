@@ -6,6 +6,7 @@ using Api.Realtime;
 using Api.Session;
 using Api.Utils;
 using Gameplay;
+using UI;
 using UnityEngine;
 using Utils;
 using Quaternion = UnityEngine.Quaternion;
@@ -52,6 +53,7 @@ namespace Evolution
         private ulong _nextId;
 
         public Statistics Statistics = new Statistics();
+        [HideInInspector] public uint maxHostsUntilPause;
 
         #region MONO
 
@@ -224,42 +226,40 @@ namespace Evolution
         public void StartExperience(Experience e)
         {
             Reset();
-            var areaRadius = Mathf.Pow(2, (float) e.Map.Size*0.9f);
-            var middleOfMap = new Vector3(areaRadius, 0, areaRadius);
             var currentSeed = Random.state;
+            var middleOfMap = Vector3.zero;
+            var areaRadius = e.AnimalDistribution.Radius;
             for (ulong i = 0; i < e.AnimalDistribution.InitialAmount; i++)
             {
-                Random.InitState(Random.Range(0, 10_000));
                 var mask = LayerMask.GetMask("HerbivorousAnimal");
                 // TODO: maybe should reset seed at some point
                 var isCarnivorous = e.IncludeCarnivorous && Random.Range(0, 100) > 100 - e.CarnivorousPercent;
-                // Debug.Log($"is carn {isCarnivorous} - {Random.value}");
                 if (isCarnivorous) {
-                    // If carnivorous ON = 1/2 chance of animal being carnivorous (TODO: better parameter for carni population)
+                    // If carnivorous ON = chance of animal being carnivorous (TODO: better parameter for carni population)
                     mask = LayerMask.GetMask("CarnivorousAnimal");
                 }
                 // Random position within the map spaced according to a given scattering
                 var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
                     mask,
                     e.AnimalDistribution.Scattering,
-                    (float) e.Map.Height);
+                    (float) e.Map.Height,
+                    numberOfTries: 100);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
                 e.AnimalCharacteristics.Carnivorous = isCarnivorous;
                 var a = SpawnAnimal(pos, Quaternion.identity, 
                     e.AnimalCharacteristics,
                     e.AnimalCharacteristicsMinimumBound,
                     e.AnimalCharacteristicsMaximumBound);
-
             }
-            
+            areaRadius = e.PlantDistribution.Radius;
             for (ulong i = 0; i < e.PlantDistribution.InitialAmount; i++)
             {
-                Random.InitState(Random.Range(0, 10_000));
                 // Random position within the map spaced according to a given scattering
                 var pos = middleOfMap.RandomPositionAroundAboveGroundWithDistance(areaRadius,
                     LayerMask.GetMask("Plant"),
                     e.PlantDistribution.Scattering,
-                    (float) e.Map.Height);
+                    (float) e.Map.Height,
+                    numberOfTries: 100);
                 if (Vector3.positiveInfinity.Equals(pos)) continue; // TODO: fix this
                 var isCarnivorous = e.IncludeCarnivorous && Random.Range(0, 100) > 100 - e.CarnivorousPercent;
                 e.PlantCharacteristics.Carnivorous = isCarnivorous;
@@ -268,7 +268,7 @@ namespace Evolution
                     e.PlantCharacteristicsMinimumBound,
                     e.PlantCharacteristicsMaximumBound);
             }
-
+    
             // Reset to game seed
             Random.state = currentSeed;
             Play();
@@ -348,18 +348,16 @@ namespace Evolution
         private CommonAnimal SpawnAnimal(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
             // Just a little hack to avoid crashing the PC ! :)
-            if (Animals.Count > 500)
+            if (Animals.Count + Plants.Count > maxHostsUntilPause)
             {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else    
-                // Yeah let's crash other ppl PCs
-                // Application.Quit();
-#endif
+                Gm.instance.Pause();
+                NiwradMenu.instance.ShowNotification($"Reached maximum hosts {maxHostsUntilPause}, pausing.");
             }
-            // Debug.Log($"Spawning animal {obj}");
             _nextId++;
             var a = Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousAnimalPrefab : lowPolyHerbivorousAnimalPrefab, p, r);
+            // a.GetComponent<MeshRenderer>().material.mainTexture = MaterialHelper.RandomTexture(a.transform, frequency: 10);
+            // a.GetComponent<MeshRenderer>().material = new Material(Shader.Find("Standard")) { color = Random.ColorHSV()};
+            a.transform.localScale = Vector3.one * Random.Range(0.5f, 1.5f);
             Animals[_nextId] = a.GetComponent<SimpleAnimal>();
             Animals[_nextId].characteristics = c.Clone(); // TODO: prob quite expensive gotta pool later or something maybe
             Animals[_nextId].characteristicsMin = cMin;
@@ -425,14 +423,10 @@ namespace Evolution
 
         private Plant SpawnPlant(Vector3 p, Quaternion r, Characteristics c, Characteristics cMin, Characteristics cMax)
         {
-            if (Plants.Count > 500)
+            if (Animals.Count + Plants.Count > maxHostsUntilPause)
             {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else    
-                // Yeah let's crash other ppl PCs
-                // Application.Quit();
-#endif
+                Gm.instance.Pause();
+                NiwradMenu.instance.ShowNotification($"Reached maximum hosts {maxHostsUntilPause}, pausing.");
             }
 
             var veg = Pool.Spawn(c.Carnivorous ? lowPolyCarnivorousPlantPrefab : lowPolyHerbivorousPlantPrefab, p, r)

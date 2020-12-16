@@ -37,7 +37,6 @@ namespace Player {
 		private void Update () {
 			if (disable)
 			{
-                // print("disable !");
 				_isSelecting = false;
 				return;
 			}
@@ -123,7 +122,7 @@ namespace Player {
 
 		private bool IsWithinSelectionBounds( GameObject go )
 		{
-			if( !_isSelecting ) return false;
+			if (!_isSelecting ) return false;
 			var viewportBounds = Draw.GetViewportBounds( _cam, _lastMousePosition, Mouse.current.position.ReadValue() );
 			return viewportBounds.Contains( _cam.WorldToViewportPoint( go.transform.position ) );
 		}

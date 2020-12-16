@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay;
 using Input;
 using Player;
 using UnityEngine;
@@ -10,8 +11,6 @@ namespace UI
     public class DisableUnitOnUiInteraction : MonoBehaviour
     {
         private UnitSelection _unitSelection;
-        private EventSystem _eventSystem;
-        private BaseInputModule _currentInputModule;
         private Rts _rtsControls;
 
         private void Awake()
@@ -22,26 +21,17 @@ namespace UI
         private void Start()
         {
             _unitSelection = GetComponentInParent<UnitSelection>(); // TODO: anything better?
-            _eventSystem = GetComponent<EventSystem>();
-            _currentInputModule = _eventSystem.currentInputModule;
-            // FIX
-            // _rtsControls.UI.Click.started += _ =>
-            // {
-            //     _unitSelection.disable = true;
-            //     Debug.Log("started");
-            // };
-            // _rtsControls.UI.Click.performed += _ =>
-            // {
-            //     _unitSelection.disable = true;
-            //     Debug.Log("performed");
-            //
-            // };
-            // _rtsControls.UI.Click.canceled += _ =>
-            // {
-            //     _unitSelection.disable = false;
-            //     Debug.Log("canceled");
-            // };
-            // _eventSystem.currentSelectedGameObject
+            Gm.instance.MenuStateStarted += () =>
+            {
+                Debug.Log("Disabling unit selection");
+                _unitSelection.disable = true;
+            };
+            Gm.instance.ExperienceStateStarted += () =>
+            {
+                Debug.Log("Enabling unit selection");
+                _unitSelection.disable = false;
+            };
+            Gm.instance.PlayStateStarted += () => _unitSelection.disable = false;
         }
         
         private void OnEnable()
@@ -52,13 +42,6 @@ namespace UI
         private void OnDisable()
         {
             _rtsControls.Disable();
-        }
-
-
-        private void Update()
-        {
-            // TODO: instead remove eventtrigger & use new IS for d&d
-            _unitSelection.disable = _eventSystem.currentSelectedGameObject != null || _rtsControls.UI.Click.triggered; //
         }
     }
 }

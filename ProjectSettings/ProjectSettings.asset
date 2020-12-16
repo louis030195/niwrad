@@ -177,6 +177,9 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -724,8 +727,8 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: 
-    7: 
+    1: MAPMAGIC2;MM_NATIVE;MM_EXP
+    7: MAPMAGIC2
   platformArchitecture: {}
   scriptingBackend:
     Android: 0

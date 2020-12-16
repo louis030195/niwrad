@@ -19,14 +19,11 @@ namespace Utils
         /// </summary>
         /// <param name="position"></param>
         /// <param name="prefabHeight">Prefab height needed in order to place well on top of ground</param>
-        /// <param name="layerMask">Layers to ignore</param>
-        /// <returns></returns> // TODO: FIX
-        public static Vector3 PositionAboveGround(this Vector3 position,
-			float prefabHeight = 1f,
-			LayerMask layerMask = default)
+        /// <returns></returns>
+        public static Vector3 PositionAboveGround(this Vector3 position, float prefabHeight = 1f)
 		{
 			var p = position;
-            
+            LayerMask mask = LayerMask.GetMask("Ground", "Water");
             // TODO: do we even care about "below ground" ?
 			// Current position is below ground
 			// if (Physics.RaycastNonAlloc(p, Vector3.up, Hit, Mathf.Infinity, ~layerMask) > 0)
@@ -39,10 +36,9 @@ namespace Utils
 			// Debug.Log($"Position above ground: {p}");
             // Debug.DrawRay(p, Vector3.down*1000, Color.magenta);
 			// Current position is above ground
-            if (UnityEngine.Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, ~layerMask) <= 0)
+            if (UnityEngine.Physics.RaycastNonAlloc(p, Vector3.down, Hit, Mathf.Infinity, mask) <= 0)
                 return Vector3.positiveInfinity;
-            // Debug.Log($"Position above ground: {p}");
-
+            if (Hit[0].transform.gameObject.layer.Equals(LayerMask.NameToLayer("Water"))) return Vector3.positiveInfinity;
             p.y -= Hit[0].distance - prefabHeight * 0.5f;
             return p;
 
@@ -53,7 +49,7 @@ namespace Utils
 		/// This function will find a position to spawn above ground and far enough from other objects of the given layer
 		/// Returns Vector3 zero in case it couldn't find a free position
 		/// </summary>
-		/// <returns></returns> // TODO: Big O
+		/// <returns></returns>
 		public static Vector3 RandomPositionAroundAboveGroundWithDistance(this Vector3 center,
 			float areaRadius,
 			LayerMask layerMask,

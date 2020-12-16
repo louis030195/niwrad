@@ -70,7 +70,7 @@ namespace UI
 
         private void Start()
         {
-            settings.Hide();
+            Gm.instance.State = GameState.Menu;
             _notificationText = notification.GetComponentInChildren<TextMeshProUGUI>();
             _notificationJoinDelay = notification.GetComponentInChildren<LeanJoinDelay>();
             _serverIp = serverIpGameObject.GetComponent<TMP_InputField>();

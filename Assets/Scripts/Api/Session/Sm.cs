@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Api.Realtime;
 using Api.Rpc;
 using Google.Protobuf;
 using Nakama;
-using Nakama.TinyJson;
-using UI;
 using UnityEngine;
 using Utils;
 
@@ -75,7 +70,7 @@ namespace Api.Session
                 if (_client != null) return _client;
                 // TODO: yet hard-coded k8s cluster
                 const string publicHost = "91.121.67.56";
-                const string publicPort = "30020";
+                const string publicPort = "30021";
                 var tmp = PlayerPrefs.GetString("serverIp", publicHost);
                 var ipAddress = tmp != string.Empty ? tmp : publicHost;
                 tmp = PlayerPrefs.GetString("serverPort", publicPort);
@@ -404,14 +399,14 @@ namespace Api.Session
             }
         }
 
-        public async void WriteNaiveLeaderboard(long score)
+        public void WriteNaiveLeaderboard(long score)
         {
             if (!IsConnected) return;
             var p = new NaiveLeaderboardRequest {Hosts = score}.ToByteString().ToStringUtf8();
-            var res = await Socket.RpcAsync("send_leaderboard", p);
+            Socket.RpcAsync("send_leaderboard", p);
         }
 
-        public async Task<IApiLeaderboardRecordList> ReadNaiveLeaderboard()
+        public async Task<IApiLeaderboardRecordList> ListNaiveLeaderboard()
         {
             if (!IsConnected) return null;
             return await _client.ListLeaderboardRecordsAsync(Session, "naive", limit: 10);
@@ -426,12 +421,12 @@ namespace Api.Session
                 Value = JsonFormatter.Default.Format(e),
                 Collection = "experiences", // TODO: use version (somehow some static version)
                 PermissionRead = 2,
-                // Version = Application.version
+                Version = Application.version
             });
             // TODO: check that it properly tag collection row with user, so if 2 users put same experience name ...
         }
 
-        public async Task<IApiStorageObjectList> ExperienceList()
+        public async Task<IApiStorageObjectList> ListExperiences()
         {
             if (!IsConnected) return null;
             return await Client.ListStorageObjectsAsync(Session, "experiences", 10); // TODO: cursor

@@ -46,7 +46,7 @@ namespace UI
 
             async void AddCommunityExperiences()
             {
-                var communityExperiences = await Sm.instance.ExperienceList();
+                var communityExperiences = await Sm.instance.ListExperiences();
                 foreach (var experience in communityExperiences.Objects)
                 {
                     var parsedExperience = Experience.Parser.ParseJson(experience.Value);

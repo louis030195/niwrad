@@ -6,9 +6,11 @@ using Api.Realtime;
 using Api.Session;
 using Api.Utils;
 using Cysharp.Threading.Tasks;
+using Den.Tools;
 using Evolution;
+using MapMagic.Core;
+using MapMagic.Nodes;
 using UI;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
@@ -29,35 +31,23 @@ namespace Gameplay
     public class Gm : Singleton<Gm>
     {
         public bool online = true;
-
         /// <summary>
         /// Behaviours are dependent on randomness, we want it deterministic across server and clients
         /// so we can avoid to sync many things
         /// </summary>
         [Tooltip("Leave to 0 for online, it's set by server")] public long seed;
 
-        private static readonly Dictionary<string, string> Envs = new Dictionary<string, string>
-        {
-            {"NAKAMA_IP", "127.0.0.1"},
-            {"NAKAMA_PORT", "6666"},
-            {"MATCH_ID", ""},
-            {"EMAIL", ""},
-            {"PASSWORD", ""},
-        };
-
-        [SerializeField, Tooltip("Prefab containing all network managers, not required offline")]
-        private GameObject networkManagersPrefab;
-
         public Experience Experience { get; private set; }
 
         private GameState _state;
+
         public GameState State
         {
             get => _state;
             set
             {
                 _state = value;
-                switch(value)
+                switch (value)
                 {
                     case GameState.Menu:
                         MenuStateStarted?.Invoke();
@@ -78,10 +68,20 @@ namespace Gameplay
         public event Action PlayStateStarted;
         public event Action ExperienceStateStarted;
 
+        private static readonly Dictionary<string, string> Envs = new Dictionary<string, string>
+        {
+            {"NAKAMA_IP", "127.0.0.1"},
+            {"NAKAMA_PORT", "6666"},
+            {"MATCH_ID", ""},
+            {"EMAIL", ""},
+            {"PASSWORD", ""},
+        };
         private GameObject _map;
+        private MapMagicObject _magic;
         protected override async void Awake()
         {
             base.Awake();
+            _magic = gameObject.GetComponent<MapMagicObject>();
             foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
             {
                 // Debug.Log($"{kv.Key}={kv.Value}");
@@ -145,23 +145,27 @@ namespace Gameplay
         {
             Hm.instance.Reset();
             Time.timeScale = e.General.Timescale;
-            Destroy(_map);
-            _map = ProceduralTerrain.Generate((int) e.Map.Size, 
-                    (int) e.Map.Height, 
-                    (int)seed, 
-                    (float) e.Map.Spread, 
-                    (float) e.Map.SpreadReductionRate);
-            _map.tag = "ground";
+            // _magic.ClearAll();
+            // _magic.StartGenerate(true, false);
+            // UniTask.WaitUntil(() => _magic.IsGenerating() == false);
+            _magic.tag = "ground";
+            // Destroy(_map);
+            // _map = ProceduralTerrain.Generate((int) e.Map.Size, 
+            //         (int) e.Map.Height, 
+            //         (int)seed, 
+            //         (float) e.Map.Spread, 
+            //         (float) e.Map.SpreadReductionRate);
+            // _map.tag = "ground";
             Experience = e;
             NiwradMenu.instance.EnableHud(true);
-            NiwradMenu.instance.settings.gameObject.SetActive(true); // TODO: shouldn't be here, fix UI again
-            var m = GetComponent<NavMeshSurface>();
-            Debug.Log($"Generating map and baking it for path finding");
-            m.BuildNavMesh(); // TODO: can crash if weird meshes, maybe should try catch here
-            // TODO: other general stuff
+            // var m = GetComponent<NavMeshSurface>();
+            // Debug.Log($"Generating map and baking it for path finding");
+            // m.BuildNavMesh(); // TODO: can crash if weird meshes, maybe should try catch here
+            // Debug.Log($"Finished backing");
+
+            // // // TODO: other general stuff
             Hm.instance.StartExperience(e);
             State = GameState.Experience;
-            // TODO: generate map based on e.Map.Stuff
         }
     }
 }

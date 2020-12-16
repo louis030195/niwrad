@@ -11,7 +11,7 @@ namespace UI
         public override async void Show()
         {
             base.Show();
-            var records = await Sm.instance.ReadNaiveLeaderboard();
+            var records = await Sm.instance.ListNaiveLeaderboard();
             foreach (var record in records.Records) // TODO: cursor
             {
                 var go = Instantiate(recordTemplate, grid.transform);

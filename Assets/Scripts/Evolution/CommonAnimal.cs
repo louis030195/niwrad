@@ -28,6 +28,7 @@ namespace Evolution
         
         public override bool CanBreed()
         {
+            // TODO: minimum age
             // Scaling between 10 and 310 second the reproduction delay
             // Plus hard-coded probability (90% fail to reproduce)
             var luckyNewBorn = 100*Random.value < characteristics.ReproductionProbability;
@@ -54,6 +55,12 @@ namespace Evolution
                 characteristicsMax, // Description and Parser are protobuf garbage
                 new []{"Descriptor", "Parser", "Carnivorous", "ReproductionDelay", "Life", "Energy"});
 
+            childHost.transform.localScale =
+                CharacteristicsExtensions.Mutate(transform.localScale, th.transform.localScale, 0.1f);
+            // childHost.GetComponent<MeshRenderer>().material.color =
+            //     Color.Lerp(GetComponent<MeshRenderer>().material.color, 
+            //         th.GetComponent<MeshRenderer>().material.color,
+            //         0.5f) * Random.value;
             // It's costly to reproduce, proportional to animal age ?
             characteristics.Energy -= characteristics.ReproductionCost;
             // health.ChangeHealth(-characteristics.ReproductionCost*(1+Age/100));

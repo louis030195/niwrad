@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -121,6 +121,178 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &727844567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727844569}
+  - component: {fileID: 727844568}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727844568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727844567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c503e08679b9d8d408f0a3e55874ae93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000, guid: 91a77715fc0a4cdc7bcef258a92208d3, type: 2}
+  guiOpenObjectSelector: 0
+  guiTiles: 1
+  tiles:
+    allowMove: 1
+    generateInfinite: 1
+    generateRange: 2
+    retainMargin: 1
+    genAroundMainCam: 1
+    genAroundObjsTag: 0
+    genAroundTag: 
+    serializedTiles: []
+    serializedCoords: []
+    customTiles: []
+    serializedPinnedCoords: []
+  tileSize:
+    x: 1000
+    z: 1000
+  previewCoord:
+    x: 0
+    z: 0
+  previewAssigned: 0
+  tileResolution: 513
+  tileMargins: 16
+  draftsInEditor: 1
+  draftsInPlaymode: 1
+  draftResolution: 65
+  draftMargins: 2
+  guiLocks: 0
+  locks: []
+  guiInfiniteTerrains: 0
+  hideFarTerrains: 1
+  mainRange: 1
+  terrainSettings:
+    allowAutoConnect: 1
+    groupingID: 0
+    baseMapDist: 1000
+    showBaseMap: 1
+    baseMapResolution: 1024
+    drawInstanced: 1
+    pixelError: 1
+    shadowCastingMode: 0
+    reflectionProbeUsage: 1
+    editorRenderFlags: 7
+    heightmapMaximumLOD: 0
+    material: {fileID: 803493710}
+    detailDraw: 1
+    detailDistance: 80
+    detailDensity: 1
+    treeDistance: 1000
+    treeBillboardStart: 200
+    treeFadeLength: 5
+    treeFullLod: 150
+    treeLODBiasMultiplier: 1
+    bakeLightProbesForTrees: 0
+    deringLightProbesForTrees: 1
+    windSpeed: 0.5
+    windSize: 0.5
+    windBending: 0.5
+    grassTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    guiCopy: 0
+    copyLayersTags: 1
+    copyComponents: 0
+  globals:
+    height: 250
+    heightInterpolation: 0
+    heightSplit: 129
+    heightMainApply: 2
+    heightDraftApply: 0
+    grassResPerPatch: 16
+    ctsProfile: {fileID: 0}
+    microSplatPropData: {fileID: 0}
+    megaSplatTexList: {fileID: 0}
+    vegetationPackage: {fileID: 0}
+    assignComponent: 0
+    vegetationSystem: {fileID: 0}
+    vegetationSystemCopy: 1
+    sourceMultiPackageVsProTagName: 
+  guiSettings: 0
+  guiTileSettings: 0
+  guiOutputsSettings: 0
+  guiTerrainSettings: 0
+  guiDraftSettings: 0
+  guiTreesGrassSettings: 0
+  instantGenerate: 1
+  saveIntermediate: 1
+  heightWeldMargins: 5
+  splatsWeldMargins: 2
+  guiHideWireframe: 0
+  guiThreads: 0
+  applyColliders: 1
+  setDirty: 0
+  shift: 0
+  shiftThreshold: 4000
+  shiftExcludeLayers: 0
+  serializedMultithreading: 1
+  serializedMaxThreads: 3
+  serializedAutoMaxThreads: 1
+  serializedMaxApplyTime: 3
+--- !u!4 &727844569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727844567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &803493710
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Nature/Terrain/Standard
+  m_Shader: {fileID: 10623, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TerrainHolesTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &894421656
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,3 +385,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &2097882569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2097882572}
+  - component: {fileID: 2097882571}
+  - component: {fileID: 2097882570}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &2097882570
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097882569}
+  m_Enabled: 1
+--- !u!20 &2097882571
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097882569}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &2097882572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097882569}
+  m_LocalRotation: {x: 0.098437935, y: -0, z: -0, w: 0.9951432}
+  m_LocalPosition: {x: 0, y: 1.57, z: -6.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 11.298, y: 0, z: 0}

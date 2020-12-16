@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AI;
 using UnityEngine;
 using Utils;
+using Utils.Physics;
 using Action = AI.Action;
 using Vector3 = UnityEngine.Vector3;
 
@@ -20,105 +21,51 @@ namespace Evolution
             {
                 // Transitions
                 var foodAround = new Transition("FoodAround", 0, FoodAround);
+                var isCloseEnoughForEating = new Transition("IsCloseEnoughForEating", 0, IsCloseEnoughForEating);
+                var waterAround = new Transition("WaterAround", -1, WaterAround);
+                var isCloseEnoughForDrinking = new Transition("IsCloseEnoughForDrinking", -1, IsCloseEnoughForDrinking);
                 var partnerAround = new Transition("PartnerAround", -2, PartnerAround);
+                var isCloseEnoughForBreeding = new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding);
+                var isTargetAlive = new Transition("IsTargetAlive", 0, IsTargetAlive);
                 var timeout = new Transition("Timeout", -1, Timeout);
                 
                 // Actions
                 var randomMovement = new Action("RandomMovement", RandomMovement);
-                var reachFood = new Action("ReachFood", ReachFood);
-                var reachPartner = new Action("ReachPartner", ReachPartner);
+                var reachFood = new Action("ReachFood", Reach);
+                var reachWater = new Action("ReachWater", Reach);
+                var reachPartner = new Action("ReachPartner", Reach);
                 var eat = new Action("Eat", Eat);
+                var drink = new Action("Drink", Drink);
                 var reproduce = new Action("Reproduce", Reproduce);
 
                 var n = "Wander";
-                Memes[n] = new Meme(
-                    n,
-                    new List<Action>
-                    {
-                        randomMovement
-                    },
-                    new List<Transition>
-                    {
-                        foodAround,
-                        partnerAround
-                    },
-                    Color.white
-                );
+                Memes[n] = new Meme(n, new List<Action> {randomMovement}, new List<Transition>
+                    {foodAround, waterAround, partnerAround}, Color.white);
                 n = "ReachFood";
-                Memes[n] = new Meme(
-                    n,
-                    new List<Action>
-                    {
-                        reachFood
-                    },
-                    new List<Transition>
-                    {
-                        new Transition("IsCloseEnoughForEating", 0, IsCloseEnoughForEating),
-                        // timeout
-                    },
-                    Color.red
-                );
+                Memes[n] = new Meme(n, new List<Action> {reachFood},
+                    new List<Transition> {isCloseEnoughForEating}, Color.red);
+                n = "ReachWater";
+                Memes[n] = new Meme(n, new List<Action> {reachWater}, new List<Transition>
+                    {isCloseEnoughForDrinking}, Color.red);
                 n = "ReachPartner";
-                Memes[n] = new Meme(
-                    n,
-                    new List<Action>
-                    {
-                        reachPartner
-                    },
-                    new List<Transition>
-                    {
-                        new Transition("IsCloseEnoughForBreeding", -1, IsCloseEnoughForBreeding),
-                        // timeout
-                    },
-                    Color.red
-                );
+                Memes[n] = new Meme(n, new List<Action> {reachPartner}, new List<Transition>
+                    {isCloseEnoughForBreeding}, Color.red);
                 n = "Eat";
-                Memes[n] = new Meme(
-                    n,
-                    new List<Action>
-                    {
-                        eat
-                    },
-                    new List<Transition>
-                    {
-                        new Transition("IsTargetAlive", 0, IsTargetAlive),
-                        partnerAround // While eating, if it can breed, go for it
-                    },
-                    Color.blue
-                );
+                Memes[n] = new Meme(n, new List<Action> {eat}, new List<Transition>
+                    {isTargetAlive, partnerAround, waterAround}, Color.blue);
+                n = "Drink";
+                Memes[n] = new Meme(n, new List<Action> {drink}, new List<Transition>
+                    {partnerAround}, Color.blue);
                 n = "Breed";
-                Memes[n] = new Meme(
-                    n,
-                    new List<Action>
-                    {
-                        reproduce
-                    },
-                    new List<Transition>
-                    {
-                        foodAround,
-                        partnerAround
-                    },
-                    Color.magenta
-                );
+                Memes[n] = new Meme(n, new List<Action> {reproduce}, new List<Transition>
+                    {foodAround, waterAround, partnerAround}, Color.magenta);
                 controller.SetupAi(Memes["Wander"], 100/characteristics.Computation);
-            }
-            else
-            {
-                // ?
             }
         }
 
         #region Actions
 
-        private void ReachFood(MemeController c)
-        {
-            // if (movement.remainingDistance <= movement.stoppingDistance)
-            // {
-            movement.MoveTo(_target.transform.position);
-            // }
-        }
-
-        private void ReachPartner(MemeController c)
+        private void Reach(MemeController c)
         {
             // if (movement.remainingDistance <= movement.stoppingDistance)
             // {
@@ -128,17 +75,20 @@ namespace Evolution
 
         private void Eat(MemeController c)
         {
-            // Debug.Log($"i carnivorous {isCarnivorous} eat animal: {_target.GetComponent<SimpleAnimal>() != null}");
-
             // Stop moving
             movement.isStopped = true;
             attack.EatTarget(_target);
             // The more energy, the more damage to food ?
             _target.GetComponent<Health>().AddHealth(-characteristics.Energy/10); // TODO: ?
-            // +metabolism (10) *Time.deltaTime*0.5f // seems balanced
-            // TODO: maybe age reduce life gain on eat ?
             characteristics.Energy += characteristics.EatEnergyGain;
-            // health.ChangeHealth(+characteristics.AnimalCharacteristics.Metabolism * Time.deltaTime * 50f);
+        }
+        
+        private void Drink(MemeController c)
+        {
+
+            // Stop moving
+            movement.isStopped = true;
+            characteristics.Energy += characteristics.DrinkEnergyGain;
         }
 
         private void Reproduce(MemeController c)
@@ -161,6 +111,21 @@ namespace Evolution
             // No food around OR target is dead / too weak
             if (closest == default) return null;
             // Debug.Log($"found food {closest}");
+
+            _target = closest;
+
+            // Stop current movement
+            // movement.navMeshAgent.destination = transform.position;
+
+            return Memes["ReachFood"];
+        }
+        
+        private Meme WaterAround(MemeController c)
+        {
+            // Any matching object around ? Try to get the closest if any
+            var closest = gameObject.Closest(characteristics.AnimalCharacteristics.SightRange, WaterLayer);
+            // No water around
+            if (closest == default) return null;
 
             _target = closest;
 
@@ -193,6 +158,14 @@ namespace Evolution
             return Vector3.Distance(transform.position, _target.transform.position) <
                    characteristics.AnimalCharacteristics.EatRange
                 ? Memes["Eat"]
+                : null;
+        }
+        
+        private Meme IsCloseEnoughForDrinking(MemeController c)
+        {
+            return Vector3.Distance(transform.position, _target.transform.position) <
+                   characteristics.AnimalCharacteristics.EatRange
+                ? Memes["Drink"]
                 : null;
         }
 

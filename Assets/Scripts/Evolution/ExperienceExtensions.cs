@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Api.Realtime;
 using Google.Protobuf;
+using Protometry.Vector3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -94,16 +95,16 @@ namespace Evolution
                     Energy = 50,
                     ReproductionCost = 90,
                     EnergyLoss = 100,
-                    EatEnergyGain = 50,
+                    EatEnergyGain = 25,
                     DrinkEnergyGain = 50,
-                    ReproductionDelay = 50,
-                    ReproductionProbability = 10,
+                    ReproductionDelay = 25,
+                    ReproductionProbability = 25,
                     AnimalCharacteristics = new Characteristics.Types.AnimalCharacteristics
                     {
                         Speed = 5,
-                        RandomMovementRange = 10,
+                        RandomMovementRange = 50,
                         SightRange = 50,
-                        EatRange = 2,
+                        EatRange = 1,
                         Metabolism = 50,
                     }
                 },
@@ -152,11 +153,12 @@ namespace Evolution
                 AnimalDistribution = new Experience.Types.PopulationDistribution
                 {
                   InitialAmount = 100,
-                  Scattering = 10
+                  Scattering = 10,
+                  Radius = 400
                 },
                 PlantCharacteristics = new Characteristics
                 {
-                    Computation = 10,
+                    Computation = 5,
                     Life = 50,
                     Robustness = 50,
                     Energy = 50,
@@ -165,7 +167,7 @@ namespace Evolution
                     EatEnergyGain = 10,
                     DrinkEnergyGain = 50,
                     ReproductionDelay = 5,
-                    ReproductionProbability = 50,
+                    ReproductionProbability = 25,
                     PlantCharacteristics = new Characteristics.Types.PlantCharacteristics()
                 },
                 PlantCharacteristicsMinimumBound = new Characteristics
@@ -199,7 +201,8 @@ namespace Evolution
                 PlantDistribution = new Experience.Types.PopulationDistribution
                 {
                     InitialAmount = 200,
-                    Scattering = 10
+                    Scattering = 10,
+                    Radius = 400
                 },
             }; // TODO: move somewhere else
             var i = 0;

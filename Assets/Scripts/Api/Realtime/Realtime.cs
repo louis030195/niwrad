@@ -84,7 +84,7 @@ namespace Api.Realtime {
             "CiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
             "c3RpY3MSEQoJcGxhbnRfYWdlGFogASgBEkoKFXBsYW50X2NoYXJhY3Rlcmlz",
             "dGljcxgoIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJh",
-            "Y3RlcmlzdGljcyKzCQoKRXhwZXJpZW5jZRIMCgRuYW1lGAEgASgJEhsKE2lu",
+            "Y3RlcmlzdGljcyLDCQoKRXhwZXJpZW5jZRIMCgRuYW1lGAEgASgJEhsKE2lu",
             "Y2x1ZGVfY2Fybml2b3JvdXMYDiABKAgSGwoTY2Fybml2b3JvdXNfcGVyY2Vu",
             "dBgPIAEoBRJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAogASgLMisubmFr",
             "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKJGFu",
@@ -104,15 +104,15 @@ namespace Api.Realtime {
             "ZXJpZW5jZS5Qb3B1bGF0aW9uRGlzdHJpYnV0aW9uEjcKA21hcBgyIAEoCzIq",
             "Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuTWFwEkkK",
             "B2dlbmVyYWwYPCABKAsyOC5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5F",
-            "eHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0ZXJzGkQKFlBvcHVsYXRpb25EaXN0",
+            "eHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0ZXJzGlQKFlBvcHVsYXRpb25EaXN0",
             "cmlidXRpb24SFgoOaW5pdGlhbF9hbW91bnQYASABKAQSEgoKc2NhdHRlcmlu",
-            "ZxgCIAEoAhp0CgNNYXASDAoEc2l6ZRgBIAEoARIOCgZoZWlnaHQYAiABKAES",
-            "DgoGc3ByZWFkGAUgASgBEh0KFXNwcmVhZF9yZWR1Y3Rpb25fcmF0ZRgHIAEo",
-            "ARINCgV3YXRlchgIIAEoCBIRCglkaXZlcnNpdHkYCiABKAQaYwoRR2VuZXJh",
-            "bFBhcmFtZXRlcnMSEQoJdGltZXNjYWxlGAEgASgNEhIKCnRpbWVfbGltaXQY",
-            "AiABKA0SDgoGcmVwZWF0GAMgASgIEhcKD3NhdmVfc3RhdGlzdGljcxgEIAEo",
-            "CEI0WiNuYWthbWEvbml3cmFkL2FwaS9yZWFsdGltZTtyZWFsdGltZaoCDEFw",
-            "aS5SZWFsdGltZWIGcHJvdG8z"));
+            "ZxgCIAEoAhIOCgZyYWRpdXMYAyABKAIadAoDTWFwEgwKBHNpemUYASABKAES",
+            "DgoGaGVpZ2h0GAIgASgBEg4KBnNwcmVhZBgFIAEoARIdChVzcHJlYWRfcmVk",
+            "dWN0aW9uX3JhdGUYByABKAESDQoFd2F0ZXIYCCABKAgSEQoJZGl2ZXJzaXR5",
+            "GAogASgEGmMKEUdlbmVyYWxQYXJhbWV0ZXJzEhEKCXRpbWVzY2FsZRgBIAEo",
+            "DRISCgp0aW1lX2xpbWl0GAIgASgNEg4KBnJlcGVhdBgDIAEoCBIXCg9zYXZl",
+            "X3N0YXRpc3RpY3MYBCABKAhCNFojbmFrYW1hL25pd3JhZC9hcGkvcmVhbHRp",
+            "bWU7cmVhbHRpbWWqAgxBcGkuUmVhbHRpbWViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -131,7 +131,7 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "Carnivorous", "ReproductionDelay", "ReproductionProbability", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.PlantCharacteristics), global::Api.Realtime.Characteristics.Types.PlantCharacteristics.Parser, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.ExperienceSample), global::Api.Realtime.ExperienceSample.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering", "Radius" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "Timescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
           }));
@@ -4259,6 +4259,7 @@ namespace Api.Realtime {
         public PopulationDistribution(PopulationDistribution other) : this() {
           initialAmount_ = other.initialAmount_;
           scattering_ = other.scattering_;
+          radius_ = other.radius_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -4292,6 +4293,20 @@ namespace Api.Realtime {
           }
         }
 
+        /// <summary>Field number for the "radius" field.</summary>
+        public const int RadiusFieldNumber = 3;
+        private float radius_;
+        /// <summary>
+        /// ...
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public float Radius {
+          get { return radius_; }
+          set {
+            radius_ = value;
+          }
+        }
+
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override bool Equals(object other) {
           return Equals(other as PopulationDistribution);
@@ -4307,6 +4322,7 @@ namespace Api.Realtime {
           }
           if (InitialAmount != other.InitialAmount) return false;
           if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Scattering, other.Scattering)) return false;
+          if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Radius, other.Radius)) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
@@ -4315,6 +4331,7 @@ namespace Api.Realtime {
           int hash = 1;
           if (InitialAmount != 0UL) hash ^= InitialAmount.GetHashCode();
           if (Scattering != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Scattering);
+          if (Radius != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Radius);
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4336,6 +4353,10 @@ namespace Api.Realtime {
             output.WriteRawTag(21);
             output.WriteFloat(Scattering);
           }
+          if (Radius != 0F) {
+            output.WriteRawTag(29);
+            output.WriteFloat(Radius);
+          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4348,6 +4369,9 @@ namespace Api.Realtime {
             size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InitialAmount);
           }
           if (Scattering != 0F) {
+            size += 1 + 4;
+          }
+          if (Radius != 0F) {
             size += 1 + 4;
           }
           if (_unknownFields != null) {
@@ -4367,6 +4391,9 @@ namespace Api.Realtime {
           if (other.Scattering != 0F) {
             Scattering = other.Scattering;
           }
+          if (other.Radius != 0F) {
+            Radius = other.Radius;
+          }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
 
@@ -4384,6 +4411,10 @@ namespace Api.Realtime {
               }
               case 21: {
                 Scattering = input.ReadFloat();
+                break;
+              }
+              case 29: {
+                Radius = input.ReadFloat();
                 break;
               }
             }

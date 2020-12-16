@@ -4237,7 +4237,8 @@ proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.toO
 proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.toObject = function(includeInstance, msg) {
   var f, obj = {
     initialAmount: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    scattering: +jspb.Message.getFieldWithDefault(msg, 2, 0.0)
+    scattering: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
+    radius: +jspb.Message.getFieldWithDefault(msg, 3, 0.0)
   };
 
   if (includeInstance) {
@@ -4282,6 +4283,10 @@ proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.deserializeBi
       var value = /** @type {number} */ (reader.readFloat());
       msg.setScattering(value);
       break;
+    case 3:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setRadius(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -4325,6 +4330,13 @@ proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.serializeBina
       f
     );
   }
+  f = message.getRadius();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -4355,6 +4367,21 @@ proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.get
 /** @param {number} value */
 proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.setScattering = function(value) {
   jspb.Message.setProto3FloatField(this, 2, value);
+};
+
+
+/**
+ * optional float radius = 3;
+ * @return {number}
+ */
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.getRadius = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
+};
+
+
+/** @param {number} value */
+proto.nakama.niwrad.api.realtime.Experience.PopulationDistribution.prototype.setRadius = function(value) {
+  jspb.Message.setProto3FloatField(this, 3, value);
 };
 
 

@@ -15,10 +15,16 @@ namespace Evolution
 {
     public static class CharacteristicsExtensions
     {
-        private static float Mutate(float a, float b, float mutationDegree)
+        public static float Mutate(float a, float b, float mutationDegree = 1f)
         {
             var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
-            return (a + b) / 2 * (1 + Random.Range(-md, md));
+            return ((a + b) / 2) * (1 + Random.Range(-md, md));
+        }
+        
+        public static Vector3 Mutate(Vector3 a, Vector3 b, float mutationDegree = 1f)
+        {
+            var md = Mathf.Abs(mutationDegree) > 1 ? 1 : Mathf.Abs(mutationDegree);
+            return ((a + b) / 2) * (1 + Random.Range(-md, md));
         }
 
         public static (

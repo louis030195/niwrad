@@ -1,0 +1,25 @@
+{
+    "name": "MapMagic.VegetationStudioPro.Editor",
+    "references": [
+        "Tools",
+        "Tools.Editor",
+        "MapMagic",
+        "MapMagic.Editor",
+        "MapMagic.VegetationStudioPro",
+        "AwesomeTechnologies.VegetationStudioPro.Runtime",
+        "AwesomeTechnologies.VegetationStudioPro.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "VEGETATION_STUDIO_PRO"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

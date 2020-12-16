@@ -46,7 +46,6 @@ namespace UI
             playButton.OnClick.AddListener(Play); // TODO: show TOASTS
             shareButton.OnClick.AddListener(Share);
             experienceNameInputField.onEndEdit.AddListener(value => _experience.Name = value);
-            // TODO: name validation ? will fuck up if user name it something like /root/destroy_the_universe.exe
         }
 
         public void Load(Experience e, string givenOwner = "")
@@ -56,35 +55,35 @@ namespace UI
             owner = givenOwner;
             experienceOwnerText.text = owner == "" ? "" : $"<color=blue>Created by</color> {owner}";
             // Map
-            CodeToUi.NumberToUi(1,
-                    9,
-                    e.Map?.Size ?? 5,
-                    mapMenu,
-                    "Size",
-                    tooltip: "Size of the map") // TODO: animation while generating map !
-                .onValueChanged.AddListener(value => _experience.Map.Size = value);
-            CodeToUi.NumberToUi(10,
-                    100,
-                    e.Map?.Height ?? 10,
-                    mapMenu,
-                    "Height")
-                .onValueChanged.AddListener(value => _experience.Map.Height = value);
-            CodeToUi.NumberToUi(0,
-                    10,
-                    e.Map?.Spread ?? 0,
-                    mapMenu,
-                    "Spread")
-                .onValueChanged.AddListener(value => _experience.Map.Spread = value);
-            CodeToUi.NumberToUi(1,
-                    10,
-                    e.Map?.SpreadReductionRate ?? 1,
-                    mapMenu,
-                    "Reduction rate")
-                .onValueChanged.AddListener(value => _experience.Map.SpreadReductionRate = value);
+            // CodeToUi.NumberToUi(1,
+            //         9,
+            //         e.Map?.Size ?? 5,
+            //         mapMenu,
+            //         "Size",
+            //         tooltip: "Size of the map") // TODO: animation while generating map !
+            //     .onValueChanged.AddListener(value => _experience.Map.Size = value);
+            // CodeToUi.NumberToUi(10,
+            //         100,
+            //         e.Map?.Height ?? 10,
+            //         mapMenu,
+            //         "Height")
+            //     .onValueChanged.AddListener(value => _experience.Map.Height = value);
+            // CodeToUi.NumberToUi(0,
+            //         10,
+            //         e.Map?.Spread ?? 0,
+            //         mapMenu,
+            //         "Spread")
+            //     .onValueChanged.AddListener(value => _experience.Map.Spread = value);
+            // CodeToUi.NumberToUi(1,
+            //         10,
+            //         e.Map?.SpreadReductionRate ?? 1,
+            //         mapMenu,
+            //         "Reduction rate")
+            //     .onValueChanged.AddListener(value => _experience.Map.SpreadReductionRate = value);
 
             // General
-            false.BooleanToUI(generalMenu, "Record Experience")
-                .onValueChanged.AddListener(value => _experience.IncludeCarnivorous = value);
+            // false.BooleanToUI(generalMenu, "Record Experience")
+            //     .onValueChanged.AddListener(value => _experience.IncludeCarnivorous = value);
             e.IncludeCarnivorous.BooleanToUI(generalMenu, "Include Carnivorous")
                 .onValueChanged.AddListener(value => _experience.IncludeCarnivorous = value);
             CodeToUi.NumberToUi(0,
@@ -99,6 +98,13 @@ namespace UI
                     generalMenu,
                     "Timescale")
                 .onValueChanged.AddListener(value => _experience.General.Timescale = (uint) value);
+            Hm.instance.maxHostsUntilPause = 1000; // Base value (this is not in experience proto params)
+            var sp = CodeToUi.NumberToUi(500,
+                5000,
+                1000,
+                generalMenu,
+                "Automatic Pause");
+            sp.onValueChanged.AddListener(value => Hm.instance.maxHostsUntilPause = (uint) value);
 
             // Hosts
             var charTooltips = new[]
@@ -117,7 +123,7 @@ namespace UI
 
             // Animals
             CodeToUi.NumberToUi(0,
-                    200,
+                    500,
                     e.AnimalDistribution?.InitialAmount ?? 0,
                     animalCharacteristicMenu,
                     "Initial Amount")
@@ -126,8 +132,15 @@ namespace UI
                     100,
                     e.AnimalDistribution?.Scattering ?? 0,
                     animalCharacteristicMenu,
-                    "Scattering")
+                    "Spawn Scattering")
                 .onValueChanged.AddListener(value => _experience.AnimalDistribution.Scattering = value);
+            CodeToUi.NumberToUi(0,
+                    10_000,
+                    e.AnimalDistribution?.Radius ?? 0,
+                    animalCharacteristicMenu,
+                    "Spawn Radius",
+                    tooltip: "Radius within which it tries to spawn animals")
+                .onValueChanged.AddListener(value => _experience.AnimalDistribution.Radius = value);
             CodeToUi.FloatsToUi(e.AnimalCharacteristicsMinimumBound,
                     e.AnimalCharacteristicsMaximumBound,
                     e.AnimalCharacteristics,
@@ -145,7 +158,7 @@ namespace UI
 
             // Plants
             CodeToUi.NumberToUi(0,
-                    200,
+                    500,
                     e.PlantDistribution?.InitialAmount ?? 0,
                     plantCharacteristicMenu,
                     "Initial Amount")
@@ -154,8 +167,15 @@ namespace UI
                     100,
                     e.PlantDistribution?.Scattering ?? 0,
                     plantCharacteristicMenu,
-                    "Scattering")
+                    "Spawn Scattering")
                 .onValueChanged.AddListener(value => _experience.PlantDistribution.Scattering = value);
+            CodeToUi.NumberToUi(0,
+                    10_000,
+                    e.PlantDistribution?.Radius ?? 0,
+                    plantCharacteristicMenu,
+                    "Spawn Radius",
+                    tooltip: "Radius within which it tries to spawn plants")
+                .onValueChanged.AddListener(value => _experience.PlantDistribution.Radius = value);
             CodeToUi.FloatsToUi(e.PlantCharacteristicsMinimumBound,
                     e.PlantCharacteristicsMaximumBound,
                     e.PlantCharacteristics,
@@ -204,12 +224,10 @@ namespace UI
         private async void Play()
         {
             NiwradMenu.instance.ShowNotification($"Loading experience {_experience.Name} ...");
-            // TODO: temporary hack to let the notification show because map gen freeze everything
-            await UniTask.Delay(1000);
             NiwradMenu.instance.PopAll();
             Gm.instance.StartExperience(_experience);
         }
-        
+
         private async void Share()
         {
             // TODO: name validation ?

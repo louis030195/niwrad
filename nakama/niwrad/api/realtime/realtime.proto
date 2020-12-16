@@ -127,7 +127,6 @@ message Characteristics {
     bool carnivorous = 9; // Both plant and animals can be carnivorous
     float reproduction_delay = 10; // Hardcoded delay
     float reproduction_probability = 11;
-
     oneof type {
         AnimalCharacteristics animal_characteristics = 15;
         PlantCharacteristics plant_characteristics = 16;
@@ -178,6 +177,7 @@ message Experience {
     message PopulationDistribution {
         uint64 initial_amount = 1;
         float scattering = 2; // How close individuals are from each other at spawn
+        float radius = 3;
         // ...
     }
 

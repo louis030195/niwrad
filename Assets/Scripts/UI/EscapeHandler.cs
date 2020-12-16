@@ -30,10 +30,12 @@ namespace UI
         [SerializeField] private LeanButton settingsButton;
 
         private Rts _rtsControls;
+        private Menu _settingsButtonMenu;
+        
         private void Awake()
         {
             _rtsControls = new Rts();
-            _rtsControls.Player.Cancel.started += ShowEscapeMenu;
+            _rtsControls.Player.Cancel.started += _ => SubShow();
         }
         
         private void OnEnable()
@@ -48,7 +50,11 @@ namespace UI
 
         private void Start()
         {
-            resumeButton.OnClick.AddListener(NiwradMenu.instance.PopAll);
+            resumeButton.OnClick.AddListener(() =>
+            {
+                Gm.instance.State = GameState.Play;
+                NiwradMenu.instance.PopAll();
+            });
             inputsButton.OnClick.AddListener(inputsMenu.Push);
             audioButton.OnClick.AddListener(audioMenu.Push);
             experienceButton.OnClick.AddListener(experienceMenu.Push);
@@ -56,7 +62,10 @@ namespace UI
             
             settingsButton.OnClick.AddListener(SubShow);
             leaderboardButton.OnClick.AddListener(leaderboardMenu.Push);
-
+            _settingsButtonMenu = settingsButton.GetComponent<Menu>();
+            Gm.instance.ExperienceStateStarted += _settingsButtonMenu.Show;
+            Gm.instance.PlayStateStarted += _settingsButtonMenu.Show;
+            Gm.instance.MenuStateStarted += _settingsButtonMenu.Hide;
         }
 
         private void Quit()
@@ -66,26 +75,20 @@ namespace UI
             // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit(1);
+            Application.Quit(2);
 #endif
-        }
-
-        private void ShowEscapeMenu(InputAction.CallbackContext ctx)
-        {
-            if (Gm.instance.State == GameState.Menu) return;
-            SubShow();
         }
 
         private void SubShow()
         {
             if (NiwradMenu.instance.IsEmpty())
             {
-                settingsButton.gameObject.SetActive(false);
+                Gm.instance.State = GameState.Menu;
                 NiwradMenu.instance.Push(escapeScrollView);
             }
             else
             {
-                settingsButton.gameObject.SetActive(true);
+                Gm.instance.State = GameState.Play;
                 NiwradMenu.instance.PopAll();
             }
         }

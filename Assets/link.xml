@@ -1,4 +1,10 @@
 <!-- Hack that seems necessary for WebGL builds -->
-<linker>
+<linker> <!-- IL2CPP strip code by default, it's configurable in UI at least -->
     <assembly fullname="Google.Protobuf" preserve="all"/>
+    <assembly fullname="Google.Protobuf.Protometry.Volume.VolumeReflection" preserve="all"/>
+    <assembly fullname="Google.Protobuf.Api.Realtime.RealtimeReflection" preserve="all"/>
+    <assembly fullname="Protometry" preserve="all"/>
+    <assembly fullname="Api.Realtime" preserve="all"/>
+    <assembly fullname="Protometry.Volume.VolumeReflection" preserve="all"/>
+    <assembly fullname="Api.Realtime.RealtimeReflection" preserve="all"/>
 </linker>

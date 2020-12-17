@@ -37,7 +37,7 @@ namespace Tests.TestsEdit
 
             return true;
         }
-        
+
         [Test]
         public void TestMutate()
         {
@@ -59,7 +59,7 @@ namespace Tests.TestsEdit
                     Metabolism = 50,
                 }
             };
-            child.Mutate(e.AnimalCharacteristics, e.AnimalCharacteristics, 
+            child.Mutate(e.AnimalCharacteristics, e.AnimalCharacteristics,
                 e.AnimalCharacteristicsMinimumBound, e.AnimalCharacteristicsMaximumBound);
             // The offspring should have different characteristics
             Assert.False(AreObjectFloatsEqual(child, e.AnimalCharacteristics)); // TODO: fix this assert
@@ -74,22 +74,7 @@ namespace Tests.TestsEdit
             var exp = new Experience
             {
                 Name = "BasicExperience",
-                Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
-                {
-                    Size = 7,
-                    Height = 10,
-                    Spread = 10,
-                    SpreadReductionRate = 0.6,
-                    Water = false,
-                    Diversity = 0
-                },
-                General = new Experience.Types.GeneralParameters
-                {
-                    Timescale = 1,
-                    TimeLimit = 0,
-                    Repeat = false,
-                    SaveStatistics = false
-                },
+                Timescale = 1,
                 AnimalCharacteristics = new Characteristics
                 {
                     Computation = 10,
@@ -140,8 +125,8 @@ namespace Tests.TestsEdit
                 },
                 AnimalDistribution = new Experience.Types.PopulationDistribution
                 {
-                  InitialAmount = 20,
-                  Scattering = 20
+                    InitialAmount = 20,
+                    Scattering = 20
                 },
                 PlantCharacteristics = new Characteristics
                 {

@@ -71,22 +71,7 @@ namespace Evolution
                 Name = "BasicExperience",
                 IncludeCarnivorous = true, // include carnivorous by default but not much
                 CarnivorousPercent = 10, // 10% chance born carnivorous (first spawn)
-                Map = new Experience.Types.Map // 6,10,10,0.6 seems decent with midpoint algo
-                {
-                    Size = 8,
-                    Height = 20,
-                    Spread = 10,
-                    SpreadReductionRate = 0.6,
-                    Water = false,
-                    Diversity = 0
-                },
-                General = new Experience.Types.GeneralParameters
-                {
-                    Timescale = 1,
-                    TimeLimit = 0,
-                    Repeat = false,
-                    SaveStatistics = false
-                },
+                Timescale = 1,
                 AnimalCharacteristics = new Characteristics
                 {
                     Computation = 50,
@@ -154,7 +139,7 @@ namespace Evolution
                 {
                   InitialAmount = 100,
                   Scattering = 10,
-                  Radius = 400
+                  Radius = 150
                 },
                 PlantCharacteristics = new Characteristics
                 {
@@ -202,7 +187,7 @@ namespace Evolution
                 {
                     InitialAmount = 200,
                     Scattering = 10,
-                    Radius = 400
+                    Radius = 150
                 },
             }; // TODO: move somewhere else
             var i = 0;

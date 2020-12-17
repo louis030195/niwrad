@@ -70,15 +70,14 @@ namespace Api.Session
                 if (_client != null) return _client;
                 // TODO: yet hard-coded k8s cluster
                 const string publicHost = "91.121.67.56";
-                const int publicPort = 30020;
                 // var tmp = PlayerPrefs.GetString("serverIp", publicHost);
                 // var ipAddress = tmp != string.Empty ? tmp : publicHost;
-                // tmp = PlayerPrefs.GetString("serverPort", publicPort);
+                var port = int.Parse(PlayerPrefs.GetString("serverPort", "30020"));
                 // var port = int.Parse(tmp != string.Empty ? tmp : publicPort);
                 // "defaultkey" should be changed when releasing the app
                 // see https://heroiclabs.com/docs/install-configuration/#socket
                 // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
-                _client = new Client("http", publicHost, publicPort, "defaultkey", UnityWebRequestAdapter.Instance)
+                _client = new Client("http", publicHost, port, "defaultkey", UnityWebRequestAdapter.Instance)
                 {
 #if UNITY_EDITOR
                     Logger = new UnityLogger()

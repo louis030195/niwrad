@@ -136,7 +136,7 @@ namespace Gameplay
         public void StartExperience(Experience e)
         {
             Hm.instance.Reset();
-            Time.timeScale = e.General.Timescale;
+            Time.timeScale = e.Timescale;
             // _magic.ClearAll();
             // _magic.StartGenerate(true, false);
             // UniTask.WaitUntil(() => _magic.IsGenerating() == false);

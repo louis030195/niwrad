@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.ads": "3.4.9",
-    "com.unity.ext.nunit": "1.0.0",
+    "com.unity.ads": "3.5.2",
+    "com.unity.ext.nunit": "1.0.5",
     "com.unity.ide.rider": "3.0.3",
     "com.unity.inputsystem": "1.0.1",
     "com.unity.jobs": "0.2.10-preview.13",
     "com.unity.mathematics": "1.2.1",
-    "com.unity.mobile.android-logcat": "1.1.1",
+    "com.unity.mobile.android-logcat": "1.2.0",
     "com.unity.render-pipelines.universal": "7.3.1",
     "com.unity.test-framework": "1.1.20",
     "com.unity.textmeshpro": "2.1.3",

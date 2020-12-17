@@ -84,35 +84,28 @@ namespace Api.Realtime {
             "CiABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJp",
             "c3RpY3MSEQoJcGxhbnRfYWdlGFogASgBEkoKFXBsYW50X2NoYXJhY3Rlcmlz",
             "dGljcxgoIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJh",
-            "Y3RlcmlzdGljcyLDCQoKRXhwZXJpZW5jZRIMCgRuYW1lGAEgASgJEhsKE2lu",
+            "Y3RlcmlzdGljcyKMBwoKRXhwZXJpZW5jZRIMCgRuYW1lGAEgASgJEhsKE2lu",
             "Y2x1ZGVfY2Fybml2b3JvdXMYDiABKAgSGwoTY2Fybml2b3JvdXNfcGVyY2Vu",
-            "dBgPIAEoBRJLChZhbmltYWxfY2hhcmFjdGVyaXN0aWNzGAogASgLMisubmFr",
-            "YW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0aWNzElkKJGFu",
-            "aW1hbF9jaGFyYWN0ZXJpc3RpY3NfbWluaW11bV9ib3VuZBgLIAEoCzIrLm5h",
-            "a2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNoYXJhY3RlcmlzdGljcxJZCiRh",
-            "bmltYWxfY2hhcmFjdGVyaXN0aWNzX21heGltdW1fYm91bmQYDCABKAsyKy5u",
-            "YWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWgoT",
-            "YW5pbWFsX2Rpc3RyaWJ1dGlvbhgNIAEoCzI9Lm5ha2FtYS5uaXdyYWQuYXBp",
-            "LnJlYWx0aW1lLkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1dGlvbhJK",
-            "ChVwbGFudF9jaGFyYWN0ZXJpc3RpY3MYKCABKAsyKy5uYWthbWEubml3cmFk",
-            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWAojcGxhbnRfY2hhcmFj",
-            "dGVyaXN0aWNzX21pbmltdW1fYm91bmQYKSABKAsyKy5uYWthbWEubml3cmFk",
-            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWAojcGxhbnRfY2hhcmFj",
-            "dGVyaXN0aWNzX21heGltdW1fYm91bmQYKiABKAsyKy5uYWthbWEubml3cmFk",
-            "LmFwaS5yZWFsdGltZS5DaGFyYWN0ZXJpc3RpY3MSWQoScGxhbnRfZGlzdHJp",
-            "YnV0aW9uGCsgASgLMj0ubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuRXhw",
-            "ZXJpZW5jZS5Qb3B1bGF0aW9uRGlzdHJpYnV0aW9uEjcKA21hcBgyIAEoCzIq",
-            "Lm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuTWFwEkkK",
-            "B2dlbmVyYWwYPCABKAsyOC5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5F",
-            "eHBlcmllbmNlLkdlbmVyYWxQYXJhbWV0ZXJzGlQKFlBvcHVsYXRpb25EaXN0",
-            "cmlidXRpb24SFgoOaW5pdGlhbF9hbW91bnQYASABKAQSEgoKc2NhdHRlcmlu",
-            "ZxgCIAEoAhIOCgZyYWRpdXMYAyABKAIadAoDTWFwEgwKBHNpemUYASABKAES",
-            "DgoGaGVpZ2h0GAIgASgBEg4KBnNwcmVhZBgFIAEoARIdChVzcHJlYWRfcmVk",
-            "dWN0aW9uX3JhdGUYByABKAESDQoFd2F0ZXIYCCABKAgSEQoJZGl2ZXJzaXR5",
-            "GAogASgEGmMKEUdlbmVyYWxQYXJhbWV0ZXJzEhEKCXRpbWVzY2FsZRgBIAEo",
-            "DRISCgp0aW1lX2xpbWl0GAIgASgNEg4KBnJlcGVhdBgDIAEoCBIXCg9zYXZl",
-            "X3N0YXRpc3RpY3MYBCABKAhCNFojbmFrYW1hL25pd3JhZC9hcGkvcmVhbHRp",
-            "bWU7cmVhbHRpbWWqAgxBcGkuUmVhbHRpbWViBnByb3RvMw=="));
+            "dBgPIAEoBRIRCgl0aW1lc2NhbGUYFiABKA0SSwoWYW5pbWFsX2NoYXJhY3Rl",
+            "cmlzdGljcxgKIAEoCzIrLm5ha2FtYS5uaXdyYWQuYXBpLnJlYWx0aW1lLkNo",
+            "YXJhY3RlcmlzdGljcxJZCiRhbmltYWxfY2hhcmFjdGVyaXN0aWNzX21pbmlt",
+            "dW1fYm91bmQYCyABKAsyKy5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5D",
+            "aGFyYWN0ZXJpc3RpY3MSWQokYW5pbWFsX2NoYXJhY3RlcmlzdGljc19tYXhp",
+            "bXVtX2JvdW5kGAwgASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUu",
+            "Q2hhcmFjdGVyaXN0aWNzEloKE2FuaW1hbF9kaXN0cmlidXRpb24YDSABKAsy",
+            "PS5uYWthbWEubml3cmFkLmFwaS5yZWFsdGltZS5FeHBlcmllbmNlLlBvcHVs",
+            "YXRpb25EaXN0cmlidXRpb24SSgoVcGxhbnRfY2hhcmFjdGVyaXN0aWNzGCgg",
+            "ASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0",
+            "aWNzElgKI3BsYW50X2NoYXJhY3RlcmlzdGljc19taW5pbXVtX2JvdW5kGCkg",
+            "ASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0",
+            "aWNzElgKI3BsYW50X2NoYXJhY3RlcmlzdGljc19tYXhpbXVtX2JvdW5kGCog",
+            "ASgLMisubmFrYW1hLm5pd3JhZC5hcGkucmVhbHRpbWUuQ2hhcmFjdGVyaXN0",
+            "aWNzElkKEnBsYW50X2Rpc3RyaWJ1dGlvbhgrIAEoCzI9Lm5ha2FtYS5uaXdy",
+            "YWQuYXBpLnJlYWx0aW1lLkV4cGVyaWVuY2UuUG9wdWxhdGlvbkRpc3RyaWJ1",
+            "dGlvbhpUChZQb3B1bGF0aW9uRGlzdHJpYnV0aW9uEhYKDmluaXRpYWxfYW1v",
+            "dW50GAEgASgEEhIKCnNjYXR0ZXJpbmcYAiABKAISDgoGcmFkaXVzGAMgASgC",
+            "GhMKEUdlbmVyYWxQYXJhbWV0ZXJzQjRaI25ha2FtYS9uaXdyYWQvYXBpL3Jl",
+            "YWx0aW1lO3JlYWx0aW1lqgIMQXBpLlJlYWx0aW1lYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protometry.Vector3.Vector3Reflection.Descriptor, global::Protometry.Quaternion.QuaternionReflection.Descriptor, global::Protometry.Volume.VolumeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -131,9 +124,8 @@ namespace Api.Realtime {
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics), global::Api.Realtime.Characteristics.Parser, new[]{ "Computation", "Life", "Robustness", "Energy", "ReproductionCost", "EnergyLoss", "EatEnergyGain", "DrinkEnergyGain", "Carnivorous", "ReproductionDelay", "ReproductionProbability", "AnimalCharacteristics", "PlantCharacteristics" }, new[]{ "Type" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.AnimalCharacteristics), global::Api.Realtime.Characteristics.Types.AnimalCharacteristics.Parser, new[]{ "Speed", "RandomMovementRange", "SightRange", "EatRange", "Metabolism" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Characteristics.Types.PlantCharacteristics), global::Api.Realtime.Characteristics.Types.PlantCharacteristics.Parser, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.ExperienceSample), global::Api.Realtime.ExperienceSample.Parser, new[]{ "Animals", "Plants", "AnimalAge", "AnimalCharacteristics", "PlantAge", "PlantCharacteristics" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution", "Map", "General" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering", "Radius" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.Map), global::Api.Realtime.Experience.Types.Map.Parser, new[]{ "Size", "Height", "Spread", "SpreadReductionRate", "Water", "Diversity" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, new[]{ "Timescale", "TimeLimit", "Repeat", "SaveStatistics" }, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience), global::Api.Realtime.Experience.Parser, new[]{ "Name", "IncludeCarnivorous", "CarnivorousPercent", "Timescale", "AnimalCharacteristics", "AnimalCharacteristicsMinimumBound", "AnimalCharacteristicsMaximumBound", "AnimalDistribution", "PlantCharacteristics", "PlantCharacteristicsMinimumBound", "PlantCharacteristicsMaximumBound", "PlantDistribution" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.PopulationDistribution), global::Api.Realtime.Experience.Types.PopulationDistribution.Parser, new[]{ "InitialAmount", "Scattering", "Radius" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Api.Realtime.Experience.Types.GeneralParameters), global::Api.Realtime.Experience.Types.GeneralParameters.Parser, null, null, null, null)})
           }));
     }
     #endregion
@@ -3724,6 +3716,7 @@ namespace Api.Realtime {
       name_ = other.name_;
       includeCarnivorous_ = other.includeCarnivorous_;
       carnivorousPercent_ = other.carnivorousPercent_;
+      timescale_ = other.timescale_;
       animalCharacteristics_ = other.animalCharacteristics_ != null ? other.animalCharacteristics_.Clone() : null;
       animalCharacteristicsMinimumBound_ = other.animalCharacteristicsMinimumBound_ != null ? other.animalCharacteristicsMinimumBound_.Clone() : null;
       animalCharacteristicsMaximumBound_ = other.animalCharacteristicsMaximumBound_ != null ? other.animalCharacteristicsMaximumBound_.Clone() : null;
@@ -3732,8 +3725,6 @@ namespace Api.Realtime {
       plantCharacteristicsMinimumBound_ = other.plantCharacteristicsMinimumBound_ != null ? other.plantCharacteristicsMinimumBound_.Clone() : null;
       plantCharacteristicsMaximumBound_ = other.plantCharacteristicsMaximumBound_ != null ? other.plantCharacteristicsMaximumBound_.Clone() : null;
       plantDistribution_ = other.plantDistribution_ != null ? other.plantDistribution_.Clone() : null;
-      map_ = other.map_ != null ? other.map_.Clone() : null;
-      general_ = other.general_ != null ? other.general_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3772,6 +3763,17 @@ namespace Api.Realtime {
       get { return carnivorousPercent_; }
       set {
         carnivorousPercent_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "timescale" field.</summary>
+    public const int TimescaleFieldNumber = 22;
+    private uint timescale_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Timescale {
+      get { return timescale_; }
+      set {
+        timescale_ = value;
       }
     }
 
@@ -3866,31 +3868,6 @@ namespace Api.Realtime {
       }
     }
 
-    /// <summary>Field number for the "map" field.</summary>
-    public const int MapFieldNumber = 50;
-    private global::Api.Realtime.Experience.Types.Map map_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Experience.Types.Map Map {
-      get { return map_; }
-      set {
-        map_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "general" field.</summary>
-    public const int GeneralFieldNumber = 60;
-    private global::Api.Realtime.Experience.Types.GeneralParameters general_;
-    /// <summary>
-    /// TODO: why general object ?
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Api.Realtime.Experience.Types.GeneralParameters General {
-      get { return general_; }
-      set {
-        general_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Experience);
@@ -3907,6 +3884,7 @@ namespace Api.Realtime {
       if (Name != other.Name) return false;
       if (IncludeCarnivorous != other.IncludeCarnivorous) return false;
       if (CarnivorousPercent != other.CarnivorousPercent) return false;
+      if (Timescale != other.Timescale) return false;
       if (!object.Equals(AnimalCharacteristics, other.AnimalCharacteristics)) return false;
       if (!object.Equals(AnimalCharacteristicsMinimumBound, other.AnimalCharacteristicsMinimumBound)) return false;
       if (!object.Equals(AnimalCharacteristicsMaximumBound, other.AnimalCharacteristicsMaximumBound)) return false;
@@ -3915,8 +3893,6 @@ namespace Api.Realtime {
       if (!object.Equals(PlantCharacteristicsMinimumBound, other.PlantCharacteristicsMinimumBound)) return false;
       if (!object.Equals(PlantCharacteristicsMaximumBound, other.PlantCharacteristicsMaximumBound)) return false;
       if (!object.Equals(PlantDistribution, other.PlantDistribution)) return false;
-      if (!object.Equals(Map, other.Map)) return false;
-      if (!object.Equals(General, other.General)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3926,6 +3902,7 @@ namespace Api.Realtime {
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (IncludeCarnivorous != false) hash ^= IncludeCarnivorous.GetHashCode();
       if (CarnivorousPercent != 0) hash ^= CarnivorousPercent.GetHashCode();
+      if (Timescale != 0) hash ^= Timescale.GetHashCode();
       if (animalCharacteristics_ != null) hash ^= AnimalCharacteristics.GetHashCode();
       if (animalCharacteristicsMinimumBound_ != null) hash ^= AnimalCharacteristicsMinimumBound.GetHashCode();
       if (animalCharacteristicsMaximumBound_ != null) hash ^= AnimalCharacteristicsMaximumBound.GetHashCode();
@@ -3934,8 +3911,6 @@ namespace Api.Realtime {
       if (plantCharacteristicsMinimumBound_ != null) hash ^= PlantCharacteristicsMinimumBound.GetHashCode();
       if (plantCharacteristicsMaximumBound_ != null) hash ^= PlantCharacteristicsMaximumBound.GetHashCode();
       if (plantDistribution_ != null) hash ^= PlantDistribution.GetHashCode();
-      if (map_ != null) hash ^= Map.GetHashCode();
-      if (general_ != null) hash ^= General.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3977,6 +3952,10 @@ namespace Api.Realtime {
         output.WriteRawTag(120);
         output.WriteInt32(CarnivorousPercent);
       }
+      if (Timescale != 0) {
+        output.WriteRawTag(176, 1);
+        output.WriteUInt32(Timescale);
+      }
       if (plantCharacteristics_ != null) {
         output.WriteRawTag(194, 2);
         output.WriteMessage(PlantCharacteristics);
@@ -3992,14 +3971,6 @@ namespace Api.Realtime {
       if (plantDistribution_ != null) {
         output.WriteRawTag(218, 2);
         output.WriteMessage(PlantDistribution);
-      }
-      if (map_ != null) {
-        output.WriteRawTag(146, 3);
-        output.WriteMessage(Map);
-      }
-      if (general_ != null) {
-        output.WriteRawTag(226, 3);
-        output.WriteMessage(General);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -4017,6 +3988,9 @@ namespace Api.Realtime {
       }
       if (CarnivorousPercent != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(CarnivorousPercent);
+      }
+      if (Timescale != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeUInt32Size(Timescale);
       }
       if (animalCharacteristics_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AnimalCharacteristics);
@@ -4042,12 +4016,6 @@ namespace Api.Realtime {
       if (plantDistribution_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlantDistribution);
       }
-      if (map_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(Map);
-      }
-      if (general_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(General);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -4067,6 +4035,9 @@ namespace Api.Realtime {
       }
       if (other.CarnivorousPercent != 0) {
         CarnivorousPercent = other.CarnivorousPercent;
+      }
+      if (other.Timescale != 0) {
+        Timescale = other.Timescale;
       }
       if (other.animalCharacteristics_ != null) {
         if (animalCharacteristics_ == null) {
@@ -4115,18 +4086,6 @@ namespace Api.Realtime {
           plantDistribution_ = new global::Api.Realtime.Experience.Types.PopulationDistribution();
         }
         PlantDistribution.MergeFrom(other.PlantDistribution);
-      }
-      if (other.map_ != null) {
-        if (map_ == null) {
-          map_ = new global::Api.Realtime.Experience.Types.Map();
-        }
-        Map.MergeFrom(other.Map);
-      }
-      if (other.general_ != null) {
-        if (general_ == null) {
-          general_ = new global::Api.Realtime.Experience.Types.GeneralParameters();
-        }
-        General.MergeFrom(other.General);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4179,6 +4138,10 @@ namespace Api.Realtime {
             CarnivorousPercent = input.ReadInt32();
             break;
           }
+          case 176: {
+            Timescale = input.ReadUInt32();
+            break;
+          }
           case 322: {
             if (plantCharacteristics_ == null) {
               plantCharacteristics_ = new global::Api.Realtime.Characteristics();
@@ -4207,20 +4170,6 @@ namespace Api.Realtime {
             input.ReadMessage(plantDistribution_);
             break;
           }
-          case 402: {
-            if (map_ == null) {
-              map_ = new global::Api.Realtime.Experience.Types.Map();
-            }
-            input.ReadMessage(map_);
-            break;
-          }
-          case 482: {
-            if (general_ == null) {
-              general_ = new global::Api.Realtime.Experience.Types.GeneralParameters();
-            }
-            input.ReadMessage(general_);
-            break;
-          }
         }
       }
     }
@@ -4230,6 +4179,8 @@ namespace Api.Realtime {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static partial class Types {
       /// <summary>
+      /// Map map = 50;
+      /// GeneralParameters general = 60; // TODO: why general object ?
       /// How should we spawn individuals, tons grouped on a specific point or very scattered ... ?
       /// </summary>
       public sealed partial class PopulationDistribution : pb::IMessage<PopulationDistribution> {
@@ -4424,280 +4375,10 @@ namespace Api.Realtime {
       }
 
       /// <summary>
-      /// Initial proc gen traits
+      /// uint32 time_limit = 2; // Stop experience after x time
+      /// bool repeat = 3; // Repeat experience ?
+      /// bool save_statistics = 4; // [Regularly] save characteristics statistics ?
       /// </summary>
-      public sealed partial class Map : pb::IMessage<Map> {
-        private static readonly pb::MessageParser<Map> _parser = new pb::MessageParser<Map>(() => new Map());
-        private pb::UnknownFieldSet _unknownFields;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pb::MessageParser<Map> Parser { get { return _parser; } }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public static pbr::MessageDescriptor Descriptor {
-          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[1]; }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        pbr::MessageDescriptor pb::IMessage.Descriptor {
-          get { return Descriptor; }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public Map() {
-          OnConstruction();
-        }
-
-        partial void OnConstruction();
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public Map(Map other) : this() {
-          size_ = other.size_;
-          height_ = other.height_;
-          spread_ = other.spread_;
-          spreadReductionRate_ = other.spreadReductionRate_;
-          water_ = other.water_;
-          diversity_ = other.diversity_;
-          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public Map Clone() {
-          return new Map(this);
-        }
-
-        /// <summary>Field number for the "size" field.</summary>
-        public const int SizeFieldNumber = 1;
-        private double size_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public double Size {
-          get { return size_; }
-          set {
-            size_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "height" field.</summary>
-        public const int HeightFieldNumber = 2;
-        private double height_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public double Height {
-          get { return height_; }
-          set {
-            height_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "spread" field.</summary>
-        public const int SpreadFieldNumber = 5;
-        private double spread_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public double Spread {
-          get { return spread_; }
-          set {
-            spread_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "spread_reduction_rate" field.</summary>
-        public const int SpreadReductionRateFieldNumber = 7;
-        private double spreadReductionRate_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public double SpreadReductionRate {
-          get { return spreadReductionRate_; }
-          set {
-            spreadReductionRate_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "water" field.</summary>
-        public const int WaterFieldNumber = 8;
-        private bool water_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Water {
-          get { return water_; }
-          set {
-            water_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "diversity" field.</summary>
-        public const int DiversityFieldNumber = 10;
-        private ulong diversity_;
-        /// <summary>
-        /// linear scale: desert, mountains ...
-        /// </summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public ulong Diversity {
-          get { return diversity_; }
-          set {
-            diversity_ = value;
-          }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override bool Equals(object other) {
-          return Equals(other as Map);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Equals(Map other) {
-          if (ReferenceEquals(other, null)) {
-            return false;
-          }
-          if (ReferenceEquals(other, this)) {
-            return true;
-          }
-          if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Size, other.Size)) return false;
-          if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Height, other.Height)) return false;
-          if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Spread, other.Spread)) return false;
-          if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(SpreadReductionRate, other.SpreadReductionRate)) return false;
-          if (Water != other.Water) return false;
-          if (Diversity != other.Diversity) return false;
-          return Equals(_unknownFields, other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override int GetHashCode() {
-          int hash = 1;
-          if (Size != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Size);
-          if (Height != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Height);
-          if (Spread != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Spread);
-          if (SpreadReductionRate != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(SpreadReductionRate);
-          if (Water != false) hash ^= Water.GetHashCode();
-          if (Diversity != 0UL) hash ^= Diversity.GetHashCode();
-          if (_unknownFields != null) {
-            hash ^= _unknownFields.GetHashCode();
-          }
-          return hash;
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public override string ToString() {
-          return pb::JsonFormatter.ToDiagnosticString(this);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void WriteTo(pb::CodedOutputStream output) {
-          if (Size != 0D) {
-            output.WriteRawTag(9);
-            output.WriteDouble(Size);
-          }
-          if (Height != 0D) {
-            output.WriteRawTag(17);
-            output.WriteDouble(Height);
-          }
-          if (Spread != 0D) {
-            output.WriteRawTag(41);
-            output.WriteDouble(Spread);
-          }
-          if (SpreadReductionRate != 0D) {
-            output.WriteRawTag(57);
-            output.WriteDouble(SpreadReductionRate);
-          }
-          if (Water != false) {
-            output.WriteRawTag(64);
-            output.WriteBool(Water);
-          }
-          if (Diversity != 0UL) {
-            output.WriteRawTag(80);
-            output.WriteUInt64(Diversity);
-          }
-          if (_unknownFields != null) {
-            _unknownFields.WriteTo(output);
-          }
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public int CalculateSize() {
-          int size = 0;
-          if (Size != 0D) {
-            size += 1 + 8;
-          }
-          if (Height != 0D) {
-            size += 1 + 8;
-          }
-          if (Spread != 0D) {
-            size += 1 + 8;
-          }
-          if (SpreadReductionRate != 0D) {
-            size += 1 + 8;
-          }
-          if (Water != false) {
-            size += 1 + 1;
-          }
-          if (Diversity != 0UL) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Diversity);
-          }
-          if (_unknownFields != null) {
-            size += _unknownFields.CalculateSize();
-          }
-          return size;
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(Map other) {
-          if (other == null) {
-            return;
-          }
-          if (other.Size != 0D) {
-            Size = other.Size;
-          }
-          if (other.Height != 0D) {
-            Height = other.Height;
-          }
-          if (other.Spread != 0D) {
-            Spread = other.Spread;
-          }
-          if (other.SpreadReductionRate != 0D) {
-            SpreadReductionRate = other.SpreadReductionRate;
-          }
-          if (other.Water != false) {
-            Water = other.Water;
-          }
-          if (other.Diversity != 0UL) {
-            Diversity = other.Diversity;
-          }
-          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-        }
-
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public void MergeFrom(pb::CodedInputStream input) {
-          uint tag;
-          while ((tag = input.ReadTag()) != 0) {
-            switch(tag) {
-              default:
-                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-                break;
-              case 9: {
-                Size = input.ReadDouble();
-                break;
-              }
-              case 17: {
-                Height = input.ReadDouble();
-                break;
-              }
-              case 41: {
-                Spread = input.ReadDouble();
-                break;
-              }
-              case 57: {
-                SpreadReductionRate = input.ReadDouble();
-                break;
-              }
-              case 64: {
-                Water = input.ReadBool();
-                break;
-              }
-              case 80: {
-                Diversity = input.ReadUInt64();
-                break;
-              }
-            }
-          }
-        }
-
-      }
-
       public sealed partial class GeneralParameters : pb::IMessage<GeneralParameters> {
         private static readonly pb::MessageParser<GeneralParameters> _parser = new pb::MessageParser<GeneralParameters>(() => new GeneralParameters());
         private pb::UnknownFieldSet _unknownFields;
@@ -4706,7 +4387,7 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[2]; }
+          get { return global::Api.Realtime.Experience.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4723,69 +4404,12 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public GeneralParameters(GeneralParameters other) : this() {
-          timescale_ = other.timescale_;
-          timeLimit_ = other.timeLimit_;
-          repeat_ = other.repeat_;
-          saveStatistics_ = other.saveStatistics_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public GeneralParameters Clone() {
           return new GeneralParameters(this);
-        }
-
-        /// <summary>Field number for the "timescale" field.</summary>
-        public const int TimescaleFieldNumber = 1;
-        private uint timescale_;
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public uint Timescale {
-          get { return timescale_; }
-          set {
-            timescale_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "time_limit" field.</summary>
-        public const int TimeLimitFieldNumber = 2;
-        private uint timeLimit_;
-        /// <summary>
-        /// Stop experience after x time
-        /// </summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public uint TimeLimit {
-          get { return timeLimit_; }
-          set {
-            timeLimit_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "repeat" field.</summary>
-        public const int RepeatFieldNumber = 3;
-        private bool repeat_;
-        /// <summary>
-        /// Repeat experience ?
-        /// </summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool Repeat {
-          get { return repeat_; }
-          set {
-            repeat_ = value;
-          }
-        }
-
-        /// <summary>Field number for the "save_statistics" field.</summary>
-        public const int SaveStatisticsFieldNumber = 4;
-        private bool saveStatistics_;
-        /// <summary>
-        /// [Regularly] save characteristics statistics ?
-        /// </summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public bool SaveStatistics {
-          get { return saveStatistics_; }
-          set {
-            saveStatistics_ = value;
-          }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4801,20 +4425,12 @@ namespace Api.Realtime {
           if (ReferenceEquals(other, this)) {
             return true;
           }
-          if (Timescale != other.Timescale) return false;
-          if (TimeLimit != other.TimeLimit) return false;
-          if (Repeat != other.Repeat) return false;
-          if (SaveStatistics != other.SaveStatistics) return false;
           return Equals(_unknownFields, other._unknownFields);
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (Timescale != 0) hash ^= Timescale.GetHashCode();
-          if (TimeLimit != 0) hash ^= TimeLimit.GetHashCode();
-          if (Repeat != false) hash ^= Repeat.GetHashCode();
-          if (SaveStatistics != false) hash ^= SaveStatistics.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -4828,22 +4444,6 @@ namespace Api.Realtime {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (Timescale != 0) {
-            output.WriteRawTag(8);
-            output.WriteUInt32(Timescale);
-          }
-          if (TimeLimit != 0) {
-            output.WriteRawTag(16);
-            output.WriteUInt32(TimeLimit);
-          }
-          if (Repeat != false) {
-            output.WriteRawTag(24);
-            output.WriteBool(Repeat);
-          }
-          if (SaveStatistics != false) {
-            output.WriteRawTag(32);
-            output.WriteBool(SaveStatistics);
-          }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
           }
@@ -4852,18 +4452,6 @@ namespace Api.Realtime {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (Timescale != 0) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Timescale);
-          }
-          if (TimeLimit != 0) {
-            size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TimeLimit);
-          }
-          if (Repeat != false) {
-            size += 1 + 1;
-          }
-          if (SaveStatistics != false) {
-            size += 1 + 1;
-          }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
           }
@@ -4874,18 +4462,6 @@ namespace Api.Realtime {
         public void MergeFrom(GeneralParameters other) {
           if (other == null) {
             return;
-          }
-          if (other.Timescale != 0) {
-            Timescale = other.Timescale;
-          }
-          if (other.TimeLimit != 0) {
-            TimeLimit = other.TimeLimit;
-          }
-          if (other.Repeat != false) {
-            Repeat = other.Repeat;
-          }
-          if (other.SaveStatistics != false) {
-            SaveStatistics = other.SaveStatistics;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -4898,22 +4474,6 @@ namespace Api.Realtime {
               default:
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
-              case 8: {
-                Timescale = input.ReadUInt32();
-                break;
-              }
-              case 16: {
-                TimeLimit = input.ReadUInt32();
-                break;
-              }
-              case 24: {
-                Repeat = input.ReadBool();
-                break;
-              }
-              case 32: {
-                SaveStatistics = input.ReadBool();
-                break;
-              }
             }
           }
         }

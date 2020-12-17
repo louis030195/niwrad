@@ -54,36 +54,6 @@ namespace UI
             experienceNameInputField.text = e.Name;
             owner = givenOwner;
             experienceOwnerText.text = owner == "" ? "" : $"<color=blue>Created by</color> {owner}";
-            // Map
-            // CodeToUi.NumberToUi(1,
-            //         9,
-            //         e.Map?.Size ?? 5,
-            //         mapMenu,
-            //         "Size",
-            //         tooltip: "Size of the map") // TODO: animation while generating map !
-            //     .onValueChanged.AddListener(value => _experience.Map.Size = value);
-            // CodeToUi.NumberToUi(10,
-            //         100,
-            //         e.Map?.Height ?? 10,
-            //         mapMenu,
-            //         "Height")
-            //     .onValueChanged.AddListener(value => _experience.Map.Height = value);
-            // CodeToUi.NumberToUi(0,
-            //         10,
-            //         e.Map?.Spread ?? 0,
-            //         mapMenu,
-            //         "Spread")
-            //     .onValueChanged.AddListener(value => _experience.Map.Spread = value);
-            // CodeToUi.NumberToUi(1,
-            //         10,
-            //         e.Map?.SpreadReductionRate ?? 1,
-            //         mapMenu,
-            //         "Reduction rate")
-            //     .onValueChanged.AddListener(value => _experience.Map.SpreadReductionRate = value);
-
-            // General
-            // false.BooleanToUI(generalMenu, "Record Experience")
-            //     .onValueChanged.AddListener(value => _experience.IncludeCarnivorous = value);
             e.IncludeCarnivorous.BooleanToUI(generalMenu, "Include Carnivorous")
                 .onValueChanged.AddListener(value => _experience.IncludeCarnivorous = value);
             CodeToUi.NumberToUi(0,
@@ -94,10 +64,10 @@ namespace UI
                 .onValueChanged.AddListener(value => _experience.CarnivorousPercent = (int) value);
             CodeToUi.NumberToUi(1,
                     50,
-                    e.General?.Timescale ?? 1,
+                    e.Timescale == 0 ? 1 : e.Timescale,
                     generalMenu,
                     "Timescale")
-                .onValueChanged.AddListener(value => _experience.General.Timescale = (uint) value);
+                .onValueChanged.AddListener(value => _experience.Timescale = (uint) value);
             Hm.instance.maxHostsUntilPause = 1000; // Base value (this is not in experience proto params)
             var sp = CodeToUi.NumberToUi(500,
                 5000,
@@ -134,8 +104,8 @@ namespace UI
                     animalCharacteristicMenu,
                     "Spawn Scattering")
                 .onValueChanged.AddListener(value => _experience.AnimalDistribution.Scattering = value);
-            CodeToUi.NumberToUi(0,
-                    10_000,
+            CodeToUi.NumberToUi(10,
+                    150,
                     e.AnimalDistribution?.Radius ?? 0,
                     animalCharacteristicMenu,
                     "Spawn Radius",
@@ -169,8 +139,8 @@ namespace UI
                     plantCharacteristicMenu,
                     "Spawn Scattering")
                 .onValueChanged.AddListener(value => _experience.PlantDistribution.Scattering = value);
-            CodeToUi.NumberToUi(0,
-                    10_000,
+            CodeToUi.NumberToUi(10,
+                    150,
                     e.PlantDistribution?.Radius ?? 0,
                     plantCharacteristicMenu,
                     "Spawn Radius",

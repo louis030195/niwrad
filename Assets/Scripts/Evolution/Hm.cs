@@ -230,7 +230,7 @@ namespace Evolution
         {
             Reset();
             var currentSeed = Random.state;
-            var middleOfMap = Vector3.zero;
+            var middleOfMap = new Vector3(500, 0, 500);
             var areaRadius = e.AnimalDistribution.Radius;
             for (ulong i = 0; i < e.AnimalDistribution.InitialAmount; i++)
             {

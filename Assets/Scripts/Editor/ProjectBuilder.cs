@@ -121,7 +121,12 @@ namespace Editor
 
             options.TryGetValue("niwradMode", out var mode);
 
-            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
+            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow; 
+            // Can't do more than low stripping, otherwise it breaks Protobuf (need to tweak link.xml)
+            PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Standalone, ManagedStrippingLevel.Low);
+            PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, ManagedStrippingLevel.Low);
+            PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.iOS, ManagedStrippingLevel.Low);
+            PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.WebGL, ManagedStrippingLevel.Low);
             Build(buildTarget, customBuildPath != string.Empty ? customBuildPath : "build" , mode);
         }
 

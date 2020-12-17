@@ -161,6 +161,7 @@ message Experience {
     string name = 1;
     bool include_carnivorous = 14;
     int32 carnivorous_percent = 15;
+    uint32 timescale = 22;
 
     Characteristics animal_characteristics = 10;
     Characteristics animal_characteristics_minimum_bound = 11; // E.g. for example speed is bounded between 0 and 100 to keep balance
@@ -171,8 +172,8 @@ message Experience {
     Characteristics plant_characteristics_maximum_bound = 42;
     PopulationDistribution plant_distribution = 43;
 
-    Map map = 50;
-    GeneralParameters general = 60; // TODO: why general object ?
+    // Map map = 50;
+    // GeneralParameters general = 60; // TODO: why general object ?
     // How should we spawn individuals, tons grouped on a specific point or very scattered ... ?
     message PopulationDistribution {
         uint64 initial_amount = 1;
@@ -182,20 +183,19 @@ message Experience {
     }
 
     // Initial proc gen traits
-    message Map {
-        double size = 1;
-        double height = 2;
-        double spread = 5;
-        double spread_reduction_rate = 7;
+    // message Map {
+    //     double size = 1;
+    //     double height = 2;
+    //     double spread = 5;
+    //     double spread_reduction_rate = 7;
 
-        bool water = 8;
-        uint64 diversity = 10; // linear scale: desert, mountains ...
-    }
+    //     bool water = 8;
+    //     uint64 diversity = 10; // linear scale: desert, mountains ...
+    // }
 
     message GeneralParameters {
-        uint32 timescale = 1;
-        uint32 time_limit = 2; // Stop experience after x time
-        bool repeat = 3; // Repeat experience ?
-        bool save_statistics = 4; // [Regularly] save characteristics statistics ?
+        // uint32 time_limit = 2; // Stop experience after x time
+        // bool repeat = 3; // Repeat experience ?
+        // bool save_statistics = 4; // [Regularly] save characteristics statistics ?
     }
 }

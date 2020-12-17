@@ -121,7 +121,7 @@ namespace UI
 			var tsOk = int.TryParse(m_TerrainSize.text, out var ts);
 			var iaOk = int.TryParse(m_InitialAnimals.text, out var ia);
 			var ipOk = int.TryParse(m_InitialPlants.text, out var ip);
-			Debug.Log($"Asking for server creation with config:\n" +
+			Debug.Log($"Asking for server creation with config\n" +
 			          $"Terrain size: {ts}, " +
 			          $"Initial animals: {ia}, " +
 			          $"Initial plants: {ip}");

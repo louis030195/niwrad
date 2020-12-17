@@ -54,6 +54,7 @@ namespace UI
         public LeanButton playButton;
         public LeanPulse notification;
         public Toggle debugToggle;
+        public LeanToggle developmentToggle;
         [SerializeField] private GameObject serverIpGameObject;
         [SerializeField] private GameObject serverPortGameObject; // TODO: unused yet, who cares ?
         private TMP_InputField _serverIp;
@@ -80,9 +81,18 @@ namespace UI
             _rtsControls.Enable();
             _rtsControls.UI.Submit.performed += Connect;
             debugToggle.onValueChanged.AddListener(Advanced);
+            developmentToggle.On = bool.Parse(PlayerPrefs.GetString("development", "false"));
+            developmentToggle.OnOff.AddListener(() =>
+            {
+                PlayerPrefs.SetString("serverPort", "30020");
+            });
+            developmentToggle.OnOn.AddListener(() =>
+            {
+                PlayerPrefs.SetString("serverPort", "30021");
+            });
             username.text = PlayerPrefs.GetString("username");
-            _serverIp.text = PlayerPrefs.GetString("serverIp");
-            _serverPort.text = PlayerPrefs.GetString("serverPort");
+            // _serverIp.text = PlayerPrefs.GetString("serverIp");
+            // _serverPort.text = PlayerPrefs.GetString("serverPort");
 
             singlePlayerButton.OnClick.AddListener(() =>
             {
@@ -134,8 +144,9 @@ namespace UI
         private void OnConnectionSucceed()
         {
             PlayerPrefs.SetString("username", username.text);
-            PlayerPrefs.SetString("serverIp", _serverIp.text);
-            PlayerPrefs.SetString("serverPort", _serverPort.text);
+            PlayerPrefs.SetString("development", developmentToggle.On.ToString());
+            // PlayerPrefs.SetString("serverIp", _serverIp.text);
+            // PlayerPrefs.SetString("serverPort", _serverPort.text);
             PlayerPrefs.Save();
 
             // Next menu in any case, if Nakama auth failed => auth-less mode

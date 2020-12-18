@@ -14,7 +14,7 @@ namespace Api.Session
     /// </summary>
     /// <remarks>
     /// Whenever a user tries to communicate with game server it ensures that their session hasn't expired. If the
-    /// session is expired the user will have to reauthenticate the session and obtain a new session.
+    /// session is expired the user will have to re-authenticate the session and obtain a new session.
     /// </remarks>
     public class Sm : Singleton<Sm>
     {
@@ -74,7 +74,7 @@ namespace Api.Session
                 // var ipAddress = tmp != string.Empty ? tmp : publicHost;
                 var port = int.Parse(PlayerPrefs.GetString("serverPort", "30020"));
                 // var port = int.Parse(tmp != string.Empty ? tmp : publicPort);
-                // "defaultkey" should be changed when releasing the app
+                // "default key" should be changed when releasing the app
                 // see https://heroiclabs.com/docs/install-configuration/#socket
                 // for logger see https://heroiclabs.com/docs/unity-client-guide/#logs-and-errors
                 _client = new Client("http", publicHost, port, "defaultkey", UnityWebRequestAdapter.Instance)
@@ -90,7 +90,7 @@ namespace Api.Session
         /// <summary>
         /// Socket responsible for maintaining connection with Nakama server and exchange realtime messages.
         /// </summary>
-        public ISocket Socket => _socket ?? (_socket = _client.NewSocket());
+        public ISocket Socket => _socket ??= _client.NewSocket();
 
         /// <summary>
         /// Returns true if <see cref="Session"/> between this device and Nakama server exists.
@@ -109,10 +109,10 @@ namespace Api.Session
         [Header("Debug")]
         // If true, stored session authentication token and device id will be erased on start
         [SerializeField]
-        private bool erasePlayerPrefsOnStart = false;
+        private bool erasePlayerPrefsOnStart;
 
         /// <summary>
-        /// Sufix added to <see cref="_deviceId"/> to generate new device id.
+        /// Suffix added to <see cref="_deviceId"/> to generate new device id.
         /// </summary>
         [SerializeField] private string suffix = string.Empty;
 
@@ -148,7 +148,7 @@ namespace Api.Session
         /// Creates new <see cref="Nakama.Client"/> object used to communicate with Nakama server.
         /// Authenticates this device using its <see cref="SystemInfo.deviceUniqueIdentifier"/>.
         /// </summary>
-        private async void Start()
+        private void Start()
         {
             if (erasePlayerPrefsOnStart)
             {
@@ -167,11 +167,7 @@ namespace Api.Session
         {
             Disconnect();
         }
-
-        private void OnApplicationQuit()
-        {
-            // TODO: get last log and push somewhere
-        }
+        
 
         #endregion
 
@@ -441,10 +437,10 @@ namespace Api.Session
         /// </summary>
         private void GetDeviceId()
         {
-            if (string.IsNullOrEmpty(_deviceId) == true)
+            if (string.IsNullOrEmpty(_deviceId))
             {
                 _deviceId = PlayerPrefs.GetString("nakama.deviceId");
-                if (string.IsNullOrWhiteSpace(_deviceId) == true)
+                if (string.IsNullOrWhiteSpace(_deviceId))
                 {
                     // SystemInfo.deviceUniqueIdentifier is not supported in WebGL,
                     // we generate a random one instead via System.Guid

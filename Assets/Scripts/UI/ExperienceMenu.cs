@@ -191,7 +191,7 @@ namespace UI
             }
         }
 
-        private async void Play()
+        private void Play()
         {
             NiwradMenu.instance.ShowNotification($"Loading experience {_experience.Name} ...");
             NiwradMenu.instance.PopAll();

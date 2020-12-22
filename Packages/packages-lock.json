@@ -11,6 +11,15 @@
       },
       "hash": "e139b4f39dec01f0d290db22178d9b1bcf98ca7e"
     },
+    "com.reese.random": {
+      "version": "https://github.com/reeseschultz/ReeseUnityDemos.git#random",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.entities": "0.16.0-preview.21"
+      },
+      "hash": "35a41f96fd49b1777631c020ee024998c6881c80"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

@@ -44,7 +44,7 @@
 //
 //         public Vector3 PositionAboveGroundJob(Vector3 p, float prefabHeight = 1f)
 //         {
-//             _commands[0] = new RaycastCommand(p, Vector3.down, _mask);
+    //             _commands[0] = new RaycastCommand(p, Vector3.down, _mask);
 //             _positionAboveGroundJob = new PositionAboveGroundJob
 //             {
 //                 Results = _results,

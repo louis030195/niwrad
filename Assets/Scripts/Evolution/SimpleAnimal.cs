@@ -85,7 +85,6 @@ namespace Evolution
         
         private void Drink(MemeController c)
         {
-
             // Stop moving
             movement.isStopped = true;
             characteristics.Energy += characteristics.DrinkEnergyGain;

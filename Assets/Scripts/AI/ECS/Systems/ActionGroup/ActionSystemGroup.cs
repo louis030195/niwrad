@@ -2,7 +2,7 @@
 
 namespace AI.ECS.Systems.ActionGroup
 {
-    class ActionSystemGroup : ComponentSystemGroup
+    internal class ActionSystemGroup : ComponentSystemGroup
     {
         protected override void OnCreate()
         {
@@ -10,7 +10,7 @@ namespace AI.ECS.Systems.ActionGroup
 
             AddSystemToUpdateList(World.CreateSystem<EatActionSystem>());
             AddSystemToUpdateList(World.CreateSystem<SleepActionSystem>());
-            AddSystemToUpdateList(World.CreateSystem<PlayActionSystem>());
+            AddSystemToUpdateList(World.CreateSystem<WanderActionSystem>());
         }
     }
 }

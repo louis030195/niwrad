@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.reese.nav": "https://github.com/reeseschultz/ReeseUnityDemos.git#nav",
+    "com.reese.random": "https://github.com/reeseschultz/ReeseUnityDemos.git#random",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ads": "3.5.2",
     "com.unity.burst": "1.4.3",

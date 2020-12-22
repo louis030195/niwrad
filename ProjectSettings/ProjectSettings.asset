@@ -184,7 +184,6 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -202,7 +201,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.niwrad
+    Standalone: com.niwrad.niwrad
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -729,12 +728,13 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: MAPMAGIC2;MM_NATIVE;MM_EXP
+    1: MAPMAGIC2;MM_EXP;UNITY_POST_PROCESSING_STACK_V2
     7: MAPMAGIC2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel:
     Standalone: 1

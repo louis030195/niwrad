@@ -4,7 +4,7 @@ namespace AI.ECS.Systems.AIGroup
 {
     public class AISystemGroup : ComponentSystemGroup
     {
-        private const float AIUpdateFrequency = 1f;// times per seconds
+        private const float AIUpdateFrequency = 1f; // times per seconds
         private const float AIUpdateInterval = 1f / AIUpdateFrequency;
         private float _aiUpdateCooldown;
 

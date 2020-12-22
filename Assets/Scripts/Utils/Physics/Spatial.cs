@@ -25,7 +25,6 @@ namespace Utils.Physics
         public static Vector3 PositionAboveGround(this Vector3 position, float prefabHeight = 1f)
 		{
 			var p = position;
-            // LayerMask mask = LayerMask.NameToLayer("Ground") & LayerMask.NameToLayer("Water");
             LayerMask mask = 1 << LayerMask.NameToLayer("Ground") | (1 << LayerMask.NameToLayer("Water"));
             // TODO: do we even care about "below ground" ?
 			// Current position is below ground

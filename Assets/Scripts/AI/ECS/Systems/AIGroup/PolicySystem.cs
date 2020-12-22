@@ -1,5 +1,8 @@
-﻿using AI.ECS.Components;
+﻿using System.Linq;
+using AI.ECS.Components;
 using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
 
 namespace AI.ECS.Systems.AIGroup
 {
@@ -24,28 +27,24 @@ namespace AI.ECS.Systems.AIGroup
             Entities.ForEach((Entity entity,
                 int entityInQueryIndex,
                 ref Decision decision,
-                in EatScorer eatScore,
-                in SleepScorer sleepScore,
-                in PlayScorer playScore) =>
+                in DynamicBuffer<ActionValue> actionValues) =>
             {
-                float highestScore = 0.0f;
-                ActionType actionToDo = ActionType.Play;
-                if (eatScore.Score > highestScore)
+                float? highestScore = null;
+                var actionToDo = ActionType.Wander;
+                // Greedy policy, pick highest value
+                // TODO: e-greedy, curiosity ? etc.
+                var index = -1;
+                for (var i = 0; i < actionValues.Length; i++)
                 {
-                    highestScore = eatScore.Score;
-                    actionToDo = ActionType.Eat;
-                }
-                if (sleepScore.Score > highestScore)
-                {
-                    highestScore = sleepScore.Score;
-                    actionToDo = ActionType.Sleep;
-                }
-                if (playScore.Score > highestScore)
-                {
-                    highestScore = playScore.Score;
-                    actionToDo = ActionType.Play;
+                    var thisNum = actionValues[i].Value;
+                    if (!highestScore.HasValue || thisNum > highestScore.Value)
+                    {
+                        highestScore = thisNum;
+                        index = i;
+                    }
                 }
 
+                actionToDo = (ActionType) index;
                 if (decision.Action != actionToDo)
                 {
                     decision.Action = actionToDo;
@@ -54,9 +53,9 @@ namespace AI.ECS.Systems.AIGroup
                     {
                         case ActionType.Eat:
                             ecb.RemoveComponent<SleepAction>(entityInQueryIndex, entity);
-                            ecb.RemoveComponent<PlayAction>(entityInQueryIndex, entity);
+                            ecb.RemoveComponent<WanderAction>(entityInQueryIndex, entity);
                             ecb.AddComponent<EatAction>(entityInQueryIndex, entity);
-                            ecb.SetComponent(entityInQueryIndex, entity, new EatAction()
+                            ecb.SetComponent(entityInQueryIndex, entity, new EatAction
                             {
                                 HungerRecoverPerSecond = 5.0f,
                                 TirednessCostPerSecond = 2.0f
@@ -64,19 +63,19 @@ namespace AI.ECS.Systems.AIGroup
                             break;
                         case ActionType.Sleep:
                             ecb.RemoveComponent<EatAction>(entityInQueryIndex, entity);
-                            ecb.RemoveComponent<PlayAction>(entityInQueryIndex, entity);
+                            ecb.RemoveComponent<WanderAction>(entityInQueryIndex, entity);
                             ecb.AddComponent<SleepAction>(entityInQueryIndex, entity);
-                            ecb.SetComponent(entityInQueryIndex, entity, new SleepAction()
+                            ecb.SetComponent(entityInQueryIndex, entity, new SleepAction
                             {
                                 TirednessRecoverPerSecond = 3.0f,
                                 HungerCostPerSecond = 0.5f
                             });
                             break;
-                        case ActionType.Play:
+                        case ActionType.Wander:
                             ecb.RemoveComponent<EatAction>(entityInQueryIndex, entity);
                             ecb.RemoveComponent<SleepAction>(entityInQueryIndex, entity);
-                            ecb.AddComponent<PlayAction>(entityInQueryIndex, entity);
-                            ecb.SetComponent(entityInQueryIndex, entity, new PlayAction()
+                            ecb.AddComponent<WanderAction>(entityInQueryIndex, entity);
+                            ecb.SetComponent(entityInQueryIndex, entity, new WanderAction
                             {
                                 HungerCostPerSecond = 2.0f,
                                 TirednessCostPerSecond = 4.0f
@@ -86,7 +85,7 @@ namespace AI.ECS.Systems.AIGroup
                 }
             }).ScheduleParallel();
 
-            _endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
+            _endSimulationEcbSystem.AddJobHandleForProducer(Dependency);
         }
     }
 }

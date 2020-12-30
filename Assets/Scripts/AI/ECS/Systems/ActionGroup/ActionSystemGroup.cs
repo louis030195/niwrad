@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Reese.Nav;
+using Unity.Entities;
 
 namespace AI.ECS.Systems.ActionGroup
 {
@@ -7,10 +8,11 @@ namespace AI.ECS.Systems.ActionGroup
         protected override void OnCreate()
         {
             base.OnCreate();
-
             AddSystemToUpdateList(World.CreateSystem<EatActionSystem>());
             AddSystemToUpdateList(World.CreateSystem<SleepActionSystem>());
             AddSystemToUpdateList(World.CreateSystem<WanderActionSystem>());
+            AddSystemToUpdateList(World.CreateSystem<LookForFoodActionSystem>());
+            AddSystemToUpdateList(World.CreateSystem<ReachActionSystem>());
         }
     }
 }

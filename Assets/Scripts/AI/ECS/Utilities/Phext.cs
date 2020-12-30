@@ -84,27 +84,7 @@ namespace AI.ECS.Utilities
             rayResults.Dispose();
         }
 
-        public static unsafe ColliderCastInput NewColliderCastInput(uint mask, float3 center, float radius)
-        {
-            var filter = new CollisionFilter
-            {
-                BelongsTo = ~0u,
-                CollidesWith = mask,
-                GroupIndex = 0,
-            };
-            var sphereCollider = Unity.Physics.SphereCollider.Create(new SphereGeometry
-            {
-                Center = center,
-                Radius = radius
-            }, filter);
-            return new ColliderCastInput
-            {
-                Start = float3.zero,
-                Orientation = quaternion.identity,
-                End = new float3(10, 10, 10), // TODO:
-                Collider = (Collider*) sphereCollider.GetUnsafePtr()
-            };
-        }
+
         public static void ColliderJob(this CollisionWorld world, ColliderCastInput input, ref ColliderCastHit output)
         {
             var rayCommands = new NativeArray<ColliderCastInput>(1, Allocator.TempJob);
@@ -158,37 +138,5 @@ namespace AI.ECS.Utilities
                 world = world
             }.Schedule(inputs.Length, inputs.Length);
         }
-
-        // public unsafe static Entity SphereCast(this CollisionWorld c, float3 RayFrom, float3 RayTo, float radius)
-        // {
-        //     var filter = new CollisionFilter
-        //     {
-        //         BelongsTo = ~0u, // all 1s, so all layers, collide with everything 
-        //         CollidesWith = ~0u,
-        //         GroupIndex = 0
-        //     };
-        //
-        //     var sphereCollider = 
-        //         SphereCollider.Create(new SphereGeometry{Center = RayFrom, Radius = radius}, filter);
-        //
-        //     var input = new ColliderCastInput
-        //     {
-        //         Start  = RayFrom,
-        //         Orientation = quaternion.identity,
-        //         End = RayTo - RayFrom,
-        //         Collider = (Collider*)sphereCollider.GetUnsafePtr()
-        //     };
-        //
-        //     ColliderCastHit hit = new ColliderCastHit();
-        //     bool haveHit = collisionWorld.CastCollider(input, out hit);
-        //     if (haveHit)
-        //     {
-        //         // see hit.Position 
-        //         // see hit.SurfaceNormal
-        //         Entity e = physicsWorldSystem.PhysicsWorld.Bodies[hit.RigidBodyIndex].Entity;
-        //         return e;
-        //     }
-        //     return Entity.Null;
-        // }
     }
 }

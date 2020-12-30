@@ -1,4 +1,5 @@
 ﻿using AI.ECS.Components;
+using Reese.Nav;
 using Unity.Entities;
 using Unity.Mathematics;
 
@@ -8,22 +9,50 @@ namespace AI.ECS.Systems.ActionGroup
     [UpdateInGroup(typeof(ActionSystemGroup))]
     public class EatActionSystem : SystemBase
     {
+        private EntityCommandBufferSystem Barrier
+            => World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+
         protected override void OnUpdate()
         {
-            float deltaTime = Time.DeltaTime;
+            var deltaTime = Time.DeltaTime;
+            var ecb = Barrier.CreateCommandBuffer().AsParallelWriter();
 
-            Entities.ForEach((ref Hungriness hunger,
-                ref Tiredness tired,
-                in EatAction eatAct) =>
+            // Reset navigation
+            Entities
+                .ForEach((Entity entity,
+                    int entityInQueryIndex,
+                    in EatAction _1,
+                    in NavNeedsDestination _2) =>
+                {
+                    ecb.RemoveComponent<NavNeedsDestination>(entityInQueryIndex, entity);
+                    ecb.RemoveComponent<NavHasProblem>(entityInQueryIndex, entity);
+                    ecb.RemoveComponent<NavPlanning>(entityInQueryIndex, entity);
+                    ecb.RemoveComponent<NavLerping>(entityInQueryIndex, entity);
+                }).ScheduleParallel();
+            Barrier.AddJobHandleForProducer(Dependency);
+            
+            Entities.ForEach((Entity entity,
+                int entityInQueryIndex,
+                ref DynamicBuffer<CharacteristicValue> characteristicValues,
+                in DynamicBuffer<CharacteristicChanges> characteristicChanges,
+                in EatAction _) =>
             {
-                // recover hungriness
-                hunger.Value = math.clamp(
-                    hunger.Value - eatAct.HungerRecoverPerSecond * deltaTime, 0f, 100f);
+                for (var i = 0; i < characteristicChanges[(int) ActionType.Eat].value.Length; i++)
+                {
+                    characteristicValues[i] =
+                        math.clamp(characteristicValues[i] +
+                                   characteristicChanges[(int) ActionType.Eat].value[i] * deltaTime, 0f, 1f);
+                }
 
-                // eat still get tired, but should slower than play
-                tired.Value = math.clamp(
-                    tired.Value + eatAct.TirednessCostPerSecond * deltaTime, 0f, 100f);
+                // Ate enough, remove target
+                if (characteristicChanges[(int) ActionType.Eat].value[(int) CharacteristicType.Satiation] > 0.9)
+                {
+                    ecb.RemoveComponent<Target>(entityInQueryIndex, entity);
+                }
             }).ScheduleParallel();
+
+
+            Barrier.AddJobHandleForProducer(Dependency);
         }
     }
 }

@@ -16,7 +16,7 @@ services:
   nakama:
     build:
       context: ..
-      dockerfile: ./build/Dockerfile
+      dockerfile: ./deploy/Dockerfile
     container_name: nakama
     depends_on:
       - cockroachdb

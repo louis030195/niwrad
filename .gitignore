@@ -113,3 +113,6 @@ Nakama/.cookie
 
 # Helm
 values-dev.yaml
+
+# VSCode
+.vscode

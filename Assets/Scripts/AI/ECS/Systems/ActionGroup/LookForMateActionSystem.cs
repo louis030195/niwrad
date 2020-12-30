@@ -9,13 +9,12 @@ using Unity.Physics.Systems;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
-using Plane = UnityEngine.Plane;
 
 namespace AI.ECS.Systems.ActionGroup
 {
     [DisableAutoCreation]
     [UpdateInGroup(typeof(ActionSystemGroup))]
-    public unsafe class LookForFoodActionSystem : SystemBase
+    public unsafe class LookForMateActionSystem : SystemBase
     {
         private BuildPhysicsWorld BuildPhysicsWorld
             => World.GetExistingSystem<BuildPhysicsWorld>();
@@ -25,6 +24,7 @@ namespace AI.ECS.Systems.ActionGroup
 
         private EntityCommandBufferSystem Barrier
             => World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+        
 
         protected override void OnUpdate()
         {
@@ -32,8 +32,8 @@ namespace AI.ECS.Systems.ActionGroup
             var jumpableBufferFromEntity = GetBufferFromEntity<NavJumpableBufferElement>(true);
             var renderBoundsFromEntity = GetComponentDataFromEntity<RenderBounds>(true);
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-            var plantMask = ~(uint) LayerMask.NameToLayer("Plant");
             var herbivorousAnimalMask = ~(uint) LayerMask.NameToLayer("HerbivorousAnimal");
+            var carnivorousAnimalMask = ~(uint) LayerMask.NameToLayer("CarnivorousAnimal");
             var physicsWorld = BuildPhysicsWorld.PhysicsWorld;
             var collisionWorld = physicsWorld.CollisionWorld;
             Dependency = JobHandle.CombineDependencies(Dependency,
@@ -46,13 +46,13 @@ namespace AI.ECS.Systems.ActionGroup
                 int entityInQueryIndex,
                 ref DynamicBuffer<CharacteristicValue> characteristicValues,
                 in DynamicBuffer<CharacteristicChanges> characteristicChanges,
-                in LookForFoodAction _) =>
+                in LookForMateAction _) =>
             {
-                for (var i = 0; i < characteristicChanges[(int) ActionType.LookForFood].value.Length; i++)
+                for (var i = 0; i < characteristicChanges[(int) ActionType.LookForMate].value.Length; i++)
                 {
                     characteristicValues[i] = 
                         math.clamp(characteristicValues[i] + 
-                                   characteristicChanges[(int) ActionType.LookForFood].value[i] * deltaTime, 0f, 1f);
+                                   characteristicChanges[(int) ActionType.LookForMate].value[i] * deltaTime, 0f, 1f);
                 }
             }).ScheduleParallel();
 
@@ -68,7 +68,7 @@ namespace AI.ECS.Systems.ActionGroup
                     ref NavAgent agent, 
                     in Parent surface, 
                     in LocalToWorld localToWorld,
-                    in LookForFoodAction _) =>
+                    in LookForMateAction _) =>
                 {
                     if (
                         surface.Value.Equals(Entity.Null) ||
@@ -97,21 +97,21 @@ namespace AI.ECS.Systems.ActionGroup
             
                     randomArray[nativeThreadIndex] = random;
                 })
-                .WithName("LookForFoodRandomPositionJob")
+                .WithName("LookForMateRandomPositionJob")
                 .ScheduleParallel();
             
             Barrier.AddJobHandleForProducer(Dependency);
             
             Entities
                 .WithNone<Target>()
+                .WithAll<Animal, Herbivorous>() // Herbivorous animals don't mate with carnivorous nor plants
                 .WithReadOnly(collisionWorld)
                 .ForEach((Entity entity,
                     int entityInQueryIndex,
-                    in LookForFoodAction act,
+                    in LookForMateAction act,
                     in LocalToWorld localToWorld) =>
                 {
                     var r = 100;
-                    // Debug.Log($"pos {localToWorld.Position}");
                     var sphereCollider = (Unity.Physics.Collider*) Unity.Physics.SphereCollider.Create(
                         new SphereGeometry
                         {
@@ -120,7 +120,7 @@ namespace AI.ECS.Systems.ActionGroup
                         }, new CollisionFilter
                         {
                             BelongsTo = ~0u,
-                            CollidesWith = plantMask
+                            CollidesWith = herbivorousAnimalMask,
                         }).GetUnsafePtr();
                     var colliderCastInput = new ColliderCastInput
                     {
@@ -129,7 +129,8 @@ namespace AI.ECS.Systems.ActionGroup
                     };  
 
                     if (collisionWorld.CastCollider(colliderCastInput, out var output) &&
-                        HasComponent<Plant>(output.Entity))
+                        HasComponent<Herbivorous>(output.Entity) && // TODO: shouldn't be required
+                        HasComponent<LookForMateAction>(output.Entity)) // Other should be looking for m8 too
                     {
                         // Gives target
                         ecb.AddComponent(entityInQueryIndex, entity, new Target
@@ -143,7 +144,7 @@ namespace AI.ECS.Systems.ActionGroup
                         ecb.RemoveComponent<NavLerping>(entityInQueryIndex, entity);
                     }
                 }).ScheduleParallel();
-            // TODO: carnivorous
+            // TODO: carnivorous animals, herbivorous plants, carnivorous plants & other types of reproductions
             Barrier.AddJobHandleForProducer(Dependency);
         }
     }

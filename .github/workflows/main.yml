@@ -1,5 +1,4 @@
 name: Build Niwrad
-# All online stuff off, online mode is pushed aside right now
 on:
   push: { branches: [dev, master] }
   pull_request: { branches: [master] }
@@ -17,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     defaults:
       run:
-        working-directory: ./nakama/niwrad
+        working-directory: ./nakama
     steps:
       - name: Install Go
         uses: actions/setup-go@v2
@@ -45,8 +44,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: nakama/niwrad
-          file: nakama/niwrad/build/Dockerfile
+          context: nakama
+          file: nakama/deploy/Dockerfile
           platforms: linux/amd64 # linux/arm,linux/arm64 # TODO: nakama base image doesnt support ARM yet
           push: true
           tags: |
@@ -54,78 +53,22 @@ jobs:
             louis030195/niwrad-nakama:0.1.0
             ghcr.io/louis030195/niwrad-nakama/niwrad-nakama:latest
             ghcr.io/louis030195/niwrad-nakama/niwrad-nakama:0.1.0
-  # Build Unity executor, run unit tests, build and push Docker image
-  # unityExecutor:
-  #   name: Build Unity executor and container for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       projectPath:
-  #         - .
-  #       unityVersion:
-  #         - 2019.4.11f1
-  #       targetPlatform:
-  #         - StandaloneLinux64
-  #   steps:
-  #     # Checkout
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
 
-  #     # Cache
-  #     - uses: actions/cache@v1.1.0
-  #       with:
-  #         path: ${{ matrix.projectPath }}/Library
-  #         key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-  #         restore-keys: |
-  #           Library-${{ matrix.projectPath }}-
-  #           Library-
-
-      # Test
-      # TODO: unlimited loading
-      # - name: Run tests
-      #   id: testRunner
-      #   uses: webbertakken/unity-test-runner@v1.6
-      #   with:
-      #     # customParameters: # '-nographics' # Only hack to run headless tests on Linux
-      #     unityVersion: ${{ matrix.unityVersion }}
-      #     projectPath: ${{ matrix.projectPath }}
-      #     testMode: editmode # Ignore playmode because it requires user input
+      # # Test
+      # # - name: Run tests
+      # #   id: testRunner
+      # #   uses: webbertakken/unity-test-runner@v1.6
+      # #   with:
+      # #     customParameters: # '-nographics' # Only hack to run headless tests on Linux
+      # #     unityVersion: ${{ matrix.unityVersion }}
+      # #     projectPath: ${{ matrix.projectPath }}
+      # #     testMode: editmode # Ignore playmode because it requires user input
   
-      # Upload tests results
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Test results (all modes)
-      #     path: ${{ steps.testRunner.outputs.artifactsPath }}
-
-
-      # Build
-      # - uses: webbertakken/unity-builder@v1.2
-      #   with:
-      #     customParameters: '-niwradMode executor' # '-nographics'
-      #     projectPath: ${{ matrix.projectPath }}
-      #     unityVersion: ${{ matrix.unityVersion }}
-      #     targetPlatform: ${{ matrix.targetPlatform }}
-      #     buildMethod: Editor.Builds.BuildOptions
-      #     buildsPath: executor
-      #     allowDirtyBuild: true
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: executor
-      #     path: executor
-      #     if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
-
-      # Build and push Docker image
-      # - uses: docker/build-push-action@v1
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-      #     repository: louis030195/executor
-      #     tag_with_ref: true
-      #     tag_with_sha: true
-      #     path: .
-      #     dockerfile: Dockerfile
+      # # Upload tests results
+      # # - uses: actions/upload-artifact@v2
+      # #   with:
+      # #     name: Test results (all modes)
+      # #     path: ${{ steps.testRunner.outputs.artifactsPath }}
 
   # Build Unity offline client
   unityOffline:
@@ -138,9 +81,8 @@ jobs:
         projectPath:
           - .
         unityVersion:
-          - 2019.4.16f1
+          - 2020.2.0f1
         targetPlatform:
-          #- WebGL
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - StandaloneLinux64 # Build a Linux 64-bit standalone.
           - Android # Build an Android .apk standalone app.
@@ -181,95 +123,3 @@ jobs:
           name: offline-clients
           path: builds
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v2
-
-  # page:
-  #   runs-on: ubuntu-latest
-  #   needs: unityOffline # TODO: should be "if unityOffline/WebGL"
-  #   if: always() # https://stackoverflow.com/questions/58858429/how-to-run-a-github-actions-step-even-if-the-previous-step-fails-while-still-f
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
-  #     - name: Download build
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: offline-clients
-  #     # Quick & dirty hack for custom index.html :p 
-  #     - run: |
-  #         sed -i '\|<body>|a<h1><a href="https://github.com/louis030195/niwrad">Github repository</a></h1>' WebGL/WebGL/index.html
-  #         sed -i "s|<title>.*</title>|<title>Niwrad-0.0.4</title>|g" WebGL/WebGL/index.html
-  #         echo "Hacked index.html :)"
-  #     - name: Deploy 🚀 
-  #       uses: JamesIves/github-pages-deploy-action@releases/v3
-  #       with:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         BRANCH: gh-pages # The branch the action should deploy to.
-  #         FOLDER: WebGL/WebGL # The folder the action should deploy.
-
-  # Build integration tests
-  # build-integration:
-  #   needs: unityExecutor
-  #   name: Build integration tests
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       projectPath:
-  #         - helm/templates/tests/ApiTest
-  #   steps:
-  #     # Checkout
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
-
-  #     # Restores Library Unity folder (int tests use some of unity project code)
-  #     - uses: actions/cache@v1.1.0
-  #       with:
-  #         path: Library
-  #         key: Library-.-StandaloneLinux64
-  #         restore-keys: |
-  #           Library-.-
-  #           Library-
-
-  #     # Build and push Docker image
-  #     - name: Build and push Niwrad's integration test Docker image
-  #       uses: docker/build-push-action@v1 # TODO: update to 2 https://github.com/docker/build-push-action
-  #       with:
-  #         username: ${{ secrets.DOCKER_USERNAME }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
-  #         repository: louis030195/integration
-  #         tag_with_ref: true
-  #         tag_with_sha: true
-  #         path: .
-  #         dockerfile: ${{ matrix.projectPath }}/Dockerfile
-
-  # Run integration tests
-  # run-integration:
-  #   needs: [nakama, unityExecutor, build-integration]
-  #   name: Run integration tests
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-  #     - name: Fetch history
-  #       run: git fetch --prune --unshallow
-
-  #     - name: Run chart-testing (lint)
-  #       id: lint
-  #       uses: helm/chart-testing-action@v1.0.0
-  #       with:
-  #         command: lint --all
-
-  #     - name: Create kind cluster
-  #       uses: helm/kind-action@v1.0.0
-  #       # Only build a kind cluster if there are chart changes to test.
-  #       # if: steps.lint.outputs.changed == 'true'
-
-  #     - name: Run chart-testing
-  #       uses: helm/chart-testing-action@v1.0.0
-  #       with:
-  #         config: helm/
-  #         command: install --all

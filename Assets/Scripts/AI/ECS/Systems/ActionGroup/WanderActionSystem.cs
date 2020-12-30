@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using Unity.Physics.Systems;
 using Unity.Rendering;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace AI.ECS.Systems.ActionGroup
 {
@@ -16,6 +17,9 @@ namespace AI.ECS.Systems.ActionGroup
     {
         private BuildPhysicsWorld BuildPhysicsWorld 
             => World.GetExistingSystem<BuildPhysicsWorld>();
+        private NavGroundingSystem NavGrounding
+            => World.GetExistingSystem<NavGroundingSystem>();
+
         private EntityCommandBufferSystem Barrier 
             => World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
 
@@ -27,25 +31,36 @@ namespace AI.ECS.Systems.ActionGroup
             var jumpableBufferFromEntity = GetBufferFromEntity<NavJumpableBufferElement>(true);
             var renderBoundsFromEntity = GetComponentDataFromEntity<RenderBounds>(true);
             var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
-            Dependency = JobHandle.CombineDependencies(Dependency, BuildPhysicsWorld.GetOutputDependency());
+            Dependency = JobHandle.CombineDependencies(Dependency, 
+                BuildPhysicsWorld.GetOutputDependency(),
+                NavGrounding.GetOutputDependency());
 
-            Entities.ForEach((ref Hungriness hunger,
-                ref Tiredness tired,
-                in WanderAction playAct) =>
+            Entities.ForEach((Entity entity,
+                int entityInQueryIndex,
+                ref DynamicBuffer<CharacteristicValue> characteristicValues,
+                in DynamicBuffer<CharacteristicChanges> characteristicChanges,
+                in WanderAction _) =>
             {
-                hunger.Value = math.clamp(
-                    hunger.Value + playAct.HungerCostPerSecond * deltaTime, 0f, 100f);
-                tired.Value = math.clamp(
-                    tired.Value + playAct.TirednessCostPerSecond * deltaTime, 0f, 100f);
+                for (var i = 0; i < characteristicChanges[(int) ActionType.Wander].value.Length; i++)
+                {
+                    characteristicValues[i] = 
+                        math.clamp(characteristicValues[i] + 
+                                   characteristicChanges[(int) ActionType.Wander].value[i] * deltaTime, 0f, 1f);
+                }
             }).ScheduleParallel();
-            
             Entities
                 .WithNone<NavHasProblem, NavNeedsDestination, NavPlanning>()
                 .WithReadOnly(jumpableBufferFromEntity)
                 .WithReadOnly(renderBoundsFromEntity)
                 .WithReadOnly(physicsWorld)
                 .WithNativeDisableParallelForRestriction(randomArray)
-                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, ref NavAgent agent, in Parent surface, in LocalToWorld localToWorld) =>
+                .ForEach((Entity entity, 
+                    int entityInQueryIndex, 
+                    int nativeThreadIndex, 
+                    ref NavAgent agent, 
+                    in Parent surface, 
+                    in LocalToWorld localToWorld,
+                    in WanderAction wanderAction) =>
                 {
                     if (
                         surface.Value.Equals(Entity.Null) ||
@@ -59,8 +74,8 @@ namespace AI.ECS.Systems.ActionGroup
                             localToWorld,
                             NavUtil.GetRandomPointInBounds(
                                 ref random,
-                                renderBoundsFromEntity[surface.Value].Value,
-                                1000
+                                renderBoundsFromEntity[surface.Value].Value, // TODO: smaller AABB
+                                random.NextFloat(0.1f, 1f)
                             ),
                             out var validDestination
                         )
@@ -74,7 +89,7 @@ namespace AI.ECS.Systems.ActionGroup
 
                     randomArray[nativeThreadIndex] = random;
                 })
-                .WithName("NavTerrainDestinationJob")
+                .WithName("WanderActionJob")
                 .ScheduleParallel();
 
             Barrier.AddJobHandleForProducer(Dependency);

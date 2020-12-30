@@ -12,6 +12,7 @@ namespace AI.ECS.Systems.AIGroup
         {
             base.OnCreate();
 
+            // AddSystemToUpdateList(World.CreateSystem<CharacteristicsSystem>());
             AddSystemToUpdateList(World.CreateSystem<ActionValueSystem>());
             AddSystemToUpdateList(World.CreateSystem<PolicySystem>());
         }

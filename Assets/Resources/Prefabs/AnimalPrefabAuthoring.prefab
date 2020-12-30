@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 910921456735572656}
   - component: {fileID: 910921456735572657}
   - component: {fileID: 910921456735572662}
-  m_Layer: 10
-  m_Name: PrefabAuthoring
+  m_Layer: 9
+  m_Name: AnimalPrefabAuthoring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

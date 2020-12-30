@@ -31,6 +31,7 @@ namespace Gameplay
                 {
                     // _hostManager.Statistics.Get().
                     _sessionManager.WriteNaiveLeaderboard(_hostManager.Animals.Count + _hostManager.Plants.Count);
+                    
                     // Debug.Log(
                         // $"Sending new leaderboard score {_hostManager.Animals.Count + _hostManager.Plants.Count}");
                 }
